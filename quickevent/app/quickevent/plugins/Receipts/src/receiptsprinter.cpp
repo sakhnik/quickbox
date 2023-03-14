@@ -210,6 +210,7 @@ static const QByteArray epson_commands[] =
 	QByteArray("\033@"),			//    Init
 	QByteArray("\035V\102\x00", 4),	//    Cut
 	QByteArray("\n"),				//    Eoln
+	QByteArray("\033t\x06", 3),		//    SelectCodeTable1251
 };
 
 struct PrintData
@@ -227,6 +228,7 @@ struct PrintData
 		Init,
 		Cut,
 		Eoln,
+		SelectCodeTable1251,
 		HorizontalLine,
 		Text,
 	};
@@ -385,6 +387,11 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 	{
 		line << PrintData(PrintData::Command::Init);
 		ret.insert(ret.length(), line);
+
+		const auto & text_encoding = receipts_settings.characterPrinterCodec();
+		if (text_encoding == QLatin1String("cp1251")) {
+			ret.insert(ret.length(), PrintLine{} << PrintData(PrintData::Command::SelectCodeTable1251));
+		}
 	}
 	line.clear();
 	for (int i = 0; i < print_context->line.count(); ++i) {
@@ -432,7 +439,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 	}
 	{
 		line.clear();
-		line << PrintData(PrintData::Command::Cut);
+		line << PrintData(PrintData::Command::Eoln) << PrintData(PrintData::Command::Cut);
 		ret.insert(ret.length(), line);
 	}
 	return ret;
