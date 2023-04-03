@@ -90,6 +90,11 @@
          </item>
          <item>
           <property name="text">
+           <string>cp1251</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
            <string>iso8859-2</string>
           </property>
          </item>
