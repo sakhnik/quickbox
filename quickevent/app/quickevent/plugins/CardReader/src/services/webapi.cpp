@@ -158,7 +158,7 @@ void WebApi::onReadyRead()
 			break;
 		}
 		onTcpReadoutReceived(jsonDoc.toVariant());
-		socket->write("HTTP/1.1 200 OK\r\nAccess-Control-Allow-Origin: *\r\n\r\n");
+		socket->write("HTTP/1.1 200 OK\r\n\r\n");
 		socket->flush();
 		socket->waitForBytesWritten(3000);
 		socket->close();
