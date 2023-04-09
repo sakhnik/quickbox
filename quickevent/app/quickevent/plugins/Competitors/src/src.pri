@@ -6,6 +6,7 @@ HEADERS += \
     $$PWD/competitorswidget.h \
     $$PWD/competitorwidget.h \
     $$PWD/lentcardssettingspage.h \
+    $$PWD/qrcodegen.hpp \
     $$PWD/registrationswidget.h \
     $$PWD/findregistrationedit.h \
     $$PWD/stationsbackupmemorywidget.h
@@ -16,6 +17,7 @@ SOURCES += \
     $$PWD/competitorswidget.cpp \
     $$PWD/competitorwidget.cpp \
     $$PWD/lentcardssettingspage.cpp \
+    $$PWD/qrcodegen.cpp \
     $$PWD/registrationswidget.cpp \
     $$PWD/findregistrationedit.cpp \
     $$PWD/stationsbackupmemorywidget.cpp

@@ -214,6 +214,13 @@
         </property>
        </widget>
       </item>
+      <item row="6" column="1">
+       <widget class="QPushButton" name="bShowQR">
+        <property name="text">
+         <string>Show &amp;QR</string>
+        </property>
+       </widget>
+      </item>
      </layout>
     </widget>
    </item>

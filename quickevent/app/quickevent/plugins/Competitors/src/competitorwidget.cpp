@@ -2,6 +2,7 @@
 #include "ui_competitorwidget.h"
 
 #include "competitordocument.h"
+#include "qrcodegen.hpp"
 
 #include <quickevent/gui/og/itemdelegate.h>
 
@@ -26,6 +27,7 @@
 #include <QCompleter>
 #include <QDate>
 #include <QPushButton>
+#include <QMessageBox>
 
 namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfw = qf::qmlwidgets;
@@ -158,6 +160,34 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 			}
 		}
 	}, Qt::QueuedConnection);
+
+	connect(ui->bShowQR, &QPushButton::clicked, this, [this] {
+		using namespace qrcodegen;
+
+		qf::core::model::DataDocument *doc = dataController()->document();
+		QString firstName = doc->value("competitors.firstName").toString();
+		QString lastName = doc->value("competitors.lastName").toString();
+		int siid = doc->value("competitors.siid").toInt();
+		QString runnerClass = ui->cbxClass->currentText();
+		auto command = QString("SetStartNumber %1 <%2> %3 %4").arg(QString::number(siid), runnerClass, firstName, lastName);
+		auto qr = QrCode::encodeText(command.toUtf8(), QrCode::Ecc::MEDIUM);
+
+		qint32 sz = qr.getSize();
+		QImage im(sz,sz, QImage::Format_RGB32);
+		QRgb black = qRgb(  0,  0,  0);
+		QRgb white = qRgb(255,255,255);
+		for (int y = 0; y < sz; ++y) {
+			for (int x = 0; x < sz; ++x) {
+				im.setPixel(x, y, qr.getModule(x, y) ? black : white);
+			}
+		}
+
+		QMessageBox box;
+		box.setWindowTitle("Set start number");
+		auto pixmap = QPixmap::fromImage(im.scaled(256, 256, Qt::KeepAspectRatio, Qt::FastTransformation), Qt::MonoOnly);
+		box.setIconPixmap(std::move(pixmap));
+		box.exec();
+	});
 }
 
 CompetitorWidget::~CompetitorWidget()
