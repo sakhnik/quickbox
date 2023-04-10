@@ -76,7 +76,7 @@ QByteArray Collator::toAscii7(QLocale::Language lang, const QString &s, bool to_
 {
     // This function is used to hard code use of Latin1, which isn't suitable
     // for non latin-based languages.
-    return to_lower ? s.toLower().toLocal8Bit() : s.toLocal8Bit();
+    return to_lower ? s.toLower().toUtf8() : s.toUtf8();
 
     QByteArray ret;
     ret.reserve(s.length());
