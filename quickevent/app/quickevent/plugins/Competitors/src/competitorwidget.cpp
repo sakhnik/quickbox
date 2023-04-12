@@ -169,7 +169,7 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 		QString lastName = doc->value("competitors.lastName").toString();
 		int siid = doc->value("competitors.siid").toInt();
 		QString runnerClass = ui->cbxClass->currentText();
-		auto command = QString("SetStartNumber %1 <%2> %3 %4").arg(QString::number(siid), runnerClass, firstName, lastName);
+		auto command = QString("SetStartNumber %1 <%2> %3 %4").arg(QString::number(siid), runnerClass, lastName, firstName);
 		auto qr = QrCode::encodeText(command.toUtf8(), QrCode::Ecc::MEDIUM);
 
 		qint32 sz = qr.getSize();
