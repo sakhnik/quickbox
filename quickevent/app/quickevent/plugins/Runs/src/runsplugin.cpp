@@ -863,21 +863,20 @@ QString RunsPlugin::resultsIofXml30Stage(int stage_id)
 		for(int j=0; j<tt2.rowCount(); j++) {
 			const qf::core::utils::TreeTableRow tt2_row = tt2.row(j);
 			//pos++;
-		QVariantList person_result{"PersonResult"};
-		QVariantList person{"Person"};
-		person.insert(person.count(),
-			QVariantList{"Id", tt2_row.value(QStringLiteral("runs.id"))});
-		person.insert(person.count(),
-			QVariantList{"Id", QVariantMap{{"type", "CZE"}}, tt2_row.value(QStringLiteral("competitors.registration"))});
-		auto iof_id = tt2_row.value(QStringLiteral("competitors.iofId"));
-		if (!iof_id.isNull())
-			person.insert(person.count(), QVariantList{"Id", QVariantMap{{"type", "IOF"}}, iof_id});
-		person.insert(person.count(),QVariantList{"Name",
-			QVariantList{"Family", tt2_row.value(QStringLiteral("competitors.lastName"))},
-			QVariantList{"Given", tt2_row.value(QStringLiteral("competitors.firstName"))},
-			}
-		);
-		person_result.insert(person_result.count(),person);
+			QVariantList person_result{"PersonResult"};
+			QVariantList person{"Person"};
+			person.insert(person.count(),
+				QVariantList{"Id", QVariantMap{{"type", "CZE"}}, tt2_row.value(QStringLiteral("competitors.registration"))});
+			auto iof_id = tt2_row.value(QStringLiteral("competitors.iofId"));
+			if (!iof_id.isNull())
+				person.insert(person.count(), QVariantList{"Id", QVariantMap{{"type", "IOF"}}, iof_id});
+			person.insert(person.count(), QVariantList{"Id", QVariantMap{{"type", "QuickEvent"}}, tt2_row.value(QStringLiteral("runs.id"))});
+			person.insert(person.count(),QVariantList{"Name",
+				QVariantList{"Family", tt2_row.value(QStringLiteral("competitors.lastName"))},
+				QVariantList{"Given", tt2_row.value(QStringLiteral("competitors.firstName"))},
+				}
+			);
+			person_result.insert(person_result.count(),person);
 
 			auto club_abbr = tt2_row.value(QStringLiteral("clubs.abbr")).toString();
 			if (!club_abbr.isEmpty()) {
@@ -1434,8 +1433,9 @@ void RunsPlugin::report_startListClasses()
 	dlg.setStartListOptionsVisible(true);
 	dlg.setPageLayoutVisible(true);
 	dlg.setStartTimeFormatVisible(true);
+	dlg.setClassStartSelectionVisible(true);
 	if(dlg.exec()) {
-		auto tt = startListClassesTable(dlg.sqlWhereExpression(), dlg.isStartListPrintVacants(), dlg.startTimeFormat());
+		auto tt = startListClassesTable(dlg.sqlWhereExpression(getPlugin<EventPlugin>()->currentStageId()), dlg.isStartListPrintVacants(), dlg.startTimeFormat());
 		auto opts = dlg.optionsMap();
 		QVariantMap props;
 		props["options"] = opts;
@@ -1487,8 +1487,9 @@ void RunsPlugin::report_startListStarters()
 	dlg.setStartListOptionsVisible(true);
 	dlg.setStartListPrintVacantsVisible(false);
 	dlg.setStartersOptionsVisible(true);
+	dlg.setClassStartSelectionVisible(true);
 	if(dlg.exec()) {
-		auto tt = startListStartersTable(dlg.sqlWhereExpression());
+		auto tt = startListStartersTable(dlg.sqlWhereExpression(getPlugin<EventPlugin>()->currentStageId()));
 		auto opts = dlg.optionsMap();
 		QVariantMap props;
 		props["options"] = opts;
@@ -2374,11 +2375,11 @@ QString RunsPlugin::startListStageIofXml30(int stage_id)
 			auto tt2_row = tt2.row(j);
 			QVariantList xml_person{"PersonStart"};
 			QVariantList person{"Person"};
-			append_list(person, QVariantList{"Id", tt2_row.value(QStringLiteral("runs.id"))});
 			append_list(person, QVariantList{"Id", QVariantMap{{"type", "CZE"}}, tt2_row.value(QStringLiteral("competitors.registration"))});
 			auto iof_id = tt2_row.value(QStringLiteral("competitors.iofId"));
 			if (!iof_id.isNull())
 				append_list(person, QVariantList{"Id", QVariantMap{{"type", "IOF"}}, iof_id});
+			append_list(person, QVariantList{"Id", tt2_row.value(QStringLiteral("runs.id"))});
 			auto family = tt2_row.value(QStringLiteral("competitors.lastName"));
 			auto given = tt2_row.value(QStringLiteral("competitors.firstName"));
 			append_list(person, QVariantList{"Name", QVariantList{"Family", family}, QVariantList{"Given", given}});
