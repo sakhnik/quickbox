@@ -118,7 +118,19 @@ cmake .. -DCMAKE_GENERATOR:STRING=Ninja -DCMAKE_BUILD_TYPE:STRING=Debug -DCMAKE_
 cmake --build . 
 cmake --install . --prefix /path/to/install/qe3
 ```
-  
+## Run QE3 from QTC (Qt6 version)  
+When QE3 is run from QTC (QT Creator), some symlinks must be created to load QML modules.
+1. build QE3 manually and run `cmake --install ...` as described in previous chapter.
+2. Open `CMakeLists.txt` as project in QTC
+3. Configure project
+4. Build project
+5. Create symlinks to manual istallation, for example `/tmp/qe3`
+```sh
+cd <qtc-build-dir>/quickevent/app/quickevent
+ln -s /tmp/qe3/bin/qml qml
+ln -s /tmp/qe3/bin/reports reports
+ln -s /tmp/qe3/bin/translations translations
+```
 
 ---
 <!-- CONTRIBUTING -->
