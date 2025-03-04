@@ -2,6 +2,8 @@
 
 #include "../service.h"
 
+class QNetworkAccessManager;
+
 namespace Event::services::qx {
 
 class RootNode;
@@ -11,12 +13,26 @@ class QxClientServiceSettings : public ServiceSettings
 	using Super = ServiceSettings;
 
 	QF_VARIANTMAP_FIELD2(QString, e, setE, xchangeServerUrl, "http://localhost:8000")
-	// QF_VARIANTMAP_FIELD(QString, a, setA, dminPassword)
-	QF_VARIANTMAP_FIELD(QString, e, setE, ventId)
+	QF_VARIANTMAP_FIELD(QString, a, setA, piToken)
 public:
 	QxClientServiceSettings(const QVariantMap &o = QVariantMap()) : Super(o) {}
 
-	QString eventKey() const;
+	// QString eventKey() const;
+};
+
+class NetworkReplyWatcher : public QObject
+{
+	Q_OBJECT
+public:
+	NetworkReplyWatcher() : QObject() {}
+
+	void setData(const QVariant data) {
+		emit finished(data, {});
+	}
+	void setError(const QString error) {
+		emit finished({}, error);
+	}
+	Q_SIGNAL void finished(const QVariant data, QString error);
 };
 
 class QxClientService : public Service
@@ -35,9 +51,15 @@ public:
 	QxClientServiceSettings settings() const {return QxClientServiceSettings(m_settings);}
 
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
+	QNetworkAccessManager* networkManager();
+
+	void loadEventInfo(QxClientServiceSettings settings, NetworkReplyWatcher *watcher);
 private:
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+private:
+	QNetworkAccessManager *m_networkManager = nullptr;
+	int m_eventId = 0;
 };
 
 }

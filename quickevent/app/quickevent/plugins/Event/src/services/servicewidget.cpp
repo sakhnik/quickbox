@@ -32,8 +32,11 @@ void ServiceWidget::setStatus(Service::Status st)
 	case Service::Status::Stopped:
 		ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-red"));
 		break;
-	default:
-		ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-yellow"));
+	//case Service::Status::Failed:
+	//	ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-red"));
+	//	break;
+	case Service::Status::Unknown:
+		ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-blind"));
 		break;
 	}
 }

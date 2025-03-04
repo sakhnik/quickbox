@@ -23,6 +23,7 @@ private:
 	QxClientService* service();
 	bool saveSettings();
 	void updateOCheckListPostUrl();
+	void testConnection();
 private:
 	Ui::QxClientServiceWidget *ui;
 	bool acceptDialogDone(int result) override;

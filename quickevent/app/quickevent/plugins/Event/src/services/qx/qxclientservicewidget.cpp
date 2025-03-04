@@ -26,41 +26,41 @@ QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
 	connect(ui->edServerUrl, &QLineEdit::textChanged, this, &QxClientServiceWidget::updateOCheckListPostUrl);
 
 	auto *svc = service();
-	if(svc) {
-		auto settings = svc->settings();
-		ui->edEventKey->setText(settings.eventKey());
-		ui->edServerUrl->setText(settings.exchangeServerUrl());
-		connect(ui->btRegisterEvent, &QAbstractButton::clicked, this, [this, settings]() {
-			auto *manager = new QNetworkAccessManager(this);
-			connect(manager, &QNetworkAccessManager::finished, this, [this, manager](QNetworkReply *reply) {
-				if (reply->error() == QNetworkReply::NoError) {
-					auto code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-					if (code == 200 || code == 201) {
-						// exists or created
-						auto event_id = QString::fromUtf8(reply->readAll());
-						ui->edEventId->setText(event_id);
-						setMessage();
-					}
-				}
-				else {
-					qfError() << reply->errorString();
-					setMessage(reply->errorString(), true);
-				}
-				reply->deleteLater();
-				// One QNetworkAccessManager instance should be enough for the whole Qt application.
-				manager->deleteLater();
-			});
-			auto url = QUrl(settings.exchangeServerUrl() + "/api/event");
-			QNetworkRequest rq(url);
-			rq.setRawHeader("eventKey", settings.eventKey().toUtf8());
-			QVariantMap data = {
-				{"name", "Zavody"},
-				{"date", QDateTime::currentDateTime().toString(Qt::ISODate)},
-				{"place", "Praha"},
-			};
-			manager->post(rq, QJsonDocument::fromVariant(data).toJson());
-		});
-	}
+	Q_ASSERT(svc);
+	auto settings = svc->settings();
+	ui->edServerUrl->setText(settings.exchangeServerUrl());
+	ui->edApiToken->setText(settings.apiToken());
+	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &QxClientServiceWidget::testConnection);
+	// connect(ui->btExportStartList, &QAbstractButton::clicked, this, [this, settings]() {
+	// 	auto *manager = new QNetworkAccessManager(this);
+	// 	connect(manager, &QNetworkAccessManager::finished, this, [this, manager](QNetworkReply *reply) {
+	// 		if (reply->error() == QNetworkReply::NoError) {
+	// 			auto code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
+	// 			if (code == 200 || code == 201) {
+	// 				// exists or created
+	// 				auto event_id = QString::fromUtf8(reply->readAll());
+	// 				ui->edEventId->setText(event_id);
+	// 				setMessage();
+	// 			}
+	// 		}
+	// 		else {
+	// 			qfError() << reply->errorString();
+	// 			setMessage(reply->errorString(), true);
+	// 		}
+	// 		reply->deleteLater();
+	// 		// One QNetworkAccessManager instance should be enough for the whole Qt application.
+	// 		manager->deleteLater();
+	// 	});
+	// 	auto url = QUrl(settings.exchangeServerUrl() + "/api/event");
+	// 	QNetworkRequest rq(url);
+	// 	rq.setRawHeader("eventKey", settings.eventKey().toUtf8());
+	// 	QVariantMap data = {
+	// 		{"name", "Zavody"},
+	// 		{"date", QDateTime::currentDateTime().toString(Qt::ISODate)},
+	// 		{"place", "Praha"},
+	// 	};
+	// 	manager->post(rq, QJsonDocument::fromVariant(data).toJson());
+	// });
 }
 
 QxClientServiceWidget::~QxClientServiceWidget()
@@ -78,7 +78,7 @@ void QxClientServiceWidget::setMessage(const QString &msg, bool is_error)
 			ui->lblStatus->setStyleSheet("background: salmon");
 		}
 		else {
-			ui->lblStatus->setStyleSheet("background: lemon");
+			ui->lblStatus->setStyleSheet("background: lightgreen");
 		}
 	}
 	ui->lblStatus->setText(msg);
@@ -107,7 +107,7 @@ bool QxClientServiceWidget::saveSettings()
 	if(svc) {
 		auto ss = svc->settings();
 		ss.setExchangeServerUrl(ui->edServerUrl->text());
-		// ss.setAdminPassword(ui->edAdminPassword->text());
+		ss.setApiToken(ui->edApiToken->text());
 		svc->setSettings(ss);
 	}
 	return true;
@@ -119,6 +119,28 @@ void QxClientServiceWidget::updateOCheckListPostUrl()
 			.arg(ui->edServerUrl->text())
 			.arg(ui->edEventId->text());
 	ui->edOChecklistUrl->setText(url);
+}
+
+void QxClientServiceWidget::testConnection()
+{
+	auto *svc = service();
+	Q_ASSERT(svc);
+	auto ss = svc->settings();
+	ss.setExchangeServerUrl(ui->edServerUrl->text());
+	ss.setApiToken(ui->edApiToken->text());
+	auto* watcher = new NetworkReplyWatcher();
+	connect(watcher, &NetworkReplyWatcher::finished, this, [this, watcher](const auto &data, const auto &err) {
+		watcher->deleteLater();
+		if (err.isEmpty()) {
+			auto m = data.toMap();
+			ui->edEventId->setText(m.value("id").toString());
+			setMessage(tr("Connected OK"));
+		}
+		else {
+			setMessage(tr("Connection error: %1").arg(err), true);
+		}
+	});
+	svc->loadEventInfo(ss, watcher);
 }
 
 }

@@ -18,6 +18,7 @@
 #include <QStandardPaths>
 #include <QTextStream>
 #include <QTimer>
+#include <QJsonDocument>
 
 using namespace qf::core;
 using namespace qf::qmlwidgets;
@@ -31,14 +32,14 @@ namespace Event::services::qx {
 //===============================================
 // QxClientServiceSettings
 //===============================================
-QString QxClientServiceSettings::eventKey() const
-{
-	auto *event_plugin = getPlugin<EventPlugin>();
-	auto *cfg = event_plugin->eventConfig();
-	auto key = cfg->apiKey();
-	auto current_stage = cfg->currentStageId();
-	return QStringLiteral("%1%2").arg(key).arg(current_stage);
-}
+// QString QxClientServiceSettings::eventKey() const
+// {
+// 	auto *event_plugin = getPlugin<EventPlugin>();
+// 	auto *cfg = event_plugin->eventConfig();
+// 	auto key = cfg->apiKey();
+// 	auto current_stage = cfg->currentStageId();
+// 	return QStringLiteral("%1%2").arg(key).arg(current_stage);
+// }
 
 //===============================================
 // QxClientService
@@ -69,7 +70,21 @@ QString QxClientService::serviceId()
 }
 
 void QxClientService::run() {
+	Super::run();
 	auto ss = settings();
+	auto* watcher = new NetworkReplyWatcher();
+	connect(watcher, &NetworkReplyWatcher::finished, this, [this, watcher, ss](const auto &data, const auto &err) {
+		watcher->deleteLater();
+		if (err.isEmpty()) {
+			auto m = data.toMap();
+			if (m_eventId = m.value("id").toInt(); m_eventId > 0) {
+				return;
+			}
+		}
+		stop();
+	});
+	loadEventInfo(ss, watcher);
+
 }
 
 void QxClientService::stop() {
@@ -94,8 +109,9 @@ void QxClientService::loadSettings()
 
 void QxClientService::onDbEventNotify(const QString &domain, int connection_id, const QVariant &data)
 {
-	if (status() != Status::Running)
+	if (status() != Status::Running) {
 		return;
+	}
 	Q_UNUSED(connection_id)
 	Q_UNUSED(data)
 	if(domain == QLatin1String(Event::EventPlugin::DBEVENT_CARD_PROCESSED_AND_ASSIGNED)) {
@@ -114,5 +130,45 @@ void QxClientService::onDbEventNotify(const QString &domain, int connection_id, 
 	}
 }
 
-
+QNetworkAccessManager *QxClientService::networkManager()
+{
+	if (!m_networkManager) {
+		m_networkManager = new QNetworkAccessManager(this);
+	}
+	return m_networkManager;
 }
+
+void QxClientService::loadEventInfo(QxClientServiceSettings settings, NetworkReplyWatcher *watcher)
+{
+	auto *nm = networkManager();
+	QNetworkRequest request;
+	QUrl url(settings.exchangeServerUrl());
+	qfInfo() << "url " << url.toString();
+	url.setPath("/api/event/current");
+	qfInfo() << "GET " << url.toString();
+	request.setUrl(url);
+	request.setRawHeader("qx-api-token", settings.apiToken().toUtf8());
+
+	QNetworkReply *reply = nm->get(request);
+	connect(reply, &QNetworkReply::finished, watcher, [watcher, reply]() {
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			auto data = reply->readAll();
+			auto doc = QJsonDocument::fromJson(data);
+			auto event_info = doc.toVariant();
+			watcher->setData(event_info);
+		}
+		else {
+			watcher->setError(reply->errorString());
+		}
+	});
+	// connect(reply, &QNetworkReply::errorOccurred, watcher, [watcher, reply]() {
+	// 	// qfWarning() << "Network reply error:" << err.toString();
+	// 	watcher->setError(reply->errorString());
+	// });
+	// connect(reply, &QNetworkReply::sslErrors, watcher, [watcher]() {
+	// 	// qfWarning() << "SSL error";
+	// 	watcher->setError("SSL error");
+	// });
+}
+
+} // namespace Event::services::qx
