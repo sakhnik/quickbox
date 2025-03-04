@@ -12,7 +12,7 @@ on:
 
 jobs:
   ubuntu-qe3:
-    name: Qt 6.6 / Ubuntu 22.04
+    name: Qt 6.8 / Ubuntu 22.04
     runs-on: ubuntu-22.04
     steps:
       - name: Clone the repository
