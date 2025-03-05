@@ -133,6 +133,30 @@
 	public: void setter_prefix##name_rest(const ptype &val) {(*this)[QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest)] = QVariant::fromValue(val);}
 	//since c++14 public: auto& setter_prefix##name_rest(const ptype &val) {(*this)[QF_QUOTEME(getter_prefix##name_rest)] = val; return *this;}
 
+#define QF_VARIANTMAP_CHNG_FIELD(ptype, getter_prefix, setter_prefix, name_rest) \
+	public: bool getter_prefix##name_rest##_isset() const {return contains(QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest));} \
+	public: ptype getter_prefix##name_rest() const {return qvariant_cast<ptype>(value(QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest)));} \
+	public: void setter_prefix##name_rest(const ptype &val) { \
+		auto old_val = getter_prefix##name_rest(); \
+		if (val == old_val) \
+			return; \
+		auto new_val = QVariant::fromValue(val); \
+		onValueChanged(QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest), new_val); \
+		(*this)[QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest)] = new_val; \
+	}
+
+#define QF_VARIANTMAP_CHNG_FIELD2(ptype, getter_prefix, setter_prefix, name_rest, default_value) \
+	public: bool getter_prefix##name_rest##_isset() const {return contains(QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest));} \
+	public: ptype getter_prefix##name_rest() const {return qvariant_cast<ptype>(value(QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest), default_value));} \
+	public: void setter_prefix##name_rest(const ptype &val) { \
+		auto old_val = getter_prefix##name_rest(); \
+		if (val == old_val) \
+			return; \
+		auto new_val = QVariant::fromValue(val); \
+		onValueChanged(QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest), new_val); \
+		(*this)[QF_QUOTE_QSTRINGLITERAL(getter_prefix##name_rest)] = new_val; \
+	}
+
 /// for implicitly shared classes properties
 #define QF_SHARED_CLASS_FIELD_RW(ptype, getter_prefix, setter_prefix, name_rest) \
 	public: const ptype& getter_prefix##name_rest() const {return d->getter_prefix##name_rest;} \
