@@ -213,8 +213,11 @@ ClassesWidget::ClassesWidget(QWidget *parent) :
 		m_courseCodesModel = m;
 	}
 	connect(ui->tblClasses, &qf::qmlwidgets::TableView::currentRowChanged, this, &ClassesWidget::reloadCourseCodes);
-	connect(ui->chkUseAllMaps, &QCheckBox::toggled, [this](bool checked) {
-		getPlugin<EventPlugin>()->setStageData(selectedStageId(), QStringLiteral("useAllMaps"), checked);
+	connect(ui->chkUseAllMaps, &QCheckBox::toggled, this, [this](bool checked) {
+		auto evplugin = getPlugin<EventPlugin>();
+		auto data = evplugin->stageData(selectedStageId());
+		data.setUseAllMaps(checked);
+		evplugin->setStageData(selectedStageId(), data);
 	});
 }
 

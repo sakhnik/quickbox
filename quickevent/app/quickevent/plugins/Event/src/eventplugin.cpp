@@ -3,8 +3,8 @@
 #include "connectionsettings.h"
 #include "eventdialogwidget.h"
 #include "dbschema.h"
-#include "stagedocument.h"
 #include "stagewidget.h"
+#include "stagedocument.h"
 #include "../../Core/src/widgets/appstatusbar.h"
 
 #include "services/serviceswidget.h"
@@ -244,32 +244,29 @@ int EventPlugin::msecToStageStartAM(int si_am_time_sec, int msec, int stage_id)
 	return time_msec;
 }
 
-void EventPlugin::setStageData(int stage_id, const QString &key, const QVariant &value)
-{
-	Event::StageDocument doc;
-	doc.load(stage_id);
-	doc.setValue(key, value);
-	doc.save();
-	clearStageDataCache();
-}
-
 StageData EventPlugin::stageData(int stage_id)
 {
-	QVariantMap ret;
-	if(stage_id == 0)
-		return ret;
 	if(!m_stageCache.contains(stage_id)) {
-		Event::StageDocument doc;
+		StageDocument doc;
 		doc.load(stage_id);
-		if(doc.isEmpty()) {
-			qfError() << "Cannot provide stage data for invalid stage id:" << stage_id;
-			return ret;
+		StageData data;
+		for (const auto &[k, v] : doc.values().asKeyValueRange()) {
+			data[k.toLower()] = v;
 		}
-		StageData s(&doc);
-		m_stageCache[stage_id] = s;
+		m_stageCache[stage_id] = StageData(data);
 	}
-	ret = m_stageCache.value(stage_id);
-	return ret;
+	return m_stageCache.value(stage_id);
+}
+
+void EventPlugin::setStageData(int stage_id, const StageData &data)
+{
+	StageDocument doc;
+	doc.load(stage_id);
+	for (const auto &[k, v] : data.asKeyValueRange()) {
+		doc.setValue(k, v);
+		m_stageCache[stage_id][k.toLower()] = v;
+	}
+	doc.save();
 }
 
 void EventPlugin::clearStageDataCache()

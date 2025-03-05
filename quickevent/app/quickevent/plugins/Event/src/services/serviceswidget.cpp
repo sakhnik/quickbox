@@ -16,9 +16,10 @@ ServicesWidget::ServicesWidget(QWidget *parent)
 
 void ServicesWidget::reload()
 {
-	if(m_centralWidget)
-		delete m_centralWidget;
-	m_centralWidget = new QScrollArea();
+	delete m_centralWidget;
+	auto *sa = new QScrollArea();
+	sa->setFrameShape(QFrame::NoFrame);
+	m_centralWidget = sa;
 	QLayout *ly = layout();
 	ly->addWidget(m_centralWidget);
 
@@ -39,7 +40,6 @@ void ServicesWidget::reload()
 		sw->setServiceId(svc->serviceId(), svc->serviceDisplayName());
 		sw->setMessage(svc->statusMessage());
 		connect(svc, &Service::statusMessageChanged, sw, &ServiceWidget::setMessage);
-
 		connect(sw, &ServiceWidget::setRunningRequest, svc, &Service::setRunning);
 
 		ly2->addWidget(sw);

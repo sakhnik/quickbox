@@ -1,5 +1,4 @@
 #include "dockwidget.h"
-#include "../frame.h"
 
 #include <qf/core/log.h>
 #include <qf/core/utils.h>

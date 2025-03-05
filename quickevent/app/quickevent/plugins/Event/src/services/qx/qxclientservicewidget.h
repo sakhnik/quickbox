@@ -24,6 +24,7 @@ private:
 	bool saveSettings();
 	void updateOCheckListPostUrl();
 	void testConnection();
+	void exportEventInfo();
 private:
 	Ui::QxClientServiceWidget *ui;
 	bool acceptDialogDone(int result) override;

@@ -65,9 +65,8 @@ public:
 	//Q_INVOKABLE int currentStageStartMsec();
 	int msecToStageStartAM(int si_am_time_sec, int msec = 0, int stage_id = 0);
 
-	//Q_INVOKABLE QVariantMap stageDataMap(int stage_id) {return stageData(stage_id);}
-	void setStageData(int stage_id, const QString &key, const QVariant &value);
 	StageData stageData(int stage_id);
+	void setStageData(int stage_id, const StageData &data);
 	Q_SLOT void clearStageDataCache();
 
 	Q_SLOT bool createEvent(const QString &event_name = QString(), const QVariantMap &event_params = QVariantMap());

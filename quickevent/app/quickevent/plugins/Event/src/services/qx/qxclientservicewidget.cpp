@@ -27,44 +27,19 @@ QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
 	ui->setupUi(this);
 	connect(ui->edServerUrl, &QLineEdit::textChanged, this, &QxClientServiceWidget::updateOCheckListPostUrl);
 
+	setMessage("");
+
 	auto *svc = service();
 	Q_ASSERT(svc);
+	auto *event_plugin = getPlugin<EventPlugin>();
+	auto current_stage = event_plugin->currentStageId();
 	auto settings = svc->settings();
 	ui->edServerUrl->setText(settings.exchangeServerUrl());
-	ui->edApiToken->setText(settings.apiToken());
-	auto current_stage = getPlugin<EventPlugin>()->currentStageId();
+	ui->edApiToken->setText(event_plugin->stageData(current_stage).qxApiToken());
 	ui->edCurrentStage->setValue(current_stage);
 	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &QxClientServiceWidget::testConnection);
-	// connect(ui->btExportStartList, &QAbstractButton::clicked, this, [this, settings]() {
-	// 	auto *manager = new QNetworkAccessManager(this);
-	// 	connect(manager, &QNetworkAccessManager::finished, this, [this, manager](QNetworkReply *reply) {
-	// 		if (reply->error() == QNetworkReply::NoError) {
-	// 			auto code = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute).toInt();
-	// 			if (code == 200 || code == 201) {
-	// 				// exists or created
-	// 				auto event_id = QString::fromUtf8(reply->readAll());
-	// 				ui->edEventId->setText(event_id);
-	// 				setMessage();
-	// 			}
-	// 		}
-	// 		else {
-	// 			qfError() << reply->errorString();
-	// 			setMessage(reply->errorString(), true);
-	// 		}
-	// 		reply->deleteLater();
-	// 		// One QNetworkAccessManager instance should be enough for the whole Qt application.
-	// 		manager->deleteLater();
-	// 	});
-	// 	auto url = QUrl(settings.exchangeServerUrl() + "/api/event");
-	// 	QNetworkRequest rq(url);
-	// 	rq.setRawHeader("eventKey", settings.eventKey().toUtf8());
-	// 	QVariantMap data = {
-	// 		{"name", "Zavody"},
-	// 		{"date", QDateTime::currentDateTime().toString(Qt::ISODate)},
-	// 		{"place", "Praha"},
-	// 	};
-	// 	manager->post(rq, QJsonDocument::fromVariant(data).toJson());
-	// });
+	connect(ui->btExportEventInfo, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportEventInfo);
+
 }
 
 QxClientServiceWidget::~QxClientServiceWidget()
@@ -111,8 +86,13 @@ bool QxClientServiceWidget::saveSettings()
 	if(svc) {
 		auto ss = svc->settings();
 		ss.setExchangeServerUrl(ui->edServerUrl->text());
-		ss.setApiToken(ui->edApiToken->text());
 		svc->setSettings(ss);
+		auto *event_plugin = getPlugin<EventPlugin>();
+
+		auto current_stage = event_plugin->currentStageId();
+		auto stage_data = event_plugin->stageData(current_stage);
+		stage_data.setQxApiToken(ui->edApiToken->text());
+		event_plugin->setStageData(current_stage, stage_data);
 	}
 	return true;
 }
@@ -129,31 +109,38 @@ void QxClientServiceWidget::testConnection()
 {
 	auto *svc = service();
 	Q_ASSERT(svc);
-	auto ss = svc->settings();
-	ss.setExchangeServerUrl(ui->edServerUrl->text());
-	ss.setApiToken(ui->edApiToken->text());
-	auto *reply = svc->loadEventInfo(ss);
-	connect(reply, &QNetworkReply::finished, this, [this, reply, ss]() {
+	auto *reply = svc->getRemoteEventInfo(ui->edServerUrl->text(), ui->edApiToken->text());
+	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
 		if (reply->error() == QNetworkReply::NetworkError::NoError) {
 			auto data = reply->readAll();
 			auto doc = QJsonDocument::fromJson(data);
-			auto event_info = doc.toVariant().toMap();
-			ui->edEventId->setValue(event_info.value("id").toInt());
-			auto remote_stage = event_info.value("stage").toInt();
-			auto current_stage = getPlugin<EventPlugin>()->currentStageId();
-			if (current_stage == remote_stage) {
-				setMessage(tr("Connected OK"));
-			}
-			else {
-				setMessage(tr("Connection established, but stage number must match, current stage: %1, remote stage:").arg(current_stage).arg(remote_stage), true);
-			}
+			EventInfo event_info(doc.toVariant().toMap());
+			ui->edEventId->setValue(event_info.id());
+			setMessage(tr("Connected OK"));
 		}
 		else {
 			setMessage(tr("Connection error: %1").arg(reply->errorString()), true);
 		}
 	});
-	connect(reply, &QNetworkReply::destroyed, []() {
-		qfInfo() << "DESTROYIIIIIIIIIIIIIIIIII";
+}
+
+void QxClientServiceWidget::exportEventInfo()
+{
+	auto *svc = service();
+	Q_ASSERT(svc);
+	auto *reply = svc->postEventInfo(ui->edServerUrl->text(), ui->edApiToken->text());
+	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+		auto data = reply->readAll();
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			auto data = reply->readAll();
+			auto doc = QJsonDocument::fromJson(data);
+			EventInfo event_info(doc.toVariant().toMap());
+			ui->edEventId->setValue(event_info.id());
+			setMessage(tr("Event info updated OK"));
+		}
+		else {
+			setMessage(tr("Event info update error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), true);
+		}
 	});
 }
 

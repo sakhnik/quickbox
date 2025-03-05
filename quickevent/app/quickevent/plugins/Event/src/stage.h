@@ -1,5 +1,4 @@
-#ifndef EVENT_STAGE_H
-#define EVENT_STAGE_H
+#pragma once
 
 #include <qf/core/utils.h>
 
@@ -9,23 +8,20 @@
 
 namespace Event {
 
-class StageDocument;
 
 class StageData : public QVariantMap
 {
 private:
 	typedef QVariantMap Super;
 
-	QF_VARIANTMAP_FIELD(int, i, setI, d)
-	//QF_VARIANTMAP_FIELD(QTime, s, setS, tartTime)
-	QF_VARIANTMAP_FIELD(bool, is, set, UseAllMaps)
-	QF_VARIANTMAP_FIELD(QDateTime, s, setS, tartDateTime)
-	QF_VARIANTMAP_FIELD(QVariantMap, d, setD, rawingConfig)
+	// QF_VARIANTMAP_KEY_FIELD(int, id, i, setI, d)
+	QF_VARIANTMAP_KEY_FIELD(bool, useallmaps, is, set, UseAllMaps)
+	QF_VARIANTMAP_KEY_FIELD(QDateTime, startdatetime, s, setS, tartDateTime)
+	QF_VARIANTMAP_KEY_FIELD(QVariantMap, drawingconfig, d, setD, rawingConfig)
+	QF_VARIANTMAP_KEY_FIELD(QString, qxapitoken, qx, setQx, ApiToken)
 public:
 	StageData(const QVariantMap &data = QVariantMap());
-	StageData(const StageDocument *doc);
 };
 
 }
 
-#endif

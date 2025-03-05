@@ -1,6 +1,7 @@
 #include "stagewidget.h"
-#include "stagedocument.h"
 #include "ui_stagewidget.h"
+
+#include "stagedocument.h"
 
 using namespace Event;
 
@@ -28,7 +29,7 @@ bool StageWidget::load(const QVariant &id, int mode)
 		QDateTime dt;
 		qf::core::model::DataDocument *doc = dataDocument();
 		const auto START_DATE_TIME = QStringLiteral("startDateTime");
-		dt = doc->value(START_DATE_TIME).toDateTime();
+		dt = doc->value(START_DATE_TIME).toDateTime().toLocalTime();
 		/*
 		if(!dt.isValid()) {
 			// try old DB version

@@ -72,19 +72,14 @@ QString QxClientService::serviceId()
 void QxClientService::run() {
 	Super::run();
 	auto ss = settings();
-	auto *reply = loadEventInfo(ss);
+	auto *reply = getRemoteEventInfo(ss.exchangeServerUrl(), apiToken());
 	connect(reply, &QNetworkReply::finished, this, [this, reply, ss]() {
 		if (reply->error() == QNetworkReply::NetworkError::NoError) {
 			auto data = reply->readAll();
 			auto doc = QJsonDocument::fromJson(data);
-			auto event_info = doc.toVariant().toMap();
-			if (m_eventId = event_info.value("id").toInt(); m_eventId > 0) {
-				auto current_stage = getPlugin<EventPlugin>()->currentStageId();
-				if (auto remote_stage = event_info.value("stage").toInt(); remote_stage == current_stage) {
-					return;
-				}
-				qfWarning() << "Cannot run QX service, stage numbers mismatch";
-			}
+			EventInfo event_info(doc.toVariant().toMap());
+			setStatusMessage(event_info.name());
+			m_eventId = event_info.id();
 		}
 		else {
 			qfWarning() << "Cannot run QX service, network error:" << reply->errorString();
@@ -144,26 +139,43 @@ QNetworkAccessManager *QxClientService::networkManager()
 	return m_networkManager;
 }
 
-QNetworkReply *QxClientService::loadEventInfo(QxClientServiceSettings settings)
+QNetworkReply *QxClientService::getRemoteEventInfo(const QString &qxhttp_host, const QString &api_token)
 {
 	auto *nm = networkManager();
 	QNetworkRequest request;
-	QUrl url(settings.exchangeServerUrl());
-	qfInfo() << "url " << url.toString();
+	QUrl url(qxhttp_host);
 	url.setPath("/api/event/current");
-	qfInfo() << "GET " << url.toString();
 	request.setUrl(url);
-	request.setRawHeader("qx-api-token", settings.apiToken().toUtf8());
-
+	request.setRawHeader("qx-api-token", api_token.toUtf8());
 	return nm->get(request);
-	// connect(reply, &QNetworkReply::errorOccurred, watcher, [watcher, reply]() {
-	// 	// qfWarning() << "Network reply error:" << err.toString();
-	// 	watcher->setError(reply->errorString());
-	// });
-	// connect(reply, &QNetworkReply::sslErrors, watcher, [watcher]() {
-	// 	// qfWarning() << "SSL error";
-	// 	watcher->setError("SSL error");
-	// });
+}
+
+QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const QString &api_token)
+{
+	auto *nm = networkManager();
+	QNetworkRequest request;
+	QUrl url(qxhttp_host);
+	// qfInfo() << "url " << url.toString();
+	url.setPath("/api/event/current");
+	// qfInfo() << "GET " << url.toString();
+	request.setUrl(url);
+	request.setRawHeader("qx-api-token", api_token.toUtf8());
+	auto *event_plugin = getPlugin<EventPlugin>();
+	auto *event_config = event_plugin->eventConfig();
+	EventInfo ei;
+	ei.set_stage(event_plugin->currentStageId());
+	ei.set_name(event_config->eventName());
+	ei.set_place(event_config->eventPlace());
+	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toLocalTime().toString(Qt::ISODate));
+	auto data = QJsonDocument::fromVariant(ei).toJson();
+	return nm->post(request, data);
+}
+
+QString QxClientService::apiToken() const
+{
+	auto *event_plugin = getPlugin<EventPlugin>();
+	auto current_stage = event_plugin->currentStageId();
+	return event_plugin->stageData(current_stage).qxApiToken();
 }
 
 } // namespace Event::services::qx
