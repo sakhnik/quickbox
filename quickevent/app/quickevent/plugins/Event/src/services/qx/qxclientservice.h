@@ -3,6 +3,7 @@
 #include "../service.h"
 
 class QNetworkAccessManager;
+class QNetworkReply;
 
 namespace Event::services::qx {
 
@@ -20,20 +21,20 @@ public:
 	// QString eventKey() const;
 };
 
-class NetworkReplyWatcher : public QObject
-{
-	Q_OBJECT
-public:
-	NetworkReplyWatcher() : QObject() {}
+// class NetworkReplyWatcher : public QObject
+// {
+// 	Q_OBJECT
+// public:
+// 	NetworkReplyWatcher() : QObject() {}
 
-	void setData(const QVariant data) {
-		emit finished(data, {});
-	}
-	void setError(const QString error) {
-		emit finished({}, error);
-	}
-	Q_SIGNAL void finished(const QVariant data, QString error);
-};
+// 	void setData(const QVariant data) {
+// 		emit finished(data, {});
+// 	}
+// 	void setError(const QString error) {
+// 		emit finished({}, error);
+// 	}
+// 	Q_SIGNAL void finished(const QVariant data, QString error);
+// };
 
 class QxClientService : public Service
 {
@@ -53,7 +54,7 @@ public:
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
 	QNetworkAccessManager* networkManager();
 
-	void loadEventInfo(QxClientServiceSettings settings, NetworkReplyWatcher *watcher);
+	QNetworkReply* loadEventInfo(QxClientServiceSettings settings);
 private:
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;

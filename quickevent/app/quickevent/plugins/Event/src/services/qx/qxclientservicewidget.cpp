@@ -15,6 +15,8 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 
+using qf::qmlwidgets::framework::getPlugin;
+
 namespace Event::services::qx {
 
 QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
@@ -30,6 +32,8 @@ QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
 	auto settings = svc->settings();
 	ui->edServerUrl->setText(settings.exchangeServerUrl());
 	ui->edApiToken->setText(settings.apiToken());
+	auto current_stage = getPlugin<EventPlugin>()->currentStageId();
+	ui->edCurrentStage->setValue(current_stage);
 	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &QxClientServiceWidget::testConnection);
 	// connect(ui->btExportStartList, &QAbstractButton::clicked, this, [this, settings]() {
 	// 	auto *manager = new QNetworkAccessManager(this);
@@ -128,19 +132,29 @@ void QxClientServiceWidget::testConnection()
 	auto ss = svc->settings();
 	ss.setExchangeServerUrl(ui->edServerUrl->text());
 	ss.setApiToken(ui->edApiToken->text());
-	auto* watcher = new NetworkReplyWatcher();
-	connect(watcher, &NetworkReplyWatcher::finished, this, [this, watcher](const auto &data, const auto &err) {
-		watcher->deleteLater();
-		if (err.isEmpty()) {
-			auto m = data.toMap();
-			ui->edEventId->setText(m.value("id").toString());
-			setMessage(tr("Connected OK"));
+	auto *reply = svc->loadEventInfo(ss);
+	connect(reply, &QNetworkReply::finished, this, [this, reply, ss]() {
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			auto data = reply->readAll();
+			auto doc = QJsonDocument::fromJson(data);
+			auto event_info = doc.toVariant().toMap();
+			ui->edEventId->setValue(event_info.value("id").toInt());
+			auto remote_stage = event_info.value("stage").toInt();
+			auto current_stage = getPlugin<EventPlugin>()->currentStageId();
+			if (current_stage == remote_stage) {
+				setMessage(tr("Connected OK"));
+			}
+			else {
+				setMessage(tr("Connection established, but stage number must match, current stage: %1, remote stage:").arg(current_stage).arg(remote_stage), true);
+			}
 		}
 		else {
-			setMessage(tr("Connection error: %1").arg(err), true);
+			setMessage(tr("Connection error: %1").arg(reply->errorString()), true);
 		}
 	});
-	svc->loadEventInfo(ss, watcher);
+	connect(reply, &QNetworkReply::destroyed, []() {
+		qfInfo() << "DESTROYIIIIIIIIIIIIIIIIII";
+	});
 }
 
 }

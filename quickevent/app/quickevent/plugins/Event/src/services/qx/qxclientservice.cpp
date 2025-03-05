@@ -72,19 +72,25 @@ QString QxClientService::serviceId()
 void QxClientService::run() {
 	Super::run();
 	auto ss = settings();
-	auto* watcher = new NetworkReplyWatcher();
-	connect(watcher, &NetworkReplyWatcher::finished, this, [this, watcher, ss](const auto &data, const auto &err) {
-		watcher->deleteLater();
-		if (err.isEmpty()) {
-			auto m = data.toMap();
-			if (m_eventId = m.value("id").toInt(); m_eventId > 0) {
-				return;
+	auto *reply = loadEventInfo(ss);
+	connect(reply, &QNetworkReply::finished, this, [this, reply, ss]() {
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			auto data = reply->readAll();
+			auto doc = QJsonDocument::fromJson(data);
+			auto event_info = doc.toVariant().toMap();
+			if (m_eventId = event_info.value("id").toInt(); m_eventId > 0) {
+				auto current_stage = getPlugin<EventPlugin>()->currentStageId();
+				if (auto remote_stage = event_info.value("stage").toInt(); remote_stage == current_stage) {
+					return;
+				}
+				qfWarning() << "Cannot run QX service, stage numbers mismatch";
 			}
+		}
+		else {
+			qfWarning() << "Cannot run QX service, network error:" << reply->errorString();
 		}
 		stop();
 	});
-	loadEventInfo(ss, watcher);
-
 }
 
 void QxClientService::stop() {
@@ -138,7 +144,7 @@ QNetworkAccessManager *QxClientService::networkManager()
 	return m_networkManager;
 }
 
-void QxClientService::loadEventInfo(QxClientServiceSettings settings, NetworkReplyWatcher *watcher)
+QNetworkReply *QxClientService::loadEventInfo(QxClientServiceSettings settings)
 {
 	auto *nm = networkManager();
 	QNetworkRequest request;
@@ -149,18 +155,7 @@ void QxClientService::loadEventInfo(QxClientServiceSettings settings, NetworkRep
 	request.setUrl(url);
 	request.setRawHeader("qx-api-token", settings.apiToken().toUtf8());
 
-	QNetworkReply *reply = nm->get(request);
-	connect(reply, &QNetworkReply::finished, watcher, [watcher, reply]() {
-		if (reply->error() == QNetworkReply::NetworkError::NoError) {
-			auto data = reply->readAll();
-			auto doc = QJsonDocument::fromJson(data);
-			auto event_info = doc.toVariant();
-			watcher->setData(event_info);
-		}
-		else {
-			watcher->setError(reply->errorString());
-		}
-	});
+	return nm->get(request);
 	// connect(reply, &QNetworkReply::errorOccurred, watcher, [watcher, reply]() {
 	// 	// qfWarning() << "Network reply error:" << err.toString();
 	// 	watcher->setError(reply->errorString());

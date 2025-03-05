@@ -16,12 +16,8 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
-     <item row="3" column="1">
-      <widget class="QLineEdit" name="edOChecklistUrl">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
+     <item row="0" column="1" colspan="2">
+      <widget class="QLineEdit" name="edServerUrl"/>
      </item>
      <item row="0" column="0">
       <widget class="QLabel" name="label_2">
@@ -30,33 +26,33 @@
        </property>
       </widget>
      </item>
-     <item row="2" column="1">
-      <widget class="QLineEdit" name="edEventId">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="QLineEdit" name="edServerUrl"/>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_3">
-       <property name="toolTip">
-        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
-       </property>
-       <property name="text">
-        <string>OCheckList Url</string>
-       </property>
-      </widget>
-     </item>
-     <item row="2" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_4">
        <property name="toolTip">
         <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
        </property>
        <property name="text">
         <string>Event ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="edApiToken"/>
+     </item>
+     <item row="5" column="1">
+      <widget class="QLineEdit" name="edOChecklistUrl">
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="toolTip">
+        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
+       </property>
+       <property name="text">
+        <string>OCheckList Url</string>
        </property>
       </widget>
      </item>
@@ -70,8 +66,50 @@
        </property>
       </widget>
      </item>
-     <item row="1" column="1">
-      <widget class="QLineEdit" name="edApiToken"/>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="toolTip">
+        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
+       </property>
+       <property name="text">
+        <string>Current stage</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
+      <widget class="QSpinBox" name="edCurrentStage">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1">
+      <widget class="QSpinBox" name="edEventId">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="specialValueText">
+        <string>Not loaded</string>
+       </property>
+       <property name="value">
+        <number>0</number>
+       </property>
+      </widget>
      </item>
     </layout>
    </item>
@@ -137,7 +175,6 @@
  </widget>
  <tabstops>
   <tabstop>edServerUrl</tabstop>
-  <tabstop>edEventId</tabstop>
   <tabstop>edOChecklistUrl</tabstop>
   <tabstop>btExportStartList</tabstop>
  </tabstops>
