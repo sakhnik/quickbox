@@ -16,11 +16,13 @@ private:
 
 	// QF_VARIANTMAP_KEY_FIELD(int, id, i, setI, d)
 	QF_VARIANTMAP_KEY_FIELD(bool, useallmaps, is, set, UseAllMaps)
-	QF_VARIANTMAP_KEY_FIELD(QDateTime, startdatetime, s, setS, tartDateTime)
+	//QF_VARIANTMAP_KEY_FIELD(QDateTime, startdatetime, s, setS, tartDateTime)
 	QF_VARIANTMAP_KEY_FIELD(QVariantMap, drawingconfig, d, setD, rawingConfig)
 	QF_VARIANTMAP_KEY_FIELD(QString, qxapitoken, qx, setQx, ApiToken)
 public:
 	StageData(const QVariantMap &data = QVariantMap());
+
+	QDateTime startDateTime() const;
 };
 
 }

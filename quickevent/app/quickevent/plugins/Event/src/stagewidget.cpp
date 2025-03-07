@@ -48,7 +48,7 @@ bool StageWidget::saveData()
 {
 	QDate d = ui->dateEdit->date();
 	QTime t = ui->timeEdit->time();
-	QDateTime dt(d, t);
+	QDateTime dt(d, t, QTimeZone::systemTimeZone());
 	qf::core::model::DataDocument *doc = dataDocument();
 	const auto START_DATE_TIME = QStringLiteral("startDateTime");
 	doc->setValue(START_DATE_TIME, dt);
