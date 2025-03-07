@@ -18,21 +18,6 @@ public:
 	QxClientServiceSettings(const QVariantMap &o = QVariantMap()) : Super(o) {}
 };
 
-// class NetworkReplyWatcher : public QObject
-// {
-// 	Q_OBJECT
-// public:
-// 	NetworkReplyWatcher() : QObject() {}
-
-// 	void setData(const QVariant data) {
-// 		emit finished(data, {});
-// 	}
-// 	void setError(const QString error) {
-// 		emit finished({}, error);
-// 	}
-// 	Q_SIGNAL void finished(const QVariant data, QString error);
-// };
-
 class EventInfo : public QVariantMap
 {
 private:
@@ -74,7 +59,9 @@ private:
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
 	QByteArray apiToken() const;
 	QUrl exchangeServerUrl() const;
-	void sendFile(QString name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
+	void sendFile(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
+	enum class SpecFile {StartListIofXml3};
+	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	QByteArray zlibCompress(QByteArray data);
 private:
 	QNetworkAccessManager *m_networkManager = nullptr;

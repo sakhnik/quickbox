@@ -179,7 +179,7 @@ void QxClientService::exportStartListIofXml3(QObject *context, std::function<voi
 	bool is_relays = ep->eventConfig()->isRelays();
 	if (!is_relays) {
 		auto xml = getPlugin<RunsPlugin>()->startListStageIofXml30(current_stage);
-		sendFile(Event::START_LIST_IOFXML3_FILE, xml.toUtf8(), context, call_back);
+		uploadSpecFile(SpecFile::StartListIofXml3, xml.toUtf8(), context, call_back);
 	}
 }
 
@@ -196,11 +196,14 @@ QUrl QxClientService::exchangeServerUrl() const
 	return QUrl(ss.exchangeServerUrl());
 }
 
-void QxClientService::sendFile(QString name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
+void QxClientService::sendFile(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
 {
 	auto url = exchangeServerUrl();
-	url.setPath("/api/event/current/file");
-	url.setQuery(QStringLiteral("name=%1").arg(name));
+
+	url.setPath(path.value_or("/api/event/current/file"));
+	if (name.has_value()) {
+		url.setQuery(QStringLiteral("name=%1").arg(name.value()));
+	}
 	QNetworkRequest request;
 	request.setUrl(url);
 	request.setRawHeader("qx-api-token", apiToken());
@@ -212,13 +215,22 @@ void QxClientService::sendFile(QString name, QByteArray data, QObject *context ,
 		QString err;
 		if(reply->error()) {
 			err = reply->errorString();
-			qfWarning() << "Post file:" << name << "error:" << err;
+			qfWarning() << "Post file:" << name.value_or("SPEC") << "error:" << err;
 		}
 		if (call_back) {
 			call_back(err);
 		}
 		reply->deleteLater(); // should be called by Qt anyway
 	});
+}
+
+void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void (QString)> call_back)
+{
+	switch (file) {
+	case SpecFile::StartListIofXml3:
+		sendFile("/api/event/current/upload/startlist", {}, data, context, call_back);
+		break;
+	}
 }
 
 QByteArray QxClientService::zlibCompress(QByteArray data)
