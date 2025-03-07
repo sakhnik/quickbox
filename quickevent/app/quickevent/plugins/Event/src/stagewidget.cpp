@@ -3,6 +3,8 @@
 
 #include "stagedocument.h"
 
+#include <QTimeZone>
+
 using namespace Event;
 
 StageWidget::StageWidget(QWidget *parent) :
