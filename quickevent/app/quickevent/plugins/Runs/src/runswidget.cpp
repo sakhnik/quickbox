@@ -590,7 +590,7 @@ QString RunsWidget::getSaveFileName(const QString &file_name, int stage_id)
 void RunsWidget::export_results_stage_iofxml30()
 {
 	int stage_id = selectedStageId();
-	QString fn = getSaveFileName("results-iof-3.0.xml", stage_id);
+	QString fn = getSaveFileName(Event::RESULTS_IOFXML3_FILE, stage_id);
 	if(fn.isEmpty())
 		return;
 
@@ -973,7 +973,7 @@ int RunsWidget::selectedStageId()
 void RunsWidget::export_startList_stage_iofxml30()
 {
 	int stage_id = selectedStageId();
-	QString fn = getSaveFileName("startlist-iof-3.0.xml", stage_id);
+	QString fn = getSaveFileName(Event::START_LIST_IOFXML3_FILE, stage_id);
 	if(fn.isEmpty())
 		return;
 	getPlugin<RunsPlugin>()->exportStartListStageIofXml30(stage_id, fn);

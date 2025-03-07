@@ -19,6 +19,9 @@ class DbSchema;
 
 namespace Event {
 
+static constexpr auto START_LIST_IOFXML3_FILE = "startlist-iof3.xml";
+static constexpr auto RESULTS_IOFXML3_FILE = "results-iof3.xml";
+
 class EventPlugin : public qf::qmlwidgets::framework::Plugin
 {
 	Q_OBJECT
