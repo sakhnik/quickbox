@@ -2497,8 +2497,8 @@ QString RunsPlugin::startListStageIofXml30(int stage_id)
 	append_list(xml_event, QVariantList{"Name", event_config->eventName()});
 	append_list(xml_event,
 		QVariantList{"StartTime",
-			QVariantList{"Date", event.value("date")},
-			QVariantList{"Time", event.value("time")}
+			QVariantList{"Date", start00.date().toString(Qt::ISODate)},
+			QVariantList{"Time", start00.time().toString(Qt::ISODate)}
 		}
 	);
 	append_list(xml_event, 
