@@ -25,6 +25,7 @@ private:
 	void updateOCheckListPostUrl();
 	void testConnection();
 	void exportEventInfo();
+	void exportStartList();
 private:
 	Ui::QxClientServiceWidget *ui;
 	bool acceptDialogDone(int result) override;

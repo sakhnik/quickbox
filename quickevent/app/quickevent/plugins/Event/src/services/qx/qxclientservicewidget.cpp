@@ -39,7 +39,7 @@ QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
 	ui->edCurrentStage->setValue(current_stage);
 	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &QxClientServiceWidget::testConnection);
 	connect(ui->btExportEventInfo, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportEventInfo);
-
+	connect(ui->btExportStartList, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportStartList);
 }
 
 QxClientServiceWidget::~QxClientServiceWidget()
@@ -141,6 +141,15 @@ void QxClientServiceWidget::exportEventInfo()
 		else {
 			setMessage(tr("Event info update error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), true);
 		}
+	});
+}
+
+void QxClientServiceWidget::exportStartList()
+{
+	auto *svc = service();
+	Q_ASSERT(svc);
+	svc->exportStartListIofXml3(this, [this](auto err) {
+		setMessage(err, true);
 	});
 }
 

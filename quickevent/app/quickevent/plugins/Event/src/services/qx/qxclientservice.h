@@ -67,10 +67,15 @@ public:
 
 	QNetworkReply* getRemoteEventInfo(const QString &qxhttp_host, const QString &api_token);
 	QNetworkReply* postEventInfo(const QString &qxhttp_host, const QString &api_token);
+
+	void exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
 private:
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
-	QString apiToken() const;
+	QByteArray apiToken() const;
+	QUrl exchangeServerUrl() const;
+	void sendFile(QString name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
+	QByteArray zlibCompress(QByteArray data);
 private:
 	QNetworkAccessManager *m_networkManager = nullptr;
 	int m_eventId = 0;

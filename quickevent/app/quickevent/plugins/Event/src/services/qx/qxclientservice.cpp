@@ -19,6 +19,7 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QJsonDocument>
+#include <QUrlQuery>
 
 using namespace qf::core;
 using namespace qf::qmlwidgets;
@@ -171,11 +172,62 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	return nm->post(request, data);
 }
 
-QString QxClientService::apiToken() const
+void QxClientService::exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back)
+{
+	auto *ep = getPlugin<EventPlugin>();
+	int current_stage = ep->currentStageId();
+	bool is_relays = ep->eventConfig()->isRelays();
+	if (!is_relays) {
+		auto xml = getPlugin<RunsPlugin>()->startListStageIofXml30(current_stage);
+		sendFile(Event::START_LIST_IOFXML3_FILE, xml.toUtf8(), context, call_back);
+	}
+}
+
+QByteArray QxClientService::apiToken() const
 {
 	auto *event_plugin = getPlugin<EventPlugin>();
 	auto current_stage = event_plugin->currentStageId();
-	return event_plugin->stageData(current_stage).qxApiToken();
+	return event_plugin->stageData(current_stage).qxApiToken().toUtf8();
+}
+
+QUrl QxClientService::exchangeServerUrl() const
+{
+	auto ss = settings();
+	return QUrl(ss.exchangeServerUrl());
+}
+
+void QxClientService::sendFile(QString name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
+{
+	auto url = exchangeServerUrl();
+	url.setPath("/api/event/current/file");
+	url.setQuery(QStringLiteral("name=%1").arg(name));
+	QNetworkRequest request;
+	request.setUrl(url);
+	request.setRawHeader("qx-api-token", apiToken());
+	request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/zip"));
+	auto zdata = zlibCompress(data);
+	QNetworkReply *reply = networkManager()->post(request, zdata);
+
+	connect(reply, &QNetworkReply::finished, context, [reply, name, call_back]() {
+		QString err;
+		if(reply->error()) {
+			err = reply->errorString();
+			qfWarning() << "Post file:" << name << "error:" << err;
+		}
+		if (call_back) {
+			call_back(err);
+		}
+		reply->deleteLater(); // should be called by Qt anyway
+	});
+}
+
+QByteArray QxClientService::zlibCompress(QByteArray data)
+{
+	QByteArray compressedData = qCompress(data);
+	// strip the 4-byte length put on by qCompress
+	// internally qCompress uses zlib
+	compressedData.remove(0, 4);
+	return compressedData;
 }
 
 } // namespace Event::services::qx
