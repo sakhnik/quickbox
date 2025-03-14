@@ -71,7 +71,6 @@ QString QxClientService::serviceId()
 }
 
 void QxClientService::run() {
-	Super::run();
 	auto ss = settings();
 	auto *reply = getRemoteEventInfo(ss.exchangeServerUrl(), apiToken());
 	connect(reply, &QNetworkReply::finished, this, [this, reply, ss]() {
@@ -81,15 +80,18 @@ void QxClientService::run() {
 			EventInfo event_info(doc.toVariant().toMap());
 			setStatusMessage(event_info.name());
 			m_eventId = event_info.id();
+			connectToSSE(m_eventId);
+			Super::run();
 		}
 		else {
 			qfWarning() << "Cannot run QX service, network error:" << reply->errorString();
 		}
-		stop();
 	});
 }
 
-void QxClientService::stop() {
+void QxClientService::stop()
+{
+	disconnectSSE();
 	Super::stop();
 }
 
@@ -167,7 +169,7 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	ei.set_stage(event_plugin->currentStageId());
 	ei.set_name(event_config->eventName());
 	ei.set_place(event_config->eventPlace());
-	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toLocalTime().toString(Qt::ISODate));
+	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));
 	auto data = QJsonDocument::fromVariant(ei).toJson();
 	return nm->post(request, data);
 }
@@ -240,6 +242,37 @@ QByteArray QxClientService::zlibCompress(QByteArray data)
 	// internally qCompress uses zlib
 	compressedData.remove(0, 4);
 	return compressedData;
+}
+
+void QxClientService::connectToSSE(int event_id)
+{
+	auto url = exchangeServerUrl();
+	url.setPath(QStringLiteral("/api/qe/%1/in/changes").arg(event_id));
+	QNetworkRequest request(url);
+	request.setRawHeader(QByteArray("Accept"), QByteArray("text/event-stream"));
+	request.setHeader(QNetworkRequest::UserAgentHeader, "QuickEvent");
+	request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+	request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork); // Events shouldn't be cached
+
+	qfInfo() << "Connecting to SSE:" << url.toString();
+	m_replySSE = networkManager()->get(request);
+	qfInfo() << "Connected";
+	connect(m_replySSE, &QNetworkReply::readyRead, this, [this]() {
+		auto data = m_replySSE->readAll();
+		qfInfo() << "DATA:" << data.toStdString();
+	});
+	connect(m_replySSE, &QNetworkReply::finished, this, [this]() {
+		qfInfo() << "SSE finished:" << m_replySSE->errorString();
+	});
+}
+
+void QxClientService::disconnectSSE()
+{
+	if (m_replySSE) {
+		qfInfo() << "Disconnecting SSE:" << m_replySSE;
+		m_replySSE->deleteLater();
+		m_replySSE = nullptr;
+	}
 }
 
 } // namespace Event::services::qx

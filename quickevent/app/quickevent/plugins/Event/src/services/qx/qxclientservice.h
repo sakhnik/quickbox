@@ -63,8 +63,12 @@ private:
 	enum class SpecFile {StartListIofXml3};
 	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	QByteArray zlibCompress(QByteArray data);
+
+	void connectToSSE(int event_id);
+	void disconnectSSE();
 private:
 	QNetworkAccessManager *m_networkManager = nullptr;
+	QNetworkReply *m_replySSE = nullptr;
 	int m_eventId = 0;
 };
 

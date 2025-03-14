@@ -148,6 +148,7 @@ void QxClientServiceWidget::exportStartList()
 {
 	auto *svc = service();
 	Q_ASSERT(svc);
+	setMessage(tr("Start list export started ..."));
 	svc->exportStartListIofXml3(this, [this](auto err) {
 		if (err.isEmpty()) {
 			setMessage(tr("Start list exported Ok"));
