@@ -132,7 +132,6 @@ void QxClientServiceWidget::exportEventInfo()
 	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
 		auto data = reply->readAll();
 		if (reply->error() == QNetworkReply::NetworkError::NoError) {
-			auto data = reply->readAll();
 			auto doc = QJsonDocument::fromJson(data);
 			EventInfo event_info(doc.toVariant().toMap());
 			ui->edEventId->setValue(event_info.id());

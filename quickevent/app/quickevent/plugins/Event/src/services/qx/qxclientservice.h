@@ -7,8 +7,6 @@ class QNetworkReply;
 
 namespace Event::services::qx {
 
-class RootNode;
-
 class QxClientServiceSettings : public ServiceSettings
 {
 	using Super = ServiceSettings;

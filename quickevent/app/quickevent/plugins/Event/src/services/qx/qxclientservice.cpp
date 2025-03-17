@@ -162,6 +162,7 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	url.setPath("/api/event/current");
 	// qfInfo() << "GET " << url.toString();
 	request.setUrl(url);
+	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 	request.setRawHeader("qx-api-token", api_token.toUtf8());
 	auto *event_plugin = getPlugin<EventPlugin>();
 	auto *event_config = event_plugin->eventConfig();
@@ -247,7 +248,7 @@ QByteArray QxClientService::zlibCompress(QByteArray data)
 void QxClientService::connectToSSE(int event_id)
 {
 	auto url = exchangeServerUrl();
-	url.setPath(QStringLiteral("/api/qe/%1/in/changes").arg(event_id));
+	url.setPath(QStringLiteral("/api/event/%1/run/changes/sse").arg(event_id));
 	QNetworkRequest request(url);
 	request.setRawHeader(QByteArray("Accept"), QByteArray("text/event-stream"));
 	request.setHeader(QNetworkRequest::UserAgentHeader, "QuickEvent");
