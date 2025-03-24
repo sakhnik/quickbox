@@ -52,18 +52,21 @@ public:
 	QNetworkReply* postEventInfo(const QString &qxhttp_host, const QString &api_token);
 
 	void exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
+	void exportEvent(QObject *context, std::function<void (QString)> call_back = nullptr);
 private:
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
 	QByteArray apiToken() const;
 	QUrl exchangeServerUrl() const;
-	void sendFile(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
+	void postDataCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	enum class SpecFile {StartListIofXml3};
 	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	QByteArray zlibCompress(QByteArray data);
 
 	void connectToSSE(int event_id);
 	void disconnectSSE();
+
+	EventInfo eventInfo() const;
 private:
 	QNetworkAccessManager *m_networkManager = nullptr;
 	QNetworkReply *m_replySSE = nullptr;

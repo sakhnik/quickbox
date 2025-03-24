@@ -164,13 +164,7 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	request.setUrl(url);
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
 	request.setRawHeader("qx-api-token", api_token.toUtf8());
-	auto *event_plugin = getPlugin<EventPlugin>();
-	auto *event_config = event_plugin->eventConfig();
-	EventInfo ei;
-	ei.set_stage(event_plugin->currentStageId());
-	ei.set_name(event_config->eventName());
-	ei.set_place(event_config->eventPlace());
-	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));
+	auto ei = eventInfo();
 	auto data = QJsonDocument::fromVariant(ei).toJson();
 	return nm->post(request, data);
 }
@@ -183,6 +177,20 @@ void QxClientService::exportStartListIofXml3(QObject *context, std::function<voi
 	if (!is_relays) {
 		auto xml = getPlugin<RunsPlugin>()->startListStageIofXml30(current_stage);
 		uploadSpecFile(SpecFile::StartListIofXml3, xml.toUtf8(), context, call_back);
+	}
+}
+
+void QxClientService::exportEvent(QObject *context, std::function<void (QString)> call_back)
+{
+	auto *ep = getPlugin<EventPlugin>();
+	int current_stage = ep->currentStageId();
+	bool is_relays = ep->eventConfig()->isRelays();
+	if (!is_relays) {
+		auto event = getPlugin<RunsPlugin>()->qxExportEventJson(current_stage);
+		event["event_info"] = eventInfo();
+		auto doc = QJsonDocument::fromVariant(event);
+		auto json = doc.toJson();
+		postDataCompressed("/api/event/current/upload/event", {}, json, context, call_back);
 	}
 }
 
@@ -199,7 +207,7 @@ QUrl QxClientService::exchangeServerUrl() const
 	return QUrl(ss.exchangeServerUrl());
 }
 
-void QxClientService::sendFile(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
+void QxClientService::postDataCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
 {
 	auto url = exchangeServerUrl();
 
@@ -231,7 +239,7 @@ void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *co
 {
 	switch (file) {
 	case SpecFile::StartListIofXml3:
-		sendFile("/api/event/current/upload/startlist", {}, data, context, call_back);
+		postDataCompressed("/api/event/current/upload/startlist", {}, data, context, call_back);
 		break;
 	}
 }
@@ -274,6 +282,18 @@ void QxClientService::disconnectSSE()
 		m_replySSE->deleteLater();
 		m_replySSE = nullptr;
 	}
+}
+
+EventInfo QxClientService::eventInfo() const
+{
+	auto *event_plugin = getPlugin<EventPlugin>();
+	auto *event_config = event_plugin->eventConfig();
+	EventInfo ei;
+	ei.set_stage(event_plugin->currentStageId());
+	ei.set_name(event_config->eventName());
+	ei.set_place(event_config->eventPlace());
+	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));
+	return ei;
 }
 
 } // namespace Event::services::qx

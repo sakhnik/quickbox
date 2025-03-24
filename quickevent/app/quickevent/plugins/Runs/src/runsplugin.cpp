@@ -402,6 +402,75 @@ int RunsPlugin::competitorForRun(int run_id)
 	return competitor_id;
 }
 
+QVariantMap RunsPlugin::qxExportEventJson(int stage_id)
+{
+	QVariantMap event;
+	{
+		qfs::QueryBuilder qb;
+		qb.select2("classes", "name")
+				.select2("courses", "length, climb")
+				.select("COUNT(coursecodes.courseId) as control_count")
+				.from("classdefs")
+				.innerJoinRestricted("classdefs.classId", "classes.id", "classdefs.stageId=" QF_IARG(stage_id))
+				.join("classdefs.courseId", "courses.id")
+				.join("courses.id", "coursecodes.courseId")
+				.joinRestricted("coursecodes.codeId", "codes.id",
+								"codes.code>=" QF_IARG(quickevent::core::CodeDef::PUNCH_CODE_MIN)
+								" AND codes.code<=" QF_IARG(quickevent::core::CodeDef::PUNCH_CODE_MAX))
+				.groupBy("coursecodes.courseId")
+				;
+		qfs::Query q;
+		q.execThrow(qb.toString());
+		QVariantList records;
+		while (q.next()) {
+			QVariantMap rec;
+			rec["name"] = q.value("runs.id");
+			rec["length"] = q.value("classes_name");
+			rec["climb"] = q.value("registration");
+			rec["control_count"] = q.value("control_count");
+			records << rec;
+		}
+		event["classes"] = records;
+	}
+	{
+		QDateTime start00 = getPlugin<EventPlugin>()->stageStartDateTime(stage_id);
+		auto msec_to_date_time = [start00](const QVariant &msec) {
+			if (msec.isNull()) {
+				return msec;
+			}
+			auto dt = start00.addMSecs(msec.toInt());
+			return QVariant::fromValue(dt);
+		};
+		qfs::QueryBuilder qb;
+		qb.select2("runs", "*")
+				.select2("competitors", "registration, licence, lastName, firstName")
+				.select2("classes", "name")
+				.from("runs")
+				.innerJoinRestricted("runs.competitorId", "competitors.id", "runs.stageId=" QF_IARG(stage_id) " AND runs.isRunning")
+				.join("competitors.classId", "classes.id");
+		qfs::Query q;
+		q.execThrow(qb.toString());
+		QVariantList records;
+		while (q.next()) {
+			QVariantMap rec;
+			rec["run_id"] = q.value("runs.id");
+			rec["class_name"] = q.value("classes_name");
+			rec["registration"] = q.value("registration");
+			rec["si_id"] = q.value("runs.siId");
+			rec["first_name"] = q.value("firstName");
+			rec["last_name"] = q.value("lastName");
+			rec["start_time"] = msec_to_date_time(q.value("startTimeMs"));
+			rec["check_time"] = msec_to_date_time(q.value("checkTimeMs"));
+			rec["finish_time"] = msec_to_date_time(q.value("finishTimeMs"));
+			auto run_status = quickevent::core::RunStatus::fromQuery(q);
+			rec["status"] = run_status.toHtmlExportString();
+			records << rec;
+		}
+		event["runs"] = records;
+	}
+	return event;
+}
+
 qf::core::utils::Table RunsPlugin::nstagesClassResultsTable(int stages_count, int class_id, int places, bool exclude_disq)
 {
 	qfs::QueryBuilder qb;
@@ -594,7 +663,7 @@ qf::core::utils::TreeTable RunsPlugin::stageResultsTable(int stage_id, const QSt
 
 	{
 		qf::core::sql::QueryBuilder qb;
-        qb.select2("competitors", "registration, iofId, lastName, firstName, startNumber, club, country")
+		qb.select2("competitors", "registration, iofId, lastName, firstName, startNumber, club, country")
 			.select("COALESCE(competitors.lastName, '') || ' ' || COALESCE(competitors.firstName, '') AS competitorName")
 			.select2("runs", "*")
 			.select2("clubs", "name, abbr, importId")
