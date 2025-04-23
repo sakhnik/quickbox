@@ -191,11 +191,11 @@ void QxClientService::exportRuns(QObject *context, std::function<void (QString)>
 	}
 }
 
-QNetworkReply *QxClientService::loadChanges(const QString &data_type, const QString &status)
+QNetworkReply* QxClientService::loadChanges(const QString &data_type, const QString &status)
 {
 	auto url = exchangeServerUrl();
 
-	url.setPath(QStringLiteral("/api/event/%1/changes").arg(m_eventId));
+	url.setPath(QStringLiteral("/api/event/%1/changes").arg(eventId()));
 	if (!data_type.isEmpty()) {
 		url.setQuery(QStringLiteral("data_type=%1").arg(data_type));
 	}
@@ -205,6 +205,14 @@ QNetworkReply *QxClientService::loadChanges(const QString &data_type, const QStr
 	QNetworkRequest request;
 	request.setUrl(url);
 	return networkManager()->get(request);
+}
+
+int QxClientService::eventId()
+{
+	if (m_eventId == 0) {
+		throw qf::core::Exception(tr("Event ID is not loaded, service is not probably running."));
+	}
+	return m_eventId;
 }
 
 QByteArray QxClientService::apiToken() const
@@ -271,24 +279,24 @@ QByteArray QxClientService::zlibCompress(QByteArray data)
 
 void QxClientService::connectToSSE(int event_id)
 {
-	auto url = exchangeServerUrl();
-	url.setPath(QStringLiteral("/api/event/%1/run/changes/sse").arg(event_id));
-	QNetworkRequest request(url);
-	request.setRawHeader(QByteArray("Accept"), QByteArray("text/event-stream"));
-	request.setHeader(QNetworkRequest::UserAgentHeader, "QuickEvent");
-	request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
-	request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork); // Events shouldn't be cached
+	// auto url = exchangeServerUrl();
+	// url.setPath(QStringLiteral("/api/event/%1/run/changes/sse").arg(event_id));
+	// QNetworkRequest request(url);
+	// request.setRawHeader(QByteArray("Accept"), QByteArray("text/event-stream"));
+	// request.setHeader(QNetworkRequest::UserAgentHeader, "QuickEvent");
+	// request.setAttribute(QNetworkRequest::RedirectPolicyAttribute, QNetworkRequest::NoLessSafeRedirectPolicy);
+	// request.setAttribute(QNetworkRequest::CacheLoadControlAttribute, QNetworkRequest::AlwaysNetwork); // Events shouldn't be cached
 
-	qfInfo() << "Connecting to SSE:" << url.toString();
-	m_replySSE = networkManager()->get(request);
-	qfInfo() << "Connected";
-	connect(m_replySSE, &QNetworkReply::readyRead, this, [this]() {
-		auto data = m_replySSE->readAll();
-		qfInfo() << "DATA:" << data.toStdString();
-	});
-	connect(m_replySSE, &QNetworkReply::finished, this, [this]() {
-		qfInfo() << "SSE finished:" << m_replySSE->errorString();
-	});
+	// qfInfo() << "Connecting to SSE:" << url.toString();
+	// m_replySSE = networkManager()->get(request);
+	// qfInfo() << "Connected";
+	// connect(m_replySSE, &QNetworkReply::readyRead, this, [this]() {
+	// 	auto data = m_replySSE->readAll();
+	// 	qfInfo() << "DATA:" << data.toStdString();
+	// });
+	// connect(m_replySSE, &QNetworkReply::finished, this, [this]() {
+	// 	qfInfo() << "SSE finished:" << m_replySSE->errorString();
+	// });
 }
 
 void QxClientService::disconnectSSE()

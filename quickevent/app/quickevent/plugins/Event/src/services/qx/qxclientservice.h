@@ -58,6 +58,7 @@ public:
 
 	QNetworkReply* loadChanges(const QString &data_type, const QString &status);
 private:
+	int eventId();
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
 	QByteArray apiToken() const;
