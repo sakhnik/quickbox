@@ -26,7 +26,7 @@ private:
 	void testConnection();
 	void exportEventInfo();
 	void exportStartList();
-	void exportEvent();
+	void exportRuns();
 private:
 	Ui::QxClientServiceWidget *ui;
 	bool acceptDialogDone(int result) override;

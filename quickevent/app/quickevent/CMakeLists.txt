@@ -10,7 +10,6 @@ add_executable(quickevent
 	plugins/CardReader/src/services/racomclientwidget.cpp
 	plugins/CardReader/src/cardreadersettingspage.cpp
 	plugins/CardReader/src/cardreadersettings.cpp
-
 	plugins/CardReader/src/services/qropunch.cpp
 	plugins/CardReader/src/services/qropunchwidget.cpp
 	plugins/CardReader/src/services/qropunchwidget.ui
@@ -34,6 +33,7 @@ add_executable(quickevent
 	plugins/Classes/src/editcoursecodeswidget.cpp
 	plugins/Classes/src/editcourseswidget.cpp
 	plugins/Classes/src/importcoursedef.cpp
+
 	plugins/Competitors/src/competitordocument.cpp
 	plugins/Competitors/src/competitorsplugin.cpp
 	plugins/Competitors/src/competitorswidget.cpp
@@ -42,19 +42,20 @@ add_executable(quickevent
 	plugins/Competitors/src/lentcardssettingspage.cpp
 	plugins/Competitors/src/registrationswidget.cpp
 	plugins/Competitors/src/stationsbackupmemorywidget.cpp
+
 	plugins/Core/src/coreplugin.cpp
 	plugins/Core/src/settings.cpp
 	plugins/Core/src/widgets/reportssettingspage.cpp
 	plugins/Core/src/widgets/appstatusbar.cpp
 	plugins/Core/src/widgets/settingspage.cpp
 	plugins/Core/src/widgets/settingsdialog.cpp
+
 	plugins/Event/src/connectdbdialogwidget.cpp
 	plugins/Event/src/connectionsettings.cpp
 	plugins/Event/src/dbschema.cpp
 	plugins/Event/src/eventconfig.cpp
 	plugins/Event/src/eventdialogwidget.cpp
 	plugins/Event/src/eventplugin.cpp
-
 	plugins/Event/src/services/emmaclient.cpp
 	plugins/Event/src/services/emmaclientwidget.cpp
 	plugins/Event/src/services/oresultsclient.cpp
@@ -62,18 +63,27 @@ add_executable(quickevent
 	plugins/Event/src/services/service.cpp
 	plugins/Event/src/services/serviceswidget.cpp
 	plugins/Event/src/services/servicewidget.cpp
-	plugins/Event/src/services/qx/qxclientservice.cpp plugins/Event/src/services/qx/qxclientservice.h
-	plugins/Event/src/services/qx/qxclientservicewidget.cpp plugins/Event/src/services/qx/qxclientservicewidget.h plugins/Event/src/services/qx/qxclientservicewidget.ui
-
-
 	plugins/Event/src/stage.cpp
 	plugins/Event/src/stagedocument.cpp
 	plugins/Event/src/stagewidget.cpp
+
+	plugins/Event/src/services/qx/qxclientservice.cpp
+	plugins/Event/src/services/qx/qxclientservice.h
+	plugins/Event/src/services/qx/qxclientservicewidget.cpp
+	plugins/Event/src/services/qx/qxclientservicewidget.h
+	plugins/Event/src/services/qx/qxclientservicewidget.ui
+	plugins/Event/src/services/qx/qxlateregistrationsmodel.h
+	plugins/Event/src/services/qx/qxlateregistrationsmodel.cpp
+	plugins/Event/src/services/qx/qxlateregistrationswidget.h
+	plugins/Event/src/services/qx/qxlateregistrationswidget.cpp
+	plugins/Event/src/services/qx/qxlateregistrationswidget.ui
+
 	plugins/Oris/src/chooseoriseventdialog.cpp
 	plugins/Oris/src/orisimporter.cpp
 	plugins/Oris/src/orisplugin.cpp
 	plugins/Oris/src/txtimporter.cpp
 	plugins/Oris/src/xmlimporter.cpp
+
 	plugins/Receipts/src/receiptsplugin.cpp
 	plugins/Receipts/src/receiptsprinter.cpp
 	#plugins/Receipts/src/receiptsprinteroptions.cpp
@@ -81,11 +91,13 @@ add_executable(quickevent
 	plugins/Receipts/src/receiptswidget.cpp
 	plugins/Receipts/src/receiptssettings.cpp
 	plugins/Receipts/src/receiptssettingspage.cpp
+
 	plugins/Relays/src/addlegdialogwidget.cpp
 	plugins/Relays/src/relaydocument.cpp
 	plugins/Relays/src/relaysplugin.cpp
 	plugins/Relays/src/relayswidget.cpp
 	plugins/Relays/src/relaywidget.cpp
+
 	plugins/Runs/src/cardflagsdialog.cpp
 	plugins/Runs/src/eventstatisticsoptions.cpp
 	plugins/Runs/src/eventstatisticswidget.cpp
@@ -102,6 +114,7 @@ add_executable(quickevent
 	plugins/Runs/src/runswidget.cpp
 	plugins/Runs/src/services/resultsexporter.cpp
 	plugins/Runs/src/services/resultsexporterwidget.cpp
+
 	plugins/Speaker/src/codeclassresultswidget.cpp
 	plugins/Speaker/src/punchestableview.cpp
 	plugins/Speaker/src/speakerplugin.cpp

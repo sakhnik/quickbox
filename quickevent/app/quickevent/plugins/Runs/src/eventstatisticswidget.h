@@ -20,13 +20,13 @@ public:
 	explicit EventStatisticsWidget(QWidget *parent = nullptr);
 	~EventStatisticsWidget();
 
-	Q_SLOT void reloadDeferred();
+	void reloadDeferred();
 	void reload();
-	Q_SLOT void onDbEventNotify(const QString &domain, const QVariant &payload);
-	Q_SLOT void onVisibleChanged(bool is_visible);
+	void onDbEventNotify(const QString &domain, const QVariant &payload);
+	void onVisibleChanged(bool is_visible);
 
-	Q_SLOT void loadPersistentSettings();
-	Q_SLOT void savePersistentSettings();
+	void loadPersistentSettings();
+	void savePersistentSettings();
 private slots:
 	void on_btReload_clicked();
 	void on_btOptions_clicked();

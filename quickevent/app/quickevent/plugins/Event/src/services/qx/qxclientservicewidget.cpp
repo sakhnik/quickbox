@@ -41,7 +41,7 @@ QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
 	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &QxClientServiceWidget::testConnection);
 	connect(ui->btExportEventInfo, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportEventInfo);
 	connect(ui->btExportStartList, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportStartList);
-	connect(ui->btExportEvent, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportEvent);
+	connect(ui->btExportRuns, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportRuns);
 }
 
 QxClientServiceWidget::~QxClientServiceWidget()
@@ -101,9 +101,7 @@ bool QxClientServiceWidget::saveSettings()
 
 void QxClientServiceWidget::updateOCheckListPostUrl()
 {
-	auto url = QStringLiteral("%1/api/event/current/oc")
-			.arg(ui->edServerUrl->text())
-			.arg(ui->edEventId->text());
+	auto url = QStringLiteral("%1/api/event/current/oc").arg(ui->edServerUrl->text());
 	ui->edOChecklistUrl->setText(url);
 	ui->edOChecklistUrlHeader->setText(QStringLiteral("qx-api-token=%1").arg(ui->edApiToken->text()));
 }
@@ -150,6 +148,7 @@ void QxClientServiceWidget::exportStartList()
 {
 	auto *svc = service();
 	Q_ASSERT(svc);
+	saveSettings();
 	setMessage(tr("Start list export started ..."));
 	svc->exportStartListIofXml3(this, [this](auto err) {
 		if (err.isEmpty()) {
@@ -161,12 +160,13 @@ void QxClientServiceWidget::exportStartList()
 	});
 }
 
-void QxClientServiceWidget::exportEvent()
+void QxClientServiceWidget::exportRuns()
 {
 	auto *svc = service();
 	Q_ASSERT(svc);
+	saveSettings();
 	setMessage(tr("Runs export started ..."));
-	svc->exportEvent(this, [this](auto err) {
+	svc->exportRuns(this, [this](auto err) {
 		if (err.isEmpty()) {
 			setMessage(tr("Runs exported Ok"));
 		}

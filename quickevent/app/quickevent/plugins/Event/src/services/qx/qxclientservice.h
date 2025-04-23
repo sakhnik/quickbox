@@ -36,6 +36,8 @@ class QxClientService : public Service
 
 	using Super = Service;
 public:
+	static constexpr auto QX_API_TOKEN = "qx-api-token";
+public:
 	QxClientService(QObject *parent);
 
 	static QString serviceId();
@@ -52,14 +54,16 @@ public:
 	QNetworkReply* postEventInfo(const QString &qxhttp_host, const QString &api_token);
 
 	void exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
-	void exportEvent(QObject *context, std::function<void (QString)> call_back = nullptr);
+	void exportRuns(QObject *context, std::function<void (QString)> call_back = nullptr);
+
+	QNetworkReply* loadChanges(const QString &data_type, const QString &status);
 private:
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
 	QByteArray apiToken() const;
 	QUrl exchangeServerUrl() const;
-	void postDataCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
-	enum class SpecFile {StartListIofXml3};
+	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
+	enum class SpecFile {StartListIofXml3, RunsCsv};
 	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	QByteArray zlibCompress(QByteArray data);
 

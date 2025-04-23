@@ -31,7 +31,7 @@ using Event::EventPlugin;
 using Runs::RunsPlugin;
 
 //============================================================
-//                EventStatisticsModel
+// EventStatisticsModel
 //============================================================
 class EventStatisticsModel : public quickevent::core::og::SqlTableModel
 {

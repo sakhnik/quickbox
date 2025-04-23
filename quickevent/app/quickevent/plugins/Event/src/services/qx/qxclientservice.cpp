@@ -149,7 +149,7 @@ QNetworkReply *QxClientService::getRemoteEventInfo(const QString &qxhttp_host, c
 	QUrl url(qxhttp_host);
 	url.setPath("/api/event/current");
 	request.setUrl(url);
-	request.setRawHeader("qx-api-token", api_token.toUtf8());
+	request.setRawHeader(QX_API_TOKEN, api_token.toUtf8());
 	return nm->get(request);
 }
 
@@ -163,7 +163,7 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	// qfInfo() << "GET " << url.toString();
 	request.setUrl(url);
 	request.setHeader(QNetworkRequest::ContentTypeHeader, "application/json");
-	request.setRawHeader("qx-api-token", api_token.toUtf8());
+	request.setRawHeader(QX_API_TOKEN, api_token.toUtf8());
 	auto ei = eventInfo();
 	auto data = QJsonDocument::fromVariant(ei).toJson();
 	return nm->post(request, data);
@@ -180,18 +180,31 @@ void QxClientService::exportStartListIofXml3(QObject *context, std::function<voi
 	}
 }
 
-void QxClientService::exportEvent(QObject *context, std::function<void (QString)> call_back)
+void QxClientService::exportRuns(QObject *context, std::function<void (QString)> call_back)
 {
 	auto *ep = getPlugin<EventPlugin>();
 	int current_stage = ep->currentStageId();
 	bool is_relays = ep->eventConfig()->isRelays();
 	if (!is_relays) {
-		auto event = getPlugin<RunsPlugin>()->qxExportEventJson(current_stage);
-		event["event_info"] = eventInfo();
-		auto doc = QJsonDocument::fromVariant(event);
-		auto json = doc.toJson();
-		postDataCompressed("/api/event/current/upload/event", {}, json, context, call_back);
+		auto runs = getPlugin<RunsPlugin>()->qxExportRunsCsv(current_stage);
+		uploadSpecFile(SpecFile::RunsCsv, runs.toUtf8(), context, call_back);
 	}
+}
+
+QNetworkReply *QxClientService::loadChanges(const QString &data_type, const QString &status)
+{
+	auto url = exchangeServerUrl();
+
+	url.setPath(QStringLiteral("/api/event/%1/changes").arg(m_eventId));
+	if (!data_type.isEmpty()) {
+		url.setQuery(QStringLiteral("data_type=%1").arg(data_type));
+	}
+	if (!status.isEmpty()) {
+		url.setQuery(QStringLiteral("status=%1").arg(status));
+	}
+	QNetworkRequest request;
+	request.setUrl(url);
+	return networkManager()->get(request);
 }
 
 QByteArray QxClientService::apiToken() const
@@ -207,7 +220,7 @@ QUrl QxClientService::exchangeServerUrl() const
 	return QUrl(ss.exchangeServerUrl());
 }
 
-void QxClientService::postDataCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
+void QxClientService::postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context , std::function<void (QString)> call_back)
 {
 	auto url = exchangeServerUrl();
 
@@ -217,7 +230,7 @@ void QxClientService::postDataCompressed(std::optional<QString> path, std::optio
 	}
 	QNetworkRequest request;
 	request.setUrl(url);
-	request.setRawHeader("qx-api-token", apiToken());
+	request.setRawHeader(QX_API_TOKEN, apiToken());
 	request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/zip"));
 	auto zdata = zlibCompress(data);
 	QNetworkReply *reply = networkManager()->post(request, zdata);
@@ -239,7 +252,10 @@ void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *co
 {
 	switch (file) {
 	case SpecFile::StartListIofXml3:
-		postDataCompressed("/api/event/current/upload/startlist", {}, data, context, call_back);
+		postFileCompressed("/api/event/current/upload/startlist", {}, data, context, call_back);
+		break;
+	case SpecFile::RunsCsv:
+		postFileCompressed({}, "runs.csv", data, context, call_back);
 		break;
 	}
 }

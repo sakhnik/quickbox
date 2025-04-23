@@ -1,6 +1,7 @@
 #include "runsplugin.h"
+
 #include "nstagesreportoptionsdialog.h"
-#include "plugins/Runs/src/runstablemodel.h"
+#include "runstablemodel.h"
 #include "runswidget.h"
 #include "runstabledialogwidget.h"
 #include "eventstatisticswidget.h"
@@ -10,6 +11,7 @@
 #include "../../CardReader/src/cardreaderplugin.h"
 #include "../../Competitors/src/competitorsplugin.h"
 #include "../../Event/src/eventplugin.h"
+#include "../../Event/src/services/qx/qxlateregistrationswidget.h"
 
 #include <quickevent/core/codedef.h>
 #include <quickevent/core/utils.h>
@@ -122,20 +124,40 @@ void RunsPlugin::onInstalled()
 	}, Qt::QueuedConnection);
 
 	{
-		m_eventStatisticsDockWidget = new qff::DockWidget(nullptr);
-		m_eventStatisticsDockWidget->setObjectName("eventStatisticsDockWidget");
-		m_eventStatisticsDockWidget->setPersistentSettingsId("Runs/eventStatistics");
-		m_eventStatisticsDockWidget->setWindowTitle(tr("Event statistics"));
+		auto *dw = new qff::DockWidget(nullptr);
+		dw->setObjectName("eventStatisticsDockWidget");
+		dw->setPersistentSettingsId("Runs/eventStatistics");
+		dw->setWindowTitle(tr("Event statistics"));
 		auto *ew = new EventStatisticsWidget();
-		m_eventStatisticsDockWidget->setWidget(ew);
-		fwk->addDockWidget(Qt::RightDockWidgetArea, m_eventStatisticsDockWidget);
-		m_eventStatisticsDockWidget->hide();
+		dw->setWidget(ew);
+		fwk->addDockWidget(Qt::RightDockWidgetArea, dw);
+		dw->hide();
 
-		connect(m_eventStatisticsDockWidget, &qff::DockWidget::visibilityChanged, ew, &EventStatisticsWidget::onVisibleChanged);
+		connect(dw, &qff::DockWidget::visibilityChanged, ew, &EventStatisticsWidget::onVisibleChanged);
 
-		auto *a = m_eventStatisticsDockWidget->toggleViewAction();
+		auto *a = dw->toggleViewAction();
 		a->setShortcut(QKeySequence("ctrl+shift+E"));
 		fwk->menuBar()->actionForPath("view")->addActionInto(a);
+
+		m_eventStatisticsDockWidget = dw;
+	}
+	{
+		auto *dw = new qff::DockWidget(nullptr);
+		dw->setObjectName("qxLateRegistrationsDockWidget");
+		dw->setPersistentSettingsId("Runs/qxLateRegistrations");
+		dw->setWindowTitle(tr("Late registrations"));
+		auto *ew = new Event::services::qx::QxLateRegistrationsWidget();
+		dw->setWidget(ew);
+		fwk->addDockWidget(Qt::RightDockWidgetArea, dw);
+		dw->hide();
+
+		connect(dw, &qff::DockWidget::visibilityChanged, ew, &Event::services::qx::QxLateRegistrationsWidget::onVisibleChanged);
+
+		auto *a = dw->toggleViewAction();
+		// a->setShortcut(QKeySequence("ctrl+shift+E"));
+		fwk->menuBar()->actionForPath("view")->addActionInto(a);
+
+		m_qxLateRegistrationsDockWidget = dw;
 	}
 
 	services::ResultsExporter *results_exporter = new services::ResultsExporter(this);
@@ -402,73 +424,73 @@ int RunsPlugin::competitorForRun(int run_id)
 	return competitor_id;
 }
 
-QVariantMap RunsPlugin::qxExportEventJson(int stage_id)
+QString RunsPlugin::qxExportRunsCsv(int stage_id)
 {
-	QVariantMap event;
-	{
-		qfs::QueryBuilder qb;
-		qb.select2("classes", "name")
-				.select2("courses", "length, climb")
-				.select("COUNT(coursecodes.courseId) as control_count")
-				.from("classdefs")
-				.innerJoinRestricted("classdefs.classId", "classes.id", "classdefs.stageId=" QF_IARG(stage_id))
-				.join("classdefs.courseId", "courses.id")
-				.join("courses.id", "coursecodes.courseId")
-				.joinRestricted("coursecodes.codeId", "codes.id",
-								"codes.code>=" QF_IARG(quickevent::core::CodeDef::PUNCH_CODE_MIN)
-								" AND codes.code<=" QF_IARG(quickevent::core::CodeDef::PUNCH_CODE_MAX))
-				.groupBy("coursecodes.courseId")
-				;
-		qfs::Query q;
-		q.execThrow(qb.toString());
-		QVariantList records;
-		while (q.next()) {
-			QVariantMap rec;
-			rec["name"] = q.value("runs.id");
-			rec["length"] = q.value("classes_name");
-			rec["climb"] = q.value("registration");
-			rec["control_count"] = q.value("control_count");
-			records << rec;
-		}
-		event["classes"] = records;
-	}
-	{
-		QDateTime start00 = getPlugin<EventPlugin>()->stageStartDateTime(stage_id);
-		auto msec_to_date_time = [start00](const QVariant &msec) {
-			if (msec.isNull()) {
-				return msec;
+	QString csv;
+	auto append_list = [&csv](QVariantList lst) {
+		auto enc_csv = [](const QVariant &val) {
+			if (val.userType() == qMetaTypeId<QString>()) {
+				auto s = val.toString();
+				s.replace('"', "\"\"");
+				if (s.contains(',')) {
+					s = '"' + s + '"';
+				}
+				return s;
 			}
-			auto dt = start00.addMSecs(msec.toInt());
-			return QVariant::fromValue(dt);
+			return val.toString();
 		};
-		qfs::QueryBuilder qb;
-		qb.select2("runs", "*")
-				.select2("competitors", "registration, licence, lastName, firstName")
-				.select2("classes", "name")
-				.from("runs")
-				.innerJoinRestricted("runs.competitorId", "competitors.id", "runs.stageId=" QF_IARG(stage_id) " AND runs.isRunning")
-				.join("competitors.classId", "classes.id");
-		qfs::Query q;
-		q.execThrow(qb.toString());
-		QVariantList records;
-		while (q.next()) {
-			QVariantMap rec;
-			rec["run_id"] = q.value("runs.id");
-			rec["class_name"] = q.value("classes_name");
-			rec["registration"] = q.value("registration");
-			rec["si_id"] = q.value("runs.siId");
-			rec["first_name"] = q.value("firstName");
-			rec["last_name"] = q.value("lastName");
-			rec["start_time"] = msec_to_date_time(q.value("startTimeMs"));
-			rec["check_time"] = msec_to_date_time(q.value("checkTimeMs"));
-			rec["finish_time"] = msec_to_date_time(q.value("finishTimeMs"));
-			auto run_status = quickevent::core::RunStatus::fromQuery(q);
-			rec["status"] = run_status.toHtmlExportString();
-			records << rec;
+		QStringList rowstr;
+		for (const auto &cell : lst) {
+			rowstr << enc_csv(cell);
 		}
-		event["runs"] = records;
+		csv += rowstr.join(',') + '\n';
+	};
+	enum Column {run_id = 0, class_name, registration, si_id, first_name, last_name, start_time, check_time, finish_time, status, COUNT};
+	constexpr std::array<const char*, Column::COUNT> colNames = {
+		"run_id", "class_name", "registration", "si_id", "first_name", "last_name", "start_time", "check_time", "finish_time", "status"
+	};
+	auto col_name = [&colNames](Column col) { return colNames.at(col); };
+	{
+		QVariantList cols;
+		for (auto i = 0; i < COUNT; ++i) {
+			cols << col_name(static_cast<Column>(i));
+		}
+		append_list(cols);
 	}
-	return event;
+	QDateTime start00 = getPlugin<EventPlugin>()->stageStartDateTime(stage_id);
+	auto msec_to_date_time = [start00](const QVariant &msec) {
+		if (msec.isNull()) {
+			return msec;
+		}
+		auto dt = start00.addMSecs(msec.toInt());
+		return QVariant::fromValue(dt);
+	};
+	qfs::QueryBuilder qb;
+	qb.select2("runs", "*")
+			.select2("competitors", "registration, licence, lastName, firstName")
+			.select2("classes", "name")
+			.from("runs")
+			.innerJoinRestricted("runs.competitorId", "competitors.id", "runs.stageId=" QF_IARG(stage_id) " AND runs.isRunning")
+			.join("competitors.classId", "classes.id");
+	qfs::Query q;
+	q.execThrow(qb.toString());
+	while (q.next()) {
+		QVariantList rec(COUNT);
+		rec[run_id] = q.value("runs.id");
+		rec[class_name] = q.value("classes.name");
+		rec[registration] = q.value("registration");
+		rec[si_id] = q.value("runs.siId");
+		rec[first_name] = q.value("firstName");
+		rec[last_name] = q.value("lastName");
+		rec[start_time] = msec_to_date_time(q.value("startTimeMs"));
+		rec[check_time] = msec_to_date_time(q.value("checkTimeMs"));
+		rec[finish_time] = msec_to_date_time(q.value("finishTimeMs"));
+		auto run_status = quickevent::core::RunStatus::fromQuery(q);
+		rec[status] = run_status.toHtmlExportString();
+		append_list(rec);
+	}
+
+	return csv;
 }
 
 qf::core::utils::Table RunsPlugin::nstagesClassResultsTable(int stages_count, int class_id, int places, bool exclude_disq)
