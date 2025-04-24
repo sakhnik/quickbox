@@ -26,6 +26,7 @@ private:
 	void reload();
 	void resizeColumns();
 	void showMessage(const QString &msg, bool is_error = false);
+	void applyCurrentChange();
 private:
 	Ui::QxLateRegistrationsWidget *ui;
 	QxLateRegistrationsModel *m_model;

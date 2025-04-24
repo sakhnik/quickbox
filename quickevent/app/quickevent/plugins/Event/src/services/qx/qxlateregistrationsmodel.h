@@ -12,8 +12,9 @@ class QxLateRegistrationsModel : public QAbstractTableModel
 	Q_OBJECT
 	using Super = QAbstractTableModel;
 
-	enum Column {ColRunId, ColChange, ColUserId, ColStatus, ColCount};
 public:
+	enum Column {ColRunId, ColChange, ColUserId, ColStatus, ColCount};
+
 	explicit QxLateRegistrationsModel(QObject *parent = nullptr);
 
 	int rowCount(const QModelIndex &) const override;
@@ -22,10 +23,10 @@ public:
 	QVariant data(const QModelIndex &index, int role) const override;
 
 	void reload();
+	QVariant value(int row, int col) const;
 	Q_SIGNAL void modelLoadInfo(QString, bool is_error);
 private:
 	QxClientService* service();
-	QVariant value(int row, int col) const;
 private:
 	QVariantList m_records;
 };

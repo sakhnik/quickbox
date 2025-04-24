@@ -5,6 +5,11 @@
 #include "qxclientservice.h"
 
 #include <plugins/Event/src/eventplugin.h>
+#include <plugins/Competitors/src/competitorsplugin.h>
+
+#include <qf/qmlwidgets/framework/mainwindow.h>
+
+using qf::qmlwidgets::framework::getPlugin;
 
 namespace Event::services::qx {
 
@@ -19,6 +24,7 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 
 	connect(ui->btReload, &QAbstractButton::clicked, this, &QxLateRegistrationsWidget::reload);
 	connect(ui->btResizeColumns, &QAbstractButton::clicked, this, &QxLateRegistrationsWidget::resizeColumns);
+	connect(ui->btApply, &QAbstractButton::clicked, this, &QxLateRegistrationsWidget::applyCurrentChange);
 
 	m_model = new QxLateRegistrationsModel(this);
 	connect(m_model, &QxLateRegistrationsModel::modelLoadInfo, this, &QxLateRegistrationsWidget::showMessage);
@@ -96,4 +102,22 @@ void QxLateRegistrationsWidget::reload()
 	m_model->reload();
 }
 
+
+void QxLateRegistrationsWidget::applyCurrentChange()
+{
+	auto row = ui->tableView->currentIndex().row();
+	if (row < 0) {
+		return;
+	}
+	auto status = m_model->value(row, QxLateRegistrationsModel::ColStatus).toString();
+	if (status != "PND") {
+		return;
+	}
+	auto run_id = m_model->value(row, QxLateRegistrationsModel::ColRunId).toInt();
+	int competitor_id = 0;
+	// int result = getPlugin<Competitors::CompetitorsPlugin>()->editCompetitor(competitor_id, run_id == 0? Mode::Insert: Mode::Edit);
+
 }
+
+}
+

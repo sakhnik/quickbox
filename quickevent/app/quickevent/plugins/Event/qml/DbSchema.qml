@@ -479,6 +479,20 @@ Schema {
 				},
 				Field { name: 'note'; type: String { } }
 			]
+		},
+		Table { name: 'qxchanges'
+			fields: [
+				Field { name: 'id'; type: Serial { primaryKey: true } },
+				Field { name: 'data_type'; type: String { } },
+				Field { name: 'data'; type: String { } },
+				Field { name: 'run_id'; type: Int { } },
+				Field { name: 'source'; type: String { } },
+				Field { name: 'user_id'; type: String { } },
+				Field { name: 'status'; type: String { } },
+				Field { name: 'status_message'; type: String { } },
+				Field { name: 'created'; type: DateTime { } },
+				Field { name: 'row_lock'; type: Int { } }
+			]
 		}
 	]
 	inserts: [
