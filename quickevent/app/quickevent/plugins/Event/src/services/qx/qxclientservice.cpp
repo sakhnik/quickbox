@@ -19,6 +19,7 @@
 #include <QTextStream>
 #include <QTimer>
 #include <QJsonDocument>
+#include <QJsonArray>
 #include <QUrlQuery>
 
 using namespace qf::core;
@@ -81,6 +82,12 @@ void QxClientService::run() {
 			setStatusMessage(event_info.name());
 			m_eventId = event_info.id();
 			connectToSSE(m_eventId);
+			if (!m_pollChangesTimer) {
+				m_pollChangesTimer = new QTimer(this);
+				connect(m_pollChangesTimer, &QTimer::timeout, this, &QxClientService::pollQxChanges);
+			}
+			pollQxChanges();
+			m_pollChangesTimer->start(10000);
 			Super::run();
 		}
 		else {
@@ -92,6 +99,9 @@ void QxClientService::run() {
 void QxClientService::stop()
 {
 	disconnectSSE();
+	if (m_pollChangesTimer) {
+		m_pollChangesTimer->stop();
+	}
 	Super::stop();
 }
 
@@ -191,17 +201,12 @@ void QxClientService::exportRuns(QObject *context, std::function<void (QString)>
 	}
 }
 
-QNetworkReply* QxClientService::loadChanges(const QString &data_type, const QString &status)
+QNetworkReply* QxClientService::loadQxChanges(int from_id)
 {
 	auto url = exchangeServerUrl();
 
 	url.setPath(QStringLiteral("/api/event/%1/changes").arg(eventId()));
-	if (!data_type.isEmpty()) {
-		url.setQuery(QStringLiteral("data_type=%1").arg(data_type));
-	}
-	if (!status.isEmpty()) {
-		url.setQuery(QStringLiteral("status=%1").arg(status));
-	}
+	url.setQuery(QStringLiteral("from_id=%1").arg(from_id));
 	QNetworkRequest request;
 	request.setUrl(url);
 	return networkManager()->get(request);
@@ -305,6 +310,73 @@ void QxClientService::disconnectSSE()
 		qfInfo() << "Disconnecting SSE:" << m_replySSE;
 		m_replySSE->deleteLater();
 		m_replySSE = nullptr;
+	}
+}
+
+void QxClientService::pollQxChanges()
+{
+	auto event_plugin = getPlugin<EventPlugin>();
+	if(!getPlugin<EventPlugin>()->isEventOpen()) {
+		return;
+	}
+	int stage_id = event_plugin->currentStageId();
+	try {
+		int start_id = 0;
+		qf::core::sql::Query q;
+		q.execThrow("SELECT MAX(id) FROM qxchanges");
+		if (q.next()) {
+			start_id = q.value(0).toInt() + 1;
+		}
+		auto *reply = loadQxChanges(start_id);
+		connect(reply, &QNetworkReply::finished, this, [reply, stage_id]() {
+			QString err;
+			if(reply->error()) {
+				err = reply->errorString();
+				qfWarning() << "Load qxchanges error:" << err;
+			}
+			else {
+				QJsonParseError err;
+				auto data = reply->readAll();
+				auto json = QJsonDocument::fromJson(data, &err);
+				if (err.error != QJsonParseError::NoError) {
+					qfWarning() << "Parse qxchanges error:" << err.errorString();
+				}
+				else {
+					auto records = json.array().toVariantList();
+					qf::core::sql::Query q;
+					q.prepare("INSERT INTO qxchanges (data_type, data, run_id, source, user_id, status, status_message, stage_id, change_id)"
+							  " VALUES (:data_type, :data, :run_id, :source, :user_id, :status, :status_message, :stage_id, :change_id)");
+					for (const auto &v : records) {
+						auto rec = v.toMap();
+						auto ba = QJsonDocument::fromVariant(rec.value("data")).toJson(QJsonDocument::Compact);
+						auto data = QString::fromUtf8(ba);
+						q.bindValue(":data_type", rec.value("data_type"));
+						q.bindValue(":data", data);
+						q.bindValue(":run_id", rec.value("run_id"));
+						q.bindValue(":source", rec.value("source"));
+						q.bindValue(":user_id", rec.value("user_id"));
+						q.bindValue(":status", rec.value("status"));
+						q.bindValue(":status_message", rec.value("status_message"));
+						q.bindValue(":stage_id", stage_id);
+						auto change_id = rec.value("id").toInt();
+						Q_ASSERT(change_id > 0);
+						q.bindValue(":change_id", change_id);
+						// may fail on prikey violation if more clients are inserting simultaneously
+						if (q.exec()) {
+							getPlugin<EventPlugin>()->emitDbEvent(Event::EventPlugin::DBEVENT_QX_CHANGE_RECEIVED, q.lastInsertId(), true);
+						}
+						else {
+							qfInfo() << "sql error:" << q.lastErrorText();
+
+						}
+					}
+				}
+			}
+			reply->deleteLater();
+		});
+	}
+	catch (const qf::core::Exception &e) {
+		qfWarning() << "Load qxchanges error:" << e.message();
 	}
 }
 

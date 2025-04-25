@@ -15,106 +15,6 @@
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
-    <widget class="QFrame" name="frame">
-     <property name="frameShape">
-      <enum>QFrame::Shape::NoFrame</enum>
-     </property>
-     <property name="frameShadow">
-      <enum>QFrame::Shadow::Raised</enum>
-     </property>
-     <layout class="QHBoxLayout" name="horizontalLayout">
-      <property name="spacing">
-       <number>5</number>
-      </property>
-      <property name="leftMargin">
-       <number>2</number>
-      </property>
-      <property name="topMargin">
-       <number>2</number>
-      </property>
-      <property name="rightMargin">
-       <number>2</number>
-      </property>
-      <property name="bottomMargin">
-       <number>2</number>
-      </property>
-      <item>
-       <widget class="QToolButton" name="btReload">
-        <property name="text">
-         <string>Reload</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/reload.svg</normaloff>:/qf/qmlwidgets/images/flat/reload.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QToolButton" name="btResizeColumns">
-        <property name="text">
-         <string>Fit</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/zoom_fitwidth.svg</normaloff>:/qf/qmlwidgets/images/flat/zoom_fitwidth.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Orientation::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item>
-       <widget class="QToolButton" name="btApply">
-        <property name="text">
-         <string>Apply</string>
-        </property>
-        <property name="icon">
-         <iconset resource="../../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/media-play.svg</normaloff>:/qf/qmlwidgets/images/flat/media-play.svg</iconset>
-        </property>
-        <property name="iconSize">
-         <size>
-          <width>24</width>
-          <height>24</height>
-         </size>
-        </property>
-        <property name="autoRaise">
-         <bool>true</bool>
-        </property>
-       </widget>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item>
     <widget class="QLabel" name="lblErrorMsg">
      <property name="styleSheet">
       <string notr="true">background:salmon;color:black</string>
@@ -128,12 +28,26 @@
     </widget>
    </item>
    <item>
-    <widget class="QTableView" name="tableView"/>
+    <widget class="qf::qmlwidgets::TableViewToolBar" name="toolbar" native="true"/>
+   </item>
+   <item>
+    <widget class="qf::qmlwidgets::TableView" name="tableView"/>
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc"/>
- </resources>
+ <customwidgets>
+  <customwidget>
+   <class>qf::qmlwidgets::TableView</class>
+   <extends>QTableView</extends>
+   <header location="global">qf/qmlwidgets/tableview.h</header>
+  </customwidget>
+  <customwidget>
+   <class>qf::qmlwidgets::TableViewToolBar</class>
+   <extends>QWidget</extends>
+   <header location="global">qf/qmlwidgets/tableviewtoolbar.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
  <connections/>
 </ui>

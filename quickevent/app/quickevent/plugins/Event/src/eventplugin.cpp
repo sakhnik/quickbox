@@ -96,20 +96,6 @@ QByteArray DbEventPayload::toJson() const
 	return jsd.toJson(QJsonDocument::Compact);
 }
 
-/// strange is that 'quickboxDbEvent' just doesn't work without any error
-/// from psql doc: Commonly, the channel name is the same as the name of some table in the database
-/// I guess that channel name cannot contain capital letters to work
-const char* const EventPlugin::DBEVENT_NOTIFY_NAME = "quickbox_db_event";
-
-const char* const EventPlugin::DBEVENT_COMPETITOR_COUNTS_CHANGED = "competitorCountsChanged";
-const char* const EventPlugin::DBEVENT_CARD_READ = "cardRead";
-const char* const EventPlugin::DBEVENT_COMPETITOR_EDITED = "competitorEdited";
-const char* const EventPlugin::DBEVENT_RUN_CHANGED = "runChanged";
-const char* const EventPlugin::DBEVENT_CARD_PROCESSED_AND_ASSIGNED = "cardProcessedAndAssigned";
-const char* const EventPlugin::DBEVENT_PUNCH_RECEIVED = "punchReceived";
-const char* const EventPlugin::DBEVENT_REGISTRATIONS_IMPORTED = "registrationsImported";
-const char* const EventPlugin::DBEVENT_STAGE_START_CHANGED = "stageStartChanged";
-
 namespace {
 const auto QBE_EXT = QStringLiteral(".qbe");
 

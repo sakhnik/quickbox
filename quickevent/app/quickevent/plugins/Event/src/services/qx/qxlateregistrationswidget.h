@@ -2,13 +2,14 @@
 
 #include <QWidget>
 
+namespace qf::core::model { class SqlTableModel; }
+
 namespace Event::services::qx {
 
 namespace Ui {
 class QxLateRegistrationsWidget;
 }
 
-class QxLateRegistrationsModel;
 class QxClientService;
 
 class QxLateRegistrationsWidget : public QWidget
@@ -24,12 +25,14 @@ public:
 private:
 	QxClientService* service();
 	void reload();
+	void addQxChangeRow(int change_sql_id);
+
 	void resizeColumns();
 	void showMessage(const QString &msg, bool is_error = false);
 	void applyCurrentChange();
 private:
 	Ui::QxLateRegistrationsWidget *ui;
-	QxLateRegistrationsModel *m_model;
+	qf::core::model::SqlTableModel *m_model;
 };
 
 }

@@ -4,8 +4,22 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QTimer;
 
 namespace Event::services::qx {
+
+static constexpr auto COL_ID = "id";
+static constexpr auto COL_DATA = "data";
+static constexpr auto COL_DATA_TYPE = "data_type";
+static constexpr auto COL_STATUS = "status";
+static constexpr auto COL_STATUS_MESSAGE = "status_message";
+static constexpr auto COL_SOURCE = "source";
+static constexpr auto COL_RUN_ID = "run_id";
+static constexpr auto COL_USER_ID = "user_id";
+static constexpr auto COL_CREATED = "created";
+static constexpr auto COL_CROW_LOCK = "row_lock";
+
+static constexpr auto STATUS_PENDING = "Pending";
 
 class QxClientServiceSettings : public ServiceSettings
 {
@@ -56,7 +70,7 @@ public:
 	void exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
 	void exportRuns(QObject *context, std::function<void (QString)> call_back = nullptr);
 
-	QNetworkReply* loadChanges(const QString &data_type, const QString &status);
+	QNetworkReply* loadQxChanges(int from_id);
 private:
 	int eventId();
 	void loadSettings() override;
@@ -71,11 +85,14 @@ private:
 	void connectToSSE(int event_id);
 	void disconnectSSE();
 
+	void pollQxChanges();
+
 	EventInfo eventInfo() const;
 private:
 	QNetworkAccessManager *m_networkManager = nullptr;
 	QNetworkReply *m_replySSE = nullptr;
 	int m_eventId = 0;
+	QTimer *m_pollChangesTimer = nullptr;
 };
 
 }

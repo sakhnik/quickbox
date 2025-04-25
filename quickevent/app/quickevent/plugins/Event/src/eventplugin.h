@@ -19,6 +19,7 @@ class DbSchema;
 
 namespace Event {
 
+
 static constexpr auto START_LIST_IOFXML3_FILE = "startlist-iof3.xml";
 static constexpr auto RESULTS_IOFXML3_FILE = "results-iof3.xml";
 
@@ -41,15 +42,20 @@ public:
 	QF_PROPERTY_BOOL_IMPL(e, E, ventOpen)
 	QF_PROPERTY_IMPL(QString, e, E, ventName)
 
-	static const char* const DBEVENT_NOTIFY_NAME;
-	static const char* const DBEVENT_COMPETITOR_COUNTS_CHANGED; //< number of competitors in classes changed
-	static const char* const DBEVENT_CARD_READ;
-	static const char* const DBEVENT_COMPETITOR_EDITED;
-	static const char* const DBEVENT_RUN_CHANGED;
-	static const char* const DBEVENT_CARD_PROCESSED_AND_ASSIGNED;
-	static const char* const DBEVENT_PUNCH_RECEIVED;
-	static const char* const DBEVENT_REGISTRATIONS_IMPORTED;
-	static const char* const DBEVENT_STAGE_START_CHANGED;
+	/// strange is that 'quickboxDbEvent' just doesn't work without any error
+	/// from psql doc: Commonly, the channel name is the same as the name of some table in the database
+	/// I guess that channel name cannot contain capital letters to work
+	static constexpr auto DBEVENT_NOTIFY_NAME = "quickbox_db_event";
+
+	static constexpr auto DBEVENT_COMPETITOR_COUNTS_CHANGED = "competitorCountsChanged";
+	static constexpr auto DBEVENT_CARD_READ = "cardRead";
+	static constexpr auto DBEVENT_COMPETITOR_EDITED = "competitorEdited";
+	static constexpr auto DBEVENT_RUN_CHANGED = "runChanged";
+	static constexpr auto DBEVENT_CARD_PROCESSED_AND_ASSIGNED = "cardProcessedAndAssigned";
+	static constexpr auto DBEVENT_PUNCH_RECEIVED = "punchReceived";
+	static constexpr auto DBEVENT_REGISTRATIONS_IMPORTED = "registrationsImported";
+	static constexpr auto DBEVENT_STAGE_START_CHANGED = "stageStartChanged";
+	static constexpr auto DBEVENT_QX_CHANGE_RECEIVED = "qxChangeReceived";
 
 	Q_INVOKABLE void initEventConfig();
 	Event::EventConfig* eventConfig(bool reload = false);
