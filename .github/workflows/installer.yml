@@ -72,7 +72,7 @@ jobs:
         shell: bash
 
       - name: Install
-        run: cmake --install '${{ github.workspace }}/install'
+        run: cmake --install '${{ github.workspace }}/build'
         shell: bash
 
       - name: Run windeployqt
