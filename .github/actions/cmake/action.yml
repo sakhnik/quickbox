@@ -60,6 +60,7 @@ runs:
         cmake \
         -S '${{github.workspace}}' \
         -B '${{github.workspace}}/build' \
+        -DCMAKE_BUILD_TYPE=Release \
         -DQF_BUILD_QML_PLUGINS=ON \
         -DBUILD_TESTING=OFF \
         -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
