@@ -1,6 +1,10 @@
 #include "chooseoriseventdialog.h"
 #include "orisimporter.h"
 
+#include <plugins/Event/src/eventplugin.h>
+#include <plugins/Classes/src/classdocument.h>
+#include <plugins/Competitors/src/competitordocument.h>
+
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/qmlwidgets/dialogs/dialog.h>
 #include <qf/qmlwidgets/dialogs/getiteminputdialog.h>
@@ -17,12 +21,7 @@
 #include <qf/core/sql/transaction.h>
 #include <qf/core/utils/fileutils.h>
 #include <qf/core/utils/htmlutils.h>
-#include <plugins/Event/src/eventplugin.h>
-#include <plugins/Classes/src/classdocument.h>
-#include <plugins/Competitors/src/competitordocument.h>
-
 #include <qf/core/assert.h>
-#include <qf/core/log.h>
 
 #include <QDate>
 #include <QFile>
@@ -33,6 +32,40 @@
 #include <QTime>
 #include <QUrl>
 #include <QInputDialog>
+
+#if QT_VERSION_MAJOR >= 6
+// workaround to decode cp-1250 on linux, needed for relays import from Oris
+#include <iconv.h>
+
+namespace {
+QByteArray convertCp1250ToUtf8(const QByteArray &input) {
+	iconv_t cd = iconv_open("UTF-8", "CP1250");
+	if (cd == (iconv_t)-1) {
+		qfWarning() << "iconv_open failed";
+		return input;
+	}
+
+	size_t inBytesLeft = input.size();
+	size_t outBytesLeft = input.size() * 2; // allocate more for UTF-8
+	QByteArray output;
+	output.resize(outBytesLeft);
+
+	char *inBuf = const_cast<char *>(input.data());
+	char *outBuf = output.data();
+
+	size_t result = iconv(cd, &inBuf, &inBytesLeft, &outBuf, &outBytesLeft);
+	if (result == (size_t)-1) {
+		qWarning() << "iconv conversion failed";
+		iconv_close(cd);
+		return input;
+	}
+
+	iconv_close(cd);
+	output.resize(output.size() - outBytesLeft);
+	return output;
+}
+}
+#endif
 
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
@@ -166,11 +199,13 @@ void OrisImporter::syncRelaysEntries(int event_id, std::function<void ()> succes
 			while(q.next())
 				class_ids[q.value(1).toString()] = q.value(0).toInt();
 
-			QTextStream ts(data);
 #if QT_VERSION_MAJOR >= 6
-		ts.setEncoding(QStringConverter::System);
+			auto data_utf8 = convertCp1250ToUtf8(data);
+			QTextStream ts(data_utf8);
+			ts.setEncoding(QStringConverter::Utf8);
 #else
-		ts.setCodec("cp1250");
+			QTextStream ts(data);
+			ts.setCodec("cp1250");
 #endif
 			enum E1 {
 				Club = 4,
