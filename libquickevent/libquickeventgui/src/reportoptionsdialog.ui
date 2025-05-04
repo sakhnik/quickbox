@@ -464,7 +464,7 @@
       <item>
        <widget class="QRadioButton" name="btStartOrder1">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(class name, start time,  runner name)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>(class name, start time, runner name)</string>
         </property>
         <property name="text">
          <string>Class names</string>
@@ -474,7 +474,7 @@
       <item>
        <widget class="QRadioButton" name="btStartOrder2">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(start time, class name, runner name)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>(start time, class name, runner name)</string>
         </property>
         <property name="text">
          <string>Start times</string>
@@ -484,7 +484,7 @@
       <item>
        <widget class="QRadioButton" name="btStartOrder3">
         <property name="toolTip">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(runner name, class name, start time)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>(runner name, class name, start time)</string>
         </property>
         <property name="text">
          <string>Runner names</string>

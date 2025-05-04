@@ -34,6 +34,26 @@ add_library(libqfcore SHARED
     src/utils/treetable.cpp
     )
 
+qt6_add_translation(QM_FILES
+	libqfcore-cs_CZ.ts
+	libqfcore-fr_FR.ts
+	libqfcore-nb_NO.ts
+	libqfcore-nl_BE.ts
+	libqfcore-pl_PL.ts
+	libqfcore-ru_RU.ts
+	libqfcore-uk_UA.ts
+	)
+
+qt6_add_lupdate(libqfcore TS_FILES
+	libqfcore-cs_CZ.ts
+	libqfcore-fr_FR.ts
+	libqfcore-nb_NO.ts
+	libqfcore-nl_BE.ts
+	libqfcore-pl_PL.ts
+	libqfcore-ru_RU.ts
+	libqfcore-uk_UA.ts
+	)
+
 target_link_libraries(libqfcore PUBLIC libnecrolog Qt::Core Qt::Sql PRIVATE Qt::Gui Qt::Qml Qt::Xml libnecrolog)
 target_include_directories(libqfcore PUBLIC include)
 target_compile_definitions(libqfcore PRIVATE QFCORE_BUILD_DLL)

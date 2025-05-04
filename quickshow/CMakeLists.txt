@@ -4,32 +4,31 @@ add_executable(quickshow
     src/cellrenderer.cpp
     src/main.cpp
     src/mainwindow.cpp
+    src/mainwindow.ui
     src/model.cpp
     src/table.cpp
     quickshow.rc
     )
 
-if(USE_QT6)
-	qt6_add_translation(QM_FILES
-        quickshow-cs_CZ.ts
-        quickshow-fr_FR.ts
-        quickshow-nb_NO.ts
-        quickshow-nl_BE.ts
-        quickshow-pl_PL.ts
-        quickshow-ru_RU.ts
-        quickshow-uk_UA.ts
-        )
-else()
-    qt5_add_translation(QM_FILES
-        quickshow-cs_CZ.ts
-        quickshow-fr_FR.ts
-        quickshow-nb_NO.ts
-        quickshow-nl_BE.ts
-        quickshow-pl_PL.ts
-        quickshow-ru_RU.ts
-        quickshow-uk_UA.ts
-        )
-endif()
+qt6_add_translation(QM_FILES
+	quickshow-cs_CZ.ts
+	quickshow-fr_FR.ts
+	quickshow-nb_NO.ts
+	quickshow-nl_BE.ts
+	quickshow-pl_PL.ts
+	quickshow-ru_RU.ts
+	quickshow-uk_UA.ts
+	)
+
+qt6_add_lupdate(quickshow TS_FILES
+	quickshow-cs_CZ.ts
+	quickshow-fr_FR.ts
+	quickshow-nb_NO.ts
+	quickshow-nl_BE.ts
+	quickshow-pl_PL.ts
+	quickshow-ru_RU.ts
+	quickshow-uk_UA.ts
+	)
 
 target_sources(quickshow PRIVATE ${QM_FILES})
 target_link_libraries(quickshow PRIVATE Qt::Widgets Qt::Sql libqfcore)

@@ -14,9 +14,11 @@ add_library(libqfqmlwidgets SHARED
     src/dialogs/internal/captionframe.cpp
     src/dialogs/messagebox.cpp
     src/dialogs/previewdialog.cpp
+    src/dialogs/previewdialog.ui
     src/dialogs/qmldialog.cpp
     src/exportcsvtableviewwidget.cpp
     src/exporttableviewwidget.cpp
+    src/exporttableviewwidget.ui
     src/frame.cpp
     src/framework/application.cpp
     src/framework/centralwidget.cpp
@@ -28,6 +30,7 @@ add_library(libqfqmlwidgets SHARED
     src/framework/ipersistentoptions.cpp
     src/framework/ipersistentsettings.cpp
     src/framework/logwidget.cpp
+    src/framework/logwidget.ui
     src/framework/mainwindow.cpp
     src/framework/partswitch.cpp
     src/framework/partwidget.cpp
@@ -37,11 +40,15 @@ add_library(libqfqmlwidgets SHARED
     src/graphics/graphics.cpp
     src/headerview.cpp
     src/htmlviewwidget.cpp
+    src/htmlviewwidget.ui
     src/idatawidget.cpp
     src/internal/desktoputils.cpp
     src/internal/dlgtableviewcopyspecial.cpp
+    src/internal/dlgtableviewcopyspecial.ui
     src/internal/tableviewchoosecolumnswidget.cpp
+    src/internal/tableviewchoosecolumnswidget.ui
     src/internal/tableviewcopytodialogwidget.cpp
+    src/internal/tableviewcopytodialogwidget.ui
     src/label.cpp
     src/layoutpropertiesattached.cpp
     src/layouttypeproperties.cpp
@@ -70,9 +77,12 @@ add_library(libqfqmlwidgets SHARED
     src/reports/processor/style/styleobject.cpp
     src/reports/processor/style/text.cpp
     src/reports/widgets/itemvalueeditorwidget.cpp
+    src/reports/widgets/itemvalueeditorwidget.ui
     src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp
+    src/reports/widgets/printtableviewwidget/printtableviewwidget.ui
     src/reports/widgets/reportviewwidget.cpp
     src/saveoptionswidget.cpp
+    src/saveoptionswidget.ui
     src/spinbox.cpp
     src/splitter.cpp
     src/sqltableitemdelegate.cpp
@@ -84,6 +94,7 @@ add_library(libqfqmlwidgets SHARED
     src/tableviewtoolbar.cpp
     src/textedit.cpp
     src/texteditwidget.cpp
+    src/texteditwidget.ui
     src/timeedit.cpp
     src/toolbar.cpp
     style/qf_qmlwidgets_style.qrc
@@ -92,27 +103,25 @@ add_library(libqfqmlwidgets SHARED
 	src/reports/widgets/printtableviewwidget/reports/qf_qmlwidgets_printtablewidget_reports.qrc
     )
 
-if(USE_QT6)
-	qt6_add_translation(QM_FILES
-        libqfqmlwidgets-cs_CZ.ts
-        libqfqmlwidgets-fr_FR.ts
-        libqfqmlwidgets-nb_NO.ts
-        libqfqmlwidgets-nl_BE.ts
-        libqfqmlwidgets-pl_PL.ts
-        libqfqmlwidgets-ru_RU.ts
-        libqfqmlwidgets-uk_UA.ts
-        )
-else()
-    qt5_add_translation(QM_FILES
-        libqfqmlwidgets-cs_CZ.ts
-        libqfqmlwidgets-fr_FR.ts
-        libqfqmlwidgets-nb_NO.ts
-        libqfqmlwidgets-nl_BE.ts
-        libqfqmlwidgets-pl_PL.ts
-        libqfqmlwidgets-ru_RU.ts
-        libqfqmlwidgets-uk_UA.ts
-        )
-endif()
+qt6_add_translation(QM_FILES
+	libqfqmlwidgets-cs_CZ.ts
+	libqfqmlwidgets-fr_FR.ts
+	libqfqmlwidgets-nb_NO.ts
+	libqfqmlwidgets-nl_BE.ts
+	libqfqmlwidgets-pl_PL.ts
+	libqfqmlwidgets-ru_RU.ts
+	libqfqmlwidgets-uk_UA.ts
+	)
+
+qt6_add_lupdate(libqfqmlwidgets TS_FILES
+	libqfqmlwidgets-cs_CZ.ts
+	libqfqmlwidgets-fr_FR.ts
+	libqfqmlwidgets-nb_NO.ts
+	libqfqmlwidgets-nl_BE.ts
+	libqfqmlwidgets-pl_PL.ts
+	libqfqmlwidgets-ru_RU.ts
+	libqfqmlwidgets-uk_UA.ts
+	)
 
 target_sources(libqfqmlwidgets PRIVATE ${QM_FILES})
 

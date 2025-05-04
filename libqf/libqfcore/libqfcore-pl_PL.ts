@@ -4,10 +4,8 @@
 <context>
     <name>QObject</name>
     <message>
-        <location filename="src/sql/catalog.cpp" line="34"/>
-        <location filename="src/sql/catalog.cpp" line="62"/>
         <source>Error getting the sequence nextval(&apos;%1&apos;)</source>
-        <translation>Błąd podczas pobierania sekwencji nextval(&apos;%1&apos;)</translation>
+        <translation type="vanished">Błąd podczas pobierania sekwencji nextval(&apos;%1&apos;)</translation>
     </message>
 </context>
 <context>
@@ -56,13 +54,13 @@
 <context>
     <name>qf::core::model::SqlTableModel</name>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="234"/>
+        <location filename="src/model/sqltablemodel.cpp" line="233"/>
         <source>numRowsAffected() = %1, should be 1
 %2</source>
         <translation>liczba wierszy niewłaściwa() = %1, powinno być 1 %2</translation>
     </message>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="260"/>
+        <location filename="src/model/sqltablemodel.cpp" line="259"/>
         <source>Error executing query: %1
  %2</source>
         <translation>Błąd podczas wykonywania zapytania: %1 %2</translation>
@@ -145,8 +143,8 @@
 <context>
     <name>qf::core::sql::FieldInfoList</name>
     <message>
-        <location filename="src/sql/catalog.cpp" line="306"/>
-        <location filename="src/sql/catalog.cpp" line="324"/>
+        <location filename="src/sql/catalog.cpp" line="260"/>
+        <location filename="src/sql/catalog.cpp" line="278"/>
         <source>Found info for nonexisting field &apos;%1&apos;</source>
         <translation>Znaleziono informację dla nieistniejacego pola &apos;%1&apos;</translation>
     </message>

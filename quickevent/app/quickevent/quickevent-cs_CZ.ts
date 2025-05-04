@@ -4,44 +4,54 @@
 <context>
     <name>AddLegDialogWidget</name>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="37"/>
         <source>Filter</source>
-        <translation type="vanished">Filtr</translation>
+        <translation>Filtr</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="44"/>
         <source>Type name, registration or SI</source>
-        <translation type="vanished">Začněte psát jméno, registraci nebo SI</translation>
+        <translation>Začněte psát jméno, registraci nebo SI</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="56"/>
         <source>Double-click on runner to add leg</source>
-        <translation type="vanished">Dvojklikem přidáte závodníka do štafety</translation>
+        <translation>Dvojklikem přidáte závodníka do štafety</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="68"/>
         <source>Registrations</source>
-        <translation type="vanished">Registrace</translation>
+        <translation>Registrace</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="85"/>
         <source>Competitors</source>
-        <translation type="vanished">Závodníci</translation>
+        <translation>Závodníci</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="97"/>
         <source>Unregistered runner</source>
-        <translation type="vanished">Neregistrovaný závodník</translation>
+        <translation>Neregistrovaný závodník</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="109"/>
         <source>First name</source>
-        <translation type="vanished">Jméno</translation>
+        <translation>Jméno</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="132"/>
         <source>Last name</source>
-        <translation type="vanished">Příjmení</translation>
+        <translation>Příjmení</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="178"/>
         <source>Add to leg</source>
-        <translation type="vanished">Přidat do štafety</translation>
+        <translation>Přidat do štafety</translation>
     </message>
     <message>
         <location filename="plugins/Relays/src/addlegdialogwidget.cpp" line="34"/>
@@ -65,6 +75,7 @@
         <translation>Lic</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/addlegdialogwidget.ui" line="155"/>
         <location filename="plugins/Relays/src/addlegdialogwidget.cpp" line="39"/>
         <source>SI</source>
         <translation>SI</translation>
@@ -162,112 +173,139 @@
 <context>
     <name>CardReader::CardReaderSettingsPage</name>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="14"/>
         <source>CuteCom</source>
-        <translation type="vanished">Nastavení vyčítání čipů</translation>
+        <translation>Nastavení vyčítání čipů</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="20"/>
         <source>Connection</source>
-        <translation type="vanished">Připojení</translation>
+        <translation>Připojení</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="26"/>
         <source>De&amp;vice</source>
-        <translation type="vanished">Zaří&amp;zení</translation>
+        <translation>Zaří&amp;zení</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="39"/>
         <source>Baud rate</source>
-        <translation type="vanished">Přenosová rychlost (v baudech)</translation>
+        <translation>Přenosová rychlost (v baudech)</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="53"/>
         <source>38400</source>
-        <translation type="vanished">38400</translation>
+        <translation>38400</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="58"/>
         <source>4800</source>
-        <translation type="vanished">4800</translation>
+        <translation>4800</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="66"/>
         <source>Data bits</source>
-        <translation type="vanished">Datové bity</translation>
+        <translation>Datové bity</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="80"/>
         <source>8</source>
-        <translation type="vanished">8</translation>
+        <translation>8</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="85"/>
         <source>7</source>
-        <translation type="vanished">7</translation>
+        <translation>7</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="90"/>
         <source>6</source>
-        <translation type="vanished">6</translation>
+        <translation>6</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="95"/>
         <source>5</source>
-        <translation type="vanished">5</translation>
+        <translation>5</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="103"/>
         <source>Stop bits</source>
-        <translation type="vanished">Stop bity</translation>
+        <translation>Stop bity</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="114"/>
         <source>1</source>
-        <translation type="vanished">1</translation>
+        <translation>1</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="119"/>
         <source>2</source>
-        <translation type="vanished">2</translation>
+        <translation>2</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="127"/>
         <source>Parity</source>
-        <translation type="vanished">Parita</translation>
+        <translation>Parita</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="138"/>
         <source>None</source>
-        <translation type="vanished">Žádná</translation>
+        <translation>Žádná</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="143"/>
         <source>Odd</source>
-        <translation type="vanished">Lichá</translation>
+        <translation>Lichá</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="148"/>
         <source>Even</source>
-        <translation type="vanished">Sudá</translation>
+        <translation>Sudá</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="153"/>
         <source>Mark</source>
-        <translation type="vanished">1 (mark)</translation>
+        <translation>1 (mark)</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="158"/>
         <source>Space</source>
-        <translation type="vanished">0 (space)</translation>
+        <translation>0 (space)</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="179"/>
         <source>Test connection</source>
-        <translation type="vanished">Otestovat připojení</translation>
+        <translation>Otestovat připojení</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="186"/>
         <source>Debugging</source>
-        <translation type="vanished">Ladění</translation>
+        <translation>Ladění</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="202"/>
         <source>show raw data</source>
-        <translation type="vanished">zobrazit nezpracovaná data</translation>
+        <translation>zobrazit nezpracovaná data</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="209"/>
         <source>disable CRC check</source>
-        <translation type="vanished">zakázat CRC kontrolu</translation>
+        <translation>zakázat CRC kontrolu</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="222"/>
         <source>Reader</source>
-        <translation type="vanished">Vyčítací jednotka</translation>
+        <translation>Vyčítací jednotka</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="241"/>
         <source>Check type</source>
-        <translation type="vanished">Typ kontroly ražení</translation>
+        <translation>Typ kontroly ražení</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/cardreadersettingspage.ui" line="254"/>
         <source>Reader mode</source>
-        <translation type="vanished">Mód vyčítací jednotky</translation>
+        <translation>Mód vyčítací jednotky</translation>
     </message>
     <message>
         <location filename="plugins/CardReader/src/cardreadersettingspage.cpp" line="35"/>
@@ -334,8 +372,9 @@
 <context>
     <name>CardReader::services::MqttPunchesWidget</name>
     <message>
+        <location filename="plugins/CardReader/src/services/mqttpuncheswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
 </context>
 <context>
@@ -379,52 +418,64 @@
 <context>
     <name>CardReader::services::RacomClientWidget</name>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="14"/>
         <source>Racom Client</source>
-        <translation type="vanished">RACOM klient</translation>
+        <translation>RACOM klient</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="53"/>
         <source>sirxd data</source>
-        <translation type="vanished">sirxd data</translation>
+        <translation>sirxd data</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="33"/>
         <source>Listen on UDP port</source>
-        <translation type="vanished">Očekávat spojení na UDP portu</translation>
+        <translation>Očekávat spojení na UDP portu</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="20"/>
         <source>Network communication</source>
-        <translation type="vanished">Síťová komunikace</translation>
+        <translation>Síťová komunikace</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="26"/>
         <source>Raw SI data</source>
-        <translation type="vanished">Nezpracovaná SI data</translation>
+        <translation>Nezpracovaná SI data</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="60"/>
         <source>Listen on TCP port</source>
-        <translation type="vanished">Očekávat spojení na TCP portu</translation>
+        <translation>Očekávat spojení na TCP portu</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="83"/>
         <source>Read Text Splits File (format &quot;rawsplits&quot; from Racom)</source>
-        <translation type="vanished">Načítat mezičasy z textového souboru (formát &quot;rawsplits&quot; z RACOMu)</translation>
+        <translation>Načítat mezičasy z textového souboru (formát &quot;rawsplits&quot; z RACOMu)</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="95"/>
         <source>File Name</source>
-        <translation type="vanished">Název souboru</translation>
+        <translation>Název souboru</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="102"/>
         <source>Finish code (in file)</source>
-        <translation type="vanished">Číslo cílové kontroly (v souboru)</translation>
+        <translation>Číslo cílové kontroly (v souboru)</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="122"/>
         <source>Import interval</source>
-        <translation type="vanished">Interval pro importování</translation>
+        <translation>Interval pro importování</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="132"/>
         <source> sec</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
+        <location filename="plugins/CardReader/src/services/racomclientwidget.ui" line="153"/>
         <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="plugins/CardReader/src/services/racomclientwidget.cpp" line="88"/>
@@ -435,8 +486,19 @@
 <context>
     <name>CardReaderWidget</name>
     <message>
+        <location filename="plugins/CardReader/src/cardreaderwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
+    </message>
+    <message>
+        <location filename="plugins/CardReader/src/cardreaderwidget.ui" line="89"/>
+        <source>Test sound</source>
+        <translation>Test zvuku</translation>
+    </message>
+    <message>
+        <location filename="plugins/CardReader/src/cardreaderwidget.ui" line="96"/>
+        <source>Test punch</source>
+        <translation>Test oražení</translation>
     </message>
     <message>
         <source>Test</source>
@@ -675,16 +737,19 @@ Pokud budete pokračovat, toto označení bude odebráno.</translation>
 <context>
     <name>ChooseOrisEventDialog</name>
     <message>
+        <location filename="plugins/Oris/src/chooseoriseventdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="vanished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
+        <location filename="plugins/Oris/src/chooseoriseventdialog.ui" line="22"/>
         <source>Oris event</source>
-        <translation type="vanished">Závod v ORISu</translation>
+        <translation>Závod v ORISu</translation>
     </message>
     <message>
+        <location filename="plugins/Oris/src/chooseoriseventdialog.ui" line="43"/>
         <source>Oris event ID</source>
-        <translation type="vanished">ID závodu v ORISu</translation>
+        <translation>ID závodu v ORISu</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/chooseoriseventdialog.cpp" line="42"/>
@@ -725,40 +790,50 @@ Pokud budete pokračovat, toto označení bude odebráno.</translation>
 <context>
     <name>ClassDefWidget</name>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="20"/>
         <source>Start</source>
-        <translation type="vanished">Start</translation>
+        <translation>Start</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="27"/>
         <source>Interval</source>
-        <translation type="vanished">Interval</translation>
+        <translation>Interval</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="34"/>
         <source>Vacants before</source>
-        <translation type="vanished">Vakanti před</translation>
+        <translation>Vakanti před</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="44"/>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="60"/>
         <source> min</source>
-        <translation type="vanished"> min</translation>
+        <translation> min</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="86"/>
         <source>Vacant every</source>
-        <translation type="vanished">Vakant každých</translation>
+        <translation>Vakant každých</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="93"/>
         <source>Vacants after</source>
-        <translation type="vanished">Vakanti po</translation>
+        <translation>Vakanti po</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="126"/>
         <source>Map count</source>
-        <translation type="vanished">Počet map</translation>
+        <translation>Počet map</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classdefwidget.ui" line="136"/>
         <source> pcs</source>
-        <translation type="vanished"> ks</translation>
+        <translation> ks</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/classdefwidget.cpp" line="13"/>
@@ -806,24 +881,29 @@ Pokud budete pokračovat, toto označení bude odebráno.</translation>
 <context>
     <name>ClassesWidget</name>
     <message>
+        <location filename="plugins/Classes/src/classeswidget.ui" line="20"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classeswidget.ui" line="93"/>
         <source>When checked, all the maps defined for class will be used during drawing</source>
-        <translation type="vanished">Je-li zaškrtnuto, bude při losování zohledněn celkový počet map zadaný pro kategorii</translation>
+        <translation>Je-li zaškrtnuto, bude při losování zohledněn celkový počet map zadaný pro kategorii</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classeswidget.ui" line="96"/>
         <source>Use all maps</source>
-        <translation type="vanished">Použít všechny mapy</translation>
+        <translation>Použít všechny mapy</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classeswidget.ui" line="115"/>
         <source>Codes</source>
-        <translation type="vanished">Kontroly</translation>
+        <translation>Kontroly</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/classeswidget.ui" line="136"/>
         <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="181"/>
@@ -941,96 +1021,96 @@ Pokud budete pokračovat, toto označení bude odebráno.</translation>
         <translation>Počet úseků štafety</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="237"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="240"/>
         <source>&amp;Edit</source>
         <translation>&amp;Upravit</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="239"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="242"/>
         <source>Cou&amp;rses</source>
         <translation>&amp;Tratě</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="244"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="247"/>
         <source>Co&amp;des</source>
         <translation>&amp;Kontroly</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="249"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="252"/>
         <source>Classes &amp;layout</source>
         <translation>&amp;Rozvržení startu kategorií</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="250"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="253"/>
         <source>Ctrl+L</source>
         <translation>Ctrl+L</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="256"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="259"/>
         <source>&amp;Import</source>
         <translation>&amp;Importovat</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="258"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="261"/>
         <source>OCAD TXT</source>
         <oldsource>OCad TXT</oldsource>
         <translation>OCAD TXT</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="263"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="266"/>
         <source>OCAD v8</source>
         <oldsource>OCad v8</oldsource>
         <translation>OCAD v8</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="268"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="271"/>
         <source>OCAD IOF XML 2.0</source>
         <oldsource>OCad IOF-XML 2.0</oldsource>
         <translation>OCAD IOF XML 2.0</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="273"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="276"/>
         <source>OCAD IOF XML 3.0</source>
         <oldsource>OCad IOF-XML 3.0</oldsource>
         <translation>OCAD IOF XML 3.0</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="281"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="284"/>
         <source>Stage </source>
         <translation>Etapa </translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="318"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="321"/>
         <source>Classes without start interval won&apos;t be displayed.
 Consider setting &quot;Interval&quot; column for all classes before continuing.</source>
         <translation>Kategorie bez nastaveného startovního intervalu nebudou zobrazeny.
 Zvažte nastavení intervalu pro všechny kategorie.</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="336"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="339"/>
         <source>E%1</source>
         <translation>E%1</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="435"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="438"/>
         <source>Delete all courses definitions for stage %1?</source>
         <translation>Chcete odstranit všechny definice tratí pro etapu %1?</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="454"/>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="524"/>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="631"/>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="696"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="457"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="527"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="634"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="705"/>
         <source>Open file</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="631"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="634"/>
         <source>XML files (*.xml);; All files (*)</source>
         <translation>XML soubory (*.xml);; Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="787"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="802"/>
         <source>Class name &apos;%1&apos; seems to be combined, separate it to more classes?</source>
         <translation>Název kategorie &apos;%1&apos; je pravděpodobně složený. Mám jej rozdělit na více kategorií?</translation>
     </message>
@@ -1038,56 +1118,69 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>Classic</name>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="69"/>
         <source>E</source>
-        <translation type="vanished">E</translation>
+        <translation>E</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="242"/>
         <source>OK</source>
-        <translation type="vanished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="242"/>
         <source>DISQ</source>
-        <translation type="vanished">DISK</translation>
+        <translation>DISK</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="256"/>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="268"/>
         <source>-----</source>
-        <translation type="vanished">-----</translation>
+        <translation>-----</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="324"/>
         <source>!!! RENTED CARD !!!</source>
         <oldsource>!!! CARD LENT !!!</oldsource>
-        <translation type="vanished">!!! ZAPŮJČENÝ ČIP !!!</translation>
+        <translation>!!! ZAPŮJČENÝ ČIP !!!</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="339"/>
         <source>extra: </source>
-        <translation type="vanished">navíc: </translation>
+        <translation>navíc: </translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="351"/>
         <source>BAD CHECK !!!</source>
-        <translation type="vanished">ŠPATNÝ ČAS KONTROLY NULOVÁNÍ ČIPU !!!</translation>
+        <translation>ŠPATNÝ ČAS KONTROLY NULOVÁNÍ ČIPU !!!</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="371"/>
         <source>current overall loss: +</source>
-        <translation type="vanished">ztráta na nejlepší mezičasy: +</translation>
+        <translation>ztráta na nejlepší mezičasy: +</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Classic.qml" line="386"/>
         <source>standings: </source>
-        <translation type="vanished">pořadí: </translation>
+        <translation>pořadí: </translation>
     </message>
 </context>
 <context>
     <name>CodeClassResultsWidget</name>
     <message>
+        <location filename="plugins/Speaker/src/codeclassresultswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Speaker/src/codeclassresultswidget.ui" line="37"/>
         <source>Class</source>
-        <translation type="vanished">Kategorie</translation>
+        <translation>Kategorie</translation>
     </message>
     <message>
+        <location filename="plugins/Speaker/src/codeclassresultswidget.ui" line="47"/>
         <source>Code</source>
-        <translation type="vanished">Kontrola</translation>
+        <translation>Kontrola</translation>
     </message>
     <message>
         <location filename="plugins/Speaker/src/codeclassresultswidget.cpp" line="42"/>
@@ -1248,69 +1341,90 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>CompetitorWidget</name>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="38"/>
         <source>&amp;Find in registrations</source>
-        <translation type="vanished">&amp;Najít v registracích</translation>
+        <translation>&amp;Najít v registracích</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="45"/>
         <source>Type to find competitor in registrations ...</source>
-        <translation type="vanished">Začněte psát pro nalezení závodníka v registracích...</translation>
+        <translation>Začněte psát pro nalezení závodníka v registracích...</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="58"/>
         <location filename="plugins/Competitors/src/competitorwidget.cpp" line="162"/>
         <source>Competitor</source>
         <translation>Závodník</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="152"/>
         <source>&amp;Class</source>
-        <translation type="vanished">&amp;Kategorie</translation>
+        <translation>&amp;Kategorie</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="162"/>
         <source>IO&amp;F ID</source>
-        <translation type="vanished">IO&amp;F ID</translation>
+        <translation>IO&amp;F ID</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="226"/>
         <source>&amp;SI</source>
-        <translation type="vanished">&amp;SI</translation>
+        <translation>&amp;SI</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="189"/>
         <source>First na&amp;me</source>
-        <translation type="vanished">J&amp;méno</translation>
+        <translation>J&amp;méno</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="71"/>
         <source>&amp;Last name</source>
-        <translation type="vanished">&amp;Příjmení</translation>
+        <translation>&amp;Příjmení</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="125"/>
         <source>&amp;Registration</source>
-        <translation type="vanished">&amp;Registrace</translation>
+        <translation>&amp;Registrace</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="91"/>
         <source>Licenc&amp;e</source>
-        <translation type="vanished">Licenc&amp;e</translation>
+        <translation>Licenc&amp;e</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="179"/>
         <source>Clu&amp;b</source>
-        <translation type="vanished">Klu&amp;b</translation>
+        <translation>Klu&amp;b</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="81"/>
         <source>Co&amp;untry</source>
-        <translation type="vanished">&amp;Země</translation>
+        <translation>&amp;Země</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="135"/>
         <source>&amp;Note</source>
-        <translation type="vanished">P&amp;oznámka</translation>
+        <translation>P&amp;oznámka</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="245"/>
+        <source>Switch Names</source>
+        <translation>Zaměnit jména</translation>
+    </message>
+    <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="270"/>
         <source>Start times</source>
-        <translation type="vanished">Startovní časy</translation>
+        <translation>Startovní časy</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/src/competitorwidget.ui" line="283"/>
         <source>Runs</source>
-        <translation type="vanished">Úseky / Etapy</translation>
+        <translation>Úseky / Etapy</translation>
     </message>
     <message>
         <location filename="plugins/Competitors/src/competitorwidget.cpp" line="196"/>
@@ -1369,8 +1483,9 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>CompetitorsWidget</name>
     <message>
+        <location filename="plugins/Competitors/src/competitorswidget.ui" line="20"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <location filename="plugins/Competitors/src/competitorswidget.cpp" line="93"/>
@@ -1504,25 +1619,35 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>ConnectDbDialogWidget</name>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="14"/>
         <source>Select database</source>
-        <translation type="vanished">Vyberte databázi</translation>
+        <translation>Vyberte databázi</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="32"/>
         <source>Event</source>
-        <translation type="vanished">Závod</translation>
+        <translation>Závod</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="53"/>
         <source>Ev&amp;ent ID</source>
         <oldsource>E&amp;vent ID</oldsource>
-        <translation type="vanished">ID &amp;závodu</translation>
+        <translation>ID &amp;závodu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="63"/>
         <source>Open the event right away if it is found in the database, ignore this field otherwise.</source>
-        <translation type="vanished">Pokud je závod nalezen v databázi, proběhne jeho otevření, v opačném případě je obsah tohoto pole ignorován.</translation>
+        <translation>Pokud je závod nalezen v databázi, proběhne jeho otevření, v opačném případě je obsah tohoto pole ignorován.</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="94"/>
+        <source>&amp;SQL server</source>
+        <translation>&amp;SQL server</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="127"/>
         <source>Data storage</source>
-        <translation type="vanished">Datové úložiště</translation>
+        <translation>Datové úložiště</translation>
     </message>
     <message>
         <source>S&amp;ql server</source>
@@ -1530,36 +1655,44 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
         <translation type="vanished">S&amp;QL server</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="182"/>
         <source>&amp;Host</source>
-        <translation type="vanished">&amp;Host</translation>
+        <translation>&amp;Host</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="199"/>
         <source>&amp;Port</source>
-        <translation type="vanished">&amp;Port</translation>
+        <translation>&amp;Port</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="225"/>
         <source>&amp;User</source>
-        <translation type="vanished">&amp;Uživatel</translation>
+        <translation>&amp;Uživatel</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="242"/>
         <source>Pa&amp;ssword</source>
-        <translation type="vanished">He&amp;slo</translation>
+        <translation>He&amp;slo</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="104"/>
         <source>Single &amp;file</source>
-        <translation type="vanished">Samostatný &amp;soubor</translation>
+        <translation>Samostatný &amp;soubor</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="281"/>
         <source>Choose a wor&amp;king directory</source>
-        <translation type="vanished">Vyberte pracovní &amp;adresář</translation>
+        <translation>Vyberte pracovní &amp;adresář</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="293"/>
         <source>Directory where to store event files (*.qbe)</source>
-        <translation type="vanished">Adresář, do kterého mají být ukládány soubory závodu (*.qbe)</translation>
+        <translation>Adresář, do kterého mají být ukládány soubory závodu (*.qbe)</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/connectdbdialogwidget.ui" line="303"/>
         <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/connectdbdialogwidget.cpp" line="13"/>
@@ -1726,8 +1859,24 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>Core::ReportsSettingsPage</name>
     <message>
+        <location filename="plugins/Core/src/widgets/reportssettingspage.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
+    </message>
+    <message>
+        <location filename="plugins/Core/src/widgets/reportssettingspage.ui" line="20"/>
+        <source>&amp;Reports directory</source>
+        <translation>Adresář &amp;reportů</translation>
+    </message>
+    <message>
+        <location filename="plugins/Core/src/widgets/reportssettingspage.ui" line="46"/>
+        <source>Set default reports directory</source>
+        <translation>Nastavit defaultní adresář pro reporty</translation>
+    </message>
+    <message>
+        <location filename="plugins/Core/src/widgets/reportssettingspage.ui" line="62"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Reports directory is an directory, where QuickEvent is looking for reports definition QML files. It is populated during installation. Default reports directory is &lt;a href=&quot;file:///%1&quot;&gt;%1&lt;/a&gt; in QuickEvent install directory. If you want to have own reports, then you can copy default reports dir to new location, modify QML files and redirect reports dir there.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Custom reports directory is an overlay directory, where QuickEvent is looking for additional or modified reports. QuicEvent is shipped with read-only reports bundled in application binary. This makes the installation process trivial and it also enables shipping QuicEvent as AppImage. When a user wants to use custom reports, the simplest way is to push the &lt;span style=&quot; font-weight:700; font-style:italic;&quot;&gt;Create&lt;/span&gt; button. QuicEvent creates a copy of bundled report files in a directory selected by the user and starts to use reports from it. Every change in reports files from the custom directory is immediately visible in reports generated by QuickEvent, no other action is needed.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
@@ -1738,8 +1887,10 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
         <translation type="vanished">&amp;Vlastní adresář s reporty</translation>
     </message>
     <message>
+        <location filename="plugins/Core/src/widgets/reportssettingspage.ui" line="39"/>
+        <location filename="plugins/Core/src/widgets/reportssettingspage.ui" line="49"/>
         <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
         <source>Create</source>
@@ -1759,8 +1910,9 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>Core::SettingsDialog</name>
     <message>
+        <location filename="plugins/Core/src/widgets/settingsdialog.ui" line="14"/>
         <source>Settings</source>
-        <translation type="vanished">Nastavení</translation>
+        <translation>Nastavení</translation>
     </message>
 </context>
 <context>
@@ -1840,86 +1992,106 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>DbSchema</name>
     <message>
+        <location filename="plugins/Event/qml/DbSchema.qml" line="507"/>
         <source>Data version</source>
-        <translation type="vanished">Verze dat</translation>
+        <translation>Verze dat</translation>
     </message>
 </context>
 <context>
     <name>Default</name>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="82"/>
         <source>E</source>
-        <translation type="vanished">E</translation>
+        <translation>E</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="111"/>
         <source>NO_REG</source>
-        <translation type="vanished">Neregistrovaný</translation>
+        <translation>Neregistrovaný</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="158"/>
         <source>Relay:</source>
-        <translation type="vanished">Štafeta:</translation>
+        <translation>Štafeta:</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="173"/>
         <source>Leg:</source>
-        <translation type="vanished">Úsek:</translation>
+        <translation>Úsek:</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="189"/>
         <source>Check:</source>
-        <translation type="vanished">Check:</translation>
+        <translation>Check:</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="208"/>
         <source>SI:</source>
-        <translation type="vanished">SI:</translation>
+        <translation>SI:</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="223"/>
         <source>Start:</source>
-        <translation type="vanished">Start:</translation>
+        <translation>Start:</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="241"/>
         <source>Finish:</source>
-        <translation type="vanished">Cíl:</translation>
+        <translation>Cíl:</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="323"/>
         <source>OK</source>
-        <translation type="vanished">OK</translation>
+        <translation>OK</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="323"/>
         <source>DISQ</source>
-        <translation type="vanished">DISK</translation>
+        <translation>DISK</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="343"/>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="407"/>
         <source>-----</source>
-        <translation type="vanished">-----</translation>
+        <translation>-----</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="494"/>
         <source>!!! RENTED CARD !!!</source>
-        <translation type="vanished">!!! ZAPŮJČENÝ ČIP !!!</translation>
+        <translation>!!! ZAPŮJČENÝ ČIP !!!</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="510"/>
         <source>current placement = </source>
-        <translation type="vanished">aktuální umístění = </translation>
+        <translation>aktuální umístění = </translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="518"/>
         <source>loss to leading runner = </source>
-        <translation type="vanished">ztráta na vedoucího závodníka = </translation>
+        <translation>ztráta na vedoucího závodníka = </translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="531"/>
         <source>loss to best splits =  </source>
-        <translation type="vanished">ztráta na nejlepší mezičasy =  </translation>
+        <translation>ztráta na nejlepší mezičasy =  </translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="539"/>
         <source>average pace = </source>
-        <translation type="vanished">průměrné tempo = </translation>
+        <translation>průměrné tempo = </translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/receipts/Default.qml" line="555"/>
         <source>extra punches = </source>
-        <translation type="vanished">navíc oraženo = </translation>
+        <translation>navíc oraženo = </translation>
     </message>
 </context>
 <context>
     <name>EditCodesWidget</name>
     <message>
+        <location filename="plugins/Classes/src/editcodeswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/editcodeswidget.cpp" line="16"/>
@@ -1980,32 +2152,39 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>EditCourseCodesWidget</name>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="20"/>
         <source>Course codes</source>
-        <translation type="vanished">Kontroly tratě</translation>
+        <translation>Kontroly tratě</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="78"/>
         <source>Move selected codes up</source>
-        <translation type="vanished">Posunout vybrané kontroly nahoru</translation>
+        <translation>Posunout vybrané kontroly nahoru</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="89"/>
         <source>Move selected codes down</source>
-        <translation type="vanished">Posunout vybrané kontroly dolů</translation>
+        <translation>Posunout vybrané kontroly dolů</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="150"/>
         <source>Add selected codes</source>
-        <translation type="vanished">Přidat vybrané kontroly</translation>
+        <translation>Přidat vybrané kontroly</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="161"/>
         <source>Remove selected codes</source>
-        <translation type="vanished">Odebrat vybrané kontroly</translation>
+        <translation>Odebrat vybrané kontroly</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcoursecodeswidget.ui" line="188"/>
         <source>All codes</source>
-        <translation type="vanished">Všechny kontroly</translation>
+        <translation>Všechny kontroly</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/editcoursecodeswidget.cpp" line="57"/>
@@ -2022,12 +2201,14 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>EditCoursesWidget</name>
     <message>
+        <location filename="plugins/Classes/src/editcourseswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/editcourseswidget.ui" line="39"/>
         <source>Courses</source>
-        <translation type="vanished">Tratě</translation>
+        <translation>Tratě</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/editcourseswidget.cpp" line="36"/>
@@ -2068,53 +2249,53 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>Event::EventPlugin</name>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="288"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="268"/>
         <source>&amp;Connect to database</source>
         <translation>&amp;Připojit k databázi</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="292"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="272"/>
         <source>&amp;Open event</source>
         <translation>&amp;Otevřít závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="297"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="277"/>
         <source>Create eve&amp;nt</source>
         <translation>&amp;Vytvořit závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="301"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="281"/>
         <source>E&amp;dit event</source>
         <translation>&amp;Upravit závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="308"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="312"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="288"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="292"/>
         <source>Event (*.qbe)</source>
         <translation>Závod (*.qbe)</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="329"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="309"/>
         <source>&amp;Event</source>
         <translation>&amp;Závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="346"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="326"/>
         <source>Event</source>
         <translation>Závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="356"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="336"/>
         <source>Current stage E%1</source>
         <translation>Aktuální etapa E%1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="390"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="368"/>
         <source>Services</source>
         <translation>Služby</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="697"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="675"/>
         <source>You are not connected to database.
 Program features will be limited.
 
@@ -2127,12 +2308,12 @@ Připojení k databázi nebo vybrání pracovního adresáře, do kterého jsou 
  &quot;Soubor --&gt; Připojit k databázi&quot; </translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="741"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="719"/>
         <source>Connect Database Error: %1</source>
         <translation>Chyba při připojování k databázi: %1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="748"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="726"/>
         <source>Path to the working directory cannot be empty.
 
 Enter path to the working directory or connect to SQL server.</source>
@@ -2141,7 +2322,7 @@ Enter path to the working directory or connect to SQL server.</source>
 Zadejte cestu k pracovnímu adresáři nebo se připojte k SQL serveru.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="752"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="730"/>
         <source>Entered directory does not exist:
 %1
 
@@ -2152,142 +2333,142 @@ Enter a valid path to the working directory.</source>
 Zadejte platnou cestu k pracovnímu adresáři.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="812"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="790"/>
         <source>Create event</source>
         <translation>Vytvořit závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="822"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="800"/>
         <source>Event ID cannot be empty.</source>
         <translation>ID závodu nemůže být prázdné.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="826"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="804"/>
         <source>Event ID %1 exists already.</source>
         <translation>ID závodu %1 již existuje.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="853"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1004"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1171"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1251"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1268"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="831"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="982"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1149"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1229"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1246"/>
         <source>Open Database Error: %1</source>
         <translation>Chyba při připojování databáze: %1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="895"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1188"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1286"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="873"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1166"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1264"/>
         <source>Create Database Error: %1</source>
         <translation>Chyba při vytváření databáze: %1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="899"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="877"/>
         <source>Cannot create event, database is not open: %1</source>
         <translation>Nelze vytvořit závod, databáze není připojena: %1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="914"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="892"/>
         <source>Edit event</source>
         <translation>Upravit závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="950"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="928"/>
         <source>Connected to an empty database.
 Start by creating or importing an event.</source>
         <translation>Připojeno k prázdné databázi.
 Začněte vytvořením nebo importováním nového závodu.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="954"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="932"/>
         <source>Working directory does not contain any event files.
 Start by creating or importing an event.</source>
         <translation>Pracovní adresář neobsahuje žádné závody.
 Začněte vytvořením nebo importováním nového závodu.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="964"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="942"/>
         <source>select event to open:</source>
         <translation>Vyberte závod k otevření:</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="964"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="942"/>
         <source>Open event</source>
         <translation>Otevřít závod</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1009"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="987"/>
         <source>Database file %1 doesn&apos;t exist.</source>
         <translation>Databázový soubor %1 neexistuje.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1018"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="996"/>
         <source>Event data version (%1) is too low, minimal version is (%2).
 Use: File --&gt; Import --&gt; Event (*.qbe) to convert event to current version.</source>
         <translation>Závod využívá příliš starou verzi dat (%1), minimální verze je (%2).
 Použij: Soubor --&gt; Importovat --&gt; Závod (*.qbe) pro konverzi dat do aktuální verze.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1025"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1003"/>
         <source>Event was created in more recent QuickEvent version (%1) and the application might not work as expected. Download latest QuickEvent is strongly recommended.</source>
         <translation>Závod byl vytvořen v novější verzi QuickEventu (%1) a aplikace možná nebude pracovat tak, jak je očekáváno. Je doporučeno si stáhnout nejnovětší verzi QuickEventu.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1153"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1131"/>
         <source>Export as Quick Event</source>
         <translation>Exportovat jako Quick Event</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1153"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1223"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1131"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1201"/>
         <source>Quick Event files *%1 (*%1)</source>
         <translation>Soubory Quick Eventu *%1 (*%1)</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1163"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1141"/>
         <source>Cannot delete existing file %1</source>
         <translation>Nelze smazat existující soubor %1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1181"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1278"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1159"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1256"/>
         <source>Creating database</source>
         <translation>Vytvářím databázi</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1196"/>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1294"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1174"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1272"/>
         <source>Copying table %1</source>
         <translation>Kopíruji tabulku %1</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1223"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1201"/>
         <source>Import as Quick Event</source>
         <translation>Importovat jako Quick Event</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1227"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1205"/>
         <source>Query</source>
         <translation>Dotaz</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1227"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1205"/>
         <source>Event will be imported as ID:</source>
         <translation>Závod bude importován s ID:</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1232"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1210"/>
         <source>PostgreSQL schema must start with small letter and it may contain small letters, digits and underscores only.</source>
         <translation>Název PostgreSQL schématu musí začínat malým písmenem a může obsahovat pouze malá písmena, číslovky a podtržítka.</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1237"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1215"/>
         <source>Event ID &apos;%1&apos; exists already!</source>
         <translation>Závod s ID &apos;%1&apos; již existuje!</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/eventplugin.cpp" line="1314"/>
+        <location filename="plugins/Event/src/eventplugin.cpp" line="1292"/>
         <source>Open imported event &apos;%1&apos;?</source>
         <translation>Otevřít importovaný závod &apos;%1&apos;?</translation>
     </message>
@@ -2295,32 +2476,37 @@ Použij: Soubor --&gt; Importovat --&gt; Závod (*.qbe) pro konverzi dat do aktu
 <context>
     <name>Event::StageWidget</name>
     <message>
+        <location filename="plugins/Event/src/stagewidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/stagewidget.ui" line="20"/>
         <source>&amp;Date</source>
-        <translation type="vanished">&amp;Datum</translation>
+        <translation>&amp;Datum</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/stagewidget.ui" line="30"/>
         <source>dd.MM. yyyy</source>
-        <translation type="vanished">dd.MM. yyyy</translation>
+        <translation>dd.MM. yyyy</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/stagewidget.ui" line="40"/>
         <source>&amp;Time</source>
-        <translation type="vanished">Ča&amp;s</translation>
+        <translation>Ča&amp;s</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/stagewidget.ui" line="50"/>
         <source>H:mm:ss</source>
-        <translation type="vanished">H:mm:ss</translation>
+        <translation>H:mm:ss</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/stagewidget.cpp" line="14"/>
+        <location filename="plugins/Event/src/stagewidget.cpp" line="17"/>
         <source>Stage</source>
         <translation>Etapa</translation>
     </message>
     <message>
-        <location filename="plugins/Event/src/stagewidget.cpp" line="15"/>
+        <location filename="plugins/Event/src/stagewidget.cpp" line="18"/>
         <source>Edit Stage</source>
         <translation>Upravit etapu</translation>
     </message>
@@ -2328,56 +2514,93 @@ Použij: Soubor --&gt; Importovat --&gt; Závod (*.qbe) pro konverzi dat do aktu
 <context>
     <name>Event::services::EmmaClientWidget</name>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="20"/>
         <source>Emma Client</source>
-        <translation type="vanished">Emma Client</translation>
+        <translation>Emma Client</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="28"/>
         <source>Export dir</source>
-        <translation type="vanished">Adresář pro export</translation>
+        <translation>Adresář pro export</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="40"/>
         <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="52"/>
         <source> sec</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="65"/>
         <source>Export interval</source>
-        <translation type="vanished">Interval pro export</translation>
+        <translation>Interval pro export</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="75"/>
         <source>File name base</source>
-        <translation type="vanished">Prefix názvu souboru</translation>
+        <translation>Prefix názvu souboru</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="84"/>
         <source>IOF XML 3.0</source>
-        <translation type="vanished">IOF XML 3.0</translation>
+        <translation>IOF XML 3.0</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="90"/>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="144"/>
         <source>Enable export start list</source>
-        <translation type="vanished">Povolit exportování startovní listiny</translation>
+        <translation>Povolit exportování startovní listiny</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="97"/>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="151"/>
         <source>Enable export results</source>
-        <translation type="vanished">Povolit exportování výsledků</translation>
+        <translation>Povolit exportování výsledků</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="119"/>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="180"/>
         <source>Export start list</source>
-        <translation type="vanished">Exportovat startovní listinu</translation>
+        <translation>Exportovat startovní listinu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="126"/>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="187"/>
         <source>Export results</source>
-        <translation type="vanished">Exportovat výsledky</translation>
+        <translation>Exportovat výsledky</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="138"/>
         <source>RACOM Text</source>
-        <translation type="vanished">RACOM</translation>
+        <translation>RACOM</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="173"/>
         <source>Export radio codes</source>
-        <translation type="vanished">Exportovat čísla radio-kontrol</translation>
+        <translation>Exportovat čísla radio-kontrol</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="198"/>
+        <source>Startlist export type</source>
+        <translation>Typ exportu startovky</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="205"/>
+        <source>Text</source>
+        <translation>Text</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="215"/>
+        <source>CSV</source>
+        <translation>CSV</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/emmaclientwidget.ui" line="237"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Startlist CVS export is only supported by EmmaClient after 2023-08.&lt;br/&gt;Support can be verified in EmmaClient in &apos;New Racom Connection&apos; dialog,&lt;br/&gt;if it contain checkbox &apos;Use extended csv file read (2023)&apos;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Export CVS startovek je podporován pouze v aplikaci EmmaClient od 2023-08.&lt;br/&gt;Tuto podporu lze zkontrolovat v EmmaClient v dialogu &apos;New Racom Connection&apos; dialog,&lt;br/&gt;a to pokud obsahuje zašktávátko &apos;Use extended csv file read (2023)&apos;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/services/emmaclientwidget.cpp" line="58"/>
@@ -2393,188 +2616,456 @@ Použij: Soubor --&gt; Importovat --&gt; Závod (*.qbe) pro konverzi dat do aktu
 <context>
     <name>Event::services::OResultsClientWidget</name>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="14"/>
         <source>Results upload service for OResults.eu</source>
-        <translation type="vanished">Služba pro nahrávání výsledků na OResults.eu</translation>
+        <translation>Služba pro nahrávání výsledků na OResults.eu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="22"/>
         <source>Export interval</source>
-        <translation type="vanished">Interval pro exportování</translation>
+        <translation>Interval pro exportování</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="32"/>
         <source> sec</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="51"/>
         <source>API key</source>
-        <translation type="vanished">API klíč</translation>
+        <translation>API klíč</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="69"/>
         <source>Results are exported at given interval.
 Both Results and Start list can be exported manually using the buttons bellow. In addition, if the service is running, individual competitor data is send after readout and after saving competitor dialog.
 In case of unexpected errors, contact support@oresults.eu</source>
         <oldsource>Results are exported at given interval.
 Both Results and Start list can be exported manualy using the buttons bellow. In addition, if the service is running, individual competitor data is send after reaout and after saving competitor dialog. 
 In case of unexpected errors, contact support@oresults.eu </oldsource>
-        <translation type="vanished">Výsledky jsou automaticky exportovány dle zadaného intervalu.
+        <translation>Výsledky jsou automaticky exportovány dle zadaného intervalu.
 Startovní listiny a výsledky mohou být též exportovány pomocí tlačítek níže. Pokud je služba zapnutá, jsou navíc výsledky konkrétního závodníka zasílány po vyčtení čipu a při uložení formuláře pro úpravu závodníka.
 V případě chyb neváhejte napsat na support@oresults.eu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="96"/>
         <source>Export start list</source>
-        <translation type="vanished">Exportovat startovní listinu</translation>
+        <translation>Exportovat startovní listinu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/oresultsclientwidget.ui" line="103"/>
         <source>Export results</source>
-        <translation type="vanished">Exportovat výsledky</translation>
+        <translation>Exportovat výsledky</translation>
     </message>
 </context>
 <context>
     <name>Event::services::ServiceWidget</name>
     <message>
+        <location filename="plugins/Event/src/services/servicewidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/servicewidget.ui" line="73"/>
         <source>EmmaClient</source>
-        <translation type="vanished">EmmaClient</translation>
+        <translation>EmmaClient</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/services/servicewidget.ui" line="88"/>
         <source>neco neco</source>
-        <translation type="vanished">neco neco</translation>
+        <translation>neco neco</translation>
+    </message>
+</context>
+<context>
+    <name>Event::services::qx::QxClientService</name>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservice.cpp" line="66"/>
+        <source>QE Exchange</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservice.cpp" line="218"/>
+        <source>Event ID is not loaded, service is not probably running.</source>
+        <translation>Event ID není načteno, služba pravděpodobně neběží.</translation>
+    </message>
+</context>
+<context>
+    <name>Event::services::qx::QxClientServiceWidget</name>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="14"/>
+        <source>SHV API service</source>
+        <translation>Služba SVH API</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="22"/>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="77"/>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="87"/>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="104"/>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="117"/>
+        <source>Fill this url into HTTP POST synchonization method in O-CheckList</source>
+        <translation>Vypňte toto url do HTTP POST synchronizační metody v O-CheckList</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="25"/>
+        <source>API token</source>
+        <translation>API token</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="51"/>
+        <source>Not loaded</source>
+        <translation>Není načteno</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="80"/>
+        <source>Current stage</source>
+        <translation>Aktuální etapa</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="90"/>
+        <source>OCheckList Url</source>
+        <translation>OCheckList Url</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="97"/>
+        <source>Exchange server url</source>
+        <translation>Exchange server url</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="107"/>
+        <source>Event ID</source>
+        <translation>ID závodu</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="120"/>
+        <source>Header</source>
+        <translation>Hlavička</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="151"/>
+        <source>Export event info</source>
+        <translation>Exportovat informace o závodu</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="158"/>
+        <source>Test connection</source>
+        <translation>Otestovat připojení</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="165"/>
+        <source>Export start list</source>
+        <translation>Exportovat startovní listinu</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="172"/>
+        <source>Export runs</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.ui" line="181"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="120"/>
+        <source>Connected OK</source>
+        <translation>Připojení je OK</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="123"/>
+        <source>Connection error: %1</source>
+        <translation>Chyba připojení : %1</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="139"/>
+        <source>Event info updated OK</source>
+        <translation>Informace o závodu aktualizovány OK</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="142"/>
+        <source>Event info update error: %1
+%2</source>
+        <translation>chyba aktualizace informací o závodu: %1
+%2</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="152"/>
+        <source>Start list export started ...</source>
+        <translation>Export startovní listiny začal ...</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="155"/>
+        <source>Start list exported Ok</source>
+        <translation>Export startovní listiny OK</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="168"/>
+        <source>Runs export started ...</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxclientservicewidget.cpp" line="171"/>
+        <source>Runs exported Ok</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>Event::services::qx::QxLateRegistrationsWidget</name>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.ui" line="14"/>
+        <source>Form</source>
+        <translation>Formulář</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.ui" line="23"/>
+        <source>TextLabel</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="38"/>
+        <source>Type</source>
+        <translation>Typ</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="39"/>
+        <source>Data</source>
+        <translation>Data</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="40"/>
+        <source>Source</source>
+        <translation>Zdroj</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="41"/>
+        <source>Run</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="42"/>
+        <source>User</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="43"/>
+        <source>Status</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="44"/>
+        <source>Status message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="45"/>
+        <source>Created</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/services/qx/qxlateregistrationswidget.cpp" line="46"/>
+        <source>Locked</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>EventDialogWidget</name>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="20"/>
         <source>Event ID</source>
-        <translation type="vanished">ID závodu</translation>
+        <translation>ID závodu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="30"/>
         <source>Unique event name</source>
         <oldsource>Enter event database name</oldsource>
-        <translation type="vanished">Unikátní název závodu</translation>
+        <translation>Unikátní název závodu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="37"/>
         <source>&amp;Name</source>
-        <translation type="vanished">&amp;Jméno</translation>
+        <translation>&amp;Jméno</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="50"/>
         <source>&amp;Stage count</source>
-        <translation type="vanished">&amp;Počet etap</translation>
+        <translation>&amp;Počet etap</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="67"/>
         <source>&amp;Date</source>
-        <translation type="vanished">&amp;Datum</translation>
+        <translation>&amp;Datum</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="77"/>
         <source>dd.MM.yyyy</source>
-        <translation type="vanished">dd.MM.yyyy</translation>
+        <translation>dd.MM.yyyy</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="111"/>
         <source>&amp;Place</source>
-        <translation type="vanished">&amp;Místo</translation>
+        <translation>&amp;Místo</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="124"/>
         <source>Des&amp;cription</source>
-        <translation type="vanished">P&amp;opis</translation>
+        <translation>P&amp;opis</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="137"/>
         <source>Main r&amp;eferee</source>
-        <translation type="vanished">Hlavní &amp;rozhodčí</translation>
+        <translation>Hlavní &amp;rozhodčí</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="150"/>
         <source>D&amp;irector</source>
-        <translation type="vanished">Ř&amp;editel</translation>
+        <translation>Ř&amp;editel</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="163"/>
         <source>&amp;Handicap length</source>
-        <translation type="vanished">Délka &amp;hendikepu</translation>
+        <translation>Délka &amp;hendikepu</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="173"/>
         <source> min</source>
         <oldsource>min</oldsource>
-        <translation type="vanished"> min</translation>
+        <translation> min</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="270"/>
         <source>Import ID</source>
-        <translation type="vanished">Importované ID</translation>
+        <translation>Importované ID</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="322"/>
+        <source>1/10 sec results</source>
+        <translation>Výsledky s 1/10 vteřin</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="338"/>
+        <source>Enabled</source>
+        <translation>Povoleno</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="346"/>
+        <source>IOF Eventor</source>
+        <translation>IOF Eventor</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="352"/>
+        <source>Race number</source>
+        <translation>Číslo závodu</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="359"/>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;IOF Eventor race number - if nonzero, used as &amp;lt;Race&amp;gt; node and for attribute of &amp;lt;Start&amp;gt; node for IOF XML exports&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Číslo zádovu pro IOF Eventor - pokud je nenulové , použito jako uzel &amp;lt;Race&amp;gt; a jako atribut u &amp;lt;Start&amp;gt; uzlu při IOF XML exportech&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="366"/>
+        <source>IOF Eventor race - used for IOF XML exports</source>
+        <translation>Závod z IOF Eventoru - použito pro IOF XML exporty</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="369"/>
+        <source>Is IOF Race (data from Eventor)</source>
+        <translation>Závod je IOF (data se berou z Eventoru)</translation>
+    </message>
+    <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="192"/>
         <source>Sport</source>
-        <translation type="vanished">Sport</translation>
+        <translation>Sport</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="203"/>
         <source>OB</source>
-        <translation type="vanished">OB</translation>
+        <translation>OB</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="208"/>
         <source>LOB</source>
-        <translation type="vanished">LOB</translation>
+        <translation>LOB</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="213"/>
         <source>MTBO</source>
-        <translation type="vanished">MTBO</translation>
+        <translation>MTBO</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="218"/>
         <source>TRAIL</source>
-        <translation type="vanished">TRAIL</translation>
+        <translation>TRAIL</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="87"/>
         <source>&amp;Time</source>
-        <translation type="vanished">Ča&amp;s</translation>
+        <translation>Ča&amp;s</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="97"/>
         <source>h:mm:ss</source>
         <oldsource>h:mm</oldsource>
-        <translation type="vanished">h:mm:ss</translation>
+        <translation>h:mm:ss</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="226"/>
         <source>Discipline</source>
-        <translation type="vanished">Disciplína</translation>
+        <translation>Disciplína</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="237"/>
         <source>Long distance</source>
-        <translation type="vanished">Klasická trať</translation>
+        <translation>Klasická trať</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="242"/>
         <source>Middle distance</source>
-        <translation type="vanished">Krátká trať</translation>
+        <translation>Krátká trať</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="247"/>
         <source>Sprint</source>
-        <translation type="vanished">Sprint</translation>
+        <translation>Sprint</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="252"/>
         <source>Ultralong distance</source>
-        <translation type="vanished">Dlouhá trať</translation>
+        <translation>Dlouhá trať</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="257"/>
         <source>Relay</source>
-        <translation type="vanished">Štafety</translation>
+        <translation>Štafety</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="262"/>
         <source>Teams</source>
-        <translation type="vanished">Družstva</translation>
+        <translation>Družstva</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="290"/>
         <source>Card check</source>
-        <translation type="vanished">Kontrola čipu před startem</translation>
+        <translation>Kontrola čipu před startem</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="300"/>
         <source>Maximal distance between card CHECK and START time</source>
-        <translation type="vanished">Maximální čas mezi kontrolou vynulování čipu a startovním časem</translation>
+        <translation>Maximální čas mezi kontrolou vynulování čipu a startovním časem</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="303"/>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="333"/>
         <source>Disabled</source>
-        <translation type="vanished">Vypnuto</translation>
+        <translation>Vypnuto</translation>
     </message>
     <message>
+        <location filename="plugins/Event/src/eventdialogwidget.ui" line="306"/>
         <source> sec</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
 </context>
 <context>
@@ -2673,71 +3164,87 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>EventStatisticsOptions</name>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="vanished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="20"/>
         <source>Show print dialog</source>
-        <translation type="vanished">Zobrazit formulář pro tisk</translation>
+        <translation>Zobrazit formulář pro tisk</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="27"/>
         <source>Table auto refresh</source>
-        <translation type="vanished">Automatické obnovování tabulky</translation>
+        <translation>Automatické obnovování tabulky</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="36"/>
         <source> sec</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="46"/>
         <source>Refresh time</source>
-        <translation type="vanished">Frekvence obnovování</translation>
+        <translation>Frekvence obnovování</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="56"/>
         <source>Results auto print</source>
-        <translation type="vanished">Automatický tisk výsledků</translation>
+        <translation>Automatický tisk výsledků</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="62"/>
         <source>Or last print time is greater than</source>
-        <translation type="vanished">Nebo poslední tisk proběhl před</translation>
+        <translation>Nebo poslední tisk proběhl před</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="72"/>
         <source> min</source>
-        <translation type="vanished"> min</translation>
+        <translation> min</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="82"/>
         <source>When new runners count is</source>
-        <translation type="vanished">Pokud je počet nových závodníků</translation>
+        <translation>Pokud je počet nových závodníků</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticsoptions.ui" line="92"/>
         <source> runners</source>
-        <translation type="vanished"> závodníků</translation>
+        <translation> závodníků</translation>
     </message>
 </context>
 <context>
     <name>EventStatisticsWidget</name>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticswidget.ui" line="59"/>
         <source>Print results for classes with new runners</source>
-        <translation type="vanished">Vytisknout výsledky kategorií s novými závodníky</translation>
+        <translation>Vytisknout výsledky kategorií s novými závodníky</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticswidget.ui" line="73"/>
         <source>Print results in selected rows</source>
-        <translation type="vanished">Vytisknout výsledky vybraných kategorií</translation>
+        <translation>Vytisknout výsledky vybraných kategorií</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticswidget.ui" line="87"/>
         <source>Clear new results in selected rows</source>
-        <translation type="vanished">Vymazat nové výsledky u vybraných kategorií</translation>
+        <translation>Vymazat nové výsledky u vybraných kategorií</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticswidget.ui" line="101"/>
         <source>Reload table</source>
-        <translation type="vanished">Obnovit tabulku</translation>
+        <translation>Obnovit tabulku</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/eventstatisticswidget.ui" line="115"/>
         <source>Options</source>
-        <translation type="vanished">Možnosti</translation>
+        <translation>Možnosti</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/eventstatisticswidget.cpp" line="573"/>
@@ -2821,8 +3328,9 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>LentCardsSettingsPage</name>
     <message>
+        <location filename="plugins/Competitors/src/lentcardssettingspage.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <location filename="plugins/Competitors/src/lentcardssettingspage.cpp" line="16"/>
@@ -3183,20 +3691,24 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>PrintAwardsOptionsDialogWidget</name>
     <message>
+        <location filename="plugins/Runs/src/printawardsoptionsdialogwidget.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="vanished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/printawardsoptionsdialogwidget.ui" line="20"/>
         <source>Number of places in each class</source>
-        <translation type="vanished">Počet míst v každé kategorii</translation>
+        <translation>Počet míst v každé kategorii</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/printawardsoptionsdialogwidget.ui" line="40"/>
         <source>Awards report</source>
-        <translation type="vanished">Šablona diplomů</translation>
+        <translation>Šablona diplomů</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/printawardsoptionsdialogwidget.ui" line="50"/>
         <source>Stage number</source>
-        <translation type="vanished">Číslo etapy</translation>
+        <translation>Číslo etapy</translation>
     </message>
 </context>
 <context>
@@ -3220,36 +3732,44 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>Receipts::ReceiptsSettingsPage</name>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="14"/>
         <source>CuteCom</source>
-        <translation type="vanished">Mezičasy</translation>
+        <translation>Mezičasy</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="20"/>
         <source>Print receipt automatically, when SI card is read.</source>
-        <translation type="vanished">Vytisknout automaticky mezičasy po vyčtení čipu.</translation>
+        <translation>Vytisknout automaticky mezičasy po vyčtení čipu.</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="23"/>
         <source>Auto print</source>
-        <translation type="vanished">Automatický tisk</translation>
+        <translation>Automatický tisk</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="43"/>
         <source>Print receipts only for reader used by this application.</source>
-        <translation type="vanished">Tisknout mezičasy pouze na tiskárně nastavené v této aplikaci.</translation>
+        <translation>Tisknout mezičasy pouze na tiskárně nastavené v této aplikaci.</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="46"/>
         <source>This reader only</source>
-        <translation type="vanished">Pouze tato tiskárna</translation>
+        <translation>Pouze tato tiskárna</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="53"/>
         <source>When runner is not found</source>
-        <translation type="vanished">Pokud závodník není nalezen tisknout</translation>
+        <translation>Pokud závodník není nalezen tisknout</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="63"/>
         <source>Receipt</source>
-        <translation type="vanished">Mezičas</translation>
+        <translation>Mezičas</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptssettingspage.ui" line="73"/>
         <source>Printer</source>
-        <translation type="vanished">Tiskárna</translation>
+        <translation>Tiskárna</translation>
     </message>
     <message>
         <location filename="plugins/Receipts/src/receiptssettingspage.cpp" line="19"/>
@@ -3268,54 +3788,79 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
     </message>
 </context>
 <context>
+    <name>ReceiptsPrinterOptions</name>
+    <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptions.cpp" line="18"/>
+        <source>Graphics</source>
+        <translation>Graficky</translation>
+    </message>
+    <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptions.cpp" line="21"/>
+        <source>Character</source>
+        <translation>Znakově</translation>
+    </message>
+</context>
+<context>
     <name>ReceiptsPrinterOptionsDialog</name>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="14"/>
         <source>Dialog</source>
-        <translation type="vanished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="25"/>
         <source>Graphics printer</source>
-        <translation type="vanished">Grafická tiskárna</translation>
+        <translation>Grafická tiskárna</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="39"/>
         <source>Character printer</source>
-        <translation type="vanished">Znaková tiskárna</translation>
+        <translation>Znaková tiskárna</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="75"/>
         <source>Text encoding</source>
-        <translation type="vanished">Kódování textu</translation>
+        <translation>Kódování textu</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="83"/>
         <source>ASCII7</source>
-        <translation type="vanished">ASCII7</translation>
+        <translation>ASCII7</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="88"/>
         <source>cp1250</source>
-        <translation type="vanished">cp1250</translation>
+        <translation>cp1250</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="93"/>
         <source>iso8859-2</source>
-        <translation type="vanished">iso8859-2</translation>
+        <translation>iso8859-2</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="98"/>
         <source>utf8</source>
-        <translation type="vanished">utf8</translation>
+        <translation>utf8</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="109"/>
         <source>LPT device</source>
-        <translation type="vanished">LPT zařízení</translation>
+        <translation>LPT zařízení</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="119"/>
         <source>Network address</source>
-        <translation type="vanished">Síťová adresa</translation>
+        <translation>Síťová adresa</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="126"/>
         <source>Generate printer control codes (escape sequences)</source>
-        <translation type="vanished">Generovat kontrolní znaky pro tiskárnu (escape sekvence)</translation>
+        <translation>Generovat kontrolní znaky pro tiskárnu (escape sekvence)</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="133"/>
         <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;There are two options how to configure the casch printer on Windows: &lt;/p&gt;&lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;\\.\LPT1&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;\\computer_name\printer_share_name&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;When we want USB connected printer be accessible from LPT1 we need to : &lt;/p&gt;&lt;ul style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;&lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Create given printer shared&lt;/li&gt;&lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;by &amp;quot;net use LPT1 \\computer_name\printer_share_name&amp;quot;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</source>
-        <translation type="vanished">&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Existují dvě možnosti jak nastavit znakovou tiskárnu na OS Windows: &lt;/p&gt;
+        <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Existují dvě možnosti jak nastavit znakovou tiskárnu na OS Windows: &lt;/p&gt;
 &lt;ol style=&quot;margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;&quot;&gt;
 &lt;li style=&quot; margin-top:12px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;\\.\LPT1&lt;/li&gt;
 &lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;\\jmeno_pocitace\jmeno_sdilene_tiskarny&lt;/li&gt;&lt;/ol&gt;&lt;p&gt;Pokud chceme, aby byla USB tiskárna přístupná z LPT1 je nutné: &lt;/p&gt;
@@ -3324,52 +3869,64 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 &lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;pomocí &amp;quot;net use LPT1 \\jmeno_pocitace\jmeno_sdilene_tiskarny&amp;quot;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="140"/>
         <source>/dev/usb/lp1</source>
-        <translation type="vanished">/dev/usb/lp1</translation>
+        <translation>/dev/usb/lp1</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="145"/>
         <source>/dev/usb/lp2</source>
-        <translation type="vanished">/dev/usb/lp2</translation>
+        <translation>/dev/usb/lp2</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="150"/>
         <source>/dev/usb/lp3</source>
-        <translation type="vanished">/dev/usb/lp3</translation>
+        <translation>/dev/usb/lp3</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="155"/>
         <source>/dev/usb/lp4</source>
-        <translation type="vanished">/dev/usb/lp4</translation>
+        <translation>/dev/usb/lp4</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="160"/>
         <source>\\.\LPT1</source>
-        <translation type="vanished">\\.\LPT1</translation>
+        <translation>\\.\LPT1</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="169"/>
         <source>Epson TM-T88V</source>
-        <translation type="vanished">Epson TM-T88V</translation>
+        <translation>Epson TM-T88V</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="174"/>
         <source>Epson TM-U220B</source>
-        <translation type="vanished">Epson TM-U220B</translation>
+        <translation>Epson TM-U220B</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="182"/>
         <source>Directory</source>
-        <translation type="vanished">Adresář</translation>
+        <translation>Adresář</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="195"/>
         <source>Line length</source>
-        <translation type="vanished">Délka řádku</translation>
+        <translation>Délka řádku</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="202"/>
         <source> characters</source>
-        <translation type="vanished"> znaků</translation>
+        <translation> znaků</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="221"/>
         <source>Printer</source>
-        <translation type="vanished">Tiskárna</translation>
+        <translation>Tiskárna</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptsprinteroptionsdialog.ui" line="235"/>
         <source>UDP</source>
-        <translation type="vanished">UDP</translation>
+        <translation>UDP</translation>
     </message>
 </context>
 <context>
@@ -3388,12 +3945,14 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>ReceiptsWidget</name>
     <message>
+        <location filename="plugins/Receipts/src/receiptswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/src/receiptswidget.ui" line="66"/>
         <source>Print new</source>
-        <translation type="vanished">Vytisknout nové</translation>
+        <translation>Vytisknout nové</translation>
     </message>
     <message>
         <location filename="plugins/Receipts/src/receiptswidget.cpp" line="67"/>
@@ -3445,88 +4004,107 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>RegistrationsWidget</name>
     <message>
+        <location filename="plugins/Competitors/src/registrationswidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
 </context>
 <context>
     <name>RelayWidget</name>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="35"/>
         <location filename="plugins/Relays/src/relaywidget.cpp" line="99"/>
         <source>Relay</source>
         <translation>Štafeta</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="41"/>
         <source>&amp;Name</source>
-        <translation type="vanished">Jmé&amp;no</translation>
+        <translation>Jmé&amp;no</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="51"/>
         <source>&amp;Class</source>
-        <translation type="vanished">&amp;Kategorie</translation>
+        <translation>&amp;Kategorie</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="61"/>
         <source>C&amp;lub</source>
-        <translation type="vanished">K&amp;lub</translation>
+        <translation>K&amp;lub</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="71"/>
         <source>No&amp;te</source>
-        <translation type="vanished">&amp;Poznámka</translation>
+        <translation>&amp;Poznámka</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="102"/>
         <source>Nu&amp;mber</source>
-        <translation type="vanished">Čí&amp;slo</translation>
+        <translation>Čí&amp;slo</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="159"/>
         <source>Legs</source>
-        <translation type="vanished">Úseky</translation>
+        <translation>Úseky</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="179"/>
         <source>Add leg Ctrl+Ins</source>
         <oldsource>Add leg Ctrl-Ins</oldsource>
-        <translation type="vanished">Přidat úsek Ctrl+Ins</translation>
+        <translation>Přidat úsek Ctrl+Ins</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="186"/>
         <source>Ctrl+Ins</source>
-        <translation type="vanished">Ctrl+Ins</translation>
+        <translation>Ctrl+Ins</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="193"/>
         <source>Remove leg Ctrl+Del</source>
         <oldsource>Remove leg Ctrl-Del</oldsource>
-        <translation type="vanished">Odebrat úsek Ctrl+Del</translation>
+        <translation>Odebrat úsek Ctrl+Del</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="200"/>
         <source>Ctrl+Del</source>
-        <translation type="vanished">Ctrl+Del</translation>
+        <translation>Ctrl+Del</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="207"/>
         <source>Move leg down Ctrl+D</source>
         <oldsource>Move leg down Ctrl-D</oldsource>
-        <translation type="vanished">Přesunout úsek dolů Ctrl+D</translation>
+        <translation>Přesunout úsek dolů Ctrl+D</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="214"/>
         <source>Ctrl+D</source>
-        <translation type="vanished">Ctrl+D</translation>
+        <translation>Ctrl+D</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="221"/>
         <source>Move leg up Ctrl+U</source>
         <oldsource>Move leg up Ctrl-U</oldsource>
-        <translation type="vanished">Přesunout úsek nahoru Ctrl+U</translation>
+        <translation>Přesunout úsek nahoru Ctrl+U</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="228"/>
         <source>Ctrl+U</source>
-        <translation type="vanished">Ctrl+U</translation>
+        <translation>Ctrl+U</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="235"/>
         <source>Reload Ctrl+R</source>
-        <translation type="vanished">Obnovit Ctrl+R</translation>
+        <translation>Obnovit Ctrl+R</translation>
     </message>
     <message>
+        <location filename="plugins/Relays/src/relaywidget.ui" line="242"/>
         <source>Ctrl+R</source>
-        <translation type="vanished">Ctrl+R</translation>
+        <translation>Ctrl+R</translation>
     </message>
     <message>
         <location filename="plugins/Relays/src/relaywidget.cpp" line="158"/>
@@ -3547,23 +4125,23 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>Relays::RelaysPlugin</name>
     <message>
-        <location filename="plugins/Relays/src/relaysplugin.cpp" line="64"/>
+        <location filename="plugins/Relays/src/relaysplugin.cpp" line="59"/>
         <source>Edit Relay</source>
         <oldsource>Edit  Relay</oldsource>
         <translation>Upravit štafetu</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaysplugin.cpp" line="74"/>
+        <location filename="plugins/Relays/src/relaysplugin.cpp" line="69"/>
         <source>&amp;Relays</source>
         <translation>&amp;Štafety</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaysplugin.cpp" line="805"/>
+        <location filename="plugins/Relays/src/relaysplugin.cpp" line="823"/>
         <source>Relays IOF-XML 3.0 results</source>
         <translation>Výsledky štafet ve formátu IOF XML 3.0</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaysplugin.cpp" line="946"/>
+        <location filename="plugins/Relays/src/relaysplugin.cpp" line="964"/>
         <source>Relays IOF-XML 3.0 startlist</source>
         <translation>Startovka štafet ve formátu IOF XML 3.0</translation>
     </message>
@@ -3571,228 +4149,229 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
 <context>
     <name>RelaysWidget</name>
     <message>
+        <location filename="plugins/Relays/src/relayswidget.ui" line="20"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="89"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="87"/>
         <source>Class</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="90"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="88"/>
         <source>Club</source>
         <translation>Klub</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="91"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="89"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="92"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="90"/>
         <source>Number</source>
         <translation>Číslo</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="93"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="91"/>
         <source>Note</source>
         <translation>Poznámka</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="119"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="117"/>
         <source>&amp;Class </source>
         <translation>&amp;Kategorie </translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="146"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="144"/>
         <source>&amp;Relays</source>
         <translation>&amp;Štafety</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="148"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="146"/>
         <source>&amp;Assign numbers</source>
         <translation>&amp;Přiřadit čísla</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="153"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="151"/>
         <source>&amp;Import bibs from CSV</source>
         <translation>&amp;Importovat startovní čísla z soubrou CSV</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="159"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="157"/>
         <source>&amp;Print</source>
         <translation>&amp;Tisk</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="161"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="188"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="159"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="186"/>
         <source>&amp;Start list</source>
         <translation>&amp;Startovní listina</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="162"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="160"/>
         <source>&amp;Classes</source>
         <translation>&amp;Kategorie</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="165"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="163"/>
         <source>C&amp;lubs</source>
         <translation>K&amp;luby</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="169"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="194"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="167"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="192"/>
         <source>&amp;Results</source>
         <translation>&amp;Výsledky</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="171"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="169"/>
         <source>&amp;After n legs</source>
         <translation>&amp;Po n úsecích</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="176"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="174"/>
         <source>&amp;Overall</source>
         <oldsource>&amp;Overal</oldsource>
         <translation>&amp;Celkové</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="181"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="179"/>
         <source>Overall condensed</source>
         <translation>Celkové zestručněné</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="187"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="185"/>
         <source>E&amp;xport</source>
         <translation>E&amp;xportovat</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="190"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="196"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="188"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="194"/>
         <source>IOF-XML 3.0</source>
         <translation>IOF XML 3.0</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="215"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="213"/>
         <source>--- all ---</source>
         <translation>-- všechny --</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="244"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="242"/>
         <source>Edit Relay</source>
         <oldsource>Edit  Relay</oldsource>
         <translation>Upravit štafetu</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="247"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="245"/>
         <source>Save and &amp;next</source>
         <translation>Uložit a &amp;další</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="279"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="277"/>
         <source>Really delete all the selected relays? This action cannot be reverted.</source>
         <translation>Opravdu odstranit všechny vybrané štafety? Tuto akci nelze vrátit zpět.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="292"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="290"/>
         <source>Confirm deletion of %1 relays.</source>
         <translation>Potvrďte smazání %1 štafet.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="312"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="310"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="312"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="310"/>
         <source>Assign relay numbers method</source>
         <translation>Způsob přiřazení čísel štafetám</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="313"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="311"/>
         <source>Random number</source>
         <translation>Náhodné číslo</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="313"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="311"/>
         <source>In alphabetical order</source>
         <translation>V abecedním pořadí</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="433"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="431"/>
         <source>Start list by classes</source>
         <translation>Startovní listina po kategoriích</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="452"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="450"/>
         <source>Start list by clubs</source>
         <translation>Startovní listina po klubech</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="480"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="504"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="528"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="478"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="502"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="526"/>
         <source>Results</source>
         <translation>Výsledky</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="538"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="536"/>
         <source>Save as %1</source>
         <translation>Uložit jako %1</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="571"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="569"/>
         <source>Import UTF8 text file with comma separated values with first row as header.&lt;br/&gt;Separator is semicolon(;).&lt;br/&gt;Updates only existing relays (key is Club, Relay Name &amp; Class).</source>
         <translation>Importovat soubor s hodnotami oddělenými čárkou (CSV), včetně záhlaví, v kódování UTF-8.&lt;br/&gt;Oddělovač je středník(;).&lt;br/&gt;Aktualizuje pouze existujiící štafety (klíč je Klub, Název štafety a Kategorie).</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="572"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="570"/>
         <source>Each row should have following columns: &lt;ol&gt;&lt;li&gt;Club abbr &lt;i&gt;- key (part1)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Relay name &lt;i&gt;- key (part2)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Start number (Bib)&lt;/li&gt;&lt;li&gt;Class (Optional - if not filed, trying to guess from the starting number)&lt;/li&gt;&lt;/ol&gt;</source>
         <translation>Každý řádek by měl mít následující sloupce:&lt;ol&gt;&lt;li&gt;Zkratka klubu &lt;i&gt;- klíč (část1)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Název štafety&lt;i&gt; - klíč (část2)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Startovní číslo&lt;/li&gt;&lt;li&gt;Kategorii (Volitelné - pokud není vyplněno,  zkouší se kategorie odhadnout podle startovního čísla)&lt;/li&gt;&lt;/ol&gt;</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="584"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="582"/>
         <source>Open file</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="584"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="582"/>
         <source>CSV files (*.csv *.txt)</source>
         <translation>soubory CSV (*.csv *.txt)</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="600"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="598"/>
         <source>Cannot open file &apos;%1&apos; for reading.</source>
         <translation>Soubor &apos;%1&apos; nelze otevřít pro čtení.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="619"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="617"/>
         <source>Fields separation error, invalid CSV format, Error reading CSV line: [%1]</source>
         <translation>Chyba při analýze CSV souboru, neplatný formát, chyba při čtení řádky: [%1]</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="629"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="627"/>
         <source>Error reading CSV line: [%1]</source>
         <translation>Chyba při čtení souboru CSV, řádek: [%1]</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="640"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="638"/>
         <source>Cannot guess class name from bib: &apos;%1&apos;</source>
         <translation>Nemohu odhadnout název kategorie podle startovního čísla: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="645"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="643"/>
         <source>Undefined class name: &apos;%1&apos;</source>
         <translation>Neznámý název kategorie: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="682"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="680"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="682"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="680"/>
         <source>Import file finished. Imported %1 of %2 lines
 
 Press refresh button to show imported data.</source>
@@ -3804,88 +4383,110 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>Runs::CardFlagsDialog</name>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="14"/>
         <source>Card flags</source>
         <oldsource>Card flags dialog</oldsource>
-        <translation type="vanished">Příznaky čipu</translation>
+        <translation>Příznaky čipu</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="22"/>
         <source>Status:</source>
         <oldsource>status:</oldsource>
-        <translation type="vanished">Status:</translation>
+        <translation>Status:</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="29"/>
         <source>Not a rented card</source>
-        <translation type="vanished">Nejedná se o půjčený čip</translation>
+        <translation>Nejedná se o půjčený čip</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="45"/>
         <source>Card rented (or rent requested)</source>
         <oldsource>Card rented ( or rent requested )</oldsource>
-        <translation type="vanished">Půjčený čip (nebo vyžádáno zapůjčení)</translation>
+        <translation>Půjčený čip (nebo vyžádáno zapůjčení)</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="52"/>
         <source>Card exists in cards to rent table, File-&gt;Settings-&gt;Cards to rent</source>
-        <translation type="vanished">Číslo čipu je zadáno v tabulce čipů k zapůjčení (Soubor → Nastavení → Čipy k zapůjčení)</translation>
+        <translation>Číslo čipu je zadáno v tabulce čipů k zapůjčení (Soubor → Nastavení → Čipy k zapůjčení)</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="55"/>
         <source>Card rented (from rent table)</source>
         <oldsource>Card rented ( from rent table )</oldsource>
-        <translation type="vanished">Půjčený čip (z tabulky čipů k zapůjčení)</translation>
+        <translation>Půjčený čip (z tabulky čipů k zapůjčení)</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/cardflagsdialog.ui" line="62"/>
         <source>Card returned</source>
-        <translation type="vanished">Čip vrácen</translation>
+        <translation>Čip vrácen</translation>
     </message>
 </context>
 <context>
     <name>Runs::FindRunnerWidget</name>
     <message>
+        <location filename="plugins/Runs/src/findrunnerwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
+    </message>
+    <message>
+        <location filename="plugins/Runs/src/findrunnerwidget.ui" line="20"/>
+        <source>Name, Registration, SI, Bib</source>
+        <translation>Jméno, Registrace, SI, St.číslo</translation>
     </message>
     <message>
         <source>Name, registration, SI</source>
         <translation type="vanished">Jméno, registrace, SI</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/findrunnerwidget.ui" line="30"/>
         <source>Use this SI card also in next stages</source>
-        <translation type="vanished">Použít toto číslo čipu i v následujících etapách</translation>
+        <translation>Použít toto číslo čipu i v následujících etapách</translation>
     </message>
 </context>
 <context>
     <name>Runs::NStagesReportOptionsDialog</name>
     <message>
+        <location filename="plugins/Runs/src/nstagesreportoptionsdialog.ui" line="14"/>
         <source>Report Options</source>
-        <translation type="vanished">Nastavení tisku</translation>
+        <translation>Nastavení tisku</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/nstagesreportoptionsdialog.ui" line="22"/>
         <source>&amp;Number of stages</source>
-        <translation type="vanished">&amp;Počet etap</translation>
+        <translation>&amp;Počet etap</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/nstagesreportoptionsdialog.ui" line="39"/>
         <source>&amp;Max places count</source>
-        <translation type="vanished">&amp;Maximální počet míst</translation>
+        <translation>&amp;Maximální počet míst</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/nstagesreportoptionsdialog.ui" line="49"/>
         <source>Maximal number of places in each class</source>
-        <translation type="vanished">Maximální počet míst v každé kategorii</translation>
+        <translation>Maximální počet míst v každé kategorii</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/nstagesreportoptionsdialog.ui" line="65"/>
         <source>E&amp;xclude disqualified</source>
-        <translation type="vanished">&amp;Nezahrnovat diskvalifikované</translation>
+        <translation>&amp;Nezahrnovat diskvalifikované</translation>
     </message>
 </context>
 <context>
     <name>Runs::RunFlagsDialog</name>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="14"/>
         <source>Run flags</source>
         <oldsource>Run flags dialog</oldsource>
-        <translation type="vanished">Příznaky závodníka</translation>
+        <translation>Příznaky závodníka</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="22"/>
         <source>status:</source>
-        <translation type="vanished">Status:</translation>
+        <translation>Status:</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="29"/>
         <location filename="plugins/Runs/src/runflagsdialog.cpp" line="58"/>
         <source>OK</source>
         <translation>OK</translation>
@@ -3896,74 +4497,87 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
         <translation>Diskvalifikace</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="45"/>
         <source>Miss punch</source>
-        <translation type="vanished">Chybné ražení</translation>
+        <translation>Chybné ražení</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="52"/>
         <source>Check time on SI card is to early</source>
-        <translation type="vanished">Předčasné provedení kontroly nulování SI čipu</translation>
+        <translation>Předčasné provedení kontroly nulování SI čipu</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="55"/>
         <source>Bad check</source>
-        <translation type="vanished">Předčasná kontrola nulování čipu</translation>
+        <translation>Předčasná kontrola nulování čipu</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="62"/>
         <source>Did not start</source>
-        <translation type="vanished">Nestartoval</translation>
+        <translation>Nestartoval</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="69"/>
         <source>Did not finish</source>
-        <translation type="vanished">Nedokončil</translation>
+        <translation>Nedokončil</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="76"/>
         <source>Other (dsq by organiser)</source>
-        <translation type="vanished">Ostatní (diskvalifikace organizátorem)</translation>
+        <translation>Ostatní (diskvalifikace organizátorem)</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="83"/>
         <source>Over time</source>
-        <translation type="vanished">Překročen časový limit</translation>
+        <translation>Překročen časový limit</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runflagsdialog.ui" line="97"/>
         <source>Not competing</source>
-        <translation type="vanished">Mimo soutěž</translation>
+        <translation>Mimo soutěž</translation>
     </message>
 </context>
 <context>
     <name>Runs::RunsPlugin</name>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="114"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="116"/>
         <source>&amp;Runs</source>
         <translation>Úseky / &amp;Etapy</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="128"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="130"/>
         <source>Event statistics</source>
         <translation>Statistiky závodu</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="981"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="148"/>
+        <source>Late registrations</source>
+        <translation>Pozdní registrace</translation>
+    </message>
+    <message>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1072"/>
         <source>E%1 IOF XML stage results</source>
         <translation>E%1 IOF XML etapové výsledky</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1596"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1962"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1688"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2054"/>
         <source>Start list by classes</source>
         <translation>Startovní listina po kategoriích</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1624"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2062"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1716"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2154"/>
         <source>Start list by clubs</source>
         <translation>Startovní listina po klubech</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1649"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1741"/>
         <source>Start list for starters</source>
         <translation>Startovní listina pro startéry</translation>
     </message>
     <message numerus="yes">
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1682"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1774"/>
         <source>Start list by classes for %n stage(s)</source>
         <translation>
             <numerusform>Startovní listina po kategoriích na %n etapu</numerusform>
@@ -3972,7 +4586,7 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
         </translation>
     </message>
     <message numerus="yes">
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1714"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1806"/>
         <source>Start list by clubs for %n stage(s)</source>
         <translation>
             <numerusform>Startovní listina po klubech na %n etapu</numerusform>
@@ -3981,19 +4595,19 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
         </translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1738"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1764"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1830"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1856"/>
         <source>Results by classes</source>
         <translation>Výsledky po kategoriích</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1787"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1879"/>
         <source>Stage awards</source>
         <translation>Etapové diplomy</translation>
     </message>
     <message numerus="yes">
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1814"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1841"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1906"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1933"/>
         <source>Results after %n stage(s)</source>
         <oldsource>Results after %1 stages</oldsource>
         <translation>
@@ -4003,169 +4617,169 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
         </translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1863"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="1955"/>
         <source>Awards after %1 stages</source>
         <translation>Diplomy po %1 etapách</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1913"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2120"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2005"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2212"/>
         <source>length:</source>
         <translation>délka:</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1915"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2122"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2007"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2214"/>
         <source>climb:</source>
         <translation>převýšení:</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1918"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2016"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2126"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2251"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2010"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2108"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2218"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2343"/>
         <source>Top</source>
         <translation>Nahoru</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1931"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2029"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2023"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2121"/>
         <source>St. Num</source>
         <translation>St. čís.</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1932"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2031"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2134"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2259"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2360"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2024"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2123"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2226"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2351"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2452"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1933"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2032"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2135"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2260"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2375"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2025"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2124"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2227"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2352"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2467"/>
         <source>Registration</source>
         <translation>Registrace</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1934"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2033"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2026"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2125"/>
         <source>SI</source>
         <translation>SI</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="1935"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2034"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2027"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2126"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2030"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2122"/>
         <source>Class</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2077"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2169"/>
         <source>Preparing data</source>
         <translation>Připravuji data</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2106"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2237"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2198"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2329"/>
         <source>Procesing class %1</source>
         <translation>Zpracovávám kategorii %1</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2125"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2217"/>
         <source>Laps</source>
         <translation>Mezičasy</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2133"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2258"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2359"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2225"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2350"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2451"/>
         <source>Place</source>
         <translation>Pořadí</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2136"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2261"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2228"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2353"/>
         <source>Club</source>
         <translation>Klub</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2137"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2269"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2229"/>
         <location filename="plugins/Runs/src/runsplugin.cpp" line="2361"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2453"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2138"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2270"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2230"/>
         <location filename="plugins/Runs/src/runsplugin.cpp" line="2362"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2454"/>
         <source>Loss</source>
         <translation>Ztráta</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2309"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2401"/>
         <source>NC</source>
         <comment>Not Competing</comment>
         <translation>MS</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2312"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2404"/>
         <source>DISQ</source>
         <translation>DISK</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2611"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2703"/>
         <source>E%1 IOF XML stage startlist</source>
         <translation>E%1 IOF XML startovka etapy</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2175"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2326"/>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2454"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2267"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2418"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2546"/>
         <source>Stage results</source>
         <translation>Výsledky etapy</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2194"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2286"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2194"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2286"/>
         <source>Export error</source>
         <translation>Chyba při exportu</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2196"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2288"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2196"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2288"/>
         <source>Results exported to %1</source>
         <translation>Výsledky exportovány do %1</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2216"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2308"/>
         <source>Overall results after stage %1</source>
         <translation>Celkové výsledky po %1. etapě</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2266"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2358"/>
         <source>Stage %1</source>
         <translation>Etapa %1</translation>
     </message>
     <message>
-        <location filename="plugins/Runs/src/runsplugin.cpp" line="2368"/>
+        <location filename="plugins/Runs/src/runsplugin.cpp" line="2460"/>
         <source>FIN</source>
         <translation>CÍL</translation>
     </message>
@@ -4173,49 +4787,65 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>Runs::services::ResultsExporterWidget</name>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="14"/>
         <source>Results Exporter</source>
-        <translation type="vanished">Služba pro exportování výsledků</translation>
+        <translation>Služba pro exportování výsledků</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="105"/>
         <source>Export interval</source>
-        <translation type="vanished">Interval pro exportování</translation>
+        <translation>Interval pro exportování</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="23"/>
         <source>When finished, run cmd</source>
-        <translation type="vanished">Po dokončení spusť cmd</translation>
+        <translation>Po dokončení spusť cmd</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="84"/>
+        <source>CSV Export with DNS &amp;&amp; runners without finish time</source>
+        <translation>CSV export bez DNS &amp;&amp; závodníků bez cílového času</translation>
+    </message>
+    <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="91"/>
         <source>CSV separator</source>
-        <translation type="vanished">CSV oddělovač</translation>
+        <translation>CSV oddělovač</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="131"/>
         <source>Char:</source>
         <oldsource>Char :</oldsource>
-        <translation type="vanished">Znak:</translation>
+        <translation>Znak:</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="144"/>
         <source>Tabulator</source>
-        <translation type="vanished">Tabulátor</translation>
+        <translation>Tabulátor</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="156"/>
         <source> sec</source>
-        <translation type="vanished"> sek</translation>
+        <translation> sek</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="67"/>
         <source>Export results</source>
-        <translation type="vanished">Exportovat výsledky</translation>
+        <translation>Exportovat výsledky</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="98"/>
         <source>Export dir</source>
-        <translation type="vanished">Adresář pro export</translation>
+        <translation>Adresář pro export</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="117"/>
         <source>...</source>
-        <translation type="vanished">...</translation>
+        <translation>...</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/services/resultsexporterwidget.ui" line="77"/>
         <source>Output format</source>
-        <translation type="vanished">Výstupní formát</translation>
+        <translation>Výstupní formát</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/services/resultsexporterwidget.cpp" line="22"/>
@@ -4357,8 +4987,9 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>RunsTableDialogWidget</name>
     <message>
+        <location filename="plugins/Runs/src/runstabledialogwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstabledialogwidget.cpp" line="36"/>
@@ -4586,20 +5217,25 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>RunsTableWidget</name>
     <message>
+        <location filename="plugins/Runs/src/runstablewidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runstablewidget.ui" line="68"/>
         <source>Class start:</source>
-        <translation type="vanished">Start kategorie:</translation>
+        <translation>Start kategorie:</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runstablewidget.ui" line="78"/>
+        <location filename="plugins/Runs/src/runstablewidget.ui" line="98"/>
         <source>---</source>
-        <translation type="vanished">---</translation>
+        <translation>---</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runstablewidget.ui" line="88"/>
         <source>interval</source>
-        <translation type="vanished">interval</translation>
+        <translation>interval</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablewidget.cpp" line="220"/>
@@ -4653,29 +5289,35 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>RunsWidget</name>
     <message>
+        <location filename="plugins/Runs/src/runswidget.ui" line="20"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runswidget.ui" line="65"/>
         <source>Method</source>
-        <translation type="vanished">Metoda</translation>
+        <translation>Metoda</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runswidget.ui" line="101"/>
         <source>Remove all start times and unlock drawing for this class.</source>
         <oldsource>Draw selected  class or all classes when all the clases are selected.</oldsource>
-        <translation type="vanished">Odstranit všechny startovní časy v této kategorii a odemknout losování.</translation>
+        <translation>Odstranit všechny startovní časy v této kategorii a odemknout losování.</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runswidget.ui" line="104"/>
         <source>Remove drawing</source>
-        <translation type="vanished">Odstranit losování</translation>
+        <translation>Odstranit losování</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runswidget.ui" line="91"/>
         <source>Draw selected class or all classes when all the classes are selected.</source>
-        <translation type="vanished">Losovat vybranou kategorii nebo všechny kategorie, pokud jsou vybrány.</translation>
+        <translation>Losovat vybranou kategorii nebo všechny kategorie, pokud jsou vybrány.</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/src/runswidget.ui" line="94"/>
         <source>Draw class</source>
-        <translation type="vanished">Losovat kategorii</translation>
+        <translation>Losovat kategorii</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="70"/>
@@ -4979,8 +5621,9 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>SpeakerWidget</name>
     <message>
+        <location filename="plugins/Speaker/src/speakerwidget.ui" line="20"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <location filename="plugins/Speaker/src/speakerwidget.cpp" line="77"/>
@@ -5021,8 +5664,9 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>StationsBackupMemoryWidget</name>
     <message>
+        <location filename="plugins/Competitors/src/stationsbackupmemorywidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
         <location filename="plugins/Competitors/src/stationsbackupmemorywidget.cpp" line="16"/>
@@ -5177,34 +5821,34 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>XmlImporter</name>
     <message>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="406"/>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="781"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="410"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="783"/>
         <source>Select which race import</source>
         <translation>Vyberte který závod importovat</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="407"/>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="782"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="411"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="784"/>
         <source>Races:</source>
         <translation>Závody:</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="731"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="733"/>
         <source>EventList from ORIS is not yet supported. It requires a different type of handling.</source>
         <translation>EventList z ORISu ještě není podporován. Vyžaduje jiný přístup ke zpracování.</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="817"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="819"/>
         <source>Open IOF XML 3.0 file</source>
         <translation>Otevřít soubor IOF XML 3.0</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="817"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="819"/>
         <source>IOF XML v3 files (*.xml)</source>
         <translation>Soubory IOF XML v3 (*.xml)</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/xmlimporter.cpp" line="848"/>
+        <location filename="plugins/Oris/src/xmlimporter.cpp" line="850"/>
         <source>Unsuported IOF XML 3.0 type (%1)</source>
         <translation>Nepodporovaný typ IOF XML 3.0 (%1)</translation>
     </message>
@@ -5212,44 +5856,54 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>competitorsStatistics</name>
     <message>
+        <location filename="plugins/Competitors/qml/reports/competitorsStatistics.qml" line="10"/>
         <source>Competitors statistics</source>
-        <translation type="vanished">Statistiky závodníků</translation>
+        <translation>Statistiky závodníků</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/qml/reports/competitorsStatistics.qml" line="123"/>
         <source>Class name</source>
-        <translation type="vanished">Jméno kategorie</translation>
+        <translation>Jméno kategorie</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/qml/reports/competitorsStatistics.qml" line="130"/>
         <source>maps</source>
-        <translation type="vanished">Map</translation>
+        <translation>Map</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/qml/reports/competitorsStatistics.qml" line="132"/>
         <source>res</source>
-        <translation type="vanished">Rozdíl</translation>
+        <translation>Rozdíl</translation>
     </message>
     <message>
+        <location filename="plugins/Competitors/qml/reports/competitorsStatistics.qml" line="168"/>
         <source>Sum</source>
-        <translation type="vanished">Součet</translation>
+        <translation>Součet</translation>
     </message>
 </context>
 <context>
     <name>competitorsWithCardRent</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/competitorsWithCardRent.qml" line="12"/>
         <source>Competitors with rented cards in stage %1</source>
         <oldsource>Competitors with card lent in stage %1</oldsource>
-        <translation type="vanished">Závodníci s půjčeným čipem v etapě %1</translation>
+        <translation>Závodníci s půjčeným čipem v etapě %1</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/competitorsWithCardRent.qml" line="79"/>
         <source>Off</source>
-        <translation type="vanished">Neběž</translation>
+        <translation>Neběž</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/competitorsWithCardRent.qml" line="83"/>
         <source>Ret</source>
-        <translation type="vanished">Vráce</translation>
+        <translation>Vráce</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/competitorsWithCardRent.qml" line="131"/>
+        <location filename="plugins/Runs/qml/reports/competitorsWithCardRent.qml" line="135"/>
         <source>Y</source>
-        <translation type="vanished">Ano</translation>
+        <translation>Ano</translation>
     </message>
 </context>
 <context>
@@ -5304,16 +5958,19 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
 <context>
     <name>drawing::DrawingGanttWidget</name>
     <message>
+        <location filename="plugins/Classes/src/drawing/drawingganttwidget.ui" line="14"/>
         <source>Form</source>
-        <translation type="vanished">Formulář</translation>
+        <translation>Formulář</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/drawing/drawingganttwidget.ui" line="38"/>
         <source>&amp;Save</source>
-        <translation type="vanished">&amp;Uložit</translation>
+        <translation>&amp;Uložit</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/src/drawing/drawingganttwidget.ui" line="43"/>
         <source>&amp;Find</source>
-        <translation type="vanished">&amp;Najít</translation>
+        <translation>&amp;Najít</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="24"/>
@@ -5335,18 +5992,18 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
         <translation>Kolize tratí</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="84"/>
+        <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="92"/>
         <source>E%1 Draw tool</source>
         <translation>E%1 Nástroj pro losování</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="90"/>
+        <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="98"/>
         <source>Save classes start times</source>
         <oldsource>Save class start times</oldsource>
         <translation>Uložit starty kategorií</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="91"/>
+        <location filename="plugins/Classes/src/drawing/drawingganttwidget.cpp" line="99"/>
         <source>All the user edited classes start times will be overridden.
 Do you want to save your changes?</source>
         <oldsource>All the user edited class start times will be overrided.
@@ -5391,270 +6048,328 @@ Přejete si uložit změny?</translation>
 <context>
     <name>error</name>
     <message>
+        <location filename="plugins/Receipts/qml/reports/error.qml" line="48"/>
         <source>!!! Error !!!</source>
-        <translation type="vanished">!!! Chyba !!!</translation>
+        <translation>!!! Chyba !!!</translation>
     </message>
 </context>
 <context>
     <name>results</name>
     <message>
+        <location filename="plugins/Relays/qml/reports/results.qml" line="9"/>
         <source>Results</source>
-        <translation type="vanished">Výsledky</translation>
+        <translation>Výsledky</translation>
     </message>
 </context>
 <context>
     <name>results_condensed</name>
     <message>
+        <location filename="plugins/Relays/qml/reports/results_condensed.qml" line="9"/>
         <source>Results</source>
-        <translation type="vanished">Výsledky</translation>
+        <translation>Výsledky</translation>
     </message>
 </context>
 <context>
     <name>results_nstages</name>
     <message numerus="yes">
+        <location filename="plugins/Runs/qml/reports/results_nstages.qml" line="15"/>
         <source>Results after %n stage(s)</source>
         <oldsource>Results after %1 stages</oldsource>
-        <translation type="vanished">
+        <translation>
             <numerusform>Výsledky po %n etapě</numerusform>
             <numerusform>Výsledky po %n etapách</numerusform>
             <numerusform>Výsledky po %n etapách</numerusform>
         </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstages.qml" line="138"/>
         <source>Reg</source>
-        <translation type="vanished">Reg. č.</translation>
+        <translation>Reg. č.</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstages.qml" line="143"/>
         <source>Stage </source>
-        <translation type="vanished">Etapa </translation>
+        <translation>Etapa </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstages.qml" line="146"/>
         <source>Time</source>
-        <translation type="vanished">Čas</translation>
+        <translation>Čas</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstages.qml" line="148"/>
         <source>Loss</source>
-        <translation type="vanished">Ztráta</translation>
+        <translation>Ztráta</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstages.qml" line="186"/>
         <source>DISQ</source>
-        <translation type="vanished">DISK</translation>
+        <translation>DISK</translation>
     </message>
 </context>
 <context>
     <name>results_nstagesSpeaker</name>
     <message numerus="yes">
+        <location filename="plugins/Runs/qml/reports/results_nstagesSpeaker.qml" line="14"/>
         <source>Results after %n stage(s)</source>
         <oldsource>Results after %1 stages</oldsource>
-        <translation type="vanished">
+        <translation>
             <numerusform>Výsledky po %n etapě</numerusform>
             <numerusform>Výsledky po %n etapách</numerusform>
             <numerusform>Výsledky po %n etapách</numerusform>
         </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstagesSpeaker.qml" line="131"/>
         <source>Club</source>
-        <translation type="vanished">Klub</translation>
+        <translation>Klub</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstagesSpeaker.qml" line="134"/>
         <source>Time</source>
-        <translation type="vanished">Čas</translation>
+        <translation>Čas</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstagesSpeaker.qml" line="136"/>
         <source>Loss</source>
-        <translation type="vanished">Ztráta</translation>
+        <translation>Ztráta</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_nstagesSpeaker.qml" line="167"/>
         <source>DISQ</source>
-        <translation type="vanished">DISK</translation>
+        <translation>DISK</translation>
     </message>
 </context>
 <context>
     <name>results_stage</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_stage.qml" line="16"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_stage.qml" line="91"/>
         <source>length: </source>
-        <translation type="vanished">délka: </translation>
+        <translation>délka: </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_stage.qml" line="94"/>
         <source>climb: </source>
-        <translation type="vanished">převýšení: </translation>
+        <translation>převýšení: </translation>
     </message>
 </context>
 <context>
     <name>results_stageSpeaker</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_stageSpeaker.qml" line="12"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_stageSpeaker.qml" line="85"/>
         <source>length: </source>
-        <translation type="vanished">délka: </translation>
+        <translation>délka: </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/results_stageSpeaker.qml" line="88"/>
         <source>climb: </source>
-        <translation type="vanished">převýšení: </translation>
+        <translation>převýšení: </translation>
     </message>
 </context>
 <context>
     <name>results_stage_awards</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/awards/results_stage_awards.qml" line="10"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
     </message>
 </context>
 <context>
     <name>results_stage_awards-apple</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/awards/results_stage_awards-apple.qml" line="10"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
     </message>
 </context>
 <context>
     <name>results_stage_awards-apple2</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/awards/results_stage_awards-apple2.qml" line="10"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
     </message>
 </context>
 <context>
     <name>results_stage_awards-covid</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/awards/results_stage_awards-covid.qml" line="10"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
     </message>
 </context>
 <context>
     <name>results_stage_awards-hsh</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/awards/results_stage_awards-hsh.qml" line="10"/>
         <source>Results by classes</source>
-        <translation type="vanished">Výsledky po kategoriích</translation>
+        <translation>Výsledky po kategoriích</translation>
+    </message>
+</context>
+<context>
+    <name>results_stage_awards-hsh-2023</name>
+    <message>
+        <location filename="plugins/Runs/qml/reports/awards/results_stage_awards-hsh-2023.qml" line="10"/>
+        <source>Results by classes</source>
+        <translation>Výsledky po kategoriích</translation>
     </message>
 </context>
 <context>
     <name>sicard</name>
     <message>
+        <location filename="plugins/Receipts/qml/reports/sicard.qml" line="63"/>
         <source>E</source>
-        <translation type="vanished">E</translation>
+        <translation>E</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/sicard.qml" line="83"/>
         <source>Unassigned card !!!</source>
-        <translation type="vanished">Nepřiřazený čip!!!</translation>
+        <translation>Nepřiřazený čip!!!</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/sicard.qml" line="92"/>
         <source>It will not be included in the results.</source>
-        <translation type="vanished">Nebude zahrnuto ve výsledcích.</translation>
+        <translation>Nebude zahrnuto ve výsledcích.</translation>
     </message>
     <message>
+        <location filename="plugins/Receipts/qml/reports/sicard.qml" line="185"/>
         <source>FI</source>
-        <translation type="vanished">Cíl</translation>
+        <translation>Cíl</translation>
     </message>
 </context>
 <context>
     <name>startList_classes</name>
     <message>
+        <location filename="plugins/Relays/qml/reports/startList_classes.qml" line="9"/>
+        <location filename="plugins/Runs/qml/reports/startList_classes.qml" line="8"/>
         <source>Start list by classes</source>
-        <translation type="vanished">Startovní listina po kategoriích</translation>
+        <translation>Startovní listina po kategoriích</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_classes.qml" line="82"/>
         <source>length: </source>
-        <translation type="vanished">délka: </translation>
+        <translation>délka: </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_classes.qml" line="85"/>
         <source>climb: </source>
-        <translation type="vanished">převýšení: </translation>
+        <translation>převýšení: </translation>
     </message>
 </context>
 <context>
     <name>startList_classes_nstages</name>
     <message numerus="yes">
+        <location filename="plugins/Runs/qml/reports/startList_classes_nstages.qml" line="14"/>
         <source>Start list by classes for %n stage(s)</source>
         <oldsource>Start list by classes</oldsource>
-        <translation type="vanished">
+        <translation>
             <numerusform>Startovní listina po kategoriích na %n etapu</numerusform>
             <numerusform>Startovní listina po kategoriích na %n etapy</numerusform>
             <numerusform>Startovní listina po kategoriích na %n etap</numerusform>
         </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_classes_nstages.qml" line="112"/>
         <source>Bib</source>
-        <translation type="vanished">SČ</translation>
+        <translation>SČ</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_classes_nstages.qml" line="118"/>
         <source>Registration</source>
-        <translation type="vanished">Registrace</translation>
+        <translation>Registrace</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_classes_nstages.qml" line="125"/>
         <source>SI</source>
-        <translation type="vanished">SI</translation>
+        <translation>SI</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_classes_nstages.qml" line="131"/>
         <source>Stage</source>
-        <translation type="vanished">Etapa</translation>
+        <translation>Etapa</translation>
     </message>
 </context>
 <context>
     <name>startList_clubs</name>
     <message>
+        <location filename="plugins/Relays/qml/reports/startList_clubs.qml" line="9"/>
+        <location filename="plugins/Runs/qml/reports/startList_clubs.qml" line="8"/>
         <source>Start list by clubs</source>
-        <translation type="vanished">Startovní listina po klubech</translation>
+        <translation>Startovní listina po klubech</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_clubs.qml" line="136"/>
         <source>R </source>
-        <translation type="vanished">P </translation>
+        <translation>P </translation>
     </message>
 </context>
 <context>
     <name>startList_clubs_nstages</name>
     <message numerus="yes">
+        <location filename="plugins/Runs/qml/reports/startList_clubs_nstages.qml" line="14"/>
         <source>Start list by clubs for %n stage(s)</source>
         <oldsource>Start list by clubs</oldsource>
-        <translation type="vanished">
+        <translation>
             <numerusform>Startovní listina po klubech na %n etapu</numerusform>
             <numerusform>Startovní listina po klubech na %n etapy</numerusform>
             <numerusform>Startovní listina po klubech na %n etap</numerusform>
         </translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_clubs_nstages.qml" line="118"/>
         <source>Bib</source>
-        <translation type="vanished">SČ</translation>
+        <translation>SČ</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_clubs_nstages.qml" line="124"/>
         <source>Registration</source>
-        <translation type="vanished">Registrace</translation>
+        <translation>Registrace</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_clubs_nstages.qml" line="131"/>
         <source>SI</source>
-        <translation type="vanished">SI</translation>
+        <translation>SI</translation>
     </message>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_clubs_nstages.qml" line="138"/>
         <source>Stage</source>
-        <translation type="vanished">Etapa</translation>
+        <translation>Etapa</translation>
     </message>
 </context>
 <context>
     <name>startList_starters</name>
     <message>
+        <location filename="plugins/Runs/qml/reports/startList_starters.qml" line="9"/>
         <source>Start list for starters</source>
-        <translation type="vanished">Startovní listina pro startéry</translation>
+        <translation>Startovní listina pro startéry</translation>
     </message>
 </context>
 <context>
     <name>table</name>
     <message>
+        <location filename="plugins/Classes/qml/reports/table.qml" line="40"/>
         <source>id</source>
-        <translation type="vanished">id</translation>
+        <translation>id</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/qml/reports/table.qml" line="45"/>
         <source>name</source>
-        <translation type="vanished">jméno</translation>
+        <translation>jméno</translation>
     </message>
     <message>
+        <location filename="plugins/Classes/qml/reports/table.qml" line="50"/>
         <source>Course ID</source>
-        <translation type="vanished">Trať ID</translation>
+        <translation>Trať ID</translation>
     </message>
 </context>
 </TS>

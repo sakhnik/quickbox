@@ -4,18 +4,13 @@
 <context>
     <name>ClassCellRenderer</name>
     <message>
-        <location filename="src/cellrenderer.cpp" line="77"/>
+        <location filename="src/cellrenderer.cpp" line="78"/>
         <source>length: {{length}} climb: {{climb}}</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
     <name>MainWindow</name>
-    <message>
-        <location filename="src/mainwindow.ui" line="14"/>
-        <source>MainWindow</source>
-        <translation type="unfinished"></translation>
-    </message>
     <message>
         <location filename="src/mainwindow.cpp" line="26"/>
         <source>Toggle full screen</source>
@@ -36,11 +31,16 @@
         <source>E%1</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="src/mainwindow.ui" line="14"/>
+        <source>MainWindow</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
     <name>ResultsCellRenderer</name>
     <message>
-        <location filename="src/cellrenderer.cpp" line="219"/>
+        <location filename="src/cellrenderer.cpp" line="238"/>
         <source>DISQ</source>
         <translation type="unfinished"></translation>
     </message>

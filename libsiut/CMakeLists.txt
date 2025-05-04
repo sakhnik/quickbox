@@ -8,27 +8,25 @@ add_library(libsiut SHARED
     src/sipunch.cpp
     )
 
-if(USE_QT6)
-	qt6_add_translation(QM_FILES
-        libsiut-cs_CZ.ts
-        libsiut-fr_FR.ts
-        libsiut-nb_NO.ts
-        libsiut-nl_BE.ts
-        libsiut-pl_PL.ts
-        libsiut-ru_RU.ts
-        libsiut-uk_UA.ts
-        )
-else()
-    qt5_add_translation(QM_FILES
-        libsiut-cs_CZ.ts
-        libsiut-fr_FR.ts
-        libsiut-nb_NO.ts
-        libsiut-nl_BE.ts
-        libsiut-pl_PL.ts
-        libsiut-ru_RU.ts
-        libsiut-uk_UA.ts
-        )
-endif()
+qt6_add_translation(QM_FILES
+	libsiut-cs_CZ.ts
+	libsiut-fr_FR.ts
+	libsiut-nb_NO.ts
+	libsiut-nl_BE.ts
+	libsiut-pl_PL.ts
+	libsiut-ru_RU.ts
+	libsiut-uk_UA.ts
+	)
+
+qt6_add_lupdate(libsiut TS_FILES
+	libsiut-cs_CZ.ts
+	libsiut-fr_FR.ts
+	libsiut-nb_NO.ts
+	libsiut-nl_BE.ts
+	libsiut-pl_PL.ts
+	libsiut-ru_RU.ts
+	libsiut-uk_UA.ts
+	)
 
 target_sources(libsiut PRIVATE ${QM_FILES})
 target_compile_definitions(libsiut PRIVATE SIUT_BUILD_DLL)

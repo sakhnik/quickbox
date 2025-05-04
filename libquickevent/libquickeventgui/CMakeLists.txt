@@ -4,31 +4,31 @@ add_library(libquickeventgui SHARED
     src/og/sqltablemodel.cpp
     src/og/timeedit.cpp
     src/reportoptionsdialog.cpp
+    src/reportoptionsdialog.ui
     src/si/siidedit.cpp
     libquickeventgui.qrc
     )
 
-if(USE_QT6)
-	qt6_add_translation(QM_FILES
-        libquickeventgui-cs_CZ.ts
-        libquickeventgui-fr_FR.ts
-        libquickeventgui-nb_NO.ts
-        libquickeventgui-nl_BE.ts
-        libquickeventgui-pl_PL.ts
-        libquickeventgui-ru_RU.ts
-        libquickeventgui-uk_UA.ts
-        )
-else()
-    qt5_add_translation(QM_FILES
-        libquickeventgui-cs_CZ.ts
-        libquickeventgui-fr_FR.ts
-        libquickeventgui-nb_NO.ts
-        libquickeventgui-nl_BE.ts
-        libquickeventgui-pl_PL.ts
-        libquickeventgui-ru_RU.ts
-        libquickeventgui-uk_UA.ts
-        )
-endif()
+
+qt6_add_translation(QM_FILES
+	libquickeventgui-cs_CZ.ts
+	libquickeventgui-fr_FR.ts
+	libquickeventgui-nb_NO.ts
+	libquickeventgui-nl_BE.ts
+	libquickeventgui-pl_PL.ts
+	libquickeventgui-ru_RU.ts
+	libquickeventgui-uk_UA.ts
+	)
+
+qt6_add_lupdate(libquickeventgui TS_FILES
+	libquickeventgui-cs_CZ.ts
+	libquickeventgui-fr_FR.ts
+	libquickeventgui-nb_NO.ts
+	libquickeventgui-nl_BE.ts
+	libquickeventgui-pl_PL.ts
+	libquickeventgui-ru_RU.ts
+	libquickeventgui-uk_UA.ts
+	)
 
 target_sources(libquickeventgui PRIVATE ${QM_FILES})
 target_compile_definitions(libquickeventgui PRIVATE QUICKEVENTGUI_BUILD_DLL)

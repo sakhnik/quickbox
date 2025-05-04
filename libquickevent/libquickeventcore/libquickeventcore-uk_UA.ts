@@ -4,43 +4,43 @@
 <context>
     <name>RunStatus</name>
     <message>
-        <location filename="src/runstatus.cpp" line="137"/>
+        <location filename="src/runstatus.cpp" line="121"/>
         <source>DISQ</source>
         <comment>Disqualified</comment>
         <translation>DISQ</translation>
     </message>
     <message>
-        <location filename="src/runstatus.cpp" line="139"/>
+        <location filename="src/runstatus.cpp" line="123"/>
         <source>MP</source>
         <comment>Missing Punch</comment>
         <translation>MP</translation>
     </message>
     <message>
-        <location filename="src/runstatus.cpp" line="141"/>
+        <location filename="src/runstatus.cpp" line="125"/>
         <source>DNS</source>
         <comment>Did Not Start</comment>
         <translation>DNS</translation>
     </message>
     <message>
-        <location filename="src/runstatus.cpp" line="143"/>
+        <location filename="src/runstatus.cpp" line="127"/>
         <source>DNF</source>
         <comment>Did Not Finish</comment>
         <translation>DNF</translation>
     </message>
     <message>
-        <location filename="src/runstatus.cpp" line="145"/>
+        <location filename="src/runstatus.cpp" line="129"/>
         <source>OVRT</source>
         <comment>Over Time</comment>
         <translation>OVRT</translation>
     </message>
     <message>
-        <location filename="src/runstatus.cpp" line="150"/>
+        <location filename="src/runstatus.cpp" line="119"/>
         <source>NC</source>
         <comment>Not Competing</comment>
         <translation>NC</translation>
     </message>
     <message>
-        <location filename="src/runstatus.cpp" line="152"/>
+        <location filename="src/runstatus.cpp" line="130"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -48,39 +48,28 @@
 <context>
     <name>ogtime</name>
     <message>
-        <location filename="js/ogtime.js" line="48"/>
-        <location filename="js/ogtime.js" line="66"/>
         <source>DISQ</source>
-        <translation>DISQ</translation>
+        <translation type="vanished">DISQ</translation>
     </message>
     <message>
-        <location filename="js/ogtime.js" line="50"/>
-        <location filename="js/ogtime.js" line="68"/>
         <source>MP</source>
-        <translation>MP</translation>
+        <translation type="vanished">MP</translation>
     </message>
     <message>
-        <location filename="js/ogtime.js" line="52"/>
         <source>NC</source>
-        <translation>NC</translation>
+        <translation type="vanished">NC</translation>
     </message>
     <message>
-        <location filename="js/ogtime.js" line="54"/>
-        <location filename="js/ogtime.js" line="72"/>
         <source>DNF</source>
-        <translation>DNF</translation>
+        <translation type="vanished">DNF</translation>
     </message>
     <message>
-        <location filename="js/ogtime.js" line="56"/>
-        <location filename="js/ogtime.js" line="70"/>
         <source>DNS</source>
-        <translation>DNS</translation>
+        <translation type="vanished">DNS</translation>
     </message>
     <message>
-        <location filename="js/ogtime.js" line="58"/>
-        <location filename="js/ogtime.js" line="74"/>
         <source>OVRT</source>
-        <translation>OVRT</translation>
+        <translation type="vanished">OVRT</translation>
     </message>
 </context>
 <context>

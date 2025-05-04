@@ -19,29 +19,36 @@ add_executable(qsqlmon
     src/tableviewwidget.cpp
 	src/theapp.cpp
 	src/qsqlmon.qrc
+	src/centralwidget.ui
+	src/columnselectorwidget.ui
+	src/dlgaltertable.ui
+	src/dlgcolumndef.ui
+	src/dlgeditconnection.ui
+	src/dlgindexdef.ui
+	src/servertreewidget.ui
+	src/sqlwidget.ui
+	src/tableviewwidget.ui
     )
 
-if(USE_QT6)
-	qt6_add_translation(QM_FILES
-        qsqlmon-cs_CZ.ts
-        qsqlmon-fr_FR.ts
-        qsqlmon-nb_NO.ts
-        qsqlmon-nl_BE.ts
-        qsqlmon-pl_PL.ts
-        qsqlmon-ru_RU.ts
-        qsqlmon-uk_UA.ts
-        )
-else()
-    qt5_add_translation(QM_FILES
-        qsqlmon-cs_CZ.ts
-        qsqlmon-fr_FR.ts
-        qsqlmon-nb_NO.ts
-        qsqlmon-nl_BE.ts
-        qsqlmon-pl_PL.ts
-        qsqlmon-ru_RU.ts
-        qsqlmon-uk_UA.ts
-        )
-endif()
+qt6_add_translation(QM_FILES
+	qsqlmon-cs_CZ.ts
+	qsqlmon-fr_FR.ts
+	qsqlmon-nb_NO.ts
+	qsqlmon-nl_BE.ts
+	qsqlmon-pl_PL.ts
+	qsqlmon-ru_RU.ts
+	qsqlmon-uk_UA.ts
+	)
+
+qt6_add_lupdate(qsqlmon TS_FILES
+	qsqlmon-cs_CZ.ts
+	qsqlmon-fr_FR.ts
+	qsqlmon-nb_NO.ts
+	qsqlmon-nl_BE.ts
+	qsqlmon-pl_PL.ts
+	qsqlmon-ru_RU.ts
+	qsqlmon-uk_UA.ts
+	)
 
 target_sources(qsqlmon PRIVATE ${QM_FILES})
 target_link_libraries(qsqlmon PRIVATE libqfqmlwidgets)
