@@ -10,7 +10,6 @@
 #include <plugins/Core/src/coreplugin.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Classes/src/classesplugin.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/Runs/src/runsplugin.h>
 #include <plugins/Oris/src/orisplugin.h>
 #include <plugins/CardReader/src/cardreaderplugin.h>

@@ -10,7 +10,6 @@
 #include "partwidget.h"
 // #include "../../Competitors/src/competitorwidget.h"
 #include "../../CardReader/src/cardreaderplugin.h"
-#include "../../Competitors/src/competitorsplugin.h"
 #include "../../Event/src/eventplugin.h"
 #include "../../Event/src/services/qx/qxlateregistrationswidget.h"
 

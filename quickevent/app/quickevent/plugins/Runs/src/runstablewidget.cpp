@@ -20,7 +20,6 @@
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
 #include <plugins/Event/src/eventplugin.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/CardReader/src/cardreaderplugin.h>
 #include <plugins/Receipts/src/receiptsplugin.h>
 

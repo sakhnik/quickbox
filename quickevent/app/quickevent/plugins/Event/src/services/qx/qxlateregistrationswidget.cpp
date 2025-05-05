@@ -4,7 +4,6 @@
 #include "qxclientservice.h"
 
 #include <plugins/Event/src/eventplugin.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/core/model/sqltablemodel.h>
