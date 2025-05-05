@@ -48,8 +48,9 @@
 #include <plugins/Receipts/src/receiptsplugin.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Runs/src/findrunnerwidget.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
+// #include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/Runs/src/runflagsdialog.h>
+#include <plugins/Runs/src/runsplugin.h>
 
 #include <QSettings>
 #include <QFile>
@@ -72,7 +73,8 @@ using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using CardReader::CardReaderPlugin;
 using Receipts::ReceiptsPlugin;
-using Competitors::CompetitorsPlugin;
+// using Competitors::CompetitorsPlugin;
+using Runs::RunsPlugin;
 
 namespace {
 class Model : public quickevent::core::og::SqlTableModel
@@ -631,7 +633,7 @@ void CardReaderWidget::processSICard(const siut::SICard &card)
 	appendLog(NecroLog::Level::Info, tr("card: %1").arg(card.cardNumber()));
 
 	if(currentReaderMode() == CardReaderSettings::ReaderMode::EditOnPunch) {
-		getPlugin<CompetitorsPlugin>()->editCompetitorOnPunch(card.cardNumber());
+		getPlugin<RunsPlugin>()->editCompetitorOnPunch(card.cardNumber());
 		return;
 	}
 

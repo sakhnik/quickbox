@@ -41,9 +41,7 @@ TableViewToolBar::TableViewToolBar(QWidget *parent) :
 #endif
 }
 
-TableViewToolBar::~TableViewToolBar()
-{
-}
+
 
 void TableViewToolBar::setTableView(TableView *table_view)
 {

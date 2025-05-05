@@ -8,6 +8,7 @@
 #include "printawardsoptionsdialogwidget.h"
 #include "services/resultsexporter.h"
 #include "partwidget.h"
+// #include "../../Competitors/src/competitorwidget.h"
 #include "../../CardReader/src/cardreaderplugin.h"
 #include "../../Competitors/src/competitorsplugin.h"
 #include "../../Event/src/eventplugin.h"
@@ -43,14 +44,16 @@
 #include <QTextStream>
 #include <QSqlField>
 
+namespace qfm = qf::core::model;
 namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 namespace qfu = qf::core::utils;
 namespace qfs = qf::core::sql;
+namespace qfd = qf::qmlwidgets::dialogs;
 using ::PartWidget;
 using qff::getPlugin;
 using Event::EventPlugin;
-using Competitors::CompetitorsPlugin;
+// using Competitors::CompetitorsPlugin;
 using CardReader::CardReaderPlugin;
 
 namespace Runs {
@@ -1667,6 +1670,18 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsNStagesTable(const int stag
 	}
 	return tt;
 }
+
+// int RunsPlugin::editCompetitor(int id, int mode)
+// {
+// 	qfLogFuncFrame() << "id:" << id;
+// 	auto *w = new CompetitorWidget();
+// 	w->setWindowTitle(tr("Edit Competitor"));
+// 	qfd::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, m_partWidget);
+// 	dlg.setDefaultButton(QDialogButtonBox::Save);
+// 	dlg.setCentralWidget(w);
+// 	w->load(id, (qfm::DataDocument::RecordEditMode)mode);
+// 	return dlg.exec();
+// }
 
 void RunsPlugin::report_startListClasses()
 {

@@ -91,10 +91,10 @@ void MainWindow::loadPlugins()
 		auto *plugin = new Classes::ClassesPlugin(this);
 		registerPlugin(plugin);
 	}
-	{
-		auto *plugin = new Competitors::CompetitorsPlugin(this);
-		registerPlugin(plugin);
-	}
+	// {
+	// 	auto *plugin = new Competitors::CompetitorsPlugin(this);
+	// 	registerPlugin(plugin);
+	// }
 	{
 		auto *plugin = new Runs::RunsPlugin(this);
 		registerPlugin(plugin);

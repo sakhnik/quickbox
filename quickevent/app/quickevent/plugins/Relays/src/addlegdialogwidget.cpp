@@ -9,13 +9,15 @@
 #include <qf/core/assert.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/model/sqltablemodel.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
+#include <plugins/Event/src/eventplugin.h>
+// #include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/Competitors/src/competitordocument.h>
 
 #include <QTimer>
 
 using qf::qmlwidgets::framework::getPlugin;
-using Competitors::CompetitorsPlugin;
+// using Competitors::CompetitorsPlugin;
+using Event::EventPlugin;
 
 AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 	: Super(parent)
@@ -55,7 +57,7 @@ AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 	ui->tblCompetitors->setReadOnly(true);
 	competitors_model->reload();
 
-	auto *reg_model = getPlugin<CompetitorsPlugin>()->registrationsModel();
+	auto *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 	ui->tblRegistrations->setTableModel(reg_model);
 	ui->tblRegistrations->setReadOnly(true);
 	connect(reg_model, &qf::core::model::SqlTableModel::reloaded, this, [this]() {

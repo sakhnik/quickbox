@@ -1,6 +1,6 @@
 #include "findregistrationedit.h"
 
-#include "competitorsplugin.h"
+#include "eventplugin.h"
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/qmlwidgets/log.h>
@@ -14,7 +14,7 @@
 #include <QKeyEvent>
 
 using qf::qmlwidgets::framework::getPlugin;
-using Competitors::CompetitorsPlugin;
+using Event::EventPlugin;
 
 class FindRegistrationsModel : public QAbstractTableModel
 {
@@ -34,7 +34,7 @@ private:
 FindRegistrationsModel::FindRegistrationsModel(QObject *parent)
 	: Super(parent)
 {
-	m_registrationsTable = getPlugin<CompetitorsPlugin>()->registrationsTable();
+	m_registrationsTable = getPlugin<EventPlugin>()->registrationsTable();
 }
 
 const qf::core::utils::Table &FindRegistrationsModel::registrationsTable() const

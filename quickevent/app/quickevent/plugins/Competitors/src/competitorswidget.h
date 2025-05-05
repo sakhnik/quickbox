@@ -38,17 +38,9 @@ private:
 	Q_SLOT void reset();
 	Q_SLOT void reload();
 
-	void editCompetitor(const QVariant &id, int mode) {editCompetitor_helper(id, mode, 0);}
-	void editCompetitors(int mode);
-
-	void editCompetitor_helper(const QVariant &id, int mode, int siid);
-	Q_SLOT void editCompetitorOnPunch(int siid);
-
 	void onCustomContextMenuRequest(const QPoint &pos);
 
-	void report_competitorsStatistics();
 private:
-	bool m_editCompetitorLock = false;
 	Ui::CompetitorsWidget *ui;
 	qf::core::model::SqlTableModel *m_competitorsModel;
 	qf::qmlwidgets::ForeignKeyComboBox *m_cbxClasses = nullptr;

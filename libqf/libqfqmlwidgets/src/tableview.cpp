@@ -355,8 +355,9 @@ void TableView::setDirtyRowsMenuSectionEnabled(bool b)
 
 void TableView::setReadOnly(bool ro)
 {
-	if(ro == isReadOnly())
+	if(ro == isReadOnly()) {
 		return;
+	}
 	m_isReadOnly = ro;
 
 	setEditRowsMenuSectionEnabled(!ro);

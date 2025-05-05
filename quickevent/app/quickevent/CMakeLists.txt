@@ -50,11 +50,6 @@ add_executable(quickevent
 	plugins/Competitors/src/competitorswidget.ui
 	plugins/Competitors/src/competitorwidget.cpp
 	plugins/Competitors/src/competitorwidget.ui
-	plugins/Competitors/src/findregistrationedit.cpp
-	plugins/Competitors/src/lentcardssettingspage.cpp
-	plugins/Competitors/src/lentcardssettingspage.ui
-	plugins/Competitors/src/registrationswidget.cpp
-	plugins/Competitors/src/registrationswidget.ui
 	plugins/Competitors/src/stationsbackupmemorywidget.cpp
 	plugins/Competitors/src/stationsbackupmemorywidget.ui
 
@@ -80,7 +75,11 @@ add_executable(quickevent
 	plugins/Event/src/stagedocument.cpp
 	plugins/Event/src/stagewidget.cpp
 	plugins/Event/src/stagewidget.ui
-
+	plugins/Event/src/findregistrationedit.cpp
+	plugins/Event/src/lentcardssettingspage.cpp
+	plugins/Event/src/lentcardssettingspage.ui
+	plugins/Event/src/registrationswidget.cpp
+	plugins/Event/src/registrationswidget.ui
 	plugins/Event/src/services/emmaclient.cpp
 	plugins/Event/src/services/emmaclientwidget.cpp
 	plugins/Event/src/services/emmaclientwidget.ui

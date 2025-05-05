@@ -1,6 +1,6 @@
 #include "registrationswidget.h"
 #include "ui_registrationswidget.h"
-#include "competitorsplugin.h"
+#include "eventplugin.h"
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 
@@ -12,7 +12,7 @@
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
-using Competitors::CompetitorsPlugin;
+using Event::EventPlugin;
 
 RegistrationsWidget::RegistrationsWidget(QWidget *parent) :
 	QWidget(parent),
@@ -39,7 +39,7 @@ void RegistrationsWidget::checkModel()
 		return;
 
 	if(!ui->tblRegistrations->tableModel()) {
-		qf::core::model::SqlTableModel *reg_model = getPlugin<CompetitorsPlugin>()->registrationsModel();
+		qf::core::model::SqlTableModel *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 		ui->tblRegistrations->setTableModel(reg_model);
 		connect(reg_model, &qf::core::model::SqlTableModel::reloaded, [this]() {
 			ui->tblRegistrations->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
