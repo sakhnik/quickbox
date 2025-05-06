@@ -9,7 +9,7 @@ on:
 jobs:
   windows:
     name: Qt 6.8 / Windows
-    runs-on: windows-2022
+    runs-on: windows-2025
     steps:
       - name: Clone the repository
         uses: actions/checkout@v4
@@ -54,14 +54,15 @@ jobs:
       - name: Get libraries
 #         if: steps.cache-libs.outputs.cache-hit != 'true'
         run: |
-          choco install openssl.light --params "/InstallDir:C:\openssl" --version 1.1.1 -y
-          choco install postgresql14 --version 14.5.1 -y
+          choco install openssl.light --params "/InstallDir:C:\openssl" --version=3.1.4 -y
+          choco install postgresql17 -y
+          choco install innosetup -y
         shell: cmd
 
       - name: Setup CMake
         uses: ./.github/actions/cmake
         with:
-          qt_version: 6.8.2
+          qt_version: 6.8.3
           qt_arch: win64_mingw
           use_qt6: ON
           modules: qtserialport qtmultimedia
@@ -86,10 +87,10 @@ jobs:
 
       - name: Copy PostgreSQL runtime libraries
         run: |
-          cd "C:/Program Files/PostgreSQL/14/bin"
+          cd "C:/Program Files/PostgreSQL/17/bin"
           cp libiconv-2.dll libintl-9.dll liblz4.dll zlib1.dll libpq.dll '${{ github.workspace }}/install/bin/'
           cd "C:\openssl"
-          cp libssl-1_1-x64.dll libcrypto-1_1-x64.dll '${{ github.workspace }}/install/bin/'
+          cp libssl-3-x64.dll libcrypto-3-x64.dll '${{ github.workspace }}/install/bin/'
         shell: bash
 
       - name: Get app version
