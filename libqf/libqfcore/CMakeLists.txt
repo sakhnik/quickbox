@@ -66,3 +66,4 @@ if(WIN32)
 endif()
 
 install(TARGETS libqfcore)
+install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_BINDIR}/translations)
