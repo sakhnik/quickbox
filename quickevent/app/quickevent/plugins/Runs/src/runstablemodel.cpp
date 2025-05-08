@@ -244,7 +244,7 @@ bool RunsTableModel::canDropMimeData(const QMimeData *data, Qt::DropAction actio
 */
 bool RunsTableModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
-	qfLogFuncFrame() << "row:" << row << "col:" << column << "parent:" << parent;
+	// qfLogFuncFrame() << "row:" << row << "col:" << column << "parent:" << parent;
 	if (!canDropMimeData(data, action, row, column, parent))
 		return false;
 

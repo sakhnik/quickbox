@@ -64,7 +64,7 @@ void TableViewToolBar::addPendingActions()
 	Q_FOREACH(auto a, m_pendingActions)
 		lst << a;
 	addActions(lst);
-	QLabel *lbl = new QLabel(tr("Filter"));
+	auto *lbl = new QLabel(tr("Filter"));
 	auto *style = Style::instance();
 	QPixmap px = style->pixmap("find");
 	lbl->setPixmap(px);

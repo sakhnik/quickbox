@@ -66,7 +66,7 @@ QVariant FindRegistrationsModel::data(const QModelIndex &index, int role) const
 					+ table_row.value(col_registration).toString() + ' '
 					+ SI + table_row.value(col_siid).toString();
 		}
-		else if(role == FindRegistrationEdit::CompletionRole) {
+		if(role == FindRegistrationEdit::CompletionRole) {
 			return table_row.value(col_searchkey).toString() + ' '
 					+ table_row.value(col_registration).toString() + ' '
 					+ SI + table_row.value(col_siid).toString() + ' '
@@ -80,7 +80,7 @@ FindRegistrationEdit::FindRegistrationEdit(QWidget *parent)
 	: Super(parent)
 {	
 	m_findRegistrationsModel = new FindRegistrationsModel(this);
-	QCompleter *cmpl = new QCompleter(m_findRegistrationsModel, this);
+	auto *cmpl = new QCompleter(m_findRegistrationsModel, this);
 	cmpl->setCompletionRole(CompletionRole);
 	cmpl->setCaseSensitivity(Qt::CaseInsensitive);
 	cmpl->setFilterMode(Qt::MatchContains);
@@ -100,9 +100,9 @@ void FindRegistrationEdit::focusInEvent(QFocusEvent *event)
 
 void FindRegistrationEdit::onCompleterActivated(const QModelIndex &index)
 {
-	qfLogFuncFrame() << index << index.data();
+	// qfLogFuncFrame() << index << index.data();
 	auto *proxy_model = qobject_cast<QAbstractProxyModel*>(completer()->completionModel());
-	QF_ASSERT(proxy_model != nullptr, "Bad proxy model!", return);
+	Q_ASSERT(proxy_model != nullptr);
 	QModelIndex ix = proxy_model->mapToSource(index);
 	const qf::core::utils::Table &table = m_findRegistrationsModel->registrationsTable();
 	int row_no = ix.row();

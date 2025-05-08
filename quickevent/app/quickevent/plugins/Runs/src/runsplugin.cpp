@@ -43,12 +43,9 @@
 #include <QTextStream>
 #include <QSqlField>
 
-namespace qfm = qf::core::model;
-namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 namespace qfu = qf::core::utils;
 namespace qfs = qf::core::sql;
-namespace qfd = qf::qmlwidgets::dialogs;
 using ::PartWidget;
 using qff::getPlugin;
 using Event::EventPlugin;
@@ -68,9 +65,7 @@ RunsPlugin::RunsPlugin(QObject *parent)
 	connect(this, &RunsPlugin::installed, this, &RunsPlugin::onInstalled);
 }
 
-RunsPlugin::~RunsPlugin()
-{
-}
+RunsPlugin::~RunsPlugin() = default;
 
 const qf::core::utils::Table &RunsPlugin::runnersTable(int stage_id)
 {
@@ -162,7 +157,7 @@ void RunsPlugin::onInstalled()
 		m_qxLateRegistrationsDockWidget = dw;
 	}
 
-	services::ResultsExporter *results_exporter = new services::ResultsExporter(this);
+	auto *results_exporter = new services::ResultsExporter(this);
 	Event::services::Service::addService(results_exporter);
 }
 
@@ -364,7 +359,7 @@ QWidget* RunsPlugin::createReportOptionsDialog(QWidget *parent)
 		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
 		parent = fwk;
 	}
-	quickevent::gui::ReportOptionsDialog *ret = new quickevent::gui::ReportOptionsDialog(parent);
+	auto *ret = new quickevent::gui::ReportOptionsDialog(parent);
 	ret->loadPersistentSettings();
 	return ret;
 }
@@ -868,7 +863,7 @@ QVariantMap RunsPlugin::printAwardsOptionsWithDialog(const QVariantMap &opts)
 {
 	qfInfo() << Q_FUNC_INFO;
 	QVariantMap ret;
-	PrintAwardsOptionsDialogWidget *w = new PrintAwardsOptionsDialogWidget();
+	auto *w = new PrintAwardsOptionsDialogWidget();
 	w->setPrintOptions(opts);
 	qf::qmlwidgets::dialogs::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, m_partWidget);
 	dlg.setCentralWidget(w);

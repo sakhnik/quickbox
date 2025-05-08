@@ -9,8 +9,6 @@
 #include <qf/core/sql/connection.h>
 #include <qf/core/assert.h>
 
-namespace qfm = qf::core::model;
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
@@ -41,7 +39,7 @@ void RegistrationsWidget::checkModel()
 	if(!ui->tblRegistrations->tableModel()) {
 		qf::core::model::SqlTableModel *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 		ui->tblRegistrations->setTableModel(reg_model);
-		connect(reg_model, &qf::core::model::SqlTableModel::reloaded, [this]() {
+		connect(reg_model, &qf::core::model::SqlTableModel::reloaded, this, [this]() {
 			ui->tblRegistrations->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 		});
 	}

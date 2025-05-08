@@ -262,7 +262,7 @@ void RunsWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	a_import->setText(tr("&Import"));
 
 	qfw::Action *a_import_start_times = a_import->addMenuInto("startTimes", tr("Start times"));
-	qfw::Action *a_import_start_times_ob2000 = new qfw::Action("ob2000", tr("OB 2000"));
+	auto *a_import_start_times_ob2000 = new qfw::Action("ob2000", tr("OB 2000"));
 	a_import_start_times->addActionInto(a_import_start_times_ob2000);
 	connect(a_import_start_times_ob2000, &qfw::Action::triggered, this, &RunsWidget::import_start_times_ob2000);
 
@@ -344,7 +344,7 @@ void RunsWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	qfw::ToolBar *main_tb = part_widget->toolBar("main", true);
 	//main_tb->addAction(m_actCommOpen);
 	{
-		QLabel *lbl = new QLabel(tr("Stage "));
+		auto *lbl = new QLabel(tr("Stage "));
 		main_tb->addWidget(lbl);
 	}
 	{
@@ -369,7 +369,7 @@ void RunsWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	}
 	lbl_classes->setBuddy(m_cbxClasses);
 	{
-		QLabel *lbl_leg = new QLabel(tr("&Leg "));
+		auto *lbl_leg = new QLabel(tr("&Leg "));
 		m_toolbarActionLabelLeg = main_tb->addWidget(lbl_leg);
 		m_cbxLeg = new QComboBox();
 		{

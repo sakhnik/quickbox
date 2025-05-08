@@ -31,7 +31,7 @@ AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 
 	m_defaultStatusText = ui->lblStatus->text();
 
-	qf::core::model::SqlTableModel *competitors_model = new qf::core::model::SqlTableModel(this);
+	auto *competitors_model = new qf::core::model::SqlTableModel(this);
 	//competitors_model->addColumn("relays.club", tr("Club"));
 	competitors_model->addColumn("relayName", tr("Name"));
 	competitors_model->addColumn("runs.leg", tr("Leg"));
@@ -167,7 +167,7 @@ void AddLegDialogWidget::updateLegAddedStatus(const QString &msg)
 	m_updateStatusTimer->start();
 }
 
-int AddLegDialogWidget::findFreeLeg()
+int AddLegDialogWidget::findFreeLeg() const
 {
 	qf::core::sql::Query q;
 	q.exec("SELECT leg FROM runs WHERE leg IS NOT NULL AND relayId=" + QString::number(relayId()) + " ORDER BY leg", qf::core::Exception::Throw);
