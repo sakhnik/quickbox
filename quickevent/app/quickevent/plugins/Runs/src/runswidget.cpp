@@ -1164,10 +1164,16 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 		EditGuard guard(m_editCompetitorLock);
 		auto *w = new CompetitorWidget();
 		w->setWindowTitle(tr("Edit Competitor"));
-		qfd::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, this);
-		dlg.setDefaultButton(QDialogButtonBox::Save);
+		qfd::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
+		dlg.setDefaultButton(QDialogButtonBox::Ok);
 		if(mode == qf::core::model::DataDocument::ModeInsert || mode == qf::core::model::DataDocument::ModeEdit) {
-			QPushButton *bt_save_and_next = dlg.buttonBox()->addButton(tr("Save and &next"), QDialogButtonBox::AcceptRole);
+			QPushButton *bt_save = dlg.buttonBox()->addButton(tr("Save"), QDialogButtonBox::ApplyRole);
+			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [w, bt_save](QAbstractButton *button) {
+				if (button == bt_save) {
+					w->save();
+				}
+			});
+			QPushButton *bt_save_and_next = dlg.buttonBox()->addButton(tr("Ok and &next"), QDialogButtonBox::AcceptRole);
 			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
 				save_and_next = (button == bt_save_and_next);
 			});
