@@ -90,6 +90,8 @@ RunsWidget::RunsWidget(QWidget *parent) :
 	});
 	connect(ui->wRunsTableWidget->tableView(), &qfw::TableView::editRowInExternalEditor, this, &RunsWidget::editCompetitor, Qt::QueuedConnection);
 	connect(ui->wRunsTableWidget->tableView(), &qfw::TableView::editSelectedRowsInExternalEditor, this, &RunsWidget::editCompetitors, Qt::QueuedConnection);
+	connect(ui->btDraw, &QAbstractButton::clicked, this, &RunsWidget::onDrawClicked);
+	connect(ui->btDrawRemove, &QAbstractButton::clicked, this, &RunsWidget::onDrawRemoveClicked);
 }
 
 RunsWidget::~RunsWidget()
@@ -657,7 +659,7 @@ void RunsWidget::saveLockedForDrawing(int class_id, int stage_id, bool is_locked
 	q.exec(qf::core::Exception::Throw);
 }
 
-void RunsWidget::on_btDraw_clicked()
+void RunsWidget::onDrawClicked()
 {
 	qfLogFuncFrame();
 	bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
@@ -945,7 +947,7 @@ void RunsWidget::on_btDraw_clicked()
 	ui->wRunsTableWidget->reload();
 }
 
-void RunsWidget::on_btDrawRemove_clicked()
+void RunsWidget::onDrawRemoveClicked()
 {
 	int class_id = m_cbxClasses->currentData().toInt();
 	if(class_id == 0)

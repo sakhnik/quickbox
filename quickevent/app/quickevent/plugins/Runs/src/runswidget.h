@@ -65,8 +65,8 @@ private:
 
 	void editCompetitor_helper(const QVariant &id, int mode, int siid);
 
-	void on_btDraw_clicked();
-	void on_btDrawRemove_clicked();
+	void onDrawClicked();
+	void onDrawRemoveClicked();
 	void onCbxStageCurrentIndexChanged();
 private:
 
