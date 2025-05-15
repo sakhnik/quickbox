@@ -97,7 +97,6 @@ private:
 	QAction *m_toolbarActionLabelLeg = nullptr;
 	QAction *m_toolbarActionComboLeg = nullptr;
 	QCheckBox *m_chkShowOffRace = nullptr;
-	bool m_editCompetitorLock = false;
 };
 
 #endif // RUNSWIDGET_H

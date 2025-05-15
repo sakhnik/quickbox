@@ -88,7 +88,8 @@ RunsWidget::RunsWidget(QWidget *parent) :
 			ui->cbxDrawMethod->addItem(tr("Grouped by ranking (PSOB DH21L)"), static_cast<int>(DrawMethod::GroupedRanking));
 		}
 	});
-	connect(ui->wRunsTableWidget->tableView(), &qfw::TableView::editRowInExternalEditor, this, &RunsWidget::editCompetitor, Qt::QueuedConnection);
+	// connect(ui->wRunsTableWidget->tableView(), &qfw::TableView::editRowInExternalEditor, this, &RunsWidget::editCompetitor, Qt::QueuedConnection);
+	connect(ui->wRunsTableWidget, &RunsTableWidget::editCompetitorRequest, this, &RunsWidget::editCompetitor, Qt::QueuedConnection);
 	connect(ui->wRunsTableWidget->tableView(), &qfw::TableView::editSelectedRowsInExternalEditor, this, &RunsWidget::editCompetitors, Qt::QueuedConnection);
 	connect(ui->btDraw, &QAbstractButton::clicked, this, &RunsWidget::onDrawClicked);
 	connect(ui->btDrawRemove, &QAbstractButton::clicked, this, &RunsWidget::onDrawRemoveClicked);
@@ -1145,25 +1146,10 @@ void RunsWidget::report_competitorsStatistics()
 void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 {
 	qfLogFuncFrame() << "id:" << id << "mode:" << mode;
-	//qf::core::sql::Transaction transaction;
-	if (m_editCompetitorLock) {
-		qfDebug() << "Another competitor dialog is opened, ignoring editOnPunch..";
-		return;
-	}
-
-	class EditGuard
-	{
-	public:
-		EditGuard(bool &lock) : m_lock(lock) { m_lock = true; }
-		~EditGuard() { m_lock = false; }
-	private:
-		bool &m_lock;
-	};
 	bool ok = false;
 	bool save_and_next = false;
 
 	{
-		EditGuard guard(m_editCompetitorLock);
 		auto *w = new CompetitorWidget();
 		w->setWindowTitle(tr("Edit Competitor"));
 		qfd::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
@@ -1200,12 +1186,7 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 			}
 		}
 		connect(doc, &Competitors::CompetitorDocument::saved, ui->wRunsTableWidget->tableView(), &qf::qmlwidgets::TableView::rowExternallySaved, Qt::QueuedConnection);
-		// connect(doc, &Competitors::CompetitorDocument::saved, getPlugin<CompetitorsPlugin>(), &Competitors::CompetitorsPlugin::competitorEdited, Qt::QueuedConnection);
 		ok = dlg.exec();
-		//if(ok)
-		//	transaction.commit();
-		//else
-		//	transaction.rollback();
 
 	}
 	if(ok && save_and_next) {

@@ -71,7 +71,7 @@ void MainWindow::onPluginsLoaded()
 	auto *w = qobject_cast<qf::qmlwidgets::framework::StackedCentralWidget*>(centralWidget());
 	menuBar()->actionForPath("view/toolbar")->addActionInto(w->partSwitch()->toggleViewAction());
 
-	centralWidget()->setActivePart("Competitors", true);
+	centralWidget()->setActivePart("Runs", true);
 	setPersistentSettingsId("MainWindow");
 	loadPersistentSettings();
 }
@@ -86,16 +86,16 @@ void MainWindow::loadPlugins()
 		auto *plugin = new Event::EventPlugin(this);
 		registerPlugin(plugin);
 	}
-	{
-		auto *plugin = new Classes::ClassesPlugin(this);
-		registerPlugin(plugin);
-	}
 	// {
 	// 	auto *plugin = new Competitors::CompetitorsPlugin(this);
 	// 	registerPlugin(plugin);
 	// }
 	{
 		auto *plugin = new Runs::RunsPlugin(this);
+		registerPlugin(plugin);
+	}
+	{
+		auto *plugin = new Classes::ClassesPlugin(this);
 		registerPlugin(plugin);
 	}
 	{

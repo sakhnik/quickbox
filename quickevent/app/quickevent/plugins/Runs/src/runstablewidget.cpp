@@ -102,8 +102,8 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 		}
 		else {
 			auto *tv = ui->tblRuns;
-			QVariant id = tv->selectedRow().value(tv->idColumnName());
-			editCompetitor(id, qfw::TableView::ModeEdit);
+			QVariant id = tv->selectedRow().value("competitorId");
+			emit editCompetitorRequest(id.toInt(), qf::qmlwidgets::TableView::ModeEdit);
 		}
 	}, Qt::QueuedConnection);
 }
@@ -205,18 +205,6 @@ void RunsTableWidget::reload()
 qf::qmlwidgets::TableView *RunsTableWidget::tableView()
 {
 	return ui->tblRuns;
-}
-
-void RunsTableWidget::editCompetitor(const QVariant &id, int mode)
-{
-	Q_UNUSED(id)
-	if (auto *runs_widget = qf::core::Utils::findParent<RunsWidget*>(this, !qf::core::Exception::Throw); runs_widget) {
-		int competitor_id = ui->tblRuns->tableRow().value("competitorId").toInt();
-		runs_widget->editCompetitor(competitor_id, mode);
-		// if(result == QDialog::Accepted) {
-		// 	ui->tblRuns->reload();
-		// }
-	}
 }
 
 void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)

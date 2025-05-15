@@ -2246,9 +2246,7 @@ bool TableView::edit(const QModelIndex& index, EditTrigger trigger, QEvent* even
 			}
 			else {
 				if(trigger == QTableView::DoubleClicked || trigger == QTableView::EditKeyPressed) {
-					if(read_only) {
-					}
-					else {
+					if(!read_only) {
 						emit editCellRequest(index);
 						QVariant id = selectedRow().value(idColumnName());
 						if(id.isValid()) {

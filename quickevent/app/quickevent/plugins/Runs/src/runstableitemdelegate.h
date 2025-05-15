@@ -1,6 +1,7 @@
 #ifndef RUNSTABLEITEMDELEGATE_H
 #define RUNSTABLEITEMDELEGATE_H
 
+#include "../../Classes/src/classesplugin.h"
 #include <quickevent/gui/og/itemdelegate.h>
 
 #include <qf/core/utils.h>
@@ -22,9 +23,7 @@ protected:
 private:
 	int m_stageId = 0;
 	int m_highlightedClassId = 0;
-	int m_classStartFirst = 0;
-	int m_classStartLast = 0;
-	int m_classInterval = 0;
+	Classes::ClassDef m_classDef;
 };
 
 #endif // RUNSTABLEITEMDELEGATE_H
