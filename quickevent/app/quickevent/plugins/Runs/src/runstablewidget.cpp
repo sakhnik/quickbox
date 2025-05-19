@@ -71,7 +71,7 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 	// this ensures that table is sorted every time when start time is edited
 	ui->tblRuns->sortFilterProxyModel()->setDynamicSortFilter(true);
 
-	connect(m_runsModel, &RunsTableModel::startTimesSwitched, [this](int id1, int id2, const QString &err_msg)
+	connect(m_runsModel, &RunsTableModel::startTimesSwitched, this, [this](int id1, int id2, const QString &err_msg)
 	{
 		Q_UNUSED(id1)
 		Q_UNUSED(id2)
@@ -84,6 +84,16 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 
 	connect(ui->tblRuns->horizontalHeader(), &QHeaderView::sortIndicatorChanged, this, &RunsTableWidget::updateStartTimeHighlight);
 
+	connect(ui->tblRuns, &qfw::TableView::editRowInExternalEditor, this, [this](const QVariant &, int mode) {
+		auto *tv = ui->tblRuns;
+		auto ix = tv->currentIndex();
+		auto col = ix.column();
+		if(col == RunsTableModel::col_runFlags || col == RunsTableModel::col_cardFlags) {
+			return;
+		}
+		auto competitor_id = tv->selectedRow().value("competitorId");
+		emit editCompetitorRequest(competitor_id.toInt(), mode);
+	});
 	connect(ui->tblRuns, &qfw::TableView::editCellRequest, this, [this](QModelIndex index) {
 		auto col = index.column();
 		if(col == RunsTableModel::col_runFlags) {
@@ -99,11 +109,6 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 			if(dlg.exec()) {
 				dlg.save();
 			}
-		}
-		else {
-			auto *tv = ui->tblRuns;
-			QVariant id = tv->selectedRow().value("competitorId");
-			emit editCompetitorRequest(id.toInt(), qf::qmlwidgets::TableView::ModeEdit);
 		}
 	}, Qt::QueuedConnection);
 }
