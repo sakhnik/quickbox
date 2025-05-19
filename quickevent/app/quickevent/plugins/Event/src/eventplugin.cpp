@@ -38,6 +38,7 @@
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/transaction.h>
 #include <qf/core/utils/fileutils.h>
+#include <plugins/Event/src/services/ofeed/ofeedclient.h>
 
 #include <QInputDialog>
 #include <QSqlDatabase>
@@ -362,6 +363,9 @@ void EventPlugin::onInstalled()
 
 	auto *oresults_client = new services::OResultsClient(this);
 	services::Service::addService(oresults_client);
+
+	auto *ofeed_client = new services::OFeedClient(this);
+	services::Service::addService(ofeed_client);
 
 	auto *emma_client = new services::EmmaClient(this);
 	services::Service::addService(emma_client);
