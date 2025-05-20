@@ -11,8 +11,8 @@
 #include <QFileDialog>
 using qf::qmlwidgets::framework::getPlugin;
 
-namespace Event {
-namespace services {
+
+namespace Event::services {
 
 EmmaClientWidget::EmmaClientWidget(QWidget *parent)
 	: Super(parent)
@@ -83,7 +83,7 @@ bool EmmaClientWidget::acceptDialogDone(int result)
 
 EmmaClient *EmmaClientWidget::service()
 {
-	EmmaClient *svc = qobject_cast<EmmaClient*>(Service::serviceByName(EmmaClient::serviceName()));
+	auto *svc = qobject_cast<EmmaClient*>(Service::serviceByName(EmmaClient::serviceName()));
 	QF_ASSERT(svc, EmmaClient::serviceName() + " doesn't exist", return nullptr);
 	return svc;
 }
@@ -155,5 +155,5 @@ void EmmaClientWidget::onBtExportStartListXml30Clicked()
 		svc->exportStartListIofXml3();
 	}
 }
-}}
+}
 

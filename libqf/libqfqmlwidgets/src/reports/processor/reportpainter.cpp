@@ -15,6 +15,7 @@
 
 #include <QJsonDocument>
 
+#include <algorithm>
 #include <typeinfo>
 
 using namespace qf::qmlwidgets::reports;
@@ -26,7 +27,7 @@ using namespace qf::qmlwidgets::reports;
 const QString ReportItemMetaPaint::pageCountReportSubstitution = "@{n}";
 //const QString ReportItemMetaPaint::checkOnReportSubstitution = "@{check:1}";
 const QString ReportItemMetaPaint::checkReportSubstitution = "@{check:${STATE}}";
-const QRegularExpression ReportItemMetaPaint::checkReportSubstitutionRegExp = QRegularExpression(QRegularExpression::anchoredPattern("@\\{check:(\\d)\\}"));
+const QRegularExpression ReportItemMetaPaint::checkReportSubstitutionRegExp = QRegularExpression(QRegularExpression::anchoredPattern(R"(@\{check:(\d)\})"));
 
 ReportItemMetaPaint::ReportItemMetaPaint()
 	: Super(nullptr)
@@ -55,7 +56,7 @@ ReportItemMetaPaint::~ ReportItemMetaPaint()
 
 ReportItemMetaPaint* ReportItemMetaPaint::child(int ix) const
 {
-	ReportItemMetaPaint *ret = dynamic_cast<ReportItemMetaPaint*>(Super::child(ix));
+	auto *ret = dynamic_cast<ReportItemMetaPaint*>(Super::child(ix));
 	if(!ret) {
 		qfWarning() << "Child at index" << ix << "is not a kind of ReportItemMetaPaint.";
 		//qfInfo() << NecroLog::stackTrace();
@@ -71,7 +72,7 @@ ReportItem* ReportItemMetaPaint::reportItem()
 void ReportItemMetaPaint::paint(ReportPainter *painter, unsigned mode)
 {
 	foreach(Super *_it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		it->paint(painter, mode);
 	}
 }
@@ -89,7 +90,7 @@ void ReportItemMetaPaint::setInset(qreal hinset, qreal vinset)
 void ReportItemMetaPaint::shiftChildren(const ReportItem::Point offset)
 {
 	foreach(Super *_it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		it->renderedRect.translate(offset);
 		it->shiftChildren(offset);
 	}
@@ -113,7 +114,7 @@ void ReportItemMetaPaint::expandChildFrames()
 	}
 	foreach(Super *_it, children()) {
 		/// ve smeru ortogonalnim k layoutu natahni vsechny deti
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		if(it->isExpandable()) {
 			if(renderedRect.flags & ReportItem::Rect::LayoutHorizontalFlag) {
 				it->renderedRect.setTop(renderedRect.top() + insetVertical());
@@ -194,16 +195,14 @@ void ReportItemMetaPaint::expandChildVerticalSpringFrames()
 			}
 		}
 		qreal rest_percent = 1 - sum_percent;
-		if(rest_percent < 0)
-			rest_percent = 0;
+		rest_percent = std::max<qreal>(rest_percent, 0);
 		qreal percent_0 = 0;
 		if(cnt_0_percent > 0)
 			percent_0 = rest_percent / cnt_0_percent;
 		if(spring_children_ixs.count()) {
 
 			double rest_mm = layout_size - sum_mm;
-			if(rest_mm < 0)
-				rest_mm = 0;
+			rest_mm = std::max<double>(rest_mm, 0);
 
 			double children_ly_offset = 0; //insetVertical();
 			for(int i=0; i<childrenCount(); i++) {
@@ -340,11 +339,11 @@ QString ReportItemMetaPaint::dump(int indent)
 	const char *type_name = typeid(*this).name();
 	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(type_name).arg((qulonglong)this, 0, 16);
 	//QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(type_name).arg((qulonglong)this, 0, 16);
-	ReportItemMetaPaintFrame *frm = dynamic_cast<ReportItemMetaPaintFrame*>(this);
+	auto *frm = dynamic_cast<ReportItemMetaPaintFrame*>(this);
 	if(frm) ret += " : " + frm->renderedRect.toString();
 	ret += "\n";
 	foreach(Super *_it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		ret += it->dump(indent + 2);
 	}
 	return ret;
@@ -378,7 +377,7 @@ ReportItemMetaPaintFrame::ReportItemMetaPaintFrame(ReportItemMetaPaint *_parent,
 	ReportProcessor *proc = report_item->processor();
 	if(proc)
 		design_mode = proc->isDesignMode();
-	ReportItemFrame *frame_item = qobject_cast<ReportItemFrame*>(report_item);
+	auto *frame_item = qobject_cast<ReportItemFrame*>(report_item);
 	if(frame_item) {
 		{
 			style::Brush *b = frame_item->fill();
@@ -545,10 +544,10 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 		return;
 
 	//bool is_yellow = false;
-	ReportPainter *rep_painter = dynamic_cast<ReportPainter*>(painter);
+	auto *rep_painter = painter;
 	if(rep_painter && rep_painter->isMarkEditableSqlText() && !sqlId.isEmpty()) {
 		/// zazlut cely parent frame, az do ktereho se muze editovatelny text roztahnout
-		ReportItemMetaPaintFrame *it = dynamic_cast<ReportItemMetaPaintFrame*>(parent());
+		auto *it = dynamic_cast<ReportItemMetaPaintFrame*>(parent());
 		if(it) {
 			Rect r = qf::qmlwidgets::graphics::mm2device(it->renderedRect, painter->device());
 			painter->fillRect(r, Qt::yellow);
@@ -577,7 +576,7 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 			br.moveLeft(br.left() + pbr.width() - br.width() - hinset - hinset);
 		}
 		else if(textOption.alignment() & Qt::AlignHCenter) {
-			br.moveLeft(br.left() + (pbr.width() - br.width()) / 2 - hinset);
+			br.moveLeft(br.left() + ((pbr.width() - br.width()) / 2) - hinset);
 		}
 	}
 	br = qf::qmlwidgets::graphics::mm2device(br, painter->device());
@@ -599,7 +598,7 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 	textLayout.setFont(painter->font());
 	textLayout.setText(s);
 	textLayout.beginLayout();
-	while (1) {
+	while (true) {
 		QTextLine line = textLayout.createLine();
 		if(!line.isValid()) {
 			break;
@@ -624,7 +623,7 @@ QString ReportItemMetaPaintText::dump(int indent)
 	//QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg((qulonglong)this, 0, 16);
 	ret += QString(" '%1'\n").arg(text);
 	foreach(auto _it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		ret += it->dump(indent + 2);
 	}
 	return ret;
@@ -696,7 +695,7 @@ void ReportItemMetaPaintImage::paint(ReportPainter *painter, unsigned mode)
 {
 	//qfDebug().color(QFLog::Green) << QF_FUNC_NAME << reportElement.tagName() << "mode:" << mode;
 	QF_ASSERT(painter, "painter is nullptr", return);
-	QPrinter *printer = dynamic_cast<QPrinter*>(painter->device());
+	auto *printer = dynamic_cast<QPrinter*>(painter->device());
 	//if(printer) { qfInfo() << "printer output format:" << printer->outputFormat() << "is native printer:" << (printer->outputFormat() == QPrinter::NativeFormat); }
 	if(printer && printer->outputFormat() == QPrinter::NativeFormat) {
 		if(isSuppressPrintOut()) {

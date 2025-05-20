@@ -1,7 +1,7 @@
 #include "coursedef.h"
 
-namespace quickevent {
-namespace core {
 
-} // namespace core
-} // namespace quickevent
+namespace quickevent::core {
+
+} // namespace quickevent::core
+

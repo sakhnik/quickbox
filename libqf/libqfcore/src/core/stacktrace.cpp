@@ -5,7 +5,7 @@
 #include <QStringList>
 
 #include <sstream>
-#include <stdlib.h>
+#include <cstdlib>
 
 #if defined Q_CC_GNU && !defined Q_CC_MINGW && !defined ANDROID
 	#include <execinfo.h>

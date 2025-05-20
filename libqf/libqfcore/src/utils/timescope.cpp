@@ -3,9 +3,9 @@
 
 #define logTimeScope() qfCDebug("TimeScope")
 
-namespace qf {
-namespace core {
-namespace utils {
+
+
+namespace qf::core::utils {
 
 int TimeScope::s_id = 0;
 int TimeScope::s_level = 0;
@@ -28,8 +28,8 @@ TimeScope::~TimeScope()
 
 //Q_LOGGING_CATEGORY(logcatTimeScope, "timeScope")
 
-} // namespace utils
-} // namespace core
-} // namespace qf
+} // namespace qf::core::utils
+
+
 
 

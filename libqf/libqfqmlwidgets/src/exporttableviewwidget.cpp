@@ -6,8 +6,8 @@
 
 #include <QMenu>
 
-namespace qf {
-namespace qmlwidgets {
+
+namespace qf::qmlwidgets {
 
 ExportTableViewWidget::ExportTableViewWidget(QTableView *table_view, QWidget *parent)
 	: Super(parent)
@@ -98,5 +98,5 @@ void ExportTableViewWidget::setExportOptions(const QVariant &opts) const
 	ui->edToLine->setValue(text_opts.toLine());
 }
 
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets
+

@@ -16,9 +16,7 @@ SqlDataDocument::SqlDataDocument(QObject *parent)
 }
 
 SqlDataDocument::~SqlDataDocument()
-{
-
-}
+= default;
 
 bool SqlDataDocument::load()
 {

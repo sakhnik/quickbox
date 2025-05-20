@@ -11,7 +11,6 @@
 
 namespace qfc = qf::core;
 namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
 
@@ -31,7 +30,7 @@ EditCoursesWidget::EditCoursesWidget(QWidget *parent)
 				editCourseCodes(ix);
 			}
 		});
-		qfm::SqlTableModel *m = new qfm::SqlTableModel(this);
+		auto *m = new qfm::SqlTableModel(this);
 		m->addColumn("id").setReadOnly(true);
 		m->addColumn("courses.name", tr("Name"));
 		m->addColumn("courses.length", tr("Length"));

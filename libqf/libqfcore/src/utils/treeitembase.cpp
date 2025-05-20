@@ -11,6 +11,7 @@
 #include "../core/log.h"
 
 #include <QStringList>
+#include <algorithm>
 
 using namespace qf::core::utils;
 
@@ -113,8 +114,7 @@ void TreeItemBase::insertChild(int before_ix, TreeItemBase *it_child)
 		before_ix = 0;
 	}
 	//qfInfo() << "before_ix:" << before_ix << "parent:" << parent() << "child it parent:" << it_child->parent();
-	if(before_ix > childrenCount())
-		before_ix = childrenCount();
+	before_ix = std::min(before_ix, childrenCount());
 	if(it_child->parent() == this) {
 		/// pokud presouvam v ramci stejneho parentu, vyjmuti it_child zpusobi posunuti indexu
 		/// takze ho vlastne musim vlozit na index o jednicku nizsi

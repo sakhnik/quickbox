@@ -10,9 +10,9 @@
 #include <QDir>
 #include <QTextStream>
 
-namespace quickevent {
-namespace core {
-namespace exporters {
+
+
+namespace quickevent::core::exporters {
 
 StageResultsCsvExporter::StageResultsCsvExporter(bool is_iof_race, QObject *parent)
 	: Super(parent),
@@ -213,4 +213,4 @@ void StageResultsCsvExporter::exportCsvHeader(QTextStream &csv)
 	csv << Qt::endl;
 }
 
-}}}
+}

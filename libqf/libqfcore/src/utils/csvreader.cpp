@@ -12,8 +12,7 @@ CSVReader::CSVReader(QTextStream *ts, char _separator, char _quote)
 }
 
 CSVReader::~CSVReader()
-{
-}
+= default;
 
 QTextStream &CSVReader::textStream()
 {

@@ -15,8 +15,7 @@ TableLocker::TableLocker(const Connection &conn, const QString &table_name, cons
 }
 
 TableLocker::~TableLocker()
-{
-}
+= default;
 
 void TableLocker::lock()
 {

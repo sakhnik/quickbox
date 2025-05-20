@@ -177,14 +177,13 @@ void ReportProcessor::process(ReportProcessor::ProcessorMode mode)
 				//qfInfo() << "pageProcessed:" << fProcessedPageNo;
 				break;
 			}
-			else {
-				if(m_singlePageProcessResult.isPrintAgain()) {
+							if(m_singlePageProcessResult.isPrintAgain()) {
 					setProcessedPageNo(processedPageNo() + 1);
 				}
 				else {
 					break;
 				}
-			}
+		
 
 		}
 		else break;
@@ -422,7 +421,7 @@ ReportItemMetaPaintFrame* ReportProcessor::getPage(int n)
 	if(!processorOutput()) return nullptr;
 	if(n < 0 || n >= processorOutput()->childrenCount()) return nullptr;
 	ReportItemMetaPaint *it = processorOutput()->child(n);
-	ReportItemMetaPaintFrame *frm	= dynamic_cast<ReportItemMetaPaintFrame*>(it);
+	auto *frm	= dynamic_cast<ReportItemMetaPaintFrame*>(it);
 	qfDebug() << "\treturn:" << frm;
 	return frm;
 }

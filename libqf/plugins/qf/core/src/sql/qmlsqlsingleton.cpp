@@ -24,7 +24,7 @@ QObject *qf::core::qml::QmlSqlSingleton::singletontype_provider(QQmlEngine *engi
 {
 	Q_UNUSED(scriptEngine)
 
-	QmlSqlSingleton *s = new QmlSqlSingleton(engine);
+	auto *s = new QmlSqlSingleton(engine);
 	return s;
 }
 

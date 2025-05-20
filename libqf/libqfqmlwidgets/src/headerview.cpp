@@ -37,8 +37,7 @@ HeaderView::HeaderView(Qt::Orientation orientation, QWidget *parent) :
 }
 
 HeaderView::~HeaderView()
-{
-}
+= default;
 
 void HeaderView::setSeekString(const QString &str)
 {
@@ -77,7 +76,7 @@ void HeaderView::contextMenuEvent(QContextMenuEvent *event)
 		<< &a_sections_natural_order;
 	QAction *a = QMenu::exec(lst, viewport()->mapToGlobal(event->pos()));
 	if(a == &a_resize_section) {
-		QAbstractItemView *view = qobject_cast<QAbstractItemView*>(parent());
+		auto *view = qobject_cast<QAbstractItemView*>(parent());
 		QF_ASSERT(view != nullptr, "Bad parent!", return);
 		int log_ix = logicalIndexAt(event->pos());
 		int sz = view->sizeHintForColumn(log_ix);
@@ -152,7 +151,7 @@ void HeaderView::paintSection(QPainter *painter, const QRect &section_rect, int 
 		int horiz_margin = arrow_w / 2;
 		int vert_margin = arrow_w;
 		int arrow_h = arrow_w / 2;
-		r.setRect(x + w - horiz_margin * 2 - arrow_w, y + vert_margin,
+		r.setRect(x + w - (horiz_margin * 2) - arrow_w, y + vert_margin,
 				  arrow_w, arrow_h);
 		return r;
 	};
@@ -163,7 +162,7 @@ void HeaderView::paintSection(QPainter *painter, const QRect &section_rect, int 
 	painter->setBrush(Qt::yellow);
 	if (sortIndicatorOrder() == Qt::AscendingOrder) {
 		const QPoint points[] = {
-			QPoint(rect.x() + rect.width() / 2, rect.y() + rect.height()),
+			QPoint(rect.x() + (rect.width() / 2), rect.y() + rect.height()),
 			QPoint(rect.x(), rect.y()),
 			QPoint(rect.x() + rect.width(), rect.y()),
 		};
@@ -173,7 +172,7 @@ void HeaderView::paintSection(QPainter *painter, const QRect &section_rect, int 
 		const QPoint points[] = {
 			QPoint(rect.x(), rect.y() + rect.height()),
 			QPoint(rect.x() + rect.width(), rect.y() + rect.height()),
-			QPoint(rect.x() + rect.width() / 2, rect.y()),
+			QPoint(rect.x() + (rect.width() / 2), rect.y()),
 		};
 		painter->drawPolygon(points, sizeof points / sizeof *points);
 	}

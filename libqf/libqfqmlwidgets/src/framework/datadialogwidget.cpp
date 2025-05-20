@@ -14,9 +14,7 @@ DataDialogWidget::DataDialogWidget(QWidget *parent)
 }
 
 DataDialogWidget::~DataDialogWidget()
-{
-
-}
+= default;
 
 qf::qmlwidgets::DataController *DataDialogWidget::dataController()
 {

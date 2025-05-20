@@ -22,7 +22,6 @@
 
 #include <QQmlEngine>
 
-namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 //namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfs = qf::core::sql;
@@ -68,7 +67,7 @@ void ClassesPlugin::onInstalled()
 
 QObject *ClassesPlugin::createClassDocument(QObject *parent)
 {
-	ClassDocument *ret = new ClassDocument(parent);
+	auto *ret = new ClassDocument(parent);
 	return ret;
 }
 

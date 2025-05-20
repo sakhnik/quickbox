@@ -21,8 +21,7 @@ QmlDialog::QmlDialog(QWidget *parent) :
 }
 
 QmlDialog::~QmlDialog()
-{
-}
+= default;
 
 int QmlDialog::standardButtons()
 {

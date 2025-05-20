@@ -9,10 +9,7 @@ SqlDataDocument::SqlDataDocument(QObject *parent)
 
 }
 
-SqlDataDocument::~SqlDataDocument()
-{
-
-}
+SqlDataDocument::~SqlDataDocument() = default;
 
 SqlTableModel *SqlDataDocument::sqlModel()
 {

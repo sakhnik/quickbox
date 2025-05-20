@@ -7,9 +7,9 @@
 #include <QItemEditorFactory>
 #include <QSpinBox>
 
-namespace quickevent {
-namespace gui {
-namespace og {
+
+
+namespace quickevent::gui::og {
 
 ItemDelegate::ItemDelegate(qf::qmlwidgets::TableView *parent)
 	: Super(parent)
@@ -35,5 +35,5 @@ ItemDelegate::~ItemDelegate()
 	QF_SAFE_DELETE(m_factory);
 }
 
-}}}
+}
 

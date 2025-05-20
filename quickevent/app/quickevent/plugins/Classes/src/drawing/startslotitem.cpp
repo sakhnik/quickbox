@@ -11,6 +11,7 @@
 #include <QPainter>
 #include <QtGlobal>
 #include <QMimeData>
+#include <algorithm>
 
 using namespace drawing;
 
@@ -59,8 +60,7 @@ ClassItem *StartSlotItem::takeClassItemAt(int ix)
 
 void StartSlotItem::setStartOffset(int start_offset)
 {
-	if(start_offset < 0)
-		start_offset = 0;
+	start_offset = std::max(start_offset, 0);
 	StartSlotData dt = data();
 	if(dt.startOffset() != start_offset) {
 		dt.setStartOffset(start_offset);
@@ -70,7 +70,7 @@ void StartSlotItem::setStartOffset(int start_offset)
 	}
 }
 
-int StartSlotItem::startOffset()
+int StartSlotItem::startOffset() const
 {
 	StartSlotData dt = data();
 	return dt.startOffset();

@@ -24,9 +24,7 @@ ComboBox::ComboBox(QWidget *parent)
 }
 
 ComboBox::~ComboBox()
-{
-
-}
+= default;
 
 void ComboBox::setCurrentData(const QVariant &val)
 {

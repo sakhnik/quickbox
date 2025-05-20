@@ -7,9 +7,9 @@
 
 #include <QMetaType>
 
-namespace quickevent {
-namespace gui {
-namespace og {
+
+
+namespace quickevent::gui::og {
 
 SqlTableModel::SqlTableModel(QObject *parent)
 	: Super(parent)
@@ -17,8 +17,7 @@ SqlTableModel::SqlTableModel(QObject *parent)
 }
 
 SqlTableModel::~SqlTableModel()
-{
-}
+= default;
 
 QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 {
@@ -26,10 +25,10 @@ QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 		QVariant v = Super::data(index, Qt::EditRole);
 		int type = v.userType();
 		if(type == qMetaTypeId<core::og::TimeMs>()) {
-			core::og::TimeMs t = v.value<core::og::TimeMs>();
+			auto t = v.value<core::og::TimeMs>();
 			return t.toString();
 		}
-		else if(type == qMetaTypeId<core::si::SiId>()) {
+		if(type == qMetaTypeId<core::si::SiId>()) {
 			int id = (int)v.value<core::si::SiId>();
 			if(id == 0)
 				return QString();// QStringLiteral("null");
@@ -40,7 +39,7 @@ QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 		QVariant v = Super::data(index, Qt::EditRole);
 		int type = v.userType();
 		if(type == qMetaTypeId<core::og::TimeMs>()) {
-			core::og::TimeMs t = v.value<core::og::TimeMs>();
+			auto t = v.value<core::og::TimeMs>();
 			return t.msec();
 		}
 		return Super::data(index, role);
@@ -77,7 +76,7 @@ QVariant SqlTableModel::editValueToRaw(int column_index, const QVariant &val) co
 	QVariant ret = val;
 	int type = columnType(column_index);
 	if(type == qMetaTypeId<core::og::TimeMs>()) {
-		core::og::TimeMs t = val.value<core::og::TimeMs>();
+		auto t = val.value<core::og::TimeMs>();
 #if QT_VERSION_MAJOR >= 6
 		ret = t.isValid()? t.msec(): QVariant(QMetaType(QMetaType::Int));
 #else
@@ -99,4 +98,4 @@ QVariant SqlTableModel::editValueToRaw(int column_index, const QVariant &val) co
 	return ret;
 }
 
-}}}
+}

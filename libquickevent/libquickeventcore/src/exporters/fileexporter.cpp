@@ -7,9 +7,9 @@
 
 #include <QDir>
 
-namespace quickevent {
-namespace core {
-namespace exporters {
+
+
+namespace quickevent::core::exporters {
 
 FileExporter::FileExporter(QObject *parent)
 	: QObject(parent)
@@ -69,4 +69,4 @@ void FileExporter::prepareExport()
 	}
 }
 
-}}}
+}

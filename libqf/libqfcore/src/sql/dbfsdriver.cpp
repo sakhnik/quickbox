@@ -55,8 +55,7 @@ DbFsDriver::DbFsDriver(QObject *parent)
 }
 
 DbFsDriver::~DbFsDriver()
-{
-}
+= default;
 
 DbFsAttrs DbFsDriver::attributes(const QString &path)
 {
@@ -103,7 +102,7 @@ QList<DbFsAttrs> DbFsDriver::childAttributes(const QString &parent_path)
 	return ret;
 }
 
-Connection DbFsDriver::connection()
+Connection DbFsDriver::connection() const
 {
 	QSqlDatabase db = QSqlDatabase::database(connectionName(), false);
 	QF_ASSERT_EX(db.isOpen(), tr("Connection '%1' is not open!").arg(connectionName()));
@@ -308,9 +307,8 @@ void DbFsDriver::cacheRemove_helper(T &map, const QString &path, DbFsDriver::Cac
 						map.erase(it);
 						break;
 					}
-					else {
-						++it;
-					}
+											++it;
+				
 				}
 				else {
 					if(path.isEmpty() || s.length() == path.length() || s[path.length()] == '/') {
@@ -339,9 +337,9 @@ void DbFsDriver::cacheRemove(const QString &file_path, CacheRemoveMode file_mode
 	}
 	if(post_notify) {
 		QString pay_load = QString("{")
-				+ "\"file\": {\"path\":\"%1\", \"mode\": \"%2\"}, "
-				+ "\"dir\": {\"path\":\"%3\", \"mode\": \"%4\"}, "
-				+ "\"pid\": \"%5\""
+				+ R"("file": {"path":"%1", "mode": "%2"}, )"
+				+ R"("dir": {"path":"%3", "mode": "%4"}, )"
+				+ R"("pid": "%5")"
 				+ "}";
 		pay_load = pay_load.arg(file_path).arg(cacheRemoveModeToString(file_mode))
 				.arg(dir_path).arg(cacheRemoveModeToString(dir_mode))

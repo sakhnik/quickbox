@@ -13,9 +13,7 @@ DataController::DataController(QObject *parent)
 }
 
 DataController::~DataController()
-{
-
-}
+= default;
 
 qf::core::model::DataDocument *DataController::document(bool throw_exc) const
 {
@@ -40,7 +38,7 @@ QList<IDataWidget *> DataController::dataWidgets()
 	if(m_dataWidgets.isEmpty()) {
 		const QList<QWidget *> lst = m_dataWidgetsParent->findChildren<QWidget*>();
 		for(auto w : lst) {
-			IDataWidget *dw = dynamic_cast<IDataWidget*>(w);
+			auto *dw = dynamic_cast<IDataWidget*>(w);
 			if(dw)
 				m_dataWidgets << dw;
 		}

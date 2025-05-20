@@ -13,12 +13,13 @@
 #include <QJsonParseError>
 #include <QTcpSocket>
 
+#include <memory>
 #include <regex>
 
 using qf::qmlwidgets::framework::getPlugin;
 
-namespace CardReader {
-namespace services {
+
+namespace CardReader::services {
 
 QrOPunch::QrOPunch(QObject *parent)
 	: Super(QrOPunch::serviceName(), parent)
@@ -61,9 +62,9 @@ void QrOPunch::init()
 	int port = ss.tcpListenPort();
 
 	m_tcpClients.clear();
-	if (m_tcpServer) {
+	
 		delete m_tcpServer;
-	}
+	
 	m_tcpServer = new QTcpServer(this);
 	connect(m_tcpServer, &QTcpServer::newConnection, this, &QrOPunch::onNewConnection);
 
@@ -93,7 +94,7 @@ void QrOPunch::onNewConnection()
 
 		connect(socket, &QTcpSocket::readyRead, this, &QrOPunch::onReadyRead);
 		connect(socket, &QTcpSocket::disconnected, this, [this] {
-			QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
+			auto *socket = qobject_cast<QTcpSocket*>(sender());
 			m_tcpClients.remove(socket->socketDescriptor());
 			socket->deleteLater();
 		});
@@ -107,9 +108,9 @@ void QrOPunch::onNewConnection()
 
 void QrOPunch::onReadyRead()
 {
-	QTcpSocket *socket = qobject_cast<QTcpSocket*>(sender());
+	auto *socket = qobject_cast<QTcpSocket*>(sender());
 	auto sendError = [socket](const char *error) {
-		socket->connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
+		QTcpSocket::connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
 			if (!socket->bytesToWrite())
 				socket->close();
 		});
@@ -180,7 +181,7 @@ void QrOPunch::onReadyRead()
 		QJsonParseError parseError{};
 		QJsonDocument jsonDoc = QJsonDocument::fromJson(data, &parseError);
 		if (jsonDoc.isNull()) {
-			socket->connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
+			QTcpSocket::connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
 				if (!socket->bytesToWrite())
 					socket->close();
 			});
@@ -193,7 +194,7 @@ void QrOPunch::onReadyRead()
 			break;
 		}
 		onTcpReadoutReceived(jsonDoc.toVariant());
-		socket->connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
+		QTcpSocket::connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
 			if (!socket->bytesToWrite())
 				socket->close();
 		});
@@ -206,7 +207,7 @@ void QrOPunch::onReadyRead()
 void QrOPunch::onTcpReadoutReceived(const QVariant &data)
 {
 	if (!m_siDriver) {
-		m_siDriver.reset(new siut::DeviceDriver(this));
+		m_siDriver = std::make_unique<siut::DeviceDriver>(this);
 		connect(m_siDriver.get(), &siut::DeviceDriver::siTaskFinished, getPlugin<CardReaderPlugin>(), &CardReader::CardReaderPlugin::emitSiTaskFinished);
 	}
 	getPlugin<CardReaderPlugin>()->emitSiTaskFinished(static_cast<int>(siut::SiTask::Type::CardRead), data);
@@ -216,4 +217,4 @@ void QrOPunch::onTcpReadoutReceived(const QVariant &data)
 	}
 }
 
-}}
+}

@@ -58,7 +58,7 @@ public:
 private:
 	static QString attributesColumns(const QString &table_alias = QString());
 	DbFsAttrs attributesFromQuery(const Query &q);
-	Connection connection();
+	Connection connection() const;
 
 	bool checkWritePermissions();
 	bool mknod(const QString &path, DbFsAttrs::NodeType node_type, const QByteArray &data);

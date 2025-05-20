@@ -15,7 +15,7 @@
 using namespace Event;
 
 namespace {
-static const auto EVENT_NAME = QStringLiteral("event.name");
+const auto EVENT_NAME = QStringLiteral("event.name");
 }
 
 EventConfig::EventConfig(QObject *parent)

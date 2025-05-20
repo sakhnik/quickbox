@@ -18,7 +18,7 @@ class QxLateRegistrationsWidget : public QWidget
 
 public:
 	explicit QxLateRegistrationsWidget(QWidget *parent = nullptr);
-	~QxLateRegistrationsWidget();
+	~QxLateRegistrationsWidget() override;
 
 	void onDbEventNotify(const QString &domain, const QVariant &payload);
 	void onVisibleChanged(bool is_visible);

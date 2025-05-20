@@ -50,7 +50,7 @@ void DockWidget::showEvent(QShowEvent *ev)
 */
 void DockWidget::setQmlWidget(QWidget *w)
 {
-	w->setParent(0);
+	w->setParent(nullptr);
 	w->show();
 	Super::setWidget(w);
 }

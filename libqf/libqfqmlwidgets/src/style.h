@@ -30,7 +30,7 @@ public:
 	static Style* instance();
 	static void setInstance(Style *style);
 private:
-	QPixmap pixmapFromSvg(const QString &file_name, const QSize &pixmap_size = QSize());
+	QPixmap pixmapFromSvg(const QString &file_name, const QSize &pixmap_size = QSize()) const;
 	QFileInfo findFile(const QString &path, const QString &default_extension) const;
 private:
 	QSize m_defaultIconSize;

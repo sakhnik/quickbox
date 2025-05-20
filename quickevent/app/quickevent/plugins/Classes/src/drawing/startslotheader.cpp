@@ -22,7 +22,7 @@ class LockItem : public QGraphicsRectItem
 {
 	Q_DECLARE_TR_FUNCTIONS(drawing::ClassdefsLockItem)
 public:
-	LockItem(StartSlotHeader *parent = 0) : QGraphicsRectItem(parent), m_startSlotItem(parent->startSlotItem())
+	LockItem(StartSlotHeader *parent = nullptr) : QGraphicsRectItem(parent), m_startSlotItem(parent->startSlotItem())
 	{
 		int du_px = m_startSlotItem->ganttScene()->displayUnit();
 		setRect(0, 0, 3 * du_px, 2 * du_px);
@@ -38,7 +38,7 @@ public:
 		}
 	}
 
-	void paint(QPainter *painter, const QStyleOptionGraphicsItem * option, QWidget *widget = 0) Q_DECL_OVERRIDE
+	void paint(QPainter *painter, const QStyleOptionGraphicsItem * option, QWidget *widget = nullptr) Q_DECL_OVERRIDE
 	{
 		Q_UNUSED(option)
 		Q_UNUSED(widget)
@@ -82,7 +82,7 @@ class StartOffsetTextItem : public QGraphicsTextItem
 {
 	Q_DECLARE_TR_FUNCTIONS(drawing::StartSlotHeader)
 public:
-	StartOffsetTextItem(StartSlotHeader * parent = 0) : QGraphicsTextItem(parent), m_header(parent)
+	StartOffsetTextItem(StartSlotHeader * parent = nullptr) : QGraphicsTextItem(parent), m_header(parent)
 	{
 		setToolTip(tr("Use mouse wheel to change start slot offset"));
 	}
@@ -201,7 +201,7 @@ void StartSlotHeader::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 
 StartSlotItem *StartSlotHeader::startSlotItem()
 {
-	StartSlotItem *ret = dynamic_cast<StartSlotItem*>(parentItem());
+	auto *ret = dynamic_cast<StartSlotItem*>(parentItem());
 	QF_ASSERT_EX(ret != nullptr, "Bad parent!");
 	return ret;
 }
@@ -218,8 +218,8 @@ void StartSlotHeader::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 		return;
 	}
 	qfLogFuncFrame();
-	QDrag *drag = new QDrag(event->widget());
-	QMimeData *mime = new QMimeData;
+	auto *drag = new QDrag(event->widget());
+	auto *mime = new QMimeData;
 	drag->setMimeData(mime);
 	{
 		QVariantMap m;
@@ -237,13 +237,13 @@ void StartSlotHeader::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 		//painter.translate(15, 15);
 		painter.setRenderHint(QPainter::Antialiasing);
 		QStyleOptionGraphicsItem opt;
-		paint(&painter, &opt, 0);
+		paint(&painter, &opt, nullptr);
 		{
-			m_textSlotNo->paint(&painter, &opt, 0);
+			m_textSlotNo->paint(&painter, &opt, nullptr);
 			painter.translate(m_lockItem->pos());
-			m_lockItem->paint(&painter, &opt, 0);
+			m_lockItem->paint(&painter, &opt, nullptr);
 			painter.translate(m_textStartOffset->pos().x(), 0);
-			m_textStartOffset->paint(&painter, &opt, 0);
+			m_textStartOffset->paint(&painter, &opt, nullptr);
 		}
 		painter.end();
 		//pixmap.setMask(pixmap.createHeuristicMask());

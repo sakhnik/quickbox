@@ -45,13 +45,13 @@ public:
 	void exportRadioCodesRacomTxt();
 	void exportResultsIofXml3();
 	void exportStartListIofXml3();
-	void exportFinishRacomTxt();
-	void exportStartListRacomTxt();
-	void exportStartListRacomCsv();
-	bool preExport();
+	void exportFinishRacomTxt() const;
+	void exportStartListRacomTxt() const;
+	void exportStartListRacomCsv() const;
+	bool preExport() const;
 private:
 	void loadSettings() override;
-	bool createExportDir();
+	bool createExportDir() const;
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
 	void onCardChecked(const QVariantMap &data);
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;

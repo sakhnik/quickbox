@@ -8,8 +8,8 @@
 
 #include <QFileDialog>
 
-namespace CardReader {
-namespace services {
+
+namespace CardReader::services {
 
 RacomClientWidget::RacomClientWidget(QWidget *parent)
 	: Super(parent)
@@ -58,7 +58,7 @@ bool RacomClientWidget::acceptDialogDone(int result)
 
 RacomClient *RacomClientWidget::service()
 {
-	RacomClient *svc = qobject_cast<RacomClient*>(Event::services::Service::serviceByName(RacomClient::serviceName()));
+	auto *svc = qobject_cast<RacomClient*>(Event::services::Service::serviceByName(RacomClient::serviceName()));
 	QF_ASSERT(svc, RacomClient::serviceName() + " doesn't exist", return nullptr);
 	return svc;
 }
@@ -91,4 +91,4 @@ void RacomClientWidget::onBtChooseTxtSplitsFileClicked()
 	}
 }
 
-}}
+}

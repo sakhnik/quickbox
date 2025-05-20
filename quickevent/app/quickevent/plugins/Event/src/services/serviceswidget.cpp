@@ -5,8 +5,8 @@
 #include <QHBoxLayout>
 #include <QScrollArea>
 
-namespace Event {
-namespace services {
+
+namespace Event::services {
 
 ServicesWidget::ServicesWidget(QWidget *parent)
 	: QWidget(parent)
@@ -23,7 +23,7 @@ void ServicesWidget::reload()
 	QLayout *ly = layout();
 	ly->addWidget(m_centralWidget);
 
-	QVBoxLayout *ly2 = new QVBoxLayout(m_centralWidget);
+	auto *ly2 = new QVBoxLayout(m_centralWidget);
 #if QT_VERSION_MAJOR >= 6
 	ly2->setContentsMargins({});
 #else
@@ -34,7 +34,7 @@ void ServicesWidget::reload()
 	for (int i = 0; i < Service::serviceCount(); ++i) {
 		Service *svc = Service::serviceAt(i);
 
-		ServiceWidget *sw = new ServiceWidget();
+		auto *sw = new ServiceWidget();
 		sw->setStatus(svc->status());
 		connect(svc, &Service::statusChanged, sw, &ServiceWidget::setStatus);
 		sw->setServiceId(svc->serviceId(), svc->serviceDisplayName());
@@ -47,4 +47,4 @@ void ServicesWidget::reload()
 	ly2->addStretch();
 }
 
-}}
+}

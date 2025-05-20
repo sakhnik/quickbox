@@ -9,9 +9,9 @@
 #include <QSqlRecord>
 #include <QJsonDocument>
 
-namespace quickevent {
-namespace core {
-namespace si {
+
+
+namespace quickevent::core::si {
 
 ReadPunch::ReadPunch(const QVariantList &var_list)
 {
@@ -114,4 +114,4 @@ QString ReadCard::toString() const
 	return ret;
 }
 
-}}}
+}

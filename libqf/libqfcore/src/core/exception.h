@@ -38,13 +38,13 @@ protected:
 	QString m_stackTrace;
 protected:
 	void init(const QString& _msg, const QString& _where);
-	void log();
+	void log() const;
 public:
 	QString message() const {return m_msg;}
 	QString where() const {return m_where;}
 	QString stackTrace() const {return m_stackTrace;}
 	virtual QString toString() const;
-	const char* what() const throw() Q_DECL_OVERRIDE;
+	const char* what() const noexcept override;
 	operator const char *() const  throw(){return what();}
 
 	// set global variables: abortOnException from command line

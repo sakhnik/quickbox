@@ -158,7 +158,7 @@ void CardReaderSettingsPage::on_btTestConnection_clicked()
 			sidriver->processData(ba);
 		});
 		connect(sidriver, &siut::DeviceDriver::dataToSend, comport, &siut::CommPort::sendData);
-		siut::SiTaskStationConfig *cmd = new siut::SiTaskStationConfig();
+		auto *cmd = new siut::SiTaskStationConfig();
 		connect(cmd, &siut::SiTaskStationConfig::finished, this, [this, comport, sidriver, progress](bool ok, QVariant result) {
 			if(ok) {
 				siut::SiStationConfig cfg(result.toMap());

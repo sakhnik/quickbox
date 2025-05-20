@@ -30,8 +30,7 @@ DeviceDriver::DeviceDriver(QObject *parent)
 }
 
 DeviceDriver::~DeviceDriver()
-{
-}
+= default;
 
 namespace {
 /*
@@ -107,10 +106,10 @@ void DeviceDriver::processSIMessageData(const SIMessageData &data)
 
 namespace
 {
-static const char STX = 0x02;
-static const char ETX = 0x03;
-static const char ACK = 0x06;
-static const char NAK = 0x15;
+const char STX = 0x02;
+const char ETX = 0x03;
+const char ACK = 0x06;
+const char NAK = 0x15;
 //static const char DLE = 0x10;
 }
 
@@ -136,13 +135,13 @@ void DeviceDriver::processData(const QByteArray &data)
 		len += 3 + 3;
 		if(f_rxData.size() < len)
 			return;
-		uint8_t etx = (uint8_t)f_rxData[len-1];
+		auto etx = (uint8_t)f_rxData[len-1];
 		if(etx == NAK) {
 			emitDriverInfo(NecroLog::Level::Error, tr("NAK received"));
 		}
 		else if(etx == ETX) {
 			QByteArray data = f_rxData.mid(0, len);
-			uint8_t cmd = (uint8_t)data[1];
+			auto cmd = (uint8_t)data[1];
 			if(cmd < 0x80) {
 				emitDriverInfo(NecroLog::Level::Error, tr("Legacy protocol is not supported, switch station to extended one."));
 			}

@@ -6,8 +6,7 @@
 #include <QDate>
 #include <QRegularExpression>
 
-namespace qf {
-namespace core {
+namespace qf::core {
 
 const QString& Utils::nullValueString()
 {
@@ -265,4 +264,4 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 	return args;
 }
 
-}}
+}

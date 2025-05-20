@@ -9,9 +9,9 @@
 
 #include <QDir>
 
-namespace quickevent {
-namespace core {
-namespace exporters {
+
+
+namespace quickevent::core::exporters {
 
 StageStartListHtmlExporter::StageStartListHtmlExporter(QObject *parent)
 	: Super(parent)
@@ -102,4 +102,4 @@ void StageStartListHtmlExporter::exportClass(int class_id, const QVariantList &c
 	}
 }
 
-}}}
+}

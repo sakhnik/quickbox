@@ -48,7 +48,7 @@ quickevent::core::si::CheckedCard CardCheckerFreeOrderCpp::checkCard(const quick
 	if(read_card.checkTime() != 0xEEEE) {
 		// temporaryly shift start for 10 min to enable negative chceckTime for runners starting in 00 and 01
 		static constexpr int MIN_10_MSEC = 10 * 60 * 1000;
-		auto shifted_start00 = start00sec * 1000 - MIN_10_MSEC;
+		auto shifted_start00 = (start00sec * 1000) - MIN_10_MSEC;
 		auto shifted_interval = msecIntervalAM(shifted_start00, read_card.checkTime() * 1000);
 		checked_card.setCheckTimeMs(shifted_interval - MIN_10_MSEC);
 		//checked_card.setCheckTimeMs(msecIntervalAM(start00sec * 1000, read_card.checkTime() * 1000));

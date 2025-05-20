@@ -2,8 +2,8 @@
 
 #include <qf/core/log.h>
 
-namespace qf {
-namespace qmlwidgets {
+
+namespace qf::qmlwidgets {
 
 TextEdit::TextEdit(QWidget *parent)
 	: Super(parent)
@@ -53,5 +53,5 @@ void TextEdit::onTextChanged()
 	emit dataValueChanged(toPlainText());
 }
 
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets
+

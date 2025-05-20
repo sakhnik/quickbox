@@ -8,9 +8,9 @@
 #include <QCheckBox>
 #include <QSettings>
 
-namespace qf {
-namespace qmlwidgets {
-namespace dialogs {
+
+
+namespace qf::qmlwidgets::dialogs {
 
 MessageBox::MessageBox(QWidget *parent) :
 	Super(parent)
@@ -90,7 +90,7 @@ void MessageBox::saveShowAgainDisabled(bool b)
 	settings.setValue(id, b);
 }
 
-QString MessageBox::showAgainPersistentSettingsId()
+QString MessageBox::showAgainPersistentSettingsId() const
 {
 	QString key = doNotShowAgainPersistentKey();
 	if(key.isEmpty()) {
@@ -99,4 +99,4 @@ QString MessageBox::showAgainPersistentSettingsId()
 	return framework::IPersistentSettings::defaultPersistentSettingsPathPrefix() + QStringLiteral("/doNotShowMessageAgain/") + key;
 }
 
-}}}
+}

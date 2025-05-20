@@ -7,9 +7,9 @@
 
 #include <QDir>
 
-namespace quickevent {
-namespace core {
-namespace exporters {
+
+
+namespace quickevent::core::exporters {
 
 HtmlFileExporter::HtmlFileExporter(QObject *parent)
 	: Super(parent)
@@ -80,4 +80,4 @@ void HtmlFileExporter::exportClasses()
 	}
 }
 
-}}}
+}

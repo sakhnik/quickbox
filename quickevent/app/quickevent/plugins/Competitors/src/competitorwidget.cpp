@@ -29,14 +29,13 @@
 #include <QDate>
 #include <QPushButton>
 #include <QInputDialog>
+#include <algorithm>
 
-namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfw = qf::qmlwidgets;
 namespace qfc = qf::core;
 namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
-using Runs::RunsPlugin;
 
 namespace {
 
@@ -89,11 +88,10 @@ private:
 			if(not_finish)
 				sl << tr("DNF", "DidNotFinish");
 			if(sl.isEmpty())
-				return QStringLiteral("");
-			else
-				return sl.join(',');
+				return QString();
+			return sl.join(',');
 		}
-		else if(column_ix == col_runs_cardFlags) {
+		if(column_ix == col_runs_cardFlags) {
 			qf::core::utils::TableRow row = tableRow(row_ix);
 			bool card_rent_requested = row.value(QStringLiteral("runs.cardLent")).toBool();
 			bool card_returned = row.value(QStringLiteral("runs.cardReturned")).toBool();
@@ -106,7 +104,7 @@ private:
 			if(card_returned)
 				sl << tr("RET", "Card returned");
 			if(sl.isEmpty())
-				return QStringLiteral("");
+				return QString();
 			return sl.join(',');
 		}
 		return Super::value(row_ix, column_ix);

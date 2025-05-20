@@ -30,7 +30,7 @@ void Sheet::createStyleCache_helper(QObject *parent)
 	if(!parent)
 		return;
 	Q_FOREACH(auto child, parent->children()) {
-		StyleObject *so = dynamic_cast<StyleObject*>(child);
+		auto *so = dynamic_cast<StyleObject*>(child);
 		if(so) {
 			QString name = so->name();
 			if(!name.isEmpty()) {

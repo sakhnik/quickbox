@@ -3,9 +3,9 @@
 
 #include <QNetworkReply>
 
-namespace qf {
-namespace core {
-namespace network {
+
+
+namespace qf::core::network {
 
 NetworkReply::NetworkReply(QObject *parent) :
 	QObject(parent), m_reply(nullptr)
@@ -105,4 +105,4 @@ void NetworkReply::readyRead_helper()
 	}
 }
 
-}}}
+}

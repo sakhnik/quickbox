@@ -48,7 +48,7 @@ void Dialog::setCentralWidget(QWidget *central_widget)
 			sp.setVerticalPolicy(QSizePolicy::MinimumExpanding);
 			m_centralWidget->setSizePolicy(sp);
 		}
-		qf::qmlwidgets::framework::DialogWidget *dialog_widget = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(central_widget);
+		auto *dialog_widget = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(central_widget);
 		if(dialog_widget) {
 			connect(dialog_widget, &qf::qmlwidgets::framework::DialogWidget::closeDialogRequest, this, &Dialog::done);
 			QMetaObject::invokeMethod(this, "settleDownDialogWidget", Qt::QueuedConnection);
@@ -62,7 +62,7 @@ void Dialog::setCentralWidget(QWidget *central_widget)
 
 void Dialog::settleDownDialogWidget()
 {
-	qf::qmlwidgets::framework::DialogWidget *dialog_widget = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(m_centralWidget);
+	auto *dialog_widget = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(m_centralWidget);
 	if(dialog_widget) {
 		QVariant dlg = QVariant::fromValue(this);
 		bool ok = QMetaObject::invokeMethod(dialog_widget, "settleDownInDialog_qml", Q_ARG(QVariant, dlg));
@@ -201,7 +201,7 @@ void Dialog::updateLayout()
 		ly_root->addWidget(tb);
 	}
 	else if(!m_toolBars.isEmpty()) {
-		QHBoxLayout *ly1 = new QHBoxLayout(nullptr);
+		auto *ly1 = new QHBoxLayout(nullptr);
 		Q_FOREACH(auto tb_name, m_toolBars.keys()) {
 			ToolBar *tb = m_toolBars.value(tb_name);
 			tb->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -227,7 +227,7 @@ void Dialog::updateLayout()
 
 qf::qmlwidgets::framework::DialogWidget *Dialog::dialogWidget()
 {
-	qf::qmlwidgets::framework::DialogWidget *ret = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(m_centralWidget);
+	auto *ret = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(m_centralWidget);
 	return ret;
 }
 
@@ -250,8 +250,8 @@ void Dialog::showEvent(QShowEvent *ev)
 void Dialog::updateCaptionFrame()
 {
 	qfLogFuncFrame() << m_centralWidget;
-	qf::qmlwidgets::framework::DialogWidget *dialog_widget = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(m_centralWidget);
-	qf::qmlwidgets::framework::DataDialogWidget *data_dialog_widget = qobject_cast<qf::qmlwidgets::framework::DataDialogWidget *>(m_centralWidget);
+	auto *dialog_widget = qobject_cast<qf::qmlwidgets::framework::DialogWidget *>(m_centralWidget);
+	auto *data_dialog_widget = qobject_cast<qf::qmlwidgets::framework::DataDialogWidget *>(m_centralWidget);
 	if(dialog_widget) {
 		if(!m_captionFrame) {
 			m_captionFrame = new qf::qmlwidgets::dialogs::internal::CaptionFrame(this);
@@ -283,7 +283,7 @@ void Dialog::setButtonBox(DialogButtonBox *dbb)
 			qfDebug() << "\t adding:" << m_dialogButtonBox << "to layout:" << layout();
 			/// widget cannot be simply reparented
 			/// NULL parent should be set first
-			m_dialogButtonBox->setParent(0);
+			m_dialogButtonBox->setParent(nullptr);
 			m_dialogButtonBox->setParent(this);
 			updateLayout();
 			connect(m_dialogButtonBox, &DialogButtonBox::accepted, this, &Dialog::accept);

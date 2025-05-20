@@ -62,7 +62,7 @@ public:
 	}
 	Q_SIGNAL void connectionNameChanged(QString arg);
 
-	qf::core::sql::Connection sqlConnection();
+	qf::core::sql::Connection sqlConnection() const;
 	QString query() const { return m_query; }
 	void setQuery(const QString &query_str);
 	Q_SIGNAL void queryChanged(const QString &query_str);

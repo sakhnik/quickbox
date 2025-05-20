@@ -63,7 +63,7 @@ void SqlTableModel::onQueryBuilderChanged()
 
 QQmlListProperty<TableModelColumn> SqlTableModel::columns()
 {
-	return QQmlListProperty<TableModelColumn>(this,0,
+	return QQmlListProperty<TableModelColumn>(this,nullptr,
 											  SqlTableModel::addColumnFunction,
 											  SqlTableModel::countColumnsFunction,
 											  SqlTableModel::columnAtFunction,
@@ -74,7 +74,7 @@ QQmlListProperty<TableModelColumn> SqlTableModel::columns()
 void SqlTableModel::addColumnFunction(QQmlListProperty<TableModelColumn> *list_property, TableModelColumn *column)
 {
 	if (column) {
-		SqlTableModel *that = static_cast<SqlTableModel*>(list_property->object);
+		auto *that = static_cast<SqlTableModel*>(list_property->object);
 		if(!column->parent()) {
 			qfWarning() << "Every object that is not garbage collected by qml engine should have parent, reparenting column to model.";
 			column->setParent(that);
@@ -90,14 +90,14 @@ void SqlTableModel::addColumnFunction(QQmlListProperty<TableModelColumn> *list_p
 
 TableModelColumn *SqlTableModel::columnAtFunction(QQmlListProperty<TableModelColumn> *list_property, qsizetype index)
 {
-	SqlTableModel *that = static_cast<SqlTableModel*>(list_property->object);
+	auto *that = static_cast<SqlTableModel*>(list_property->object);
 	return that->m_qmlColumns.value(index);
 }
 
 void SqlTableModel::removeAllColumnsFunction(QQmlListProperty<TableModelColumn> *list_property)
 {
 	qfLogFuncFrame();
-	SqlTableModel *that = static_cast<SqlTableModel*>(list_property->object);
+	auto *that = static_cast<SqlTableModel*>(list_property->object);
 	while (that->columnCount()) {
 		ColumnDefinition cd = that->removeColumn(0);
 		QF_ASSERT(cd.isNull(), "Error removing column", break);
@@ -108,6 +108,6 @@ void SqlTableModel::removeAllColumnsFunction(QQmlListProperty<TableModelColumn> 
 
 qsizetype SqlTableModel::countColumnsFunction(QQmlListProperty<TableModelColumn> *list_property)
 {
-	SqlTableModel *that = static_cast<SqlTableModel*>(list_property->object);
+	auto *that = static_cast<SqlTableModel*>(list_property->object);
 	return that->m_qmlColumns.count();
 }

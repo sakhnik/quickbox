@@ -2,8 +2,8 @@
 
 #include <QRegularExpression>
 
-namespace quickevent {
-namespace core {
+
+namespace quickevent::core {
 	
 const int CodeDef::START_PUNCH_CODE = 10;
 const int CodeDef::FINISH_PUNCH_CODE = 900;
@@ -135,4 +135,4 @@ QString CodeDef::toString() const
 	return ret;
 }
 
-}}
+}

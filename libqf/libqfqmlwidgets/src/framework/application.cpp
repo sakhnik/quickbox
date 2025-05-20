@@ -18,12 +18,11 @@ Application::Application(int &argc, char **argv) :
 }
 
 Application::~Application()
-{
-}
+= default;
 
 Application *Application::instance(bool must_exist)
 {
-	Application *ret = qobject_cast<Application*>(Super::instance());
+	auto *ret = qobject_cast<Application*>(Super::instance());
 	if(!ret && must_exist) {
 		qfFatal("qf::qmlwidgets::framework::Application instance MUST exist.");
 	}

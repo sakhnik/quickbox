@@ -15,8 +15,8 @@ namespace qfd = qf::qmlwidgets::dialogs;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
-namespace Event {
-namespace services {
+
+namespace Event::services {
 
 //static const char *KEY_IS_RUNNING = "isRunning";
 
@@ -154,4 +154,4 @@ qf::qmlwidgets::framework::DialogWidget *Service::createDetailWidget()
 	return nullptr;
 }
 
-}}
+}

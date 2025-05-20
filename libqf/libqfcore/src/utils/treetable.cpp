@@ -6,6 +6,7 @@
 #include "../utils/timescope.h"
 
 #include <QMetaType>
+#include <algorithm>
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 static const auto SkipEmptyParts = QString::SkipEmptyParts;
@@ -318,10 +319,8 @@ void TreeTable::setName(const QString &n)
 
 int TreeTable::insertRow(int ix, const QVariantList &vals)
 {
-	if(ix < 0)
-		ix = 0;
-	if(ix >= rowCount())
-		ix = rowCount();
+	ix = std::max(ix, 0);
+	ix = std::min(ix, rowCount());
 	appendRow();
 	QVariantList rr = rows();
 	for (int i = rr.count() - 1; i > ix; --i) {
@@ -469,7 +468,7 @@ QVariant TreeTable::value(const QString &_key_name, const QVariant &default_val,
 					}
 				}
 				else {
-					if(key.compare(key, key_name, Qt::CaseInsensitive) == 0) {
+					if(QString::compare(key, key_name, Qt::CaseInsensitive) == 0) {
 						ret = it.value();
 						//qfDebug() << "\t\t equal";
 						break;

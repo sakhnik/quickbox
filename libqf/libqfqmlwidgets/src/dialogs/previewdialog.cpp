@@ -18,7 +18,7 @@ using namespace qf::qmlwidgets::dialogs;
 PreviewDialog::PreviewDialog(QWidget *parent) :
 	Super(parent)
 {
-	QWidget *w = new QWidget();
+	auto *w = new QWidget();
 	setCentralWidget(w);
 	ui = new Ui::PreviewDialog;
 	ui->setupUi(w);

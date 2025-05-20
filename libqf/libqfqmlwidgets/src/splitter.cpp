@@ -43,7 +43,7 @@ void Splitter::savePersistentSettings()
 
 QQmlListProperty<QWidget> Splitter::widgets()
 {
-	return QQmlListProperty<QWidget>(this,0,
+	return QQmlListProperty<QWidget>(this,nullptr,
 									 Splitter::addWidgetFunction,
 									 Splitter::countWidgetsFunction,
 									 Splitter::widgetAtFunction,
@@ -54,8 +54,8 @@ QQmlListProperty<QWidget> Splitter::widgets()
 void Splitter::addWidgetFunction(QQmlListProperty<QWidget> *list_property, QWidget *widget)
 {
 	if (widget) {
-		Splitter *that = static_cast<Splitter*>(list_property->object);
-		widget->setParent(0);
+		auto *that = static_cast<Splitter*>(list_property->object);
+		widget->setParent(nullptr);
 		widget->setParent(that);
 		widget->show();
 		that->addWidget(widget);
@@ -64,19 +64,19 @@ void Splitter::addWidgetFunction(QQmlListProperty<QWidget> *list_property, QWidg
 
 QWidget * Splitter::widgetAtFunction(QQmlListProperty<QWidget> *list_property, WidgetIndexType index)
 {
-	Splitter *that = static_cast<Splitter*>(list_property->object);
+	auto *that = static_cast<Splitter*>(list_property->object);
 	return that->widget(index);
 }
 
 
 void Splitter::removeAllWidgetsFunction(QQmlListProperty<QWidget> *list_property)
 {
-	Splitter *that = static_cast<Splitter*>(list_property->object);
+	auto *that = static_cast<Splitter*>(list_property->object);
 	QList<QWidget*> lst = that->findChildren<QWidget*>();
 	qDeleteAll(lst);}
 
 Splitter::WidgetIndexType Splitter::countWidgetsFunction(QQmlListProperty<QWidget> *list_property)
 {
-	Splitter *that = static_cast<Splitter*>(list_property->object);
+	auto *that = static_cast<Splitter*>(list_property->object);
 	return that->count();
 }

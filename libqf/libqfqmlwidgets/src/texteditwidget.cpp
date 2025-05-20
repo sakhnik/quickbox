@@ -125,25 +125,25 @@ framework::DialogWidget::ActionMap TextEditWidget::createActions()
 	QStyle *sty = style();
 	{
 		QIcon ico(":/qf/qmlwidgets/images/print");
-		qf::qmlwidgets::Action *a = new qf::qmlwidgets::Action(ico, tr("Print"), this);
+		auto *a = new qf::qmlwidgets::Action(ico, tr("Print"), this);
 		ret[QStringLiteral("print")] = a;
 		connect(a, SIGNAL(triggered()), this, SLOT(print()));
 	}
 	{
 		QIcon ico = sty->standardIcon(QStyle::SP_DialogSaveButton);
-		qf::qmlwidgets::Action *a = new qf::qmlwidgets::Action(ico, tr("Save"), this);
+		auto *a = new qf::qmlwidgets::Action(ico, tr("Save"), this);
 		ret[QStringLiteral("save")] = a;
 		connect(a, SIGNAL(triggered()), this, SLOT(save()));
 	}
 	{
 		QIcon ico = sty->standardIcon(QStyle::SP_DialogSaveButton);
-		qf::qmlwidgets::Action *a = new qf::qmlwidgets::Action(ico, tr("Save as"), this);
+		auto *a = new qf::qmlwidgets::Action(ico, tr("Save as"), this);
 		ret[QStringLiteral("saveAs")] = a;
 		connect(a, SIGNAL(triggered()), this, SLOT(saveAs()));
 	}
 	{
 		QIcon ico(":/qf/qmlwidgets/images/wordwrap");
-		qf::qmlwidgets::Action *a = new qf::qmlwidgets::Action(ico, tr("Wrap lines"), this);
+		auto *a = new qf::qmlwidgets::Action(ico, tr("Wrap lines"), this);
 		a->setCheckable(true);
 		ret[QStringLiteral("wrapLines")] = a;
 		connect(a, SIGNAL(triggered(bool)), this, SLOT(wrapLines(bool)));
@@ -177,7 +177,7 @@ void TextEditWidget::print()
 	QPrinter printer(QPrinter::HighResolution);
 	printer.setFullPage(true);
 
-	QPrintDialog *dlg = new QPrintDialog(&printer, this);
+	auto *dlg = new QPrintDialog(&printer, this);
 	if (dlg->exec() == QDialog::Accepted) {
 		ui->editor->document()->print(&printer);
 	}

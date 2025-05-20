@@ -8,6 +8,7 @@
 #include <QColor>
 #include <QPixmap>
 #include <QIcon>
+#include <algorithm>
 
 namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
@@ -786,8 +787,7 @@ bool TableModel::insertRows(int row_ix, int count, const QModelIndex &parent)
 	qfLogFuncFrame() << "row:" << row_ix << "count:" << count;
 	if(count < 0)
 		return false;
-	if(row_ix < 0)
-		row_ix = 0;
+	row_ix = std::max(row_ix, 0);
 	beginInsertRows(parent, row_ix, row_ix + count - 1);
 	bool ok = true;
 	for(int i=0; i<count; i++) {
@@ -882,7 +882,7 @@ qfu::TreeTable TableModel::toTreeTable(const QString& table_name, const QVariant
 			}
 			cd.setName(headerData(ix, Qt::Horizontal, FieldNameRole).toString());
 			if(t > 0)
-				cd.setType((int)t);
+				cd.setType(t);
 			cd.setHeader(cap);
 			//ret.appendColumn(headerData(ix, Qt::Horizontal, FieldNameRole).toString(), t, cap);
 		}

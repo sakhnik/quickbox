@@ -2,9 +2,9 @@
 
 #include <qf/core/log.h>
 
-namespace qf {
-namespace qmlwidgets {
-namespace framework {
+
+
+namespace qf::qmlwidgets::framework {
 
 DockableWidget::DockableWidget(QWidget *parent)
 	: Super(parent)
@@ -12,7 +12,7 @@ DockableWidget::DockableWidget(QWidget *parent)
 
 }
 
-} // namespace framework
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets::framework
+
+
 

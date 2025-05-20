@@ -5,7 +5,6 @@
 #include <qf/core/log.h>
 #include <qf/qmlwidgets/framework/plugin.h>
 #include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
 
 #include <QDirIterator>
 #include <QFileDialog>

@@ -26,10 +26,7 @@ SqlTableModel::SqlTableModel(QObject *parent)
 	m_connectionName = QSqlDatabase::defaultConnection;
 }
 
-SqlTableModel::~SqlTableModel()
-{
-
-}
+SqlTableModel::~SqlTableModel() = default;
 
 QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 {
@@ -76,7 +73,7 @@ QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 		if(cast_type == qMetaTypeId<qf::core::sql::DbEnum>()) {
 			QVariant v = data(index, Qt::BackgroundRole);
 			if(v.isValid()) {
-				QColor bgr_color = v.value<QColor>();
+				auto bgr_color = v.value<QColor>();
 				if(bgr_color.isValid()) {
 					return contrastTextColor(bgr_color);
 				}
@@ -617,7 +614,7 @@ QString SqlTableModel::replaceQueryParameters(const QString query_str)
 	return ret;
 }
 
-qf::core::sql::Connection SqlTableModel::sqlConnection()
+qf::core::sql::Connection SqlTableModel::sqlConnection() const
 {
 	QSqlDatabase db = QSqlDatabase::database(connectionName());
 	qf::core::sql::Connection ret = qf::core::sql::Connection(db);
@@ -688,12 +685,14 @@ bool SqlTableModel::reloadTable(const QString &query_str)
 	return true;
 }
 
-static QString compose_table_id(const QString &table_name, const QString &schema_name)
+namespace {
+QString compose_table_id(const QString &table_name, const QString &schema_name)
 {
 	QString ret = table_name;
 	if(!schema_name.isEmpty())
 		ret = schema_name + '.' + ret;
 	return ret;
+}
 }
 
 QStringList SqlTableModel::tableIds(const qf::core::utils::Table::FieldList &table_fields)
@@ -711,7 +710,8 @@ QStringList SqlTableModel::tableIds(const qf::core::utils::Table::FieldList &tab
 	return ret;
 }
 
-static QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Table::FieldList &table_fields)
+namespace {
+QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Table::FieldList &table_fields)
 {
 	QMap< QString, QSet<QString> > field_ids;
 	Q_FOREACH(const qfu::Table::Field &fld, table_fields) {
@@ -721,6 +721,7 @@ static QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Tabl
 			field_ids[tn] << fn;
 	}
 	return field_ids;
+}
 }
 
 void SqlTableModel::setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str)

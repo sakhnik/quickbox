@@ -12,8 +12,8 @@
 #include <plugins/Event/src/eventplugin.h>
 using qf::qmlwidgets::framework::getPlugin;
 
-namespace Event {
-namespace services {
+
+namespace Event::services {
 
 OResultsClientWidget::OResultsClientWidget(QWidget *parent)
 	: Super(parent)
@@ -50,7 +50,7 @@ bool OResultsClientWidget::acceptDialogDone(int result)
 
 OResultsClient *OResultsClientWidget::service()
 {
-	OResultsClient *svc = qobject_cast<OResultsClient*>(Service::serviceByName(OResultsClient::serviceName()));
+	auto *svc = qobject_cast<OResultsClient*>(Service::serviceByName(OResultsClient::serviceName()));
 	QF_ASSERT(svc, OResultsClient::serviceName() + " doesn't exist", return nullptr);
 	return svc;
 }
@@ -84,5 +84,5 @@ void OResultsClientWidget::onBtExportStartListXml30Clicked()
 		svc->exportStartListIofXml3();
 	}
 }
-}}
+}
 

@@ -64,7 +64,7 @@ QString QueryBuilder::buildSelect(const BuildOptions &opts) const
 {
 	QStringList select_fields;
 	QVariant v = m_queryMap.value(SelectKey);
-	const SelectTableFieldsList lst = v.value<SelectTableFieldsList>();
+	const auto lst = v.value<SelectTableFieldsList>();
 	for(const SelectTableFields &flds : lst) {
 		if(flds.table.isEmpty()) {
 			select_fields << flds.fields;
@@ -99,7 +99,7 @@ QString QueryBuilder::JoinDefinition::buildString(const QueryBuilder::BuildOptio
 	QString relation;
 	if(joinRelation.isValid()) {
 		if(joinRelation.userType() == qMetaTypeId<QueryBuilder>()) {
-			QueryBuilder qb = joinRelation.value<QueryBuilder>();
+			auto qb = joinRelation.value<QueryBuilder>();
 			relation = qb.toString(opts);
 		}
 		else {
@@ -148,7 +148,7 @@ QString QueryBuilder::buildFrom(const QueryBuilder::BuildOptions &opts) const
 {
 	QString ret;
 	QVariant v = m_queryMap.value(FromKey);
-	const JoinDefinitionList lst = v.value<JoinDefinitionList>();
+	const auto lst = v.value<JoinDefinitionList>();
 	for(const JoinDefinition &join_def : lst) {
 		ret += ' ' + join_def.buildString(opts);
 	}
@@ -170,7 +170,7 @@ void QueryBuilder::addSelect(const QueryBuilder::SelectTableFields &sf, const QS
 	if(!flags.isEmpty())
 		m_queryMap[SelectFlagsKey] = flags;
 	QVariant v = m_queryMap.value(SelectKey);
-	SelectTableFieldsList lst = v.value<SelectTableFieldsList>();
+	auto lst = v.value<SelectTableFieldsList>();
 	lst << sf;
 	v = QVariant::fromValue(lst);
 	m_queryMap[SelectKey] = v;
@@ -339,7 +339,7 @@ void QueryBuilder::addJoin(const QueryBuilder::JoinDefinition &jd)
 {
 	qfLogFuncFrame();
 	QVariant v = m_queryMap.value(FromKey);
-	JoinDefinitionList lst = v.value<JoinDefinitionList>();
+	auto lst = v.value<JoinDefinitionList>();
 	lst << jd;
 	v = QVariant::fromValue(lst);
 	m_queryMap[FromKey] = v;

@@ -41,7 +41,7 @@ void TableViewChooseColumnsWidget::loadColumns(qf::core::model::TableModel *mode
 			QListWidget *w = ui->lstModelColumns;
 			for(int i=0; i<model->columnCount(); i++) {
 				QString caption = model->headerData(i, Qt::Horizontal).toString();
-				QListWidgetItem *it = new QListWidgetItem(caption);
+				auto *it = new QListWidgetItem(caption);
 				it->setData(Qt::UserRole, "model");
 				it->setData(Qt::UserRole+1, i);
 				it->setFlags(it->flags() | Qt::ItemIsEditable);
@@ -55,7 +55,7 @@ void TableViewChooseColumnsWidget::loadColumns(qf::core::model::TableModel *mode
 			int i = 0;
 			Q_FOREACH(const qf::core::utils::Table::Field &fld, tbl.fields()) {
 				/// pokud je field soucasti modelu
-				QListWidgetItem *it = new QListWidgetItem(fld.name());
+				auto *it = new QListWidgetItem(fld.name());
 				it->setData(Qt::UserRole, "table");
 				it->setData(Qt::UserRole+1, i++);
 				it->setFlags(it->flags() | Qt::ItemIsEditable);
@@ -96,7 +96,7 @@ void TableViewChooseColumnsWidget::on_btColumnsAppendSelected_clicked()
 			QString origin = it->data(Qt::UserRole).toString();
 			if(origin == "table")
 				qf::core::Utils::parseFieldName(fld_name, &fld_name);
-			QStandardItem *it2 = new QStandardItem(fld_name);
+			auto *it2 = new QStandardItem(fld_name);
 			it2->setData(it->data(Qt::UserRole), Qt::UserRole);
 			it2->setData(it->data(Qt::UserRole+1), Qt::UserRole+1);
 			m->setItem(row, 0, it2);
@@ -184,7 +184,7 @@ void TableViewChooseColumnsWidget::setExportedColumns(const QVariant& cols)
 		else if(origin == "model") {
 			if(index < 0 || index >= ui->lstModelColumns->count()) continue;
 		}
-		QStandardItem *it2 = new QStandardItem(mp.value("caption").toString());
+		auto *it2 = new QStandardItem(mp.value("caption").toString());
 		it2->setData(origin, Qt::UserRole);
 		it2->setData(mp.value("index"), Qt::UserRole+1);
 		m->setItem(row, 0, it2);

@@ -24,17 +24,14 @@
 #include <QTextStream>
 #include <QTimer>
 
-namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
 using Runs::RunsPlugin;
 
-namespace Event {
-namespace services {
+
+namespace Event::services {
 
 constexpr int HR_12_MSEC = 12 * 60 * 60 * 1000;
 constexpr int INVALID_SI_TIME = 61166; // 0xEEEE
@@ -228,7 +225,7 @@ void EmmaClient::exportStartListIofXml3()
 	}
 }
 
-bool EmmaClient::createExportDir()
+bool EmmaClient::createExportDir() const
 {
 	EmmaClientSettings ss = settings();
 	QString export_dir = ss.exportDir();
@@ -302,7 +299,7 @@ void EmmaClient::init()
 	}
 }
 
-bool EmmaClient::preExport()
+bool EmmaClient::preExport() const
 {
 	EmmaClientSettings ss = settings();
 	if(!QDir().mkpath(ss.exportDir())) {
@@ -344,7 +341,7 @@ void EmmaClient::onExportTimerTimeOut()
 	}
 }
 
-void EmmaClient::exportFinishRacomTxt()
+void EmmaClient::exportFinishRacomTxt() const
 {
 	EmmaClientSettings ss = settings();
 	QString export_dir = ss.exportDir();
@@ -395,7 +392,7 @@ void EmmaClient::exportFinishRacomTxt()
 	}
 }
 
-void EmmaClient::exportStartListRacomTxt()
+void EmmaClient::exportStartListRacomTxt() const
 {
 	EmmaClientSettings ss = settings();
 	QString export_dir = ss.exportDir();
@@ -511,7 +508,7 @@ void EmmaClient::exportStartListRacomTxt()
 	}
 }
 
-void EmmaClient::exportStartListRacomCsv()
+void EmmaClient::exportStartListRacomCsv() const
 {
 	EmmaClientSettings ss = settings();
 	QString export_dir = ss.exportDir();
@@ -660,4 +657,4 @@ void EmmaClient::loadSettings()
 	init();
 }
 
-}}
+}

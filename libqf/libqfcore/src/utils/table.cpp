@@ -20,7 +20,6 @@ static const auto SkipEmptyParts = QString::SkipEmptyParts;
 static const auto SkipEmptyParts = Qt::SkipEmptyParts;
 #endif
 
-namespace qfc = qf::core;
 using namespace qf::core::utils;
 
 //====================================================
@@ -320,8 +319,7 @@ TableRow::Data::Data(const Table::TableProperties &props)
 }
 
 TableRow::Data::~Data()
-{
-}
+= default;
 
 TableRow::TableRow()
 {
@@ -630,8 +628,7 @@ Table::Table(const Table::FieldList &col_defs)
 }
 
 Table::~Table()
-{
-}
+= default;
 
 void Table::cleanupData(CleanupDataOption fields_options)
 {
@@ -727,7 +724,7 @@ TableRow& Table::insertRow(int before_row, const TableRow &_row)
 }
 
 
-TableRow Table::isolatedRow()
+TableRow Table::isolatedRow() const
 {
 	//qfLogFuncFrame();// << Log::stackTrace();
 	TableRow empty_row(tableProperties());

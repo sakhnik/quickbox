@@ -21,8 +21,6 @@
 #include <QStringBuilder>
 #include <QUrl>
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
 
@@ -150,7 +148,7 @@ ReportItemBand* ReportItem::parentBand()
 --*/
 ReportItemBand* ReportItem::parentBand()
 {
-	ReportItemBand *ret = qf::core::Utils::findParent<ReportItemBand*>(this, false);
+	auto *ret = qf::core::Utils::findParent<ReportItemBand*>(this, false);
 	return ret;
 }
 /*--
@@ -191,7 +189,7 @@ ReportProcessor *ReportItem::processor(bool throw_exc)
 	ReportProcessor *ret = nullptr;
 	QObject *it = this;
 	while(it) {
-		ReportItemReport *rir = qobject_cast<ReportItemReport*>(it);
+		auto *rir = qobject_cast<ReportItemReport*>(it);
 		if(rir) {
 			ret = rir->reportProcessor();
 			break;
@@ -211,7 +209,7 @@ ReportItem::PrintResult ReportItem::printHtml(ReportItem::HTMLElement &out)
 	return PrintResult::createPrintFinished();
 }
 
-void ReportItem::createHtmlExportAttributes(ReportItem::HTMLElement &out)
+void ReportItem::createHtmlExportAttributes(ReportItem::HTMLElement &out) const
 {
 	QMapIterator<QString, QVariant> it(htmlExportAttributes());
 	while(it.hasNext()) {
@@ -245,7 +243,7 @@ style::Text *ReportItem::effectiveTextStyle()
 	style::Text *ret = nullptr;
 	ReportItem *it = this;
 	while(it) {
-		ReportItemFrame *frit = qobject_cast<ReportItemFrame*>(it);
+		auto *frit = qobject_cast<ReportItemFrame*>(it);
 		if(frit) {
 			ret = frit->textStyle();
 			if(ret)

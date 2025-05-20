@@ -5,7 +5,6 @@
 #include <QStringList>
 
 #include <stdarg.h>
-#include <stdio.h>
 
 using namespace qf::core;
 
@@ -38,7 +37,7 @@ Exception::Exception(const QString &_msg, const QString &_where)
 	log();
 }
 
-void Exception::log()
+void Exception::log() const
 {
 	if(isLogStackTrace())
 		logWarning() << message() << "\n" << where() << "\n----- stack trace -----\n" << stackTrace();
@@ -53,7 +52,7 @@ QString Exception::toString() const
 	return ret;
 }
 
-const char* Exception::what() const throw()
+const char* Exception::what() const noexcept
 {
 	return m_what.constData();
 }

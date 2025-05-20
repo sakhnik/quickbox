@@ -3,9 +3,9 @@
 #include <QApplication>
 #include <QScreen>
 
-namespace qf {
-namespace qmlwidgets {
-namespace internal {
+
+
+namespace qf::qmlwidgets::internal {
 
 QRect DesktopUtils::moveRectToVisibleDesktopScreen(const QRect &rect)
 {
@@ -20,14 +20,13 @@ QRect DesktopUtils::moveRectToVisibleDesktopScreen(const QRect &rect)
 	if(screen_rect.contains(rect.topLeft())) {
 		return rect;
 	}
-	else {
-		auto ret = rect;
+			auto ret = rect;
 		ret.moveCenter(screen_rect.center());
 		return ret;
-	}
+
 }
 
-} // namespace internal
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets::internal
+
+
 

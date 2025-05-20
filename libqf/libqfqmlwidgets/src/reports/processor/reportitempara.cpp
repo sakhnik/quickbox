@@ -9,8 +9,6 @@
 
 #include <QDateTime>
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
 
@@ -68,7 +66,7 @@ ReportItem::PrintResult ReportItemPara::printMetaPaintChildren(ReportItemMetaPai
 				text_option.setWrapMode(QTextOption::WrapAtWordBoundaryOrAnywhere);
 			//alignment_flags |= Qt::TextWordWrap;
 			int al = static_cast<int>(textHAlign()) | static_cast<int>(textVAlign());
-			Qt::Alignment alignment_flags = (Qt::Alignment)al;
+			auto alignment_flags = (Qt::Alignment)al;
 			text_option.setAlignment(alignment_flags);
 		}
 		Rect device_bounding_rect;
@@ -117,12 +115,11 @@ ReportItem::PrintResult ReportItemPara::printMetaPaintChildren(ReportItemMetaPai
 									text_item_should_be_created = false;
 									break;
 								}
-								else {
-									/// neco se preci jenom veslo
+																	/// neco se preci jenom veslo
 									int pos = line.textStart();
 									m_indexToPrint += pos;
 									break;
-								}
+							
 							}
 							height += interline_space;
 							line.setPosition(QPointF(0., height));

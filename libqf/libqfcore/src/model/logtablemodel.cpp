@@ -8,9 +8,7 @@
 
 Q_DECLARE_METATYPE(NecroLog::Level)
 
-namespace qf {
-namespace core {
-namespace model {
+namespace qf::core::model {
 
 LogTableModel::Row::Row(NecroLog::Level severity, const QString &domain, const QString &file, int line, const QString &msg, const QDateTime &time_stamp, const QString &function, const QVariant &user_data)
 {
@@ -184,4 +182,4 @@ QString LogTableModel::prettyFileName(const QString &file_name)
 	return QString::fromStdString(NecroLog::moduleFromFileName(file_name.toStdString().c_str()));
 }
 
-}}}
+}

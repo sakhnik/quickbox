@@ -2,9 +2,9 @@
 
 #include "../og/timems.h"
 
-namespace quickevent {
-namespace core {
-namespace si {
+
+
+namespace quickevent::core::si {
 
 CheckedCard::CheckedCard(const QVariantMap &data)
 	: QVariantMap(data)
@@ -57,4 +57,4 @@ QString CheckedCard::toString() const
 	return ret;
 }
 
-}}}
+}

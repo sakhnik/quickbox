@@ -10,9 +10,9 @@
 #include <QVBoxLayout>
 #include <QMetaMethod>
 
-namespace qf {
-namespace qmlwidgets {
-namespace framework {
+
+
+namespace qf::qmlwidgets::framework {
 
 StackedCentralWidget::StackedCentralWidget(MainWindow *parent) :
 	Super(parent)
@@ -31,8 +31,7 @@ StackedCentralWidget::StackedCentralWidget(MainWindow *parent) :
 }
 
 StackedCentralWidget::~StackedCentralWidget()
-{
-}
+= default;
 
 void StackedCentralWidget::addPartWidget(PartWidget *widget)
 {
@@ -81,11 +80,11 @@ int StackedCentralWidget::featureToIndex(const QString &feature_id)
 
 PartWidget *StackedCentralWidget::partWidget(int part_index)
 {
-	PartWidget *pw = qobject_cast<PartWidget*>(m_centralWidget->widget(part_index));
+	auto *pw = qobject_cast<PartWidget*>(m_centralWidget->widget(part_index));
 	if(pw == nullptr) {
 		//qfWarning() << "invalid part index:" << part_index << "of count:" << m_centralWidget->count();
 	}
 	return pw;
 }
 
-}}}
+}

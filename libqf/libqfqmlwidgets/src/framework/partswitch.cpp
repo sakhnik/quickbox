@@ -40,13 +40,12 @@ PartSwitch::PartSwitch(StackedCentralWidget *central_widget, QWidget *parent) :
 
 
 qf::qmlwidgets::framework::PartSwitch::~PartSwitch()
-{
-}
+= default;
 
 void PartSwitch::addPartWidget(PartWidget *widget)
 {
 	qfLogFuncFrame() << widget << widget->featureId() << widget->title();
-	PartSwitchToolButton *bt = new PartSwitchToolButton();
+	auto *bt = new PartSwitchToolButton();
 	bt->setCheckable(true);
 	connect(bt, SIGNAL(clicked(int)), this, SLOT(setCurrentPartIndex(int)));
 	bt->setText(widget->title());

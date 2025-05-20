@@ -125,7 +125,7 @@ int Connection::connectionId()
 int Connection::defaultPort(const QString &driver_name)
 {
 	if(driver_name.endsWith(QLatin1String("PSQL"))) return 5432;
-	else if(driver_name.endsWith(QLatin1String("MYSQL"))) return 3306;
+	if(driver_name.endsWith(QLatin1String("MYSQL"))) return 3306;
 	else if(driver_name.endsWith("IBASE")) return 3050;
 	return 0;
 }
@@ -191,9 +191,8 @@ static QVariant sqlite_set_pragma(QSqlQuery &q, const QString &pragma_key, const
 		}
 		return old_val;
 	}
-	else {
-		qfError() << "SQL PRAGMA query is supposed to return data but it hasn't";
-	}
+			qfError() << "SQL PRAGMA query is supposed to return data but it hasn't";
+
 	return QVariant();
 }
 
@@ -273,7 +272,7 @@ QStringList Connection::tables(const QString& dbname, QSql::TableType type) cons
 		QSqlQuery q(*this);
 		QStringList sl = serverVersion();
 		int ver = 0;
-		if(sl.size() > 0) {
+		if(!sl.empty()) {
 			//qfDebug() << "\tsl[0]:" << sl[0];
 			ver = sl[0].toInt();
 		}
@@ -757,7 +756,7 @@ QString Connection::createTableSqlCommand(const QString &tblname)
 			qfError() << msg;
 			return QString();
 		}
-		else if(q.next()) {
+		if(q.next()) {
 			return q.value(1).toString() + ";";
 		}
 		return QString();
@@ -799,7 +798,7 @@ QString Connection::dumpTableSqlCommand(const QString &tblname)
 		}
 		return QString();
 	}
-	else if(driverName().endsWith(QLatin1String("PSQL"))) {
+	if(driverName().endsWith(QLatin1String("PSQL"))) {
 		return dumpSqlTable_psql(tblname, true);
 	}
 	return "unsupported for " + driverName();

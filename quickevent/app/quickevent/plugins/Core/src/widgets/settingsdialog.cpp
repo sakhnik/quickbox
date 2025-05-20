@@ -64,7 +64,7 @@ void SettingsDialog::addPage(SettingsPage *page)
 	// set widget minimum width to show all buttons, default behavior is to srt width of widget
 	// according to width of first button added
 #if QT_VERSION_MAJOR >= 6
-	ui->buttonsWidget->setMinimumWidth(std::max(ui->buttonsWidget->minimumWidth(), btn->sizeHint().width() + layout->contentsMargins().left() * 5));
+	ui->buttonsWidget->setMinimumWidth(std::max(ui->buttonsWidget->minimumWidth(), btn->sizeHint().width() + (layout->contentsMargins().left() * 5)));
 #else
 	ui->buttonsWidget->setMinimumWidth(std::max(ui->buttonsWidget->minimumWidth(), btn->sizeHint().width() + layout->margin() * 5));
 #endif

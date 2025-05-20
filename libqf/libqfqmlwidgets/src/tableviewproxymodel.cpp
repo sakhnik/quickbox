@@ -17,9 +17,7 @@ TableViewProxyModel::TableViewProxyModel(QObject *parent)
 }
 
 TableViewProxyModel::~TableViewProxyModel()
-{
-
-}
+= default;
 
 void TableViewProxyModel::setRowFilterString(const QString &s)
 {

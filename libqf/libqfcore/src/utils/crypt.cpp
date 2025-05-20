@@ -60,17 +60,17 @@ QByteArray Crypt::encrypt(const QByteArray &data, int min_length) const
 	QByteArray dest;
 
 	/// nahodne se vybere hodnota, kterou se string zaxoruje a ta se ulozi na zacatek
-	unsigned val = (unsigned)myrand();
+	auto val = (unsigned)myrand();
 	val += QTime::currentTime().msec();
 	val %= 256;
 	if(val == 0)
 		val = 1;/// fix case vhen val == 0 and generator C == 0 also
-	quint8 b = (quint8)val;
+	auto b = (quint8)val;
 	dest += code_byte(b);
 
 	/// a tou se to zaxoruje
-	for(int i=0; i<data.size(); i++) {
-		b = ((quint8)data[i]);
+	for(char i : data) {
+		b = ((quint8)i);
 		if(b == 0)
 			break;
 		val = m_generator(val);

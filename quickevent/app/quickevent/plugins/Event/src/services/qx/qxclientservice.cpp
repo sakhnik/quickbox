@@ -212,7 +212,7 @@ QNetworkReply* QxClientService::loadQxChanges(int from_id)
 	return networkManager()->get(request);
 }
 
-int QxClientService::eventId()
+int QxClientService::eventId() const
 {
 	if (m_eventId == 0) {
 		throw qf::core::Exception(tr("Event ID is not loaded, service is not probably running."));

@@ -15,7 +15,7 @@ TableItemDelegate::TableItemDelegate(TableView *parent) :
 
 TableView * TableItemDelegate::view() const
 {
-	TableView *view = qobject_cast<TableView*>(parent());
+	auto *view = qobject_cast<TableView*>(parent());
 	QF_ASSERT_EX(view != nullptr, "Cannot use TableItemDelegate without TableView parent");
 	return view;
 }

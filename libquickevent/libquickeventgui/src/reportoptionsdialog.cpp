@@ -15,8 +15,8 @@
 #include <QSqlDatabase>
 #include <QTimer>
 
-namespace quickevent {
-namespace gui {
+
+namespace quickevent::gui {
 
 namespace {
 auto persistent_settings_path_prefix = QStringLiteral("ui/MainWindow/");
@@ -173,7 +173,7 @@ QString ReportOptionsDialog::sqlWhereExpression(const ReportOptionsDialog::Optio
 	if(opts.isUseClassFilter()) {
 		QString filter_str = opts.classFilter();
 		if(!filter_str.isEmpty()) {
-			FilterType filter_type = (FilterType)opts.classFilterType();
+			auto filter_type = (FilterType)opts.classFilterType();
 			if(filter_type == FilterType::RegExp) {
 				QString filter_operator = opts.isInvertClassFilter()? "!~*": "~*";
 				QString ret = "classes.name %1 '%2'";
@@ -227,7 +227,7 @@ void ReportOptionsDialog::setOptions(const ReportOptionsDialog::Options &options
 	ui->edLegsCount->setValue(options.legsCount());
 	//qfInfo() << "options.stagesCount()" << options.stagesCount() << ui->edStagesCount->value();
 	ui->cbxBreakAfterClassType->setCurrentIndex(options.breakType());
-	ui->edColumnCount->setValue(options.columns().length() / 2 + 1);
+	ui->edColumnCount->setValue((options.columns().length() / 2) + 1);
 	ui->edPageWidth->setValue(options.pageWidth());
 	ui->edPageHeight->setValue(options.pageHeight());
 	ui->edHorizontalMargin->setValue(options.horizontalMargin());
@@ -235,7 +235,7 @@ void ReportOptionsDialog::setOptions(const ReportOptionsDialog::Options &options
 	ui->grpClassFilter->setChecked(options.isUseClassFilter());
 	ui->chkClassFilterDoesntMatch->setChecked(options.isInvertClassFilter());
 	ui->edFilter->setText(options.classFilter());
-	FilterType filter_type = (FilterType)options.classFilterType();
+	auto filter_type = (FilterType)options.classFilterType();
 	ui->btWildCard->setChecked(filter_type == FilterType::WildCard);
 	ui->btRegExp->setChecked(filter_type == FilterType::RegExp);
 	ui->btClassNames->setChecked(filter_type == FilterType::ClassName);
@@ -246,10 +246,10 @@ void ReportOptionsDialog::setOptions(const ReportOptionsDialog::Options &options
 	ui->edStartersOptionsLineSpacing->setValue(options.startersOptionsLineSpacing());
 	ui->edNumPlaces->setValue(options.resultNumPlaces());
 	ui->chkExcludeDisq->setChecked(options.isResultExcludeDisq());
-	StartTimeFormat start_time_format = (StartTimeFormat)options.startTimeFormat();
+	auto start_time_format = (StartTimeFormat)options.startTimeFormat();
 	ui->btStartTimes1->setChecked(start_time_format == StartTimeFormat::RelativeToClassStart);
 	ui->btStartTimes2->setChecked(start_time_format == StartTimeFormat::DayTime);
-	StartlistOrderFirstBy start_order_by = (StartlistOrderFirstBy)options.startlistOrderFirstBy();
+	auto start_order_by = (StartlistOrderFirstBy)options.startlistOrderFirstBy();
 	ui->btStartOrder1->setChecked(start_order_by == StartlistOrderFirstBy::ClassName);
 	ui->btStartOrder2->setChecked(start_order_by == StartlistOrderFirstBy::StartTime);
 	ui->btStartOrder3->setChecked(start_order_by == StartlistOrderFirstBy::Names);
@@ -373,5 +373,5 @@ void ReportOptionsDialog::resetPersistentSettings()
     savePersistentSettings();
 }
 
-}}
+}
 

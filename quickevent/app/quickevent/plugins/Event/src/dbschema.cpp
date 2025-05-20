@@ -14,7 +14,6 @@
 #include <QQmlEngine>
 #include <QQmlContext>
 #include <QQmlComponent>
-#include <QQmlEngine>
 
 DbSchema::DbSchema(Event::EventPlugin *event_plugin)
 	: QObject(event_plugin)
@@ -98,7 +97,7 @@ QSqlRecord DbSchema::sqlRecord(QObject *table, bool lowercase_field_names)
 		if(lowercase_field_names)
 			name = name.toLower();
 		QVariant typev = field->property("type");
-		QObject *type = typev.value<QObject*>();
+		auto *type = typev.value<QObject*>();
 		QF_ASSERT(type != nullptr, "Internal error: Cannot get field type", return QSqlRecord());
 		QByteArray type_name = type->property("metaTypeName").toString().toLatin1();
 		QSqlField fld(name, QMetaType::fromName(type_name));

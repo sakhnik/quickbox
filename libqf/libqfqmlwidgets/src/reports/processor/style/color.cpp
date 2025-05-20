@@ -33,7 +33,7 @@ QColor Color::color()
 			if(!m_color.isValid()) {
 				Sheet *ss = rootStyleSheet();
 				if(ss) {
-					Color *pco = qobject_cast<Color*>(ss->styleObjectForName(SGColor, v.toString()));
+					auto *pco = qobject_cast<Color*>(ss->styleObjectForName(SGColor, v.toString()));
 					if(pco)
 						m_color = pco->color();
 				}

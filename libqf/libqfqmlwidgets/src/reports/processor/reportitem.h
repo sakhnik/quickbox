@@ -368,7 +368,7 @@ public:
 protected:
 	style::Text* effectiveTextStyle();
 
-	void createHtmlExportAttributes(HTMLElement &out);
+	void createHtmlExportAttributes(HTMLElement &out) const;
 
 	void classBegin() Q_DECL_OVERRIDE;
 	void componentComplete() Q_DECL_OVERRIDE;

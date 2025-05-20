@@ -1,9 +1,9 @@
 #include "checkedpunch.h"
 #include "../codedef.h"
 
-namespace quickevent {
-namespace core {
-namespace si {
+
+
+namespace quickevent::core::si {
 
 CheckedPunch CheckedPunch::fromCodeDef(const quickevent::core::CodeDef &cd)
 {
@@ -13,4 +13,4 @@ CheckedPunch CheckedPunch::fromCodeDef(const quickevent::core::CodeDef &cd)
 	return ret;
 }
 
-}}}
+}

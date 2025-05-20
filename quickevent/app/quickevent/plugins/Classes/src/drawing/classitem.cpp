@@ -21,9 +21,6 @@
 #include <QMenu>
 #include <QDialogButtonBox>
 
-namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
 namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfc = qf::core;
 namespace qfm = qf::core::model;
@@ -72,7 +69,7 @@ ClassItem::ClassItem(QGraphicsItem *parent)
 	m_classdefsText = new QGraphicsTextItem(this);
 	m_classdefsText->setPos(0, 4 * du_px);
 	QRect r;
-	r.setHeight(6 * du_px + du_px/2);
+	r.setHeight((6 * du_px) + (du_px/2));
 	setRect(r);
 
 	setCursor(Qt::ArrowCursor);
@@ -108,7 +105,7 @@ const StartSlotItem *ClassItem::startSlotItem() const
 
 StartSlotItem *ClassItem::startSlotItem()
 {
-	StartSlotItem *ret = dynamic_cast<StartSlotItem*>(parentItem());
+	auto *ret = dynamic_cast<StartSlotItem*>(parentItem());
 	QF_ASSERT_EX(ret != nullptr, "Bad parent!");
 	return ret;
 }
@@ -347,8 +344,8 @@ void ClassItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event)
 	}
 	qfLogFuncFrame();
 	setCursor(Qt::ClosedHandCursor);
-	QDrag *drag = new QDrag(event->widget());
-	QMimeData *mime = new QMimeData;
+	auto *drag = new QDrag(event->widget());
+	auto *mime = new QMimeData;
 	drag->setMimeData(mime);
 	{
 		QVariantMap m;
@@ -453,7 +450,7 @@ void ClassItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 	menu.addAction("Edit class");
 	QAction *a = menu.exec(event->screenPos());
 	if(a) {
-		drawing::DrawingGanttWidget *parent_w = qfc::Utils::findParent<drawing::DrawingGanttWidget*>(scene());
+		auto *parent_w = qfc::Utils::findParent<drawing::DrawingGanttWidget*>(scene());
 		auto *w = new ClassDefWidget();
 		w->setWindowTitle(tr("Edit class"));
 		qfd::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, parent_w);

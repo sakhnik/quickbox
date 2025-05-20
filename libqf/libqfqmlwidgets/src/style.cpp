@@ -25,7 +25,7 @@ void Style::addIconSearchPath(const QString &p)
 	m_iconSearchPaths << p;
 }
 
-QPixmap Style::pixmapFromSvg(const QString &file_name, const QSize &pixmap_size)
+QPixmap Style::pixmapFromSvg(const QString &file_name, const QSize &pixmap_size) const
 {
 	qfLogFuncFrame() << file_name << pixmap_size;
 	QPixmap ret;
@@ -94,7 +94,7 @@ Style *Style::instance()
 	QCoreApplication *app = QCoreApplication::instance();
 	if(app) {
 		QVariant v = app->property(PROPERTY_STYLE_INSTANCE);
-		QObject *o = v.value<QObject*>();
+		auto *o = v.value<QObject*>();
 		auto *style = qobject_cast<Style*>(o);
 		if(!style) {
 			style = new Style(app);

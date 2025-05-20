@@ -105,7 +105,7 @@ void CaptionFrame::update()
 	qfLogFuncFrame() << "text:" << text();
 	QString label_text = text();
 	if(m_recordEditMode >= 0) {
-		qf::core::model::DataDocument::RecordEditMode mode = qf::core::model::DataDocument::RecordEditMode(m_recordEditMode);
+		auto mode = qf::core::model::DataDocument::RecordEditMode(m_recordEditMode);
 		if(mode == qf::core::model::DataDocument::ModeDelete) {
 			label_text = tr("Delete ") + label_text;
 			setAlert(true);

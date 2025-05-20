@@ -262,7 +262,7 @@ public:
 	Field& appendColumn(const QString &name, QMetaType::Type t) {return insertColumn(columnCount(), name, t);}
 
 	//! return empty row which is not inserted in the table rows
-	TableRow isolatedRow();
+	TableRow isolatedRow() const;
 	virtual int rowCount() const;
 	TableRow& insertRow(int before_row);
 	virtual TableRow& insertRow(int before_row, const TableRow &_row);
