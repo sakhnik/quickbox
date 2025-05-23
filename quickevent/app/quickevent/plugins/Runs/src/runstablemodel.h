@@ -20,7 +20,6 @@ public:
 		col_competitorName,
 		col_registration,
 		col_runs_license,
-		col_runs_ranking,
 		col_runs_siId,
 		col_runs_corridorTime,
 		col_runs_checkTimeMs,
@@ -30,6 +29,8 @@ public:
 		col_runs_timeMs,
 		col_runFlags,
 		col_cardFlags,
+		col_runs_rankingPos,
+		col_iofId,
 		col_competitors_note,
 		col_COUNT,
 	};

@@ -10,7 +10,6 @@
 #include <plugins/Core/src/coreplugin.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Classes/src/classesplugin.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/Runs/src/runsplugin.h>
 #include <plugins/Oris/src/orisplugin.h>
 #include <plugins/CardReader/src/cardreaderplugin.h>
@@ -72,7 +71,7 @@ void MainWindow::onPluginsLoaded()
 	auto *w = qobject_cast<qf::qmlwidgets::framework::StackedCentralWidget*>(centralWidget());
 	menuBar()->actionForPath("view/toolbar")->addActionInto(w->partSwitch()->toggleViewAction());
 
-	centralWidget()->setActivePart("Competitors", true);
+	centralWidget()->setActivePart("Runs", true);
 	setPersistentSettingsId("MainWindow");
 	loadPersistentSettings();
 }
@@ -87,16 +86,16 @@ void MainWindow::loadPlugins()
 		auto *plugin = new Event::EventPlugin(this);
 		registerPlugin(plugin);
 	}
-	{
-		auto *plugin = new Classes::ClassesPlugin(this);
-		registerPlugin(plugin);
-	}
-	{
-		auto *plugin = new Competitors::CompetitorsPlugin(this);
-		registerPlugin(plugin);
-	}
+	// {
+	// 	auto *plugin = new Competitors::CompetitorsPlugin(this);
+	// 	registerPlugin(plugin);
+	// }
 	{
 		auto *plugin = new Runs::RunsPlugin(this);
+		registerPlugin(plugin);
+	}
+	{
+		auto *plugin = new Classes::ClassesPlugin(this);
 		registerPlugin(plugin);
 	}
 	{

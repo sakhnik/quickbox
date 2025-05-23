@@ -4,6 +4,7 @@
 
 class RunsTableModel;
 class RunsTableItemDelegate;
+namespace qf::qmlwidgets { class TableView; }
 
 namespace Ui {
 class RunsTableWidget;
@@ -23,9 +24,11 @@ public:
 	void reload();
 
 	RunsTableModel* runsModel() {return m_runsModel;}
+	qf::qmlwidgets::TableView* tableView();
+
+	Q_SIGNAL void editCompetitorRequest(int competitor_id, int mode);
 private:
 	void updateStartTimeHighlight() const;
-	void editCompetitor(const QVariant &id, int mode);
 	void onCustomContextMenuRequest(const QPoint &pos);
 	void onTableViewSqlException(const QString &what, const QString &where, const QString &stack_trace);
 	void onBadTableDataInput(const QString &message);

@@ -34,26 +34,8 @@ void RunsTableItemDelegate::setHighlightedClassId(int class_id, int stage_id)
 
 void RunsTableItemDelegate::reloadHighlightedClassId()
 {
-	qf::core::sql::QueryBuilder qb;
-	qb.select2("classdefs", "startTimeMin, lastStartTimeMin, startIntervalMin, vacantsBefore, vacantEvery, vacantsAfter")
-			.from("classdefs")
-			.where("classId=" QF_IARG(m_highlightedClassId));
 	bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
-	if(!is_relays)
-		qb.where("stageId=" QF_IARG(m_stageId));
-	qfs::Query q(qfs::Connection::forName());
-	//qfInfo() << qb.toString();
-	q.exec(qb.toString(), qf::core::Exception::Throw);
-	if(q.next()) {
-		m_classInterval = q.value("startIntervalMin").toInt() * 60 * 1000;
-		m_classStartFirst = q.value("startTimeMin").toInt() * 60 * 1000;
-		m_classStartLast = q.value("lastStartTimeMin").toInt() * 60 * 1000;
-	}
-	else {
-		m_classInterval = 0;
-		m_classStartFirst = 0;
-		m_classStartLast = 0;
-	}
+	m_classDef.load(m_highlightedClassId, m_stageId, is_relays);
 	//qfInfo() << "interval:" << m_classInterval << "first:" << m_classStartFirst << "last:" << m_classStartLast;
 }
 
@@ -80,7 +62,7 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 				if(!stime.isValid())
 					return;
 				int leg = m->data(index.sibling(index.row(), RunsTableModel::Columns::col_runs_leg), Qt::EditRole).toInt();
-				if(leg == 1 && m_classStartFirst != start_ms) {
+				if(leg == 1 && m_classDef.classStartFirst != start_ms) {
 					//qfInfo() << m_highlightedClassId << m_classStartFirst << start_ms;
 					QColor c = Qt::red;
 					c.setAlphaF(0.5);
@@ -88,15 +70,15 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 				}
 			}
 		}
-		else if(isStartTimeHighlightVisible() && m_classInterval > 0) {
+		else if(isStartTimeHighlightVisible() && m_classDef.classInterval > 0) {
 			//qfInfo() << "col:" << index.column() << m_highlightedClassId << "interval:" << m_classInterval << isStartTimeHighlightVisible();
 			QVariant stime_v = m->data(index.sibling(index.row(), RunsTableModel::Columns::col_runs_startTimeMs), Qt::EditRole);
 			quickevent::core::og::TimeMs stime = stime_v.value<quickevent::core::og::TimeMs>();
 			int start_ms = stime.msec();
 			if(!stime.isValid())
 				return;
-			int prev_start_ms = m_classStartFirst;
-			int next_start_ms = m_classStartLast;
+			int prev_start_ms = m_classDef.classStartFirst;
+			int next_start_ms = m_classDef.classStartLast;
 			//int table_row = v->toTableModelRowNo(index.row());
 			QString club = m->data(index.sibling(index.row(), RunsTableModel::Columns::col_registration), Qt::EditRole).toString().mid(0, 3).trimmed();
 			QString prev_club;
@@ -108,11 +90,11 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 				next_start_ms = m->data(index.sibling(index.row() + 1, RunsTableModel::Columns::col_runs_startTimeMs), Qt::EditRole).value<quickevent::core::og::TimeMs>().msec();
 			}
 
-			bool bad_start_time = (start_ms > m_classStartFirst && start_ms == prev_start_ms) || ((start_ms - prev_start_ms) % m_classInterval) != 0;
-			bool vacant_before = !bad_start_time && (((start_ms - prev_start_ms) > m_classInterval) || ((index.row() == 0) && (start_ms > m_classStartFirst)));
+			bool bad_start_time = (start_ms > m_classDef.classStartFirst && start_ms == prev_start_ms) || ((start_ms - prev_start_ms) % m_classDef.classInterval) != 0;
+			bool vacant_before = !bad_start_time && (((start_ms - prev_start_ms) > m_classDef.classInterval) || ((index.row() == 0) && (start_ms > m_classDef.classStartFirst)));
 			bool vacant_after = !bad_start_time
-					&& (((next_start_ms - start_ms) > m_classInterval)
-						|| ((index.row() == tm->rowCount() - 1) && (start_ms < m_classStartLast)));
+					&& (((next_start_ms - start_ms) > m_classDef.classInterval)
+						|| ((index.row() == tm->rowCount() - 1) && (start_ms < m_classDef.classStartLast)));
 			bool bad_club = !vacant_before && (club == prev_club);
 			//auto cd = tm->columnDefinition(index.column());
 			if(index.column() == RunsTableModel::Columns::col_runs_startTimeMs) {

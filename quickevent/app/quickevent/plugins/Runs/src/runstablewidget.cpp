@@ -3,12 +3,14 @@
 #include "runstablemodel.h"
 #include "runstableitemdelegate.h"
 #include "runsplugin.h"
+#include "runswidget.h"
 #include "runflagsdialog.h"
 #include "cardflagsdialog.h"
 
 #include <quickevent/core/si/siid.h>
 #include <quickevent/core/og/timems.h>
 
+#include <qf/qmlwidgets/dialogs/getiteminputdialog.h>
 #include <qf/qmlwidgets/dialogs/messagebox.h>
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/qmlwidgets/framework/plugin.h>
@@ -18,7 +20,6 @@
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
 #include <plugins/Event/src/eventplugin.h>
-#include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/CardReader/src/cardreaderplugin.h>
 #include <plugins/Receipts/src/receiptsplugin.h>
 
@@ -27,16 +28,12 @@
 #include <QTimer>
 #include <QInputDialog>
 
+namespace qfc = qf::core;
 namespace qfs = qf::core::sql;
 namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
-using Competitors::CompetitorsPlugin;
 using Runs::RunsPlugin;
-using CardReader::CardReaderPlugin;
 using Receipts::ReceiptsPlugin;
 
 RunsTableWidget::RunsTableWidget(QWidget *parent) :
@@ -49,7 +46,8 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 
 	ui->tblRuns->setShowExceptionDialog(false);
 	connect(ui->tblRuns, &qf::qmlwidgets::TableView::sqlException, this, &RunsTableWidget::onTableViewSqlException, Qt::QueuedConnection);
-	ui->tblRuns->setEditRowsMenuSectionEnabled(false);
+	// ui->tblRuns->setEditRowsMenuSectionEnabled(false);
+	ui->tblRuns->setCloneRowEnabled(false);
 	ui->tblRuns->setDirtyRowsMenuSectionEnabled(false);
 	ui->tblRuns->setPersistentSettingsId("tblRuns");
 	ui->tblRuns->setRowEditorMode(qfw::TableView::EditRowsMixed);
@@ -73,7 +71,7 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 	// this ensures that table is sorted every time when start time is edited
 	ui->tblRuns->sortFilterProxyModel()->setDynamicSortFilter(true);
 
-	connect(m_runsModel, &RunsTableModel::startTimesSwitched, [this](int id1, int id2, const QString &err_msg)
+	connect(m_runsModel, &RunsTableModel::startTimesSwitched, this, [this](int id1, int id2, const QString &err_msg)
 	{
 		Q_UNUSED(id1)
 		Q_UNUSED(id2)
@@ -86,6 +84,16 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 
 	connect(ui->tblRuns->horizontalHeader(), &QHeaderView::sortIndicatorChanged, this, &RunsTableWidget::updateStartTimeHighlight);
 
+	connect(ui->tblRuns, &qfw::TableView::editRowInExternalEditor, this, [this](const QVariant &, int mode) {
+		auto *tv = ui->tblRuns;
+		auto ix = tv->currentIndex();
+		auto col = ix.column();
+		if(col == RunsTableModel::col_runFlags || col == RunsTableModel::col_cardFlags) {
+			return;
+		}
+		auto competitor_id = tv->selectedRow().value("competitorId");
+		emit editCompetitorRequest(competitor_id.toInt(), mode);
+	});
 	connect(ui->tblRuns, &qfw::TableView::editCellRequest, this, [this](QModelIndex index) {
 		auto col = index.column();
 		if(col == RunsTableModel::col_runFlags) {
@@ -101,11 +109,6 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 			if(dlg.exec()) {
 				dlg.save();
 			}
-		}
-		else {
-			auto *tv = ui->tblRuns;
-			QVariant id = tv->selectedRow().value(tv->idColumnName());
-			editCompetitor(id, qfw::TableView::ModeEdit);
 		}
 	}, Qt::QueuedConnection);
 }
@@ -204,14 +207,9 @@ void RunsTableWidget::reload()
 	updateStartTimeHighlight();
 }
 
-void RunsTableWidget::editCompetitor(const QVariant &id, int mode)
+qf::qmlwidgets::TableView *RunsTableWidget::tableView()
 {
-	Q_UNUSED(id)
-	int competitor_id = ui->tblRuns->tableRow().value("competitorId").toInt();
-	int result = getPlugin<CompetitorsPlugin>()->editCompetitor(competitor_id, mode);
-	if(result == QDialog::Accepted) {
-		ui->tblRuns->reload();
-	}
+	return ui->tblRuns;
 }
 
 void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)
@@ -223,11 +221,13 @@ void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)
 	QAction a_sep1(nullptr); a_sep1.setSeparator(true);
 	QAction a_shift_start_times(tr("Shift start times in selected rows"), nullptr);
 	QAction a_clear_start_times(tr("Clear start times in selected rows"), nullptr);
+	QAction a_change_class(tr("Set class in selected rows"), nullptr);
 	QList<QAction*> lst;
 	lst << &a_show_receipt << &a_load_card << &a_print_card
 		<< &a_sep1
 		<< &a_shift_start_times
-		<< &a_clear_start_times;
+		<< &a_clear_start_times
+		<< &a_change_class;
 	QAction *a = QMenu::exec(lst, ui->tblRuns->viewport()->mapToGlobal(pos));
 	if(a == &a_load_card) {
 		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
@@ -318,6 +318,37 @@ void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)
 		}
 		catch (const qf::core::Exception &e) {
 			qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		}
+	}
+	else if(a == &a_change_class) {
+		qfw::dialogs::GetItemInputDialog dlg(this);
+		QComboBox *box = dlg.comboBox();
+		qfs::Query q;
+		q.exec("SELECT id, name FROM classes ORDER BY name");
+		while (q.next()) {
+			box->addItem(q.value(1).toString(), q.value(0));
+		}
+		dlg.setWindowTitle(tr("Dialog"));
+		dlg.setLabelText(tr("Select class"));
+		dlg.setCurrentItemIndex(-1);
+		if(dlg.exec()) {
+			int class_id = dlg.currentData().toInt();
+			if(class_id > 0) {
+				qfs::Transaction transaction;
+				try {
+					QList<int> rows = ui->tblRuns->selectedRowsIndexes();
+					for(int i : rows) {
+						qf::core::utils::TableRow row = ui->tblRuns->tableRowRef(i);
+						int competitor_id = row.value("competitors.id").toInt();
+						q.exec(QString("UPDATE competitors SET classId=%1 WHERE id=%2").arg(class_id).arg(competitor_id), qfc::Exception::Throw);
+					}
+					transaction.commit();
+				}
+				catch (std::exception &e) {
+					qfError() << e.what();
+				}
+			}
+			ui->tblRuns->reload(true);
 		}
 	}
 }

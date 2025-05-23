@@ -22,6 +22,15 @@ namespace quickevent { namespace core { class CodeDef; }}
 
 namespace Classes {
 
+struct ClassDef
+{
+	int classStartFirst = 0;
+	int classStartLast = 0;
+	int classInterval = 0;
+
+	void load(int class_id, int stage_id, bool is_relays);
+};
+
 class ClassesPlugin : public qf::qmlwidgets::framework::Plugin
 {
 	Q_OBJECT

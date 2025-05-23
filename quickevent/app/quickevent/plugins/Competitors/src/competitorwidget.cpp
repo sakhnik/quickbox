@@ -3,6 +3,7 @@
 
 #include "competitordocument.h"
 
+#include <plugins/Classes/src/classesplugin.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Runs/src/cardflagsdialog.h>
 #include <plugins/Runs/src/runflagsdialog.h>
@@ -27,6 +28,7 @@
 #include <QCompleter>
 #include <QDate>
 #include <QPushButton>
+#include <QInputDialog>
 
 namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfw = qf::qmlwidgets;
@@ -186,20 +188,8 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 	ui->tblRuns->horizontalHeader()->setSectionHidden(CompetitorRunsModel::col_relays_name, !is_relays);
 	ui->tblRuns->horizontalHeader()->setSectionHidden(CompetitorRunsModel::col_runs_leg, !is_relays);
 	ui->tblRuns->horizontalHeader()->setSectionHidden(CompetitorRunsModel::col_classes_name, !is_relays);
-	//ui->tblRuns->setContextMenuPolicy(Qt::CustomContextMenu);
-	//connect(ui->tblRuns, &qfw::TableView::customContextMenuRequested, this, &CompetitorWidget::onRunsTableCustomContextMenuRequest);
-
-	{
-		int stage_cnt = getPlugin<EventPlugin>()->stageCount();
-		auto *ly = new QHBoxLayout(ui->grpStartTimes);
-		for (int i = 1; i <= stage_cnt; ++i) {
-			QPushButton *bt = new QPushButton(tr("E&%1").arg(i));
-			ly->addWidget(bt);
-			connect(bt, &QPushButton::clicked, this, [this, i]() {
-				this->showRunsTable(i);
-			});
-		}
-	}
+	ui->tblRuns->setContextMenuPolicy(Qt::CustomContextMenu);
+	// connect(ui->tblRuns, &qfw::TableView::customContextMenuRequested, this, &CompetitorWidget::onRunsTableCustomContextMenuRequest);
 
 	// if there is only one run propagate widget SI card change from competitors to runs
 	connect(ui->edSiId, qOverload<int>(&QSpinBox::valueChanged), this, [this](int new_si_number) // widget SIcard edit box
@@ -212,13 +202,44 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 
 	connect(ui->tblRuns, &qfw::TableView::editCellRequest, this, [this](QModelIndex index) {
 		auto col = index.column();
-		if(col == CompetitorRunsModel::col_runs_runFlags) {
+		if(col == CompetitorRunsModel::col_runs_startTimeMs) {
+			bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
+			if (!is_relays) {
+				saveData();
+				auto row = ui->tblRuns->tableRow();
+				auto run_id = row.value("id").toInt();
+				Q_ASSERT(run_id > 0);
+				// auto competitor_id = row.value("competitorId").toInt();
+				auto club_abbr = dataDocument()->value("registration").toString().mid(0, 3).toUpper();
+
+				auto st_times = possibleStartTimesMs(run_id);
+				if (st_times.isEmpty()) {
+					return;
+				}
+				QStringList items;
+				for (auto t : st_times) {
+					items << quickevent::core::og::TimeMs(t).toString();
+				}
+				bool ok;
+				auto item = QInputDialog::getItem(this, tr("Quick Event get start time"),
+													 tr("New start time:"), items, 0, false, &ok);
+				if (ok && !item.isEmpty()) {
+					auto ix = items.indexOf(item);
+					Q_ASSERT(ix >= 0);
+					auto stime = quickevent::core::og::TimeMs(st_times[ix]);
+					ui->tblRuns->model()->setData(index, QVariant::fromValue(stime));
+					m_runsModel->postAll(qf::core::Exception::Throw);
+				}
+			}
+		}
+		else if(col == CompetitorRunsModel::col_runs_runFlags) {
 			Runs::RunFlagsDialog dlg(this);
 			dlg.load(m_runsModel, ui->tblRuns->toTableModelRowNo(ui->tblRuns->currentIndex().row()));
 			if(dlg.exec()) {
 				dlg.save();
 			}
-		} else if(col == CompetitorRunsModel::col_runs_cardFlags) {
+		}
+		else if(col == CompetitorRunsModel::col_runs_cardFlags) {
 			Runs::CardFlagsDialog dlg(this);
 			dlg.load(m_runsModel, ui->tblRuns->toTableModelRowNo(ui->tblRuns->currentIndex().row()));
 			if(dlg.exec()) {
@@ -280,17 +301,12 @@ bool CompetitorWidget::saveRunsTable()
 void CompetitorWidget::onRunsTableCustomContextMenuRequest(const QPoint &pos)
 {
 	qfLogFuncFrame();
-	QAction a_show_in_runs(tr("Show in runs table"), nullptr);
+	QAction a_set_start_time(tr("Set start time"), nullptr);
 	QList<QAction*> lst;
-	lst << &a_show_in_runs;
+	lst << &a_set_start_time;
 	QAction *a = QMenu::exec(lst, ui->tblRuns->viewport()->mapToGlobal(pos));
-	if(a == &a_show_in_runs) {
-		auto row = ui->tblRuns->tableRow();
-		int stage_no = row.value("stageId").toInt();
-		int class_id = row.value("classId").toInt();
-		int competitor_id = row.value("competitorId").toInt();
-		//QMetaObject::invokeMethod(this, "accept", Qt::QueuedConnection);
-		emit editStartListRequest(stage_no, class_id, competitor_id);
+	if(a == &a_set_start_time) {
+
 	}
 }
 */
@@ -354,18 +370,113 @@ QString CompetitorWidget::guessClassFromRegistration(const QString &registration
 	return candidate ? gender + QString::number(candidate) : QString();
 }
 
-void CompetitorWidget::showRunsTable(int stage_id)
+QList<int> CompetitorWidget::possibleStartTimesMs(int run_id)
 {
-	if(!saveData())
-		return;
+	int class_id;
+	int stage_id;
+	int start_time;
+	QString club_abbr;
+	{
+		qf::core::sql::QueryBuilder qb;
+		qb.select2("runs", "competitorId, stageId, startTimeMs")
+				.select2("competitors", "classId, registration")
+				.from("runs")
+				.joinRestricted("runs.competitorId", "competitors.id", "runs.id=" QF_IARG(run_id), qf::core::sql::QueryBuilder::INNER_JOIN)
+				.where("runs.isRunning");
+		qfs::Query q;
+		q.exec(qb.toString(), qf::core::Exception::Throw);
+		if (q.next()) {
+			class_id = q.value("classId").toInt();
+			stage_id = q.value("stageId").toInt();
+			start_time = q.value("startTimeMs").toInt();
+			club_abbr = q.value("registration").toString().mid(0, 3).toUpper();
+		}
+		else {
+			return {};
+		}
+	}
 
-	qf::core::model::DataDocument*doc = dataController()->document();
-	int competitor_id = doc->value("competitors.id").toInt();
-	int class_id = ui->cbxClass->currentData().toInt();
-	QString sort_col = QStringLiteral("runs.startTimeMs");
-	getPlugin<RunsPlugin>()->showRunsTable(stage_id, class_id, false, sort_col, competitor_id);
-	loadRunsTable();
+	Classes::ClassDef class_def;
+	class_def.load(class_id, stage_id, false);
+
+	if (class_def.classInterval == 0) {
+		return {};
+	}
+
+	struct S {
+		QString club;
+		int start_time = 0;
+
+		bool operator<(const S &o) const { return start_time < o.start_time; }
+	};
+	QList<S> runs;
+	{
+		qf::core::sql::QueryBuilder qb;
+		qb.select2("runs", "startTimeMs")
+				.select2("competitors", "registration")
+				.from("runs")
+				.joinRestricted("runs.competitorId", "competitors.id", "competitors.classId=" QF_IARG(class_id), qf::core::sql::QueryBuilder::INNER_JOIN)
+				.where("runs.stageId=" QF_IARG(stage_id))
+				.where("runs.isRunning")
+				.orderBy("runs.startTimeMs");
+		//qfInfo() << qb.toString();
+		qfs::Query q;
+		q.exec(qb.toString(), qf::core::Exception::Throw);
+		while (q.next()) {
+			//auto start_time = q.value("startTimeMs").toInt();
+			//if (start_time < class_def.classStartFirst) {
+			//	continue;
+			//}
+			runs << S {
+					.club = q.value("registration").toString().mid(0, 3).toUpper(),
+					.start_time = q.value("startTimeMs").toInt()
+			};
+		}
+		std::sort(runs.begin(), runs.end());
+	}
+	QList<int> ret;
+	auto start_interval_ms = class_def.classInterval * 60 * 1000;
+	for (auto stime = class_def.classStartFirst; stime <= class_def.classStartLast; stime += class_def.classInterval) {
+		S r { .club = {}, .start_time = stime };
+		auto [lo, up] = std::equal_range(runs.begin(), runs.end(), r);
+		if (lo == up || stime == start_time) {
+			// stime does not exist or it is my current start_time, should be inserted before up
+			// check next club
+			qfInfo() << "free stime:" << quickevent::core::og::TimeMs(stime).toString();
+			if (up != runs.end()) {
+				qfInfo() << "next club:" << up->club;
+				if (up->club == club_abbr && (up->start_time - stime) <= start_interval_ms) {
+					qfInfo() << "same next club:" << club_abbr;
+					continue;
+				}
+			}
+			// check prev club
+			if (up != runs.begin()) {
+				up--;
+				qfInfo() << "prev club:" << up->club;
+				if (up->club == club_abbr && (stime - up->start_time) <= start_interval_ms) {
+					qfInfo() << "same prev club:" << club_abbr;
+					continue;
+				}
+			}
+			ret << stime;
+		}
+	}
+	return ret;
 }
+
+// void CompetitorWidget::showRunsTable(int stage_id)
+// {
+// 	if(!saveData())
+// 		return;
+
+// 	qf::core::model::DataDocument*doc = dataController()->document();
+// 	int competitor_id = doc->value("competitors.id").toInt();
+// 	int class_id = ui->cbxClass->currentData().toInt();
+// 	QString sort_col = QStringLiteral("runs.startTimeMs");
+// 	getPlugin<RunsPlugin>()->showRunsTable(stage_id, class_id, false, sort_col, competitor_id);
+// 	loadRunsTable();
+// }
 
 void CompetitorWidget::onRegistrationSelected(const QVariantMap &values)
 {
@@ -406,11 +517,17 @@ void CompetitorWidget::loadFromRegistrations(int siid)
 	}
 }
 
+void CompetitorWidget::save()
+{
+	saveData();
+	loadRunsTable();
+}
+
 bool CompetitorWidget::saveData()
 {
 	try {
 		bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
-		Competitors::CompetitorDocument*doc = qobject_cast<Competitors::CompetitorDocument*>(dataController()->document());
+		auto *doc = qobject_cast<Competitors::CompetitorDocument*>(dataController()->document());
 		if(!is_relays && doc->value(QStringLiteral("classId")).toInt() == 0) {
 			qf::qmlwidgets::dialogs::MessageBox::showWarning(this, tr("Class should be entered."));
 			return false;

@@ -31,7 +31,6 @@ RunsTableModel::RunsTableModel(QObject *parent)
 	setColumn(col_competitorName, ColumnDefinition("competitorName", tr("Name")));
 	setColumn(col_registration, ColumnDefinition("registration", tr("Reg")));
 	setColumn(col_runs_license, ColumnDefinition("licence", tr("Lic")).setToolTip(tr("License")));
-	setColumn(col_runs_ranking, ColumnDefinition("ranking", tr("Rank")).setToolTip(tr("Ranking")));
 	setColumn(col_runs_siId, ColumnDefinition("runs.siId", tr("SI")).setToolTip(tr("Actual SI")).setCastType(qMetaTypeId<quickevent::core::si::SiId>()));
 	setColumn(col_runs_corridorTime, ColumnDefinition("runs.corridorTime", tr("Corridor")).setToolTip(tr("Time when the competitor entered start corridor")));
 	setColumn(col_runs_checkTimeMs, ColumnDefinition("runs.checkTimeMs", tr("Check")).setCastType(qMetaTypeId<quickevent::core::og::TimeMs>()));
@@ -41,11 +40,8 @@ RunsTableModel::RunsTableModel(QObject *parent)
 	setColumn(col_runs_penaltyTimeMs, ColumnDefinition("runs.penaltyTimeMs", tr("Penalty")).setCastType(qMetaTypeId<quickevent::core::og::TimeMs>()));
 	setColumn(col_runFlags, ColumnDefinition("runFlags", tr("Run flags")).setReadOnly(true));
 	setColumn(col_cardFlags, ColumnDefinition("cardFlags", tr("Card flags")).setReadOnly(true));
-	//setColumn(col_runs_notCompeting, ColumnDefinition("runs.notCompeting", tr("NC")).setToolTip(tr("Not competing")));
-	//setColumn(col_runs_cardRentRequested, ColumnDefinition("runs.cardLent", tr("RR")).setToolTip(tr("Card rent requested")));
-	//setColumn(col_cardInLentTable, ColumnDefinition("cardInLentTable", tr("RT", "cardInLentTable")).setToolTip(tr("Card in rent table")));
-	//setColumn(col_runs_cardReturned, ColumnDefinition("runs.cardReturned", tr("R")).setToolTip(tr("Card returned")));
-	//setColumn(col_runs_disqualified, ColumnDefinition("runs.disqualified", tr("DISQ")).setToolTip(tr("Disqualified")));
+	setColumn(col_runs_rankingPos, ColumnDefinition("ranking", tr("Ranking pos")).setToolTip(tr("Runner's position in CZ ranking.")).setReadOnly(true));
+	setColumn(col_iofId, ColumnDefinition("iofId", tr("IOF ID")).setReadOnly(true));
 	setColumn(col_competitors_note, ColumnDefinition("competitors.note", tr("Note")));
 
 	connect(this, &RunsTableModel::dataChanged, this, &RunsTableModel::onDataChanged, Qt::QueuedConnection);
@@ -248,7 +244,7 @@ bool RunsTableModel::canDropMimeData(const QMimeData *data, Qt::DropAction actio
 */
 bool RunsTableModel::dropMimeData(const QMimeData *data, Qt::DropAction action, int row, int column, const QModelIndex &parent)
 {
-	qfLogFuncFrame() << "row:" << row << "col:" << column << "parent:" << parent;
+	// qfLogFuncFrame() << "row:" << row << "col:" << column << "parent:" << parent;
 	if (!canDropMimeData(data, action, row, column, parent))
 		return false;
 

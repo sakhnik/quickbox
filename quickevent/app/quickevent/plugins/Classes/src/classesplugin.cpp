@@ -32,6 +32,29 @@ using Event::EventPlugin;
 
 namespace Classes {
 
+void ClassDef::load(int class_id, int stage_id, bool is_relays)
+{
+	qf::core::sql::QueryBuilder qb;
+	qb.select2("classdefs", "startTimeMin, lastStartTimeMin, startIntervalMin, vacantsBefore, vacantEvery, vacantsAfter")
+			.from("classdefs")
+			.where("classId=" QF_IARG(class_id));
+	if(!is_relays)
+		qb.where("stageId=" QF_IARG(stage_id));
+	qfs::Query q(qfs::Connection::forName());
+	//qfInfo() << qb.toString();
+	q.exec(qb.toString(), qf::core::Exception::Throw);
+	if(q.next()) {
+		classInterval = q.value("startIntervalMin").toInt() * 60 * 1000;
+		classStartFirst = q.value("startTimeMin").toInt() * 60 * 1000;
+		classStartLast = q.value("lastStartTimeMin").toInt() * 60 * 1000;
+	}
+	else {
+		classInterval = 0;
+		classStartFirst = 0;
+		classStartLast = 0;
+	}
+}
+
 ClassesPlugin::ClassesPlugin(QObject *parent)
 	: Super("Classes", parent)
 {

@@ -611,8 +611,8 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 				doc->setProperty(KEY_ORIG_RUNS, orig_runs);
 				items_processed++;
 			}
-			for(int id : imported_competitors.values()) {
-				Competitors::CompetitorDocument *doc = new Competitors::CompetitorDocument();
+			for(const auto &[import_id, id] : imported_competitors.asKeyValueRange()) {
+				auto *doc = new Competitors::CompetitorDocument();
 				doc_lst << doc;
 				doc->load(id, doc->ModeDelete);
 			}
