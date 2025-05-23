@@ -33,7 +33,7 @@ Exception::Exception(const QString &_msg, const QString &_where)
 	m_where = _where;
 	m_msg = _msg;
 	m_what = m_msg.toUtf8();
-	m_stackTrace = StackTrace::stackTrace().toString();
+	m_stackTrace = StackTrace::stackTrace().join('\n');
 	log();
 }
 
