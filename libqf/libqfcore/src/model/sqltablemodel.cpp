@@ -391,7 +391,7 @@ bool SqlTableModel::removeTableRow(int row_no, bool throw_exc)
 				sqlfld.setValue(id);
 				bool invalid_id = false;
 				if(id.isNull())
-					invalid_id = true;
+					invalid_id = true; // NOLINT(bugprone-branch-clone)
 #if QT_VERSION_MAJOR >= 6
 				else if(id.typeId() == QMetaType::Int && id.toInt() == 0)
 #else
@@ -575,7 +575,8 @@ QString SqlTableModel::buildQuery()
 	return ret;
 }
 
-static QString paramValueToString(const QVariant &v)
+namespace {
+QString paramValueToString(const QVariant &v)
 {
 	QString ret;
 	if(v.isValid())
@@ -583,6 +584,7 @@ static QString paramValueToString(const QVariant &v)
 	else
 		ret = QStringLiteral("NULL");
 	return ret;
+}
 }
 
 QString SqlTableModel::replaceQueryParameters(const QString query_str)
@@ -724,7 +726,7 @@ QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Table::Fiel
 }
 }
 
-void SqlTableModel::setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str)
+void SqlTableModel::setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str) const
 {
 	//qfLogFuncFrame();
 	//QSet<QString> table_ids = tableIds(table_fields);

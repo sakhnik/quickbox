@@ -4,8 +4,6 @@
 
 #include <QStringList>
 
-#include <stdarg.h>
-
 using namespace qf::core;
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 4, 0))
