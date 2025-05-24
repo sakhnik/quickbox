@@ -7,13 +7,14 @@
 
 using namespace qf::core::utils;
 
-static uint32_t myrand()
+namespace {
+uint32_t myrand()
 {
 	return QRandomGenerator::global()->generate();
 }
-
+}
 //===================================================================
-//                                         Crypt
+// Crypt
 //===================================================================
 /// http://www.math.utah.edu/~pa/Random/Random.html
 Crypt::Crypt(Crypt::Generator gen)
@@ -36,12 +37,13 @@ Crypt::Generator Crypt::createGenerator(quint32 a, quint32 b, quint32 max_rand)
 	return ret;
 }
 
-static QByteArray code_byte(quint8 b)
+namespace {
+QByteArray code_byte(quint8 b)
 {
 	QByteArray ret;
 	/// hodnoty, ktere nejsou pismena se ukladaji jako cislo
 	/// format cisla je 4 bity cislo % 10 [0-9] + 4 bity cislo / 10 [A-Z]
-	char buff[] = {0,0,0};
+	std::array<char, 3> buff = {0,0,0};
 	if((b>='A' && b<='Z') || (b>='a' && b<='z')) {
 		ret.append(b);
 	}
@@ -53,6 +55,7 @@ static QByteArray code_byte(quint8 b)
 		ret.append(buff);
 	}
 	return ret;
+}
 }
 
 QByteArray Crypt::encrypt(const QByteArray &data, int min_length) const
@@ -87,7 +90,8 @@ QByteArray Crypt::encrypt(const QByteArray &data, int min_length) const
 	return dest;
 }
 
-static quint8 take_byte(const QByteArray &ba, int &i)
+namespace {
+quint8 take_byte(const QByteArray &ba, int &i)
 {
 	quint8 b = ((quint8)ba[i++]);
 	if((b>='A' && b<='Z') || (b>='a' && b<='z')) {
@@ -105,6 +109,7 @@ static quint8 take_byte(const QByteArray &ba, int &i)
 		}
 	}
 	return b;
+}
 }
 
 QByteArray Crypt::decodeArray(const QByteArray &ba) const
