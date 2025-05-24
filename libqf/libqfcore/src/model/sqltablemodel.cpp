@@ -828,13 +828,13 @@ QStringList SqlTableModel::tableIdsSortedAccordingToForeignKeys()
 				QString slave_key = it.value();
 				QString field, table, schema;
 				qf::core::Utils::parseFieldName(slave_key, &field, &table, &schema);
-				slave_key = qf::core::Utils::composeFieldName(table, schema);
+				slave_key = qf::core::Utils::composeFieldName(table, schema); // NOLINT(readability-suspicious-call-argument)
 				if(qf::core::Utils::fieldNameCmp(table_id, slave_key)) {
 					dependency_satisfied = false;
 					/// table_id is a slave, so check if master table is in return list already
 					qf::core::Utils::parseFieldName(master_key, &field, &table, &schema);
-					master_key = qf::core::Utils::composeFieldName(table, schema);
-					for(auto included_table_id : ret) {
+					master_key = qf::core::Utils::composeFieldName(table, schema); // NOLINT(readability-suspicious-call-argument)
+					for(const auto &included_table_id : ret) {
 						if(qf::core::Utils::fieldNameCmp(included_table_id, master_key)) {
 							ret << table_ids.takeFirst();
 							dependency_satisfied = true;

@@ -13,9 +13,9 @@ using namespace qf::core;
 #endif
 
 //============================================================
-//                      Exception
+// Exception
 //============================================================
-bool Exception::s_abortOnException = false;
+bool Exception::s_abortOnException = false; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
 
 namespace {
 

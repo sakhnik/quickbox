@@ -1,4 +1,4 @@
-#include "string.h"
+#include "string.h" // NOLINT(modernize-deprecated-headers)
 
 #include <QStringList>
 

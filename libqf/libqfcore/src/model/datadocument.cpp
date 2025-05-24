@@ -6,9 +6,9 @@
 
 using namespace qf::core::model;
 
-DataDocument::DataDocument(QObject *parent) : QObject(parent)
+DataDocument::DataDocument(QObject *parent)
+	: QObject(parent)
 {
-
 }
 
 DataDocument::~DataDocument() = default;

@@ -60,8 +60,7 @@ void s_clearCache(const QString &connection_name)
 
 }
 
-Connection::Connection()
-= default;
+Connection::Connection() = default;
 
 Connection::Connection(const QSqlDatabase& qdb)
 	: QSqlDatabase(qdb)

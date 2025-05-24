@@ -29,11 +29,13 @@ bool TableModel::ColumnDefinition::matchesSqlId(const QString column_name) const
 }
 
 //=========================================
-//        TableModel
+// TableModel
 //=========================================
-QString TableModel::m_defaultTimeFormat = QStringLiteral("hh:mm:ss");
-QString TableModel::m_defaultDateFormat = QStringLiteral("yyyy-MM-dd");
-QString TableModel::m_defaultDateTimeFormat = QStringLiteral("yyyy-MM-ddThh:mm:ss");
+namespace {
+const auto DEFAULT_TIME_FORMAT = QStringLiteral("hh:mm:ss");
+const auto DEFAULT_DATE_FORMAT = QStringLiteral("yyyy-MM-dd");
+const auto DEFAULT_DATETIME_FORMAT = QStringLiteral("yyyy-MM-ddThh:mm:ss");
+}
 
 TableModel::TableModel(QObject *parent)
 	: Super(parent)
@@ -153,14 +155,14 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 		QString format = cd.format();
 		if(format.isEmpty()) {
 			if(type == QMetaType::QDate) {
-				format = m_defaultDateFormat;
+				format = DEFAULT_DATE_FORMAT;
 			}
 			else if(type == QMetaType::QTime) {
-				format = m_defaultTimeFormat;
+				format = DEFAULT_TIME_FORMAT;
 				//qfInfo() << "format" << format;
 			}
 			else if(type == QMetaType::QDateTime) {
-				format = m_defaultDateTimeFormat;
+				format = DEFAULT_DATETIME_FORMAT;
 				//qfInfo() << "format" << format;
 			}
 		}
