@@ -26,10 +26,7 @@ SiTask::SiTask(QObject *parent)
 	m_rxTimer->start();
 }
 
-SiTask::~SiTask()
-{
-	//qfInfo() << this << "destroyed";
-}
+SiTask::~SiTask() = default;
 
 void SiTask::finishAndDestroy(bool ok, QVariant result)
 {

@@ -35,12 +35,8 @@ ReportItemMetaPaint::ReportItemMetaPaint()
 ReportItemMetaPaint::ReportItemMetaPaint(ReportItemMetaPaint *_parent, ReportItem *report_item)
 	: Super(_parent)
 {
-	if(!report_item) {
-		QF_EXCEPTION("report_item is NULL.");
-	}
-	if(!report_item->processor()) {
-		QF_EXCEPTION("report_item->processor is NULL.");
-	}
+	Q_ASSERT(report_item);
+	Q_ASSERT(report_item->processor());
 	double fill_vertical_layout_ratio = report_item->childSize(ReportItem::LayoutVertical).fillLayoutRatio();
 	setFillVLayoutRatio(fill_vertical_layout_ratio);
 }
@@ -360,7 +356,11 @@ ReportItemMetaPaintReport::ReportItemMetaPaintReport(ReportItem *report_item)
 //           ReportItemMetaPaintFrame
 //=================================================
 ReportItemMetaPaintFrame::ReportItemMetaPaintFrame(ReportItemMetaPaint *_parent, ReportItem *report_item)
-	: ReportItemMetaPaint(_parent, report_item), lbrd(Qt::NoPen), rbrd(Qt::NoPen), tbrd(Qt::NoPen), bbrd(Qt::NoPen)
+	: ReportItemMetaPaint(_parent, report_item)
+	, lbrd(Qt::NoPen)
+	, rbrd(Qt::NoPen)
+	, tbrd(Qt::NoPen)
+	, bbrd(Qt::NoPen)
 {
 	//qfDebug() << QF_FUNC_NAME << reportElement.tagName();
 	QF_ASSERT_EX(report_item != nullptr, "ReportItem is NULL");
