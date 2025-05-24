@@ -50,7 +50,7 @@ void ComboBox::setItems(const QVariantList &items)
 {
 	blockSignals(true);
 	clear();
-	for(auto v : items) {
+	for(const auto &v : items) {
 		QVariantList vl = v.toList();
 		if(vl.isEmpty()) {
 			Super::addItem(v.toString());

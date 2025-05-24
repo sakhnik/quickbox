@@ -20,8 +20,8 @@ class QFQMLWIDGETS_DECL_EXPORT QmlDialog : public Dialog, public QQmlParserStatu
 {
 	Q_OBJECT
 	Q_INTERFACES(QQmlParserStatus)
-	Q_ENUMS(DoneResult)
-	Q_ENUMS(QDialogButtonBox::StandardButton)
+	Q_ENUM(DoneResult)
+	Q_ENUM(QDialogButtonBox::StandardButton)
 	Q_CLASSINFO("DefaultProperty", "widgets")
 	Q_PROPERTY(QQmlListProperty<QWidget> widgets READ widgets)
 	Q_PROPERTY(qf::qmlwidgets::framework::DialogWidget* dialogWidget READ dialogWidget WRITE setDialogWidget NOTIFY dialogWidgetChanged)

@@ -551,7 +551,6 @@ QStringList Connection::schemas() const
 			   " WHERE   (n.nspname NOT LIKE 'pg\\_temp\\_%' OR"
 			   " n.nspname = (pg_catalog.current_schemas(true))[1])"
 			   " ORDER BY 1");
-		QSqlRecord r = q.record();
 		while(q.next()) {
 			QString s = q.value(0).toString();
 			qfLogFuncFrame() << "loading schema" << s;

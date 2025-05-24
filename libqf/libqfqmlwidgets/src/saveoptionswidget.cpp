@@ -23,6 +23,7 @@ namespace {
 //const char *OPTIONS_SETTER = "setPersistentOptions";
 const char *OPTIONS_PERSISTENT_SETTING_KEY = "persistentOptions";
 }
+
 SaveOptionsWidget::SaveOptionsWidget(QWidget *parent)
 	: Super(parent), m_optionsProvider(nullptr)
 {
@@ -34,6 +35,8 @@ SaveOptionsWidget::SaveOptionsWidget(QWidget *parent)
 	ui->btSaveSettings->setIcon(sty->standardIcon(QStyle::SP_DialogSaveButton));
 
 	ui->lstSettings->clear();
+	connect(ui->btSaveSettings, &QAbstractButton::clicked, this, &SaveOptionsWidget::onSaveSettingsClicked);
+	connect(ui->btDeleteSetting, &QAbstractButton::clicked, this, &SaveOptionsWidget::onDeleteSettingClicked);
 	connect(ui->lstSettings, SIGNAL(activated(int)), this, SLOT(onSettingsActivated(int)));
 	QTimer::singleShot(0, this, SLOT(lazyInit()));
 }
@@ -196,13 +199,13 @@ void SaveOptionsWidget::save_helper(const QVariantMap& all_settings)
 	}
 }
 
-void SaveOptionsWidget::on_btSaveSettings_clicked()
+void SaveOptionsWidget::onSaveSettingsClicked()
 {
 	qfLogFuncFrame();
 	save();
 }
 
-void SaveOptionsWidget::on_btDeleteSetting_clicked()
+void SaveOptionsWidget::onDeleteSettingClicked()
 {
 	qfLogFuncFrame();
 	QComboBox *cbx = ui->lstSettings;

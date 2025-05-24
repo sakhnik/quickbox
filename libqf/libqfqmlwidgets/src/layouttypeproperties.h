@@ -17,7 +17,6 @@ namespace qmlwidgets {
 class QFQMLWIDGETS_DECL_EXPORT LayoutTypeProperties : public QObject
 {
 	Q_OBJECT
-	Q_ENUMS(SizePolicy)
 	Q_PROPERTY(int spacing READ spacing WRITE setSpacing NOTIFY spacingChanged)
 	Q_PROPERTY(int columns READ columns WRITE setColumns NOTIFY columnsChanged)
 	Q_PROPERTY(int rows READ rows WRITE setRows NOTIFY rowsChanged)
@@ -34,6 +33,7 @@ public:
 		MinimumExpanding = QSizePolicy::MinimumExpanding,
 		Ignored = QSizePolicy::Ignored
 	};
+	Q_ENUM(SizePolicy)
 public:
 	explicit LayoutTypeProperties(QObject *parent = nullptr);
 public:

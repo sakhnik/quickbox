@@ -32,8 +32,8 @@ protected:
 protected slots:
 	void lazyInit();
 	void refreshActions();
-	void on_btSaveSettings_clicked();
-	void on_btDeleteSetting_clicked();
+	void onSaveSettingsClicked();
+	void onDeleteSettingClicked();
 	void onSettingsActivated(int ix);
 signals:
 	//void settingsActivated(const QVariant &settings);
