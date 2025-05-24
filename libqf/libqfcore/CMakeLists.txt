@@ -16,11 +16,8 @@ add_library(libqfcore SHARED
     src/sql/connection.cpp
     src/sql/dbenum.cpp
     src/sql/dbenumcache.cpp
-    src/sql/dbfsattrs.cpp
-    src/sql/dbfsdriver.cpp
     src/sql/query.cpp
     src/sql/querybuilder.cpp
-    src/sql/tablelocker.cpp
     src/sql/transaction.cpp
     src/utils/clioptions.cpp
     src/utils/crypt.cpp
