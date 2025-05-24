@@ -18,7 +18,6 @@ namespace style {
 class QFQMLWIDGETS_DECL_EXPORT Pen : public StyleObject
 {
 	Q_OBJECT
-	Q_ENUMS(PenStyle)
 	// From qt doc:
 	// A default property is the property to which a value is assigned
 	// if an object is declared within another object's definition without declaring it
@@ -48,6 +47,7 @@ public:
 		DashDotDotLine = Qt::DashDotDotLine,
 		CustomDashLine = Qt::CustomDashLine
 	};
+	Q_ENUM(PenStyle)
 	//QF_PROPERTY_IMPL(QString, n, N, ame)
 	QF_PROPERTY_OBJECT_IMPL(Color*, c, C, olor)
 	QF_PROPERTY_IMPL(QVariant, b, B, asedOn)

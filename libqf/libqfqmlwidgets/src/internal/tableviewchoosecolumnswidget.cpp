@@ -17,6 +17,14 @@ TableViewChooseColumnsWidget::TableViewChooseColumnsWidget(QWidget *parent)
 	ui = new Ui::TableViewChooseColumnsWidget;
 	ui->setupUi(this);
 
+	connect(ui->btColumnsAll, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnsAllClicked);
+	connect(ui->btColumnsNone, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnsNoneClicked);
+	connect(ui->btColumnsInvert, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnsInvertClicked);
+	connect(ui->btColumnsAppendSelected, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnsAppendSelectedClicked);
+	connect(ui->btColumnsRemoveSelected, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnsRemoveSelectedClicked);
+	connect(ui->btColumnShiftUp, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnShiftUpClicked);
+	connect(ui->btColumnShiftDown, &QAbstractButton::clicked, this, &TableViewChooseColumnsWidget::onColumnShiftDownClicked);
+
 	QStyle *sty = style();
 	ui->btColumnShiftUp->setIcon(sty->standardIcon(QStyle::SP_ArrowUp));
 	ui->btColumnShiftDown->setIcon(sty->standardIcon(QStyle::SP_ArrowDown));
@@ -66,25 +74,25 @@ void TableViewChooseColumnsWidget::loadColumns(qf::core::model::TableModel *mode
 	}
 }
 
-void TableViewChooseColumnsWidget::on_btColumnsAll_clicked()
+void TableViewChooseColumnsWidget::onColumnsAllClicked()
 {
 	QListWidget *w = ui->lstModelColumns->isVisible()? ui->lstModelColumns: ui->lstTableColumns;
 	for(int i=0; i<w->count(); i++) w->item(i)->setSelected(true);
 }
 
-void TableViewChooseColumnsWidget::on_btColumnsNone_clicked()
+void TableViewChooseColumnsWidget::onColumnsNoneClicked()
 {
 	QListWidget *w = ui->lstModelColumns->isVisible()? ui->lstModelColumns: ui->lstTableColumns;
 	for(int i=0; i<w->count(); i++) w->item(i)->setSelected(false);
 }
 
-void TableViewChooseColumnsWidget::on_btColumnsInvert_clicked()
+void TableViewChooseColumnsWidget::onColumnsInvertClicked()
 {
 	QListWidget *w = ui->lstModelColumns->isVisible()? ui->lstModelColumns: ui->lstTableColumns;
 	for(int i=0; i<w->count(); i++) w->item(i)->setSelected(!w->item(i)->isSelected());
 }
 
-void TableViewChooseColumnsWidget::on_btColumnsAppendSelected_clicked()
+void TableViewChooseColumnsWidget::onColumnsAppendSelectedClicked()
 {
 	QListWidget *w = ui->lstModelColumns->isVisible()? ui->lstModelColumns: ui->lstTableColumns;
 	QStandardItemModel *m = f_exportedColumnsModel;
@@ -108,7 +116,7 @@ void TableViewChooseColumnsWidget::on_btColumnsAppendSelected_clicked()
 	ui->tblExportedColumns->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 }
 
-void TableViewChooseColumnsWidget::on_btColumnsRemoveSelected_clicked()
+void TableViewChooseColumnsWidget::onColumnsRemoveSelectedClicked()
 {
 	QStandardItemModel *m = f_exportedColumnsModel;
 	QModelIndexList lst = ui->tblExportedColumns->selectionModel()->selectedIndexes();
@@ -121,7 +129,7 @@ void TableViewChooseColumnsWidget::on_btColumnsRemoveSelected_clicked()
 	}
 }
 
-void TableViewChooseColumnsWidget::on_btColumnShiftUp_clicked()
+void TableViewChooseColumnsWidget::onColumnShiftUpClicked()
 {
 	QModelIndex ix = ui->tblExportedColumns->currentIndex();
 	int row = ix.row();
@@ -135,7 +143,7 @@ void TableViewChooseColumnsWidget::on_btColumnShiftUp_clicked()
 	}
 }
 
-void TableViewChooseColumnsWidget::on_btColumnShiftDown_clicked()
+void TableViewChooseColumnsWidget::onColumnShiftDownClicked()
 {
 	QStandardItemModel *m = f_exportedColumnsModel;
 	QModelIndex ix = ui->tblExportedColumns->currentIndex();

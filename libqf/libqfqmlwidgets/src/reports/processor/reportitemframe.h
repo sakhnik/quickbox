@@ -21,8 +21,6 @@ private:
 	typedef ReportItem Super;
 public:
 	Q_CLASSINFO("DefaultProperty", "items")
-	Q_ENUMS(HAlignment)
-	Q_ENUMS(VAlignment)
 	Q_PROPERTY(QQmlListProperty<qf::qmlwidgets::reports::ReportItem> items READ items)
 	Q_PROPERTY(qreal hinset READ hinset WRITE setHinset NOTIFY hinsetChanged)
 	Q_PROPERTY(qreal vinset READ vinset WRITE setVinset NOTIFY vinsetChanged)
@@ -79,6 +77,9 @@ public:
 	enum VAlignment { AlignTop = Qt::AlignTop,
 					  AlignBottom = Qt::AlignBottom,
 					  AlignVCenter = Qt::AlignVCenter };
+	Q_ENUM(HAlignment)
+	Q_ENUM(VAlignment)
+
 	QF_PROPERTY_IMPL2(qreal, h, H, inset, 0)
 	QF_PROPERTY_IMPL2(qreal, v, V, inset, 0)
 	QF_PROPERTY_IMPL2(qreal, r, R, enderedWidth, 0)

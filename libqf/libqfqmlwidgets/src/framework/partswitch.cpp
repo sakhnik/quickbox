@@ -20,13 +20,9 @@ PartSwitchToolButton::PartSwitchToolButton(QWidget *parent)
 	setAutoRaise(true);
 	setCheckable(true);
 	setAutoExclusive(false);
-	//setIconSize(QSize(64, 64));
-	//setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Expanding);
 
 	connect(this, &Super::clicked, [this]() {
-		//qfInfo() << "clicked" << this->m_partIndex;
-		//this->setIconSize(this->size());
-		emit clicked(this->m_partIndex);
+		emit partClicked(this->m_partIndex);
 	});
 }
 
@@ -35,7 +31,6 @@ PartSwitch::PartSwitch(StackedCentralWidget *central_widget, QWidget *parent) :
 {
 	setObjectName("partSwitch");
 	setWindowTitle(tr("Part switch"));
-	//setStyleSheet("background-color: rgb(118, 118, 118);");
 }
 
 
@@ -47,7 +42,9 @@ void PartSwitch::addPartWidget(PartWidget *widget)
 	qfLogFuncFrame() << widget << widget->featureId() << widget->title();
 	auto *bt = new PartSwitchToolButton();
 	bt->setCheckable(true);
-	connect(bt, SIGNAL(clicked(int)), this, SLOT(setCurrentPartIndex(int)));
+	connect(bt, &PartSwitchToolButton::partClicked, this, [this](int ix) {
+		setCurrentPartIndex(ix);
+	});
 	bt->setText(widget->title());
 	bt->setPartIndex(buttonCount());
 	addWidget(bt);

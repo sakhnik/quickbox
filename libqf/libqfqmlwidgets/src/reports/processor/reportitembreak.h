@@ -12,7 +12,6 @@ namespace reports {
 class QFQMLWIDGETS_DECL_EXPORT ReportItemBreak : public ReportItem
 {
 	Q_OBJECT
-	Q_ENUMS(BreakType)
 	Q_PROPERTY(BreakType breakType READ breakType WRITE setBreakType NOTIFY breakTypeChanged)
 	Q_PROPERTY(bool skipFirst READ isSkipFirst WRITE setSkipFirst)
 private:
@@ -21,6 +20,7 @@ public:
 	ReportItemBreak(ReportItem *parent = nullptr);
 
 	enum BreakType { Column, Page };
+	Q_ENUM(BreakType)
 
 	QF_PROPERTY_IMPL2(BreakType, b, B, reakType, Column)
 

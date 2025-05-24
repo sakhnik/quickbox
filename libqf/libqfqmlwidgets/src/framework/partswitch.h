@@ -17,7 +17,6 @@ class StackedCentralWidget;
 class PartSwitchToolButton : public QToolButton
 {
 	Q_OBJECT
-	//friend class PartSwitch;
 private:
 	typedef QToolButton Super;
 public:
@@ -26,7 +25,7 @@ public:
 	int partIndex() {return m_partIndex;}
 	void setPartIndex(int ix) {m_partIndex = ix;}
 
-	Q_SIGNAL void clicked(int part_index);
+	Q_SIGNAL void partClicked(int part_index);
 private:
 	int m_partIndex;
 };
@@ -43,8 +42,8 @@ public:
 	void addPartWidget(PartWidget *widget);
 
 	Q_SIGNAL void partActivated(int ix, bool is_active);
+	void setCurrentPartIndex(int ix, bool is_active = true);
 private:
-	Q_SLOT void setCurrentPartIndex(int ix, bool is_active = true);
 	int buttonCount();
 	PartSwitchToolButton* buttonAt(int part_index);
 private:

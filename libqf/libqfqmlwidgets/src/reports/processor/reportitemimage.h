@@ -18,11 +18,6 @@ class QFQMLWIDGETS_DECL_EXPORT ReportItemImage : public ReportItemFrame
 {
 	Q_OBJECT
 
-	Q_ENUMS(DataFormat)
-	Q_ENUMS(DataEncoding)
-	Q_ENUMS(DataCompression)
-	Q_ENUMS(AspectRatio)
-
 	Q_PROPERTY(QString dataSource READ dataSource WRITE setDataSource NOTIFY dataSourceChanged)
 	Q_PROPERTY(QString data READ data WRITE setData NOTIFY dataChanged)
 	Q_PROPERTY(DataFormat dataFormat READ dataFormat WRITE setDataFormat NOTIFY dataFormatChanged)
@@ -56,6 +51,11 @@ public:
 		AspectRatioKeep = Qt::KeepAspectRatio,
 		AspectRatioKeepExpanding = Qt::KeepAspectRatioByExpanding
 	};
+	Q_ENUM(DataFormat)
+	Q_ENUM(DataEncoding)
+	Q_ENUM(DataCompression)
+	Q_ENUM(AspectRatio)
+
 	QF_PROPERTY_IMPL(QString, d, D, ataSource)
 	QF_PROPERTY_IMPL(QString, d, D, ata)
 	QF_PROPERTY_IMPL2(DataFormat, d, D, ataFormat, FormatAuto)

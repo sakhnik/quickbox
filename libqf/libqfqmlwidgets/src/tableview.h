@@ -24,10 +24,6 @@ class QFQMLWIDGETS_DECL_EXPORT TableView : public QTableView, public framework::
 {
 	Q_OBJECT
 
-	//Q_ENUMS(InlineEditSaveStrategy)
-	//Q_ENUMS(RowEditorMode)
-	//Q_ENUMS(RecordEditMode)
-
 	Q_PROPERTY(QString persistentSettingsId READ persistentSettingsId WRITE setPersistentSettingsId)
 	Q_PROPERTY(qf::core::model::TableModel* model READ tableModel WRITE setTableModel)
 	Q_PROPERTY(RowEditorMode rowEditorMode READ rowEditorMode WRITE setRowEditorMode NOTIFY rowEditorModeChanged)

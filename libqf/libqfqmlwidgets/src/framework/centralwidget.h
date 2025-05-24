@@ -27,7 +27,7 @@ public:
 	}
 	Q_INVOKABLE virtual int featureToIndex(const QString &feature_id) = 0;
 
-	Q_SIGNAL void partActivated(const QString &feature_id, bool is_active);
+	// Q_SIGNAL void partActivatedS(const QString &feature_id, bool is_active);
 	Q_SIGNAL void partActivated(int part_index, bool is_active);
 public:
 	virtual void addPartWidget(PartWidget *widget) = 0;

@@ -18,9 +18,6 @@ namespace style {
 class QFQMLWIDGETS_DECL_EXPORT Font : public StyleObject
 {
 	Q_OBJECT
-	Q_ENUMS(FontStyle)
-	Q_ENUMS(FontStyleHint)
-	Q_ENUMS(FontWeight)
 	// there are some restrictions for assigning primitive types to default properties, see: pen.h
 	Q_CLASSINFO("DefaultProperty", "basedOn")
 	Q_PROPERTY(QVariant basedOn READ basedOn WRITE setBasedOn)
@@ -63,6 +60,10 @@ public:
 		WeightBlack = QFont::Black,
 		WeightInherited
 	};
+	Q_ENUM(FontStyle)
+	Q_ENUM(FontStyleHint)
+	Q_ENUM(FontWeight)
+
 	QF_PROPERTY_IMPL(QVariant, b, B, asedOn)
 	QF_PROPERTY_IMPL(QString, f, F, amily)
 	QF_PROPERTY_IMPL2(FontStyle, s, S, tyle, StyleInherited)
