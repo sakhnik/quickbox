@@ -9,10 +9,6 @@
 
 #include <QFileDialog>
 
-#include <plugins/Event/src/eventplugin.h>
-using qf::qmlwidgets::framework::getPlugin;
-
-
 namespace Event::services {
 
 OResultsClientWidget::OResultsClientWidget(QWidget *parent)

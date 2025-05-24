@@ -43,7 +43,7 @@ QByteArray code_byte(quint8 b)
 	QByteArray ret;
 	/// hodnoty, ktere nejsou pismena se ukladaji jako cislo
 	/// format cisla je 4 bity cislo % 10 [0-9] + 4 bity cislo / 10 [A-Z]
-	std::array<char, 3> buff = {0,0,0};
+	std::array<char, 3> buff = {0, 0, 0};
 	if((b>='A' && b<='Z') || (b>='a' && b<='z')) {
 		ret.append(b);
 	}

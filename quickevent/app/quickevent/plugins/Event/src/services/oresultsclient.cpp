@@ -23,13 +23,11 @@
 #include <QStandardPaths>
 #include <QTextStream>
 #include <QTimer>
-#include <regex>
 
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
 using Runs::RunsPlugin;
-
 
 namespace Event::services {
 

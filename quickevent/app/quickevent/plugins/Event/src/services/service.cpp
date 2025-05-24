@@ -18,9 +18,7 @@ using Event::EventPlugin;
 
 namespace Event::services {
 
-//static const char *KEY_IS_RUNNING = "isRunning";
-
-QList<Service*> Service::m_services;
+QList<Service*> Service::m_services; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
 
 Service::Service(const QString &name, QObject *parent)
 	: QObject(parent)
