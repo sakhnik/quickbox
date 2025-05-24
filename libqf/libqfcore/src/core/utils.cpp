@@ -185,8 +185,10 @@ QString Utils::removeJsonComments(const QString &json_str)
 {
 	// http://blog.ostermiller.org/find-comment
 	QString ret = json_str;
-	ret.replace(QRegularExpression(R"(/\*(?:.|[\n])*?\*/)"), QString());
-	ret.replace(QRegularExpression("(?<!:)//.*[\\n]"), "\n");
+	static auto r1 = QRegularExpression(R"(/\*(?:.|[\n])*?\*/)");
+	ret.replace(r1, QString());
+	static auto r2 = QRegularExpression("(?<!:)//.*[\\n]");
+	ret.replace(r2, "\n");
 	return ret;
 }
 
