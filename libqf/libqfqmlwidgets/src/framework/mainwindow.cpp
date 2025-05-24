@@ -262,8 +262,7 @@ void MainWindow::setCentralWidget(CentralWidget *widget)
 
 void MainWindow::addDockWidget(Qt::DockWidgetArea area, QDockWidget *dockwidget)
 {
-	auto* ps = dynamic_cast<qf::qmlwidgets::framework::IPersistentSettings*>(dockwidget);
-	if(ps) {
+	if(auto* ps = dynamic_cast<qf::qmlwidgets::framework::IPersistentSettings*>(dockwidget)) {
 		ps->loadPersistentSettingsRecursively();
 	}
 	dockwidget->setParent(nullptr);

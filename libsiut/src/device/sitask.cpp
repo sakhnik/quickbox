@@ -117,6 +117,13 @@ void SiTaskStationConfig::start()
 	sendCommand(static_cast<int>(SIMessageData::Command::GetSystemData), ba);
 }
 
+namespace {
+uint8_t as_byte(char c)
+{
+	return static_cast<uint8_t>(c);
+}
+}
+
 void SiTaskStationConfig::onSiMessageReceived(const SIMessageData &msg)
 {
 	bool ok = false;
@@ -124,15 +131,15 @@ void SiTaskStationConfig::onSiMessageReceived(const SIMessageData &msg)
 	SIMessageData::Command cmd = msg.command();
 	if(cmd == SIMessageData::Command::GetSystemData) {
 		QByteArray hdr = msg.data();
-		auto n = static_cast<int>(hdr[2]);
-		n = (n << 8) + hdr[3];
+		unsigned int n = as_byte(hdr[2]);
+		n = (n << 8) + as_byte(hdr[3]);
 		ret.setStationNumber(n);
-		unsigned flags = (uint8_t)hdr[5];
+		unsigned flags = static_cast<uint8_t>(hdr[5]);
 		ret.setFlags(flags);
 		ok = true;
 	}
 	else {
-		qfError() << "Invalid command:" << (int)cmd << "received";
+		qfError() << "Invalid command:" << static_cast<int>(cmd) << "received";
 	}
 	finishAndDestroy(ok, ret);
 }
@@ -557,15 +564,13 @@ const char *SiTaskReadCard6::cardSerieToString(SiTaskReadCard6::CardSerie cs)
 //===============================================================
 // SiTaskReadCard8
 //===============================================================
-SiTaskReadCard8::~SiTaskReadCard8()
-{
-	//qfInfo() << this << "destroyed";
-}
+SiTaskReadCard8::~SiTaskReadCard8() = default;
 
 void SiTaskReadCard8::start()
 {
-	if(!m_withAutosend)
+	if(!m_withAutosend) {
 		sendCommand((int)SIMessageData::Command::GetSICard8, QByteArray(1, 0x00));
+	}
 }
 
 void SiTaskReadCard8::onSiMessageReceived(const SIMessageData &msg)
