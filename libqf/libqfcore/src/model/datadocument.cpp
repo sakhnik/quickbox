@@ -40,7 +40,7 @@ void DataDocument::setModel(TableModel *m)
 
 const TableModel *DataDocument::model() const
 {
-	QF_ASSERT_EX(m_model != nullptr, "Model is NULL");
+	Q_ASSERT(m_model);
 	return m_model;
 }
 

@@ -795,7 +795,7 @@ QSet<QString> SqlTableModel::referencedForeignTables()
 	QSet<QString> ret;
 	{
 		const QStringList sl = m_foreignKeyDependencies.values();
-		for(QString s : sl) {
+		for(const auto &s : sl) {
 			QString tbl_name;
 			qf::core::Utils::parseFieldName(s, nullptr, &tbl_name);
 			tbl_name = tbl_name.trimmed().toLower();
