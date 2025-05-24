@@ -11,8 +11,7 @@ CSVReader::CSVReader(QTextStream *ts, char _separator, char _quote)
 {
 }
 
-CSVReader::~CSVReader()
-= default;
+CSVReader::~CSVReader() = default;
 
 QTextStream &CSVReader::textStream()
 {
@@ -69,18 +68,23 @@ QStringList CSVReader::readCSVLineSplitted()
 	return ret;
 }
 
-static int indexOfOneOf(const QString &str, const QString &chars, char quote = '\0')
+namespace {
+int indexOfOneOf(const QString &str, const QString &chars, char quote = '\0')
 {
 	bool in_quotes = false;
 	for(int i=0; i<str.length(); i++) {
 		if(quote && str[i] == quote)
 			in_quotes = !in_quotes;
-		if(!in_quotes)
-			for(int j=0; j<chars.length(); j++)
-				if(str[i] == chars[j])
+		if(!in_quotes) {
+			for(auto c : chars) {
+				if(str[i] == c) {
 					return i;
+				}
+			}
+		}
 	}
 	return -1;
+}
 }
 
 QString CSVReader::quoteCSVField(const QString &s)

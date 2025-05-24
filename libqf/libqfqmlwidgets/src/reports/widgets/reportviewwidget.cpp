@@ -483,8 +483,8 @@ void ReportViewWidget::view_zoomToFitWidth()
 	qfDebug() << QF_FUNC_NAME;
 	ReportItemMetaPaintFrame *frm = currentPage();
 	if(!frm) return;
-	ReportItemMetaPaintFrame::Rect r = frm->renderedRect;
-	double report_px = (r.width() + 2*PageBorder) * logicalDpiX() / 25.4;
+	auto r = frm->renderedRect;
+	double report_px = (r.width() + 2 * PageBorder) * logicalDpiX() / 25.4;
 	double widget_px = m_scrollArea->width();
 	//QScrollBar *sb = f_scrollArea->verticalScrollBar();
 	//if(sb) widget_px -= sb->width();
@@ -496,8 +496,8 @@ void ReportViewWidget::view_zoomToFitHeight()
 {
 	ReportItemMetaPaintFrame *frm = currentPage();
 	if(!frm) return;
-	ReportItemMetaPaintFrame::Rect r = frm->renderedRect;
-	double report_px = (r.height() + 2*PageBorder) * m_painterWidget->logicalDpiY() / 25.4;
+	auto r = frm->renderedRect;
+	double report_px = (r.height() + 2 * PageBorder) * m_painterWidget->logicalDpiY() / 25.4;
 	double widget_px = m_scrollArea->height();
 	double sc = widget_px / report_px * 0.98;
 	setScale(sc);

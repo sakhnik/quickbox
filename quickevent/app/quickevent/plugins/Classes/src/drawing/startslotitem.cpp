@@ -30,7 +30,7 @@ int StartSlotItem::classItemCount() const
 
 int StartSlotItem::classItemIndex(const ClassItem *it) const
 {
-	return m_classItems.indexOf((ClassItem *)it);
+	return m_classItems.indexOf(it);
 }
 
 void StartSlotItem::insertClassItem(int ix, ClassItem *it)

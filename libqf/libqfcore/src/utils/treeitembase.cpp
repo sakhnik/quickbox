@@ -237,14 +237,6 @@ TreeItemPath TreeItemBase::path() const
 		it = par_it;
 		par_it = par_it->parent();
 	}
-	//if(ret.isEmpty()) ret = TreeItemPath::rootPath();
-	#if 0 //defined QT_DEBUG
-	{
-		QStringList sl;
-		foreach(int i, ret) sl << QString::number(i);
-		//qfDebug() << "\t return:" << sl.join("-");
-	}
-	#endif
 	return ret;
 }
 
@@ -255,7 +247,7 @@ TreeItemBase* TreeItemBase::cd(const TreeItemPath &path) const
 	TreeItemBase *ret = nullptr;
 	qfDebug() << "\t path:" << path.toString() << "is valid:" << path.isValid();
 	if(path.isValid()) {
-		ret = const_cast<TreeItemBase*>(this);
+		ret = const_cast<TreeItemBase*>(this); // NOLINT(cppcoreguidelines-pro-type-const-cast)
 		for(int i=0; i<path.count(); i++) {
 			int ix = path.value(i);
 			ret = ret->child(ix);

@@ -177,16 +177,16 @@ void ReportProcessor::process(ReportProcessor::ProcessorMode mode)
 				//qfInfo() << "pageProcessed:" << fProcessedPageNo;
 				break;
 			}
-							if(m_singlePageProcessResult.isPrintAgain()) {
-					setProcessedPageNo(processedPageNo() + 1);
-				}
-				else {
-					break;
-				}
-		
-
+			if(m_singlePageProcessResult.isPrintAgain()) {
+				setProcessedPageNo(processedPageNo() + 1);
+			}
+			else {
+				break;
+			}
 		}
-		else break;
+		else {
+			break;
+		}
 	}
 }
 

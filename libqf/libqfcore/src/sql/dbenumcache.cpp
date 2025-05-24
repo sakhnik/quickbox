@@ -37,7 +37,7 @@ DbEnum DbEnumCache::EnumList::valueForId(const QString& group_id) const
 }
 
 DbEnumCache::DbEnumCache(const QString &connection_name)
- : m_connectionName(connection_name)
+	: m_connectionName(connection_name)
 {
 	if(m_connectionName.isEmpty()) {
 		static QString cn = QString::fromLatin1(QSqlDatabase::defaultConnection);
@@ -46,11 +46,7 @@ DbEnumCache::DbEnumCache(const QString &connection_name)
 	qfInfo() << "creating new DbEnumCache for connection name:" << m_connectionName;
 }
 
-DbEnumCache::~DbEnumCache()
-{
-	// next line can cause seg fault on app exit because logDevice() can be destroyied before
-	//qfInfo() << "destroying DbEnumCache for connection name:" << m_connectionName;
-}
+DbEnumCache::~DbEnumCache() = default;
 
 void DbEnumCache::clear(const QString & group_name)
 {

@@ -70,14 +70,14 @@ void StageResultsCsvExporter::exportClasses(bool single_file)
 		csv.setCodec("UTF-8");
 #endif
 		exportCsvHeader(csv);
-		QSqlQuery q = execSql(qs);
+		auto q = execSql(qs);
 		while(q.next()) {
 			int class_id = q.value("id").toInt();
 			exportClass(class_id, csv);
 		}
 	}
 	else { // multiple files
-		QSqlQuery q = execSql(qs);
+		auto q = execSql(qs);
 		while(q.next()) {
 			int class_id = q.value("id").toInt();
 			QString class_name = q.value("name").toString();

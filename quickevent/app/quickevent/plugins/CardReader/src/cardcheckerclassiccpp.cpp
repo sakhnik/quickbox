@@ -143,11 +143,11 @@ quickevent::core::si::CheckedCard CardCheckerClassicCpp::checkCard(const quickev
 	checked_punches << finish_punch;
 
 	QVariant prev_stp_time_ms = 0;
-	for(int k = 0; k < checked_punches.length(); k++) {
-		quickevent::core::si::CheckedPunch &checked_punch = checked_punches[k];
+	for(auto checked_punch : checked_punches) {
 		if(checked_punch.stpTimeMs()) {
-			if(prev_stp_time_ms.isValid())
+			if(prev_stp_time_ms.isValid()) {
 				checked_punch.setLapTimeMs(checked_punch.stpTimeMs() - prev_stp_time_ms.toInt());
+			}
 			prev_stp_time_ms = checked_punch.stpTimeMs();
 		}
 		else {

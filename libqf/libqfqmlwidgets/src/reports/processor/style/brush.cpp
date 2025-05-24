@@ -9,10 +9,7 @@ Brush::Brush(QObject *parent) :
 {
 }
 
-Brush::~Brush()
-{
-	//qfLogFuncFrame();
-}
+Brush::~Brush() = default;
 
 QBrush Brush::brush()
 {

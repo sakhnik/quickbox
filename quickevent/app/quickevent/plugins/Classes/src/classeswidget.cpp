@@ -87,7 +87,7 @@ public:
 		QF_ASSERT(cbx != nullptr, "Bad combo!", return);
 		qfDebug() << "setting model data:" << cbx->currentText() << cbx->currentData();
 		model->setData(index, cbx->currentData(), Qt::EditRole);
-		emit const_cast<CourseItemDelegate*>(this)->courseIdChanged();
+		emit const_cast<CourseItemDelegate*>(this)->courseIdChanged(); // NOLINT(cppcoreguidelines-pro-type-const-cast)
 	}
 
 	QString displayText(const QVariant &value, const QLocale &locale) const Q_DECL_OVERRIDE

@@ -100,7 +100,7 @@ QColor ClassItem::color() const
 
 const StartSlotItem *ClassItem::startSlotItem() const
 {
-	return const_cast<ClassItem*>(this)->startSlotItem();
+	return const_cast<ClassItem*>(this)->startSlotItem(); // NOLINT(cppcoreguidelines-pro-type-const-cast)
 }
 
 StartSlotItem *ClassItem::startSlotItem()
@@ -287,7 +287,8 @@ QList<ClassItem *> ClassItem::findClashes(const QSet<ClashType> &clash_types)
 	return ret;
 }
 
-static int gcd(int a, int b)
+namespace {
+int gcd(int a, int b)
 {
 	while (a != b) {
 		if (a > b)
@@ -296,6 +297,7 @@ static int gcd(int a, int b)
 			b = b - a;
 	}
 	return a;
+}
 }
 
 ClassItem::ClashType ClassItem::clashWith(ClassItem *other)

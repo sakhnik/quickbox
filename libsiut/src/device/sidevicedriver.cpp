@@ -122,11 +122,11 @@ void DeviceDriver::processData(const QByteArray &data)
 		if(stx_pos > 0)
 			qfWarning() << tr("Garbage received, stripping %1 characters from beginning of buffer").arg(stx_pos);
 		// remove multiple STX, this can happen
-		while(stx_pos < f_rxData.size()-1 && f_rxData[stx_pos+1] == STX)
+		while(stx_pos < f_rxData.size()-1 && f_rxData[stx_pos+1] == STX) {
 			stx_pos++;
+		}
 		if(stx_pos > 0) {
 			f_rxData = f_rxData.mid(stx_pos);
-			stx_pos = 0;
 		}
 		// STX,CMD,LEN, data, CRC1,CRC0,ETX/NAK
 		if(f_rxData.size() < 3) // STX,CMD,LEN
@@ -178,7 +178,7 @@ void DeviceDriver::sendCommand(int cmd, const QByteArray& data)
 
 		ba += data;
 
-		int crc_sum = crc(len + 2, (unsigned char*)ba.constData() + 1);
+		int crc_sum = crc(len + 2, reinterpret_cast<const unsigned char*>(ba.constData()) + 1);
 		set_byte_at(ba, ba.length(), (crc_sum >> 8) & 0xFF);
 		set_byte_at(ba, ba.length(), crc_sum & 0xFF);
 		set_byte_at(ba, ba.length(), ETX);

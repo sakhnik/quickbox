@@ -127,7 +127,7 @@ void SiTaskStationConfig::onSiMessageReceived(const SIMessageData &msg)
 	SIMessageData::Command cmd = msg.command();
 	if(cmd == SIMessageData::Command::GetSystemData) {
 		QByteArray hdr = msg.data();
-		int n = hdr[2];
+		auto n = static_cast<int>(hdr[2]);
 		n = (n << 8) + hdr[3];
 		ret.setStationNumber(n);
 		unsigned flags = (uint8_t)hdr[5];
@@ -321,7 +321,7 @@ QVariantMap SiTaskReadStationBackupMemory::createResult()
 	MS 1 byte 8bit 1/256 of seconds
 	*/
 	int n = 0;
-	const auto *cdata = (const uint8_t *)m_data.constData();
+	const auto *cdata = reinterpret_cast<const uint8_t *>(m_data.constData());
 	for (int i = 0; i < m_data.size(); ) {
 		QVariantList row;
 		int si = cdata[i++];

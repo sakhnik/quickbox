@@ -88,8 +88,8 @@ quickevent::core::si::CheckedCard CardCheckerFreeOrderCpp::checkCard(const quick
 
 	//prepare list and map of course controls
 	QMap<int, quickevent::core::si::CheckedPunch> map_of_control_codes;
-	for(int j=0; j<course_codes.length(); j++) {
-		quickevent::core::si::CheckedPunch checked_punch = quickevent::core::si::CheckedPunch::fromCodeDef(course_codes[j].toMap());
+	for(const auto &cp : course_codes) {
+		quickevent::core::si::CheckedPunch checked_punch = quickevent::core::si::CheckedPunch::fromCodeDef(cp.toMap());
 		map_of_control_codes.insert(checked_punch.code(), checked_punch);
 	}
 
@@ -123,8 +123,7 @@ quickevent::core::si::CheckedCard CardCheckerFreeOrderCpp::checkCard(const quick
 
 	}
 
-	error_mis_punch = !map_of_control_codes.isEmpty();
-	checked_card.setMisPunch(error_mis_punch);
+	checked_card.setMisPunch(error_mis_punch || !map_of_control_codes.isEmpty());
 
 	quickevent::core::si::CheckedPunch finish_punch;
 	if(!finish_code.isEmpty())
@@ -133,11 +132,11 @@ quickevent::core::si::CheckedCard CardCheckerFreeOrderCpp::checkCard(const quick
 	checked_punches << finish_punch;
 
 	QVariant prev_stp_time_ms = 0;
-	for(int k = 0; k < checked_punches.length(); k++) {
-		quickevent::core::si::CheckedPunch &checked_punch = checked_punches[k];
+	for(auto checked_punch : checked_punches) {
 		if(checked_punch.stpTimeMs()) {
-			if(prev_stp_time_ms.isValid())
+			if(prev_stp_time_ms.isValid()) {
 				checked_punch.setLapTimeMs(checked_punch.stpTimeMs() - prev_stp_time_ms.toInt());
+			}
 			prev_stp_time_ms = checked_punch.stpTimeMs();
 		}
 		else {

@@ -44,7 +44,6 @@
 #include <QToolButton>
 #include <QTextStream>
 #include <algorithm>
-#include <algorithm>
 //#define QF_TIMESCOPE_ENABLED
 #include <qf/core/utils/timescope.h>
 
