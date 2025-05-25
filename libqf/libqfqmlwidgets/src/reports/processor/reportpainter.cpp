@@ -428,7 +428,7 @@ void ReportItemMetaPaintFrame::fillItem(QPainter *painter, bool selected)
 	//qfInfo() << "\t br:" << r.toString();
 	//qfDebug() << "\tbrush color:"
 	if(selected) {
-		painter->fillRect(r, QColor("#FFEEEE"));
+		painter->fillRect(r, QColor(0xFFEEEE));
 	}
 	else {
 		if(fill.style() != Qt::NoBrush)

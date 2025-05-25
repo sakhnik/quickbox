@@ -380,7 +380,7 @@ void CardReaderWidget::settleDownInPartWidget(::PartWidget *part_widget)
 			auto *a = new QAction(tr("Station info"));
 			a->setEnabled(false);
 			connect(commPort(), &siut::CommPort::openChanged, a, &QAction::setEnabled);
-			connect(a, &QAction::triggered, [this]() {
+			connect(a, &QAction::triggered, this, [this]() {
 				auto *cmd = new siut::SiTaskStationConfig();
 				connect(cmd, &siut::SiTaskStationConfig::finished, this, [this](bool ok, QVariant result) {
 					if(ok) {
@@ -1092,7 +1092,6 @@ void CardReaderWidget::importCards_SIReaderBackupMemoryCsv()
 			}
 			int run_id = 0;
 			int start_time = 0;
-			QString class_name;
 			{
 				qfs::QueryBuilder qb;
 				qb.select2("runs", "id, startTimeMs")

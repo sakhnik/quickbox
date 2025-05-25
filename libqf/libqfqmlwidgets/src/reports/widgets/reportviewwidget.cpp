@@ -89,12 +89,12 @@ bool ReportViewWidget::showReport2(QWidget *parent
 		parent = qf::qmlwidgets::framework::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(parent);
 	dlg.setCentralWidget(w);
-	bool report_printed = false;
-	connect(w, &qf::qmlwidgets::reports::ReportViewWidget::reportPrinted, [&report_printed](int) {
-		report_printed = true;
+	auto report_printed = std::make_shared<bool>(false);
+	connect(w, &qf::qmlwidgets::reports::ReportViewWidget::reportPrinted, [report_printed](int) {
+		*report_printed = true;
 	});
 	dlg.exec();
-	return report_printed;
+	return *report_printed;
 }
 
 void ReportViewWidget::ScrollArea::wheelEvent(QWheelEvent * ev)
@@ -259,7 +259,7 @@ void ReportViewWidget::PainterWidget::paintEvent(QPaintEvent *ev)
 	/// nakresli ramecek a stranku
 	//painter.setBrush(Qt::yellow);
 	QRect r1 = rect();
-	painter.fillRect(r1, QBrush(QColor("#CCFF99")));
+	painter.fillRect(r1, QBrush(QColor(0xCCFF99)));
 
 	reportViewWidget()->setupPainter(&painter);
 	ReportItemMetaPaintFrame *frm = reportViewWidget()->currentPage();
@@ -1046,9 +1046,9 @@ void ReportViewWidget::exportPdf(const QString &file_name)
 	if(fn.isEmpty())
 		QF_EXCEPTION(tr("empty file name"));
 	auto ext = QStringLiteral(".pdf");
-	if(!fn.toLower().endsWith(ext))
+	if(!fn.endsWith(ext, Qt::CaseInsensitive)) {
 		fn += ext;
-
+	}
 	QPrinter printer;
 	printer.setOutputFormat(QPrinter::PdfFormat);
 	printer.setOutputFileName(fn);

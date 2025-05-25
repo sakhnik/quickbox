@@ -469,7 +469,7 @@ void ClassesWidget::import_ocad_txt()
 		try {
 			QMap<QString, ImportCourseDef> defined_courses_map;
 			enum {ColCourseName = 0, ColLenght, ColClimb, ColCodesCount, ColCodes};
-			for(QString line : lines) {
+			for(const auto &line : lines) {
 				// coursename lenght_km climb codes_count S1-code_1[-code_n]-F1
 				if(line.isEmpty())
 					continue;
@@ -539,7 +539,7 @@ void ClassesWidget::import_ocad_v8()
 		try {
 			bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
 			QMap<QString, ImportCourseDef> defined_courses_map;
-			for(QString line : lines) {
+			for(const auto &line : lines) {
 				// [classname];coursename;[relay.leg];lenght_km;climb;S1;dist_1;code_1[;dist_n;code_n];dist_finish;F1
 				if(line.isEmpty())
 					continue;

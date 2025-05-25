@@ -54,7 +54,7 @@ ReportOptionsDialog::ReportOptionsDialog(QWidget *parent)
 			}
 		}
 	}
-	connect(ui->btSaveAsDefault, &QPushButton::clicked, [this]() {
+	connect(ui->btSaveAsDefault, &QPushButton::clicked, this, [this]() {
 		savePersistentSettings();
 	});
 	connect(this, &ReportOptionsDialog::persistentSettingsIdChanged, [this]() {

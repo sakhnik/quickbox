@@ -29,8 +29,8 @@ protected:
 public:
 	CardReaderSettingsPage(QWidget *parent = nullptr);
 	virtual ~CardReaderSettingsPage();
-private slots:
-	void on_btTestConnection_clicked();
+private:
+	void onTestConnectionClicked();
 };
 }
 #endif // CARDREADERSETTINGSPAGE_H

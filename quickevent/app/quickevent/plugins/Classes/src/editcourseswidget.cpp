@@ -25,7 +25,7 @@ EditCoursesWidget::EditCoursesWidget(QWidget *parent)
 		ui->tblCourses->setDirtyRowsMenuSectionEnabled(false);
 		ui->tblCoursesTB->setTableView(ui->tblCourses);
 		ui->tblCourses->setRowEditorMode(qfw::TableView::RowEditorMode::EditRowsInline);
-		connect(ui->tblCourses, &qfw::TableView::editCellRequest, [this](const QModelIndex &ix) {
+		connect(ui->tblCourses, &qfw::TableView::editCellRequest, this, [this](const QModelIndex &ix) {
 			if(ix.column() == this->m_coursesModel->columnIndex("code_list")) {
 				editCourseCodes(ix);
 			}

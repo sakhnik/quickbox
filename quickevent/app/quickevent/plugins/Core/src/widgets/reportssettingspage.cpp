@@ -20,6 +20,8 @@ ReportsSettingsPage::ReportsSettingsPage(QWidget *parent) :
 	m_caption = tr("Reports");
 	ui->setupUi(this);
 
+	connect(ui->btSelectCustomReportsDirectory, &QAbstractButton::clicked, this, &ReportsSettingsPage::onSelectCustomReportsDirectoryClicked);
+
 	ui->edReportsDirectory->setPlaceholderText(qf::qmlwidgets::framework::Plugin::defaultReportsDir());
 	ui->lblHelp->setText(ui->lblHelp->text().arg(qf::qmlwidgets::framework::Plugin::defaultReportsDir()));
 	
@@ -44,7 +46,7 @@ void ReportsSettingsPage::setReportsDirectory(const QString dir)
 	}
 }
 
-void ReportsSettingsPage::on_btSelectCustomReportsDirectory_clicked()
+void ReportsSettingsPage::onSelectCustomReportsDirectoryClicked()
 {
 	auto old_dir = ui->edReportsDirectory->text();
 	auto new_dir = QFileDialog::getExistingDirectory(this, tr("Open Directory"),

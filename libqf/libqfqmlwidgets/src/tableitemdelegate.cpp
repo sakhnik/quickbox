@@ -50,7 +50,7 @@ void TableItemDelegate::paintBackground(QPainter *painter, const QStyleOptionVie
 			Qt::ItemFlags flags = index.flags();
 			//qfInfo() << "col:" << index.column() << "editable:" << f.contains(Qt::ItemIsEditable);
 			if(!(flags & Qt::ItemIsEditable)) {
-				static const QColor ro_cell_background("#eeeeff");
+				static const QColor ro_cell_background(0xeeeeff);
 				painter->fillRect(option.rect, ro_cell_background);
 			}
 		}

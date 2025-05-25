@@ -175,8 +175,8 @@ void RacomReadSplitFile::readAndProcessFile()
 				continue;
 
 			siut::SIPunch punch;
-			punch.setCardNumber(text[i].left(8).toInt());
-			int code = text[i].mid(9,4).toInt();
+			punch.setCardNumber(QStringView(text[i]).left(8).toInt());
+			int code = QStringView(text[i]).mid(9,4).toInt();
 			if (code == m_finishCode)
 				code = quickevent::core::CodeDef::FINISH_PUNCH_CODE;
 			punch.setCode(code);
@@ -313,7 +313,7 @@ void RacomClient::init()
 			qfError() << "RacomClient: Sirxd TCP server cannot listen on port:" << ss.sirxdDataListenPort();
 		}
 		else {
-			connect(m_sirxdDataServer, &QTcpServer::newConnection, [this](){
+			connect(m_sirxdDataServer, &QTcpServer::newConnection, this, [this](){
 				QTcpSocket *sock = m_sirxdDataServer->nextPendingConnection();
 				m_racomSirxdConnection = new RacomClientSirxdConnection(sock, m_sirxdDataServer);
 			});

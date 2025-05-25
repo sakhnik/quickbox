@@ -38,7 +38,7 @@ QString CheckedCard::toString() const
 	QString ret;
 	QStringList punch_lst;
 	int position = 0;
-	for(auto v : punches()) {
+	for(const auto &v : punches()) {
 		CheckedPunch p(v.toMap());
 		punch_lst << QString("[%1. %2: %3 %4 %5]")
 					 .arg(++position)

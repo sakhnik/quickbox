@@ -209,7 +209,7 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 				auto run_id = row.value("id").toInt();
 				Q_ASSERT(run_id > 0);
 				// auto competitor_id = row.value("competitorId").toInt();
-				auto club_abbr = dataDocument()->value("registration").toString().mid(0, 3).toUpper();
+				// auto club_abbr = dataDocument()->value("registration").toString().mid(0, 3).toUpper();
 
 				auto st_times = possibleStartTimesMs(run_id);
 				if (st_times.isEmpty()) {
@@ -330,7 +330,7 @@ QString CompetitorWidget::guessClassFromRegistration(const QString &registration
 	for (int i = 0; i < ui->cbxClass->count(); ++i)
 	{
 		QString class_name = ui->cbxClass->itemText(i);
-		int age = class_name.mid(1, 2).toInt();
+		int age = QStringView(class_name).mid(1, 2).toInt();
 		classes << age;
 	}
 	std::sort(classes.begin(), classes.end());
@@ -338,13 +338,13 @@ QString CompetitorWidget::guessClassFromRegistration(const QString &registration
 	// get runner age
 	qfLogFuncFrame() << registration;
 	int curr_year = QDate::currentDate().year();
-	int runner_age = curr_year - 1900 - registration.mid(3, 2).toInt();
+	int runner_age = curr_year - 1900 - QStringView(registration).mid(3, 2).toInt();
 	if(runner_age >= 100)
 		runner_age -= 100;
 	qfDebug() << "\t age:" << runner_age;
 
 	// try to guess gender prefix - D or H
-	char gender = (registration.mid(5, 1).toInt() >= 5)? 'D': 'H';
+	char gender = (QStringView(registration).mid(5, 1).toInt() >= 5)? 'D': 'H';
 
 	// go trough classes, if runner age >= class then asign
 	// reverse array order and comparison for juniors

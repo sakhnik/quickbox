@@ -30,7 +30,7 @@ QVariantList ReadPunch::toVariantList() const
 QString ReadPunch::toJsonArrayString() const
 {
 	QStringList sl;
-	for(auto v : toVariantList()) {
+	for(const auto &v : toVariantList()) {
 		sl << v.toString();
 	}
 	return '[' + sl.join(", ") + ']';
@@ -49,7 +49,7 @@ ReadCard::ReadCard(const QSqlRecord &rec)
 	auto jsd = QJsonDocument::fromJson(rec.value("punches").toString().toUtf8());
 	QVariantList punchlst;
 	QVariantList lst = jsd.toVariant().toList();
-	for(auto v : lst) {
+	for(const auto &v : lst) {
 		ReadPunch punch(v.toList());
 		punchlst << punch;
 	}
@@ -75,18 +75,9 @@ QList<ReadPunch> ReadCard::punchList() const
 	}
 	return ret;
 }
-/*
-int ReadCard::timeMs() const
-{
-	int ret = 0xeeee * 1000;
-	if(finishTime() != 0xeeee && startTime() != 0xeeee) {
-		ret = quickevent::core::og::TimeMs::fixTimeWrapAM(0, (finishTime() - startTime()) * 1000);
-		ret += finishTimeMs();
-	}
-	return ret;
-}
-*/
-static QString secToStr(int sec)
+
+namespace {
+QString secToStr(int sec)
 {
 	int hr = sec / 60 / 60;
 	int min = (sec / 60) % 60;
@@ -94,12 +85,13 @@ static QString secToStr(int sec)
 	QString ret("%1:%2:%3");
 	return ret.arg(hr, 2, 10, QLatin1Char('0')).arg(min, 2, 10, QLatin1Char('0')).arg(sec, 2, 10, QLatin1Char('0'));
 }
+}
 
 QString ReadCard::toString() const
 {
 	QString ret;
 	QStringList punch_lst;
-	for(auto v : punches()) {
+	for(const auto &v : punches()) {
 		ReadPunch p(v.toMap());
 		punch_lst << QString("[%1, %2]").arg(p.code()).arg(secToStr(p.time()));
 	}

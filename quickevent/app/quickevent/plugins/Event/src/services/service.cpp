@@ -74,7 +74,7 @@ void Service::saveSettings()
 {
 	QSettings ss;
 	ss.beginGroup(settingsGroup());
-	for(const QString &key : m_settings.keys()) {
+	for(const auto &[key, _] : m_settings.asKeyValueRange()) {
 		ss.setValue(key, m_settings[key]);
 	}
 }

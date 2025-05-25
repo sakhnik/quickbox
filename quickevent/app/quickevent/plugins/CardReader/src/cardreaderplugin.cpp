@@ -259,7 +259,7 @@ int CardReaderPlugin::saveCardToSql(const quickevent::core::si::ReadCard &read_c
 	}
 	int ret = 0;
 	QStringList punches;
-	for(auto v : read_card.punches()) {
+	for(const auto &v : read_card.punches()) {
 		quickevent::core::si::ReadPunch p(v.toMap());
 		punches << p.toJsonArrayString();
 	}
@@ -359,7 +359,7 @@ void CardReaderPlugin::updateCheckedCardValuesSql(const quickevent::core::si::Ch
 	if(punch_list.count()) {
 		QF_TIME_SCOPE("INSERT INTO runlaps, records cnt: " + QString::number(punch_list.count()));
 		int position = 0;
-		for(auto v : punch_list) {
+		for(const auto &v : punch_list) {
 			position++;
 			quickevent::core::si::CheckedPunch cp(v.toMap());
 			//qfInfo() << run_id << position << cp;

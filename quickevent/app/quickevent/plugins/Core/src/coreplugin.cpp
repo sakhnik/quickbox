@@ -128,7 +128,7 @@ void CorePlugin::onInstalled()
 				if(a->oid() == curr_lang)
 					a->setChecked(true);
 				m2->addActionInto(a);
-				connect(a, &QAction::triggered, [a](bool checked) {
+				connect(a, &QAction::triggered, a, [a](bool checked) {
 					if(checked) {
 						QSettings settings;
 						settings.setValue(SETTINGS_PREFIX_APPLICATION_LOCALE_LANGUAGE(), a->oid());

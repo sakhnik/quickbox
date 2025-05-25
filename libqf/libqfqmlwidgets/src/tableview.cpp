@@ -974,8 +974,9 @@ void TableView::exportCSV_helper(const QVariant &export_options)
 #endif
 
 		QVector<int> exported_columns;
-		for(auto v : export_opts.value("columns").toList())
+		for(const auto &v : export_opts.value("columns").toList()) {
 			exported_columns << v.toInt();
+		}
 		if(text_export_opts.isExportColumnNames()) {
 			for (int i = 0; i < exported_columns.count(); ++i) {
 				if(i > 0)
