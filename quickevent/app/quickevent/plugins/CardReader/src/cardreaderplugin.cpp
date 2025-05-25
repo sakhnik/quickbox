@@ -60,9 +60,9 @@ void CardReaderPlugin::onInstalled()
 
 	qff::initPluginWidget<CardReaderWidget, PartWidget>(tr("Card reader"), featureId());
 
-	services::RacomClient *racom_client = new services::RacomClient(this);
+	auto *racom_client = new services::RacomClient(this);
 	Event::services::Service::addService(racom_client);
-	services::QrOPunch *qr_o_punch = new services::QrOPunch(this);
+	auto *qr_o_punch = new services::QrOPunch(this);
 	Event::services::Service::addService(qr_o_punch);
 
 	auto core_plugin = getPlugin<Core::CorePlugin>();
@@ -222,7 +222,7 @@ quickevent::core::si::CheckedCard CardReaderPlugin::checkCard(const quickevent::
 	quickevent::core::si::CheckedCard cc;
 	CardReader::CardChecker *chk = currentCardChecker();
 	QF_ASSERT(chk != nullptr, "CardChecker is NULL", return quickevent::core::si::CheckedCard());
-	CardReader::CardCheckerCpp *cpp_chk = qobject_cast<CardReader::CardCheckerCpp*>(chk);
+	auto *cpp_chk = qobject_cast<CardReader::CardCheckerCpp*>(chk);
 	if(cpp_chk) {
 		cc = cpp_chk->checkCard(read_card);
 	}
@@ -231,7 +231,7 @@ quickevent::core::si::CheckedCard CardReaderPlugin::checkCard(const quickevent::
 		QMetaObject::invokeMethod(chk, "checkCard", Qt::DirectConnection,
 								  Q_RETURN_ARG(QVariant, ret_val),
 								  Q_ARG(QVariant, read_card));
-		QJSValue jsv = ret_val.value<QJSValue>();
+		auto jsv = ret_val.value<QJSValue>();
 		QVariant v = jsv.toVariant();
 		QVariantMap m = v.toMap();
 		cc = quickevent::core::si::CheckedCard(m);
@@ -259,7 +259,7 @@ int CardReaderPlugin::saveCardToSql(const quickevent::core::si::ReadCard &read_c
 	}
 	int ret = 0;
 	QStringList punches;
-	for(auto v : read_card.punches()) {
+	for(const auto &v : read_card.punches()) {
 		quickevent::core::si::ReadPunch p(v.toMap());
 		punches << p.toJsonArrayString();
 	}
@@ -359,7 +359,7 @@ void CardReaderPlugin::updateCheckedCardValuesSql(const quickevent::core::si::Ch
 	if(punch_list.count()) {
 		QF_TIME_SCOPE("INSERT INTO runlaps, records cnt: " + QString::number(punch_list.count()));
 		int position = 0;
-		for(auto v : punch_list) {
+		for(const auto &v : punch_list) {
 			position++;
 			quickevent::core::si::CheckedPunch cp(v.toMap());
 			//qfInfo() << run_id << position << cp;

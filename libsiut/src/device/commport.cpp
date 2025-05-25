@@ -21,8 +21,7 @@ CommPort::CommPort(QObject *parent)
 }
 
 CommPort::~CommPort()
-{
-}
+= default;
 
 bool CommPort::openComm(const QString &_device, int _baudrate, int _data_bits, const QString &_parity_str, bool two_stop_bits)
 {
@@ -33,7 +32,7 @@ bool CommPort::openComm(const QString &_device, int _baudrate, int _data_bits, c
 		qfDebug() << "Port enumeration";
 		QList<QSerialPortInfo> port_list = QSerialPortInfo::availablePorts();
 		QStringList sl;
-		for(auto port : port_list) {
+		for(const auto &port : port_list) {
 			if(device.isEmpty())
 				device = port.systemLocation();
 			sl << port.systemLocation();
@@ -104,7 +103,7 @@ QString CommPort::errorToUserHint() const
 						"Selected port %1 is not available.\n"
 						"List of accessible ports:\n\n"
 						"").arg(portName()));
-			for(auto port : port_list) {
+			for(const auto &port : port_list) {
 				error_msg.append(QChar(0x2022)).append(" ").append(port.systemLocation()).append("\n");
 			}
 		}

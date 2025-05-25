@@ -27,8 +27,8 @@ public:
 
 	void load(int stage_id);
 private slots:
-	void on_actSave_triggered();
-	void on_actFind_triggered();
+	void onActSaveTriggered();
+	void onActFindTriggered();
 private:
 	Ui::DrawingGanttWidget *ui;
 	QLineEdit *m_edFind = nullptr;

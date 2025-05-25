@@ -8,5 +8,4 @@ ToolBar::ToolBar(QWidget *parent)
 }
 
 ToolBar::~ToolBar()
-{
-}
+= default;

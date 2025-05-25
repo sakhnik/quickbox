@@ -26,10 +26,7 @@ SqlTableModel::SqlTableModel(QObject *parent)
 	m_connectionName = QSqlDatabase::defaultConnection;
 }
 
-SqlTableModel::~SqlTableModel()
-{
-
-}
+SqlTableModel::~SqlTableModel() = default;
 
 QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 {
@@ -76,7 +73,7 @@ QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 		if(cast_type == qMetaTypeId<qf::core::sql::DbEnum>()) {
 			QVariant v = data(index, Qt::BackgroundRole);
 			if(v.isValid()) {
-				QColor bgr_color = v.value<QColor>();
+				auto bgr_color = v.value<QColor>();
 				if(bgr_color.isValid()) {
 					return contrastTextColor(bgr_color);
 				}
@@ -394,7 +391,7 @@ bool SqlTableModel::removeTableRow(int row_no, bool throw_exc)
 				sqlfld.setValue(id);
 				bool invalid_id = false;
 				if(id.isNull())
-					invalid_id = true;
+					invalid_id = true; // NOLINT(bugprone-branch-clone)
 #if QT_VERSION_MAJOR >= 6
 				else if(id.typeId() == QMetaType::Int && id.toInt() == 0)
 #else
@@ -578,7 +575,8 @@ QString SqlTableModel::buildQuery()
 	return ret;
 }
 
-static QString paramValueToString(const QVariant &v)
+namespace {
+QString paramValueToString(const QVariant &v)
 {
 	QString ret;
 	if(v.isValid())
@@ -586,6 +584,7 @@ static QString paramValueToString(const QVariant &v)
 	else
 		ret = QStringLiteral("NULL");
 	return ret;
+}
 }
 
 QString SqlTableModel::replaceQueryParameters(const QString query_str)
@@ -617,7 +616,7 @@ QString SqlTableModel::replaceQueryParameters(const QString query_str)
 	return ret;
 }
 
-qf::core::sql::Connection SqlTableModel::sqlConnection()
+qf::core::sql::Connection SqlTableModel::sqlConnection() const
 {
 	QSqlDatabase db = QSqlDatabase::database(connectionName());
 	qf::core::sql::Connection ret = qf::core::sql::Connection(db);
@@ -688,12 +687,14 @@ bool SqlTableModel::reloadTable(const QString &query_str)
 	return true;
 }
 
-static QString compose_table_id(const QString &table_name, const QString &schema_name)
+namespace {
+QString compose_table_id(const QString &table_name, const QString &schema_name)
 {
 	QString ret = table_name;
 	if(!schema_name.isEmpty())
 		ret = schema_name + '.' + ret;
 	return ret;
+}
 }
 
 QStringList SqlTableModel::tableIds(const qf::core::utils::Table::FieldList &table_fields)
@@ -711,7 +712,8 @@ QStringList SqlTableModel::tableIds(const qf::core::utils::Table::FieldList &tab
 	return ret;
 }
 
-static QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Table::FieldList &table_fields)
+namespace {
+QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Table::FieldList &table_fields)
 {
 	QMap< QString, QSet<QString> > field_ids;
 	Q_FOREACH(const qfu::Table::Field &fld, table_fields) {
@@ -722,8 +724,9 @@ static QMap< QString, QSet<QString> > separateFields(const qf::core::utils::Tabl
 	}
 	return field_ids;
 }
+}
 
-void SqlTableModel::setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str)
+void SqlTableModel::setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str) const
 {
 	//qfLogFuncFrame();
 	//QSet<QString> table_ids = tableIds(table_fields);
@@ -792,7 +795,7 @@ QSet<QString> SqlTableModel::referencedForeignTables()
 	QSet<QString> ret;
 	{
 		const QStringList sl = m_foreignKeyDependencies.values();
-		for(QString s : sl) {
+		for(const auto &s : sl) {
 			QString tbl_name;
 			qf::core::Utils::parseFieldName(s, nullptr, &tbl_name);
 			tbl_name = tbl_name.trimmed().toLower();
@@ -825,13 +828,13 @@ QStringList SqlTableModel::tableIdsSortedAccordingToForeignKeys()
 				QString slave_key = it.value();
 				QString field, table, schema;
 				qf::core::Utils::parseFieldName(slave_key, &field, &table, &schema);
-				slave_key = qf::core::Utils::composeFieldName(table, schema);
+				slave_key = qf::core::Utils::composeFieldName(table, schema); // NOLINT(readability-suspicious-call-argument)
 				if(qf::core::Utils::fieldNameCmp(table_id, slave_key)) {
 					dependency_satisfied = false;
 					/// table_id is a slave, so check if master table is in return list already
 					qf::core::Utils::parseFieldName(master_key, &field, &table, &schema);
-					master_key = qf::core::Utils::composeFieldName(table, schema);
-					for(auto included_table_id : ret) {
+					master_key = qf::core::Utils::composeFieldName(table, schema); // NOLINT(readability-suspicious-call-argument)
+					for(const auto &included_table_id : ret) {
 						if(qf::core::Utils::fieldNameCmp(included_table_id, master_key)) {
 							ret << table_ids.takeFirst();
 							dependency_satisfied = true;

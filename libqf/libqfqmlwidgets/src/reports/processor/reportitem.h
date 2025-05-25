@@ -45,7 +45,6 @@ class QFQMLWIDGETS_DECL_EXPORT ReportItem : public QObject, public QQmlParserSta
 {
 	Q_OBJECT
 	Q_INTERFACES(QQmlParserStatus)
-	Q_ENUMS(Layout)
 	/// Pokud ma frame keepAll atribut a dvakrat za sebou se nevytiskne, znamena to, ze se nevytiskne uz nikdy.
 	Q_PROPERTY(bool keepAll READ isKeepAll WRITE setKeepAll)
 	Q_PROPERTY(bool keepWithPrev READ isKeepWithPrev WRITE setKeepWithPrev)
@@ -66,7 +65,7 @@ public:
 				 LayoutVertical = graphics::LayoutVertical,
 				 LayoutStacked = graphics::LayoutStacked
 				};
-	//typedef graphics::Layout Layout;
+	Q_ENUM(Layout)
 
 	Q_INVOKABLE bool isVisible();
 	Q_SLOT void setVisible(bool b) {
@@ -368,7 +367,7 @@ public:
 protected:
 	style::Text* effectiveTextStyle();
 
-	void createHtmlExportAttributes(HTMLElement &out);
+	void createHtmlExportAttributes(HTMLElement &out) const;
 
 	void classBegin() Q_DECL_OVERRIDE;
 	void componentComplete() Q_DECL_OVERRIDE;

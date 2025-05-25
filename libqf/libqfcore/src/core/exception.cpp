@@ -4,9 +4,6 @@
 
 #include <QStringList>
 
-#include <stdarg.h>
-#include <stdio.h>
-
 using namespace qf::core;
 
 #if (QT_VERSION < QT_VERSION_CHECK(5, 4, 0))
@@ -16,9 +13,9 @@ using namespace qf::core;
 #endif
 
 //============================================================
-//                      Exception
+// Exception
 //============================================================
-bool Exception::s_abortOnException = false;
+bool Exception::s_abortOnException = false; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
 
 namespace {
 
@@ -34,11 +31,11 @@ Exception::Exception(const QString &_msg, const QString &_where)
 	m_where = _where;
 	m_msg = _msg;
 	m_what = m_msg.toUtf8();
-	m_stackTrace = StackTrace::stackTrace().toString();
+	m_stackTrace = StackTrace::stackTrace().join('\n');
 	log();
 }
 
-void Exception::log()
+void Exception::log() const
 {
 	if(isLogStackTrace())
 		logWarning() << message() << "\n" << where() << "\n----- stack trace -----\n" << stackTrace();
@@ -53,7 +50,7 @@ QString Exception::toString() const
 	return ret;
 }
 
-const char* Exception::what() const throw()
+const char* Exception::what() const noexcept
 {
 	return m_what.constData();
 }

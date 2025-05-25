@@ -6,9 +6,9 @@
 #include <QCoreApplication>
 #include <QAudioOutput>
 
-namespace quickevent {
-namespace gui {
-namespace audio {
+
+
+namespace quickevent::gui::audio {
 
 Player::Player(QObject *parent)
 	: QObject(parent)
@@ -81,5 +81,5 @@ void Player::onPlaybackStateChanged(QMediaPlayer::PlaybackState new_state)
 	}
 }
 
-}}}
+}
 

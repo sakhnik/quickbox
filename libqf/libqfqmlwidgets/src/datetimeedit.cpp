@@ -2,8 +2,8 @@
 
 #include <qf/core/log.h>
 
-namespace qf {
-namespace qmlwidgets {
+
+namespace qf::qmlwidgets {
 
 DateTimeEdit::DateTimeEdit(QWidget *parent)
 	: Super(parent)
@@ -54,5 +54,5 @@ void DateTimeEdit::onDateTimeChanged(const QDateTime &new_datetime)
 	emit dataValueChanged(new_datetime);
 }
 
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets
+

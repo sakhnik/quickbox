@@ -4,9 +4,9 @@
 
 #include <QString>
 
-namespace quickevent {
-namespace core {
-namespace og {
+
+
+namespace quickevent::core::og {
 
 //bool TimeMs::m_oneTenthSecPrecision = false;
 
@@ -103,7 +103,7 @@ TimeMs TimeMs::fromString(const QString &time_str)
 
 	msec = str2int(time_str.mid(ix1));
 
-	return TimeMs(msec + (sec + (min * 60)) * 1000);
+	return TimeMs(msec + ((sec + (min * 60)) * 1000));
 }
 
 int TimeMs::fixTimeWrapAM(int time1_msec, int time2_msec)
@@ -141,4 +141,4 @@ void TimeMs::registerQVariantFunctions()
 	}
 }
 
-}}}
+}

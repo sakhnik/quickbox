@@ -32,7 +32,7 @@ Action* MenuBar::actionForPath(const QString &path, bool create_if_not_exists)
 		ret = nullptr;
 		Q_FOREACH(auto a, parent_w->actions()) {
 			qfDebug() << a;
-			Action *act = qobject_cast<Action*>(a);
+			auto *act = qobject_cast<Action*>(a);
 			//if(!ret) continue;
 			QF_ASSERT(act!=nullptr, "bad action", return ret);
 			if(act->oid() == id) {
@@ -45,7 +45,7 @@ Action* MenuBar::actionForPath(const QString &path, bool create_if_not_exists)
 			if(!create_if_not_exists) {
 				break;
 			}
-			QMenu *m = new QMenu(parent_w);
+			auto *m = new QMenu(parent_w);
 			ret = new Action(parent_w);
 			ret->setMenu(m);
 			ret->setOid(id);

@@ -9,7 +9,6 @@
 //#include <QFile>
 #include <QUrl>
 
-namespace qfc = qf::core;
 //namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;

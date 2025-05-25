@@ -52,7 +52,7 @@ quickevent::core::si::CheckedCard CardCheckerClassicCpp::checkCard(const quickev
 	if(read_card.checkTime() != 0xEEEE) {
 		// temporaryly shift start for 10 min to enable negative chceckTime for runners starting in 00 and 01
 		static constexpr int MIN_10_MSEC = 10 * 60 * 1000;
-		auto shifted_start00 = start00sec * 1000 - MIN_10_MSEC;
+		auto shifted_start00 = (start00sec * 1000) - MIN_10_MSEC;
 		auto shifted_interval = msecIntervalAM(shifted_start00, read_card.checkTime() * 1000);
 		checked_card.setCheckTimeMs(shifted_interval - MIN_10_MSEC);
 	}
@@ -143,11 +143,11 @@ quickevent::core::si::CheckedCard CardCheckerClassicCpp::checkCard(const quickev
 	checked_punches << finish_punch;
 
 	QVariant prev_stp_time_ms = 0;
-	for(int k = 0; k < checked_punches.length(); k++) {
-		quickevent::core::si::CheckedPunch &checked_punch = checked_punches[k];
+	for(auto checked_punch : checked_punches) {
 		if(checked_punch.stpTimeMs()) {
-			if(prev_stp_time_ms.isValid())
+			if(prev_stp_time_ms.isValid()) {
 				checked_punch.setLapTimeMs(checked_punch.stpTimeMs() - prev_stp_time_ms.toInt());
+			}
 			prev_stp_time_ms = checked_punch.stpTimeMs();
 		}
 		else {

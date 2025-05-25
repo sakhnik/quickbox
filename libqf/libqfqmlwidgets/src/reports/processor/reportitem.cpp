@@ -21,8 +21,6 @@
 #include <QStringBuilder>
 #include <QUrl>
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
 
@@ -37,147 +35,26 @@ ReportItem::ReportItem(ReportItem *parent)
 {
 	m_keepAll = false;
 	m_visible = true;
-	//QF_ASSERT_EX(processor != nullptr, "Processor can not be NULL.");
 	m_recentPrintNotFinished = false;
-	//--keepAll = qfc::String(element.attribute("keepall")).toBool();
-	//if(keepAll) { qfInfo() << "KEEP ALL is true" << element.attribute("keepall"); }
 }
 
-ReportItem::~ReportItem()
-{
-	//qfDebug() << QF_FUNC_NAME << "##################" << element.tagName();
-}
-/*--
-bool ReportItem::childrenSynced()
-{
-	qfDebug() << QF_FUNC_NAME<< element.tagName() << "children count:" << itemCount();
-	bool synced = true;
-	int i = 0;
-	for(QDomElement el = element.firstChildElement(); !!el; el = el.nextSiblingElement()) {
-		qfDebug() << "\t checking:" << el.tagName() << "i:" << i;
-		if(!ReportProcessor::isProcessible(el)) continue; /// nezname elementy ignoruj
-		qfDebug() << "\t processible";
-		if(i >= itemCount()) {
-		 	/// vic znamych elementu nez deti => neco pribylo
-			synced = false;
-			qfDebug() << "\t more elements";
-			break;
-		}
-		if(el == childAt(i)->element) {
-			/// stejny element na stejne posici
-			i++;
-			continue;
-		}
-		/// doslo k nejaky zmene nebo deti nejsou dosud vytvoreny
-		qfDebug() << "\t other element";
-		synced = false;
-		break;
-	}
-	if(i != itemCount()) {
-		qfDebug() << "\t divny";
-		synced = false;
-	}
-	qfDebug() << "\treturn:" << synced;
-	return synced;
-}
+ReportItem::~ReportItem() = default;
 
-void ReportItem::deleteChildren()
-{
-	clearChildren();
-}
-
-void ReportItem::syncChildren()
-{
-	qfDebug() << QF_FUNC_NAME << element.tagName() << "id:" << element.attribute("id");
-	deleteChildren();
-	for(QDomElement el = element.firstChildElement(); !!el; el = el.nextSiblingElement()) {
-		if(el.tagName() == "script") {
-			QString code;
-			for(QDomNode nd = el.firstChild(); !nd.isNull(); nd = nd.nextSibling()) {
-				if(nd.isCDATASection()) {
-					code = nd.toCDATASection().data();
-				}
-			}
-			if(!code.isEmpty()) processor()->scriptDriver()->evaluate(code);
-			continue;
-		}
-		if(!ReportProcessor::isProcessible(el)) continue;
-		/// vytvor chybejici item
-		processor()->createProcessibleItem(el, this);
-	}
-}
-
-QString ReportItem::elementAttribute(const QString & attr_name, const QString &default_val)
-{
-	QString ret = element.attribute(attr_name, default_val);
-	static QRegExp rx("script:([A-Za-z]\\S*)\\((.*)\\)");
-	if(rx.exactMatch(ret)) {
-		QF_ASSERT(processor, "Processor is NULL.");
-		QString fn = rx.cap(1);
-		ret = rx.cap(2);
-		QStringList sl = ret.splitAndTrim(',', '\'');
-		QVariantList vl;
-		foreach(QString s, sl) vl << s;
-		ReportProcessorScriptDriver *sd = processor()->scriptDriver();
-		if(sd) {
-			sd->setCurrentCallContextItem(this);
-			QScriptValue sv = processor()->scriptDriver()->call(this, fn, vl);
-			ret = sv.toString();
-			//qfInfo() << fn << sl.join(",") << "ret:" << ret;
-		}
-		else {
-			ret = "no script driver";
-		}
-	}
-	return ret;
-}
---*/
 bool ReportItem::isVisible()
 {
 	bool ret = processor()->isDesignMode() || m_visible;
 	return ret;
 }
-/*--
+
 ReportItemBand* ReportItem::parentBand()
 {
-	ReportItem *it = this->parent();
-	while(it) {
-		if(it->toBand()) return it->toBand();
-		it = it->parent();
-	}
-	return nullptr;
-}
---*/
-ReportItemBand* ReportItem::parentBand()
-{
-	ReportItemBand *ret = qf::core::Utils::findParent<ReportItemBand*>(this, false);
+	auto *ret = qf::core::Utils::findParent<ReportItemBand*>(this, false);
 	return ret;
 }
-/*--
-qfu::TreeTable ReportItem::findDataTable(const QString &name)
-{
-	qfLogFuncFrame();
-	qfu::TreeTable ret;
-	ReportItemDetail *d = currentDetail();
-	qfDebug() << "\tparent:" << parent() << "parent detail:" << d;
-	if(d) {
-		qfDebug() << "\tdata row is null:" << d->dataRow().isNull();
-		if(d->dataRow().isNull() && !processor()->isDesignMode()) qfWarning().nospace() << "'" << name << "' parent detail datarow is NULL";
-		ret = d->dataRow().table(name);
-		/// pokud ji nenajde a name neni specifikovano, vezmi 1. tabulku
-		if(ret.isNull() && name.isEmpty()) ret = d->dataRow().table(0);
-		//qfInfo() << "\ttable name:" << name << "is null:" << ret.isNull();
-		//qfInfo() << name << ret.element().toString();
-	}
-	return ret;
-}
---*/
+
 ReportItem::PrintResult ReportItem::checkPrintResult(ReportItem::PrintResult res)
 {
 	PrintResult ret = res;
-	//if(res.value == PrintNotFit) {
-	//qfWarning().noSpace() << "PrintNotFit element: '" << element.tagName() << "' id: '" << element.attribute("id") << "' recentlyPrintNotFit: " << recentlyPrintNotFit << " keepall: " << keepAll;
-	//}
 	if(!canBreak() && m_recentPrintNotFinished && !res.isPrintFinished()) {
 		//qfWarning().noSpace() << "PrintNeverFit element: '" << element.tagName() << "' id: '" << element.attribute("id") << "'";
 		ret = PrintResult::createPrintError();
@@ -191,7 +68,7 @@ ReportProcessor *ReportItem::processor(bool throw_exc)
 	ReportProcessor *ret = nullptr;
 	QObject *it = this;
 	while(it) {
-		ReportItemReport *rir = qobject_cast<ReportItemReport*>(it);
+		auto *rir = qobject_cast<ReportItemReport*>(it);
 		if(rir) {
 			ret = rir->reportProcessor();
 			break;
@@ -211,7 +88,7 @@ ReportItem::PrintResult ReportItem::printHtml(ReportItem::HTMLElement &out)
 	return PrintResult::createPrintFinished();
 }
 
-void ReportItem::createHtmlExportAttributes(ReportItem::HTMLElement &out)
+void ReportItem::createHtmlExportAttributes(ReportItem::HTMLElement &out) const
 {
 	QMapIterator<QString, QVariant> it(htmlExportAttributes());
 	while(it.hasNext()) {
@@ -245,7 +122,7 @@ style::Text *ReportItem::effectiveTextStyle()
 	style::Text *ret = nullptr;
 	ReportItem *it = this;
 	while(it) {
-		ReportItemFrame *frit = qobject_cast<ReportItemFrame*>(it);
+		auto *frit = qobject_cast<ReportItemFrame*>(it);
 		if(frit) {
 			ret = frit->textStyle();
 			if(ret)

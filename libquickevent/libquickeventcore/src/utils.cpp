@@ -3,8 +3,8 @@
 #include <QDateTime>
 //#include <QTimeZone>
 
-namespace quickevent {
-namespace core {
+
+namespace quickevent::core {
 
  QString Utils::dateTimeToIsoStringWithUtcOffset(QDateTime dt)
 {
@@ -17,5 +17,5 @@ namespace core {
 	return dt.toString(Qt::ISODate);
 }
 
-} // namespace core
-} // namespace quickevent
+} // namespace quickevent::core
+

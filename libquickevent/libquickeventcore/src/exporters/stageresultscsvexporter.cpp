@@ -10,9 +10,9 @@
 #include <QDir>
 #include <QTextStream>
 
-namespace quickevent {
-namespace core {
-namespace exporters {
+
+
+namespace quickevent::core::exporters {
 
 StageResultsCsvExporter::StageResultsCsvExporter(bool is_iof_race, QObject *parent)
 	: Super(parent),
@@ -70,14 +70,14 @@ void StageResultsCsvExporter::exportClasses(bool single_file)
 		csv.setCodec("UTF-8");
 #endif
 		exportCsvHeader(csv);
-		QSqlQuery q = execSql(qs);
+		auto q = execSql(qs);
 		while(q.next()) {
 			int class_id = q.value("id").toInt();
 			exportClass(class_id, csv);
 		}
 	}
 	else { // multiple files
-		QSqlQuery q = execSql(qs);
+		auto q = execSql(qs);
 		while(q.next()) {
 			int class_id = q.value("id").toInt();
 			QString class_name = q.value("name").toString();
@@ -213,4 +213,4 @@ void StageResultsCsvExporter::exportCsvHeader(QTextStream &csv)
 	csv << Qt::endl;
 }
 
-}}}
+}

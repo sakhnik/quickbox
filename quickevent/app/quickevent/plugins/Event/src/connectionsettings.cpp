@@ -7,17 +7,17 @@
 #include <QStandardPaths>
 
 namespace {
-static const auto EVENT = QStringLiteral("event");
-static const auto DATA_STORAGE = QStringLiteral("dataStorage");
-static const auto CONNECTION_TYPE = QStringLiteral("connectionType");
-static const auto SQL_SERVER = QStringLiteral("sqlServer");
-static const auto SINGLE_FILE = QStringLiteral("singleFile");
-static const auto HOST = QStringLiteral("host");
-static const auto PORT = QStringLiteral("port");
-static const auto USER = QStringLiteral("user");
-static const auto PASSWORD = QStringLiteral("password");
-static const auto WORKING_DIR = QStringLiteral("workingDir");
-static const auto EVENT_NAME = QStringLiteral("eventName");
+const auto EVENT = QStringLiteral("event");
+const auto DATA_STORAGE = QStringLiteral("dataStorage");
+const auto CONNECTION_TYPE = QStringLiteral("connectionType");
+const auto SQL_SERVER = QStringLiteral("sqlServer");
+const auto SINGLE_FILE = QStringLiteral("singleFile");
+const auto HOST = QStringLiteral("host");
+const auto PORT = QStringLiteral("port");
+const auto USER = QStringLiteral("user");
+const auto PASSWORD = QStringLiteral("password");
+const auto WORKING_DIR = QStringLiteral("workingDir");
+const auto EVENT_NAME = QStringLiteral("eventName");
 }
 
 ConnectionSettings::ConnectionSettings(QObject *parent)
@@ -66,7 +66,7 @@ void ConnectionSettings::setSingleWorkingDir(const QString &s)
 Event::EventPlugin::ConnectionType ConnectionSettings::connectionType()
 {
 	int i = value(EVENT + '/' + DATA_STORAGE + '/' + CONNECTION_TYPE).toInt();
-	Event::EventPlugin::ConnectionType t = static_cast<Event::EventPlugin::ConnectionType>(i);
+	auto t = static_cast<Event::EventPlugin::ConnectionType>(i);
 	return t;
 }
 

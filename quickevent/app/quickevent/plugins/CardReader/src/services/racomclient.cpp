@@ -31,18 +31,13 @@
 #include <QNetworkDatagram>
 #endif
 
-namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qff = qf::qmlwidgets::framework;
 //namespace qfm = qf::core::model;
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using CardReader::CardReaderPlugin;
 
-namespace CardReader {
-namespace services {
+
+namespace CardReader::services {
 
 RacomClientSirxdConnection::RacomClientSirxdConnection(QTcpSocket *socket, QObject *parent)
 	: Super(parent)
@@ -104,8 +99,8 @@ void RacomClientSirxdConnection::onReadyRead()
 			QVariantList punches;
 			for (int i = 0; i < punch_cnt; ++i) {
 				siut::SIPunch punch;
-				punch.setCode(splits.value(ColPunchCount + 1 + 3*i + 0).toInt());
-				parse_time(splits.value(ColPunchCount + 1 + 3*i + 1), secs, msecs);
+				punch.setCode(splits.value(ColPunchCount + 1 + (3*i) + 0).toInt());
+				parse_time(splits.value(ColPunchCount + 1 + (3*i) + 1), secs, msecs);
 				punch.setTime(secs);
 				punch.setMsec(msecs);
 				punches << punch;
@@ -173,15 +168,15 @@ void RacomReadSplitFile::readAndProcessFile()
 		qfWarning() << "Read split file failed to open " << m_fileName;
 
 	QList <siut::SIPunch> punches;
-	if (text.size() > 0 && m_lastRowCount < text.size()) {
+	if (!text.empty() && m_lastRowCount < text.size()) {
 		// parse punches from lines
 		for (int i = m_lastRowCount; i < text.size(); i++) {
 			if (text[i].size() < 23)	// is not valid line
 				continue;
 
 			siut::SIPunch punch;
-			punch.setCardNumber(text[i].left(8).toInt());
-			int code = text[i].mid(9,4).toInt();
+			punch.setCardNumber(QStringView(text[i]).left(8).toInt());
+			int code = QStringView(text[i]).mid(9,4).toInt();
 			if (code == m_finishCode)
 				code = quickevent::core::CodeDef::FINISH_PUNCH_CODE;
 			punch.setCode(code);
@@ -318,7 +313,7 @@ void RacomClient::init()
 			qfError() << "RacomClient: Sirxd TCP server cannot listen on port:" << ss.sirxdDataListenPort();
 		}
 		else {
-			connect(m_sirxdDataServer, &QTcpServer::newConnection, [this](){
+			connect(m_sirxdDataServer, &QTcpServer::newConnection, this, [this](){
 				QTcpSocket *sock = m_sirxdDataServer->nextPendingConnection();
 				m_racomSirxdConnection = new RacomClientSirxdConnection(sock, m_sirxdDataServer);
 			});
@@ -331,4 +326,4 @@ void RacomClient::init()
 	}
 }
 
-}}
+}

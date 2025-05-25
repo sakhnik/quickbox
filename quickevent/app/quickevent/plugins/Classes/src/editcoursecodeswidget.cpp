@@ -13,9 +13,7 @@
 #include <qf/core/assert.h>
 
 namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
 
 EditCourseCodesWidget::EditCourseCodesWidget(QWidget *parent)
@@ -117,7 +115,7 @@ void EditCourseCodesWidget::loadAllCodes()
 	while(q.next()) {
 		auto caption = QString("%1 %2").arg(q.value(QStringLiteral("code")).toInt()).arg(q.value(QStringLiteral("note")).toString());
 		int code_id = q.value(QStringLiteral("id")).toInt();
-		QStandardItem *it = new QStandardItem(caption);
+		auto *it = new QStandardItem(caption);
 		it->setData(code_id);
 		m->appendRow(it);
 	}
@@ -129,7 +127,7 @@ void EditCourseCodesWidget::addCourseCode(int code_id)
 		QStandardItem *it1 = m_allCodesModel->item(i);
 		int id = it1->data().toInt();
 		if(id == code_id) {
-			QStandardItem *it2 = new QStandardItem(it1->text());
+			auto *it2 = new QStandardItem(it1->text());
 			it2->setData(it1->data());
 			//m_allCodesModel->removeRow(i);
 			m_courseCodesModel->appendRow(it2);

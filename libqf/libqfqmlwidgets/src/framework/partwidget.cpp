@@ -82,7 +82,7 @@ qf::qmlwidgets::MenuBar *PartWidget::menuBar()
 {
 	if(!m_menuBar) {
 		m_menuBar = new MenuBar();
-		QBoxLayout *ly = qobject_cast<QBoxLayout*>(layout());
+		auto *ly = qobject_cast<QBoxLayout*>(layout());
 		QF_ASSERT_EX(ly != nullptr, "wrong layout");
 		ly->insertWidget(1, m_menuBar);
 	}
@@ -99,8 +99,8 @@ qf::qmlwidgets::ToolBar *PartWidget::toolBar(const QString &name, bool create_if
 		return nullptr;
 	}
 	if(m_toolBarsLayout == nullptr) {
-		QFrame *frm = new QFrame(this);
-		QBoxLayout *ly = qobject_cast<QBoxLayout*>(layout());
+		auto *frm = new QFrame(this);
+		auto *ly = qobject_cast<QBoxLayout*>(layout());
 		QF_ASSERT_EX(ly != nullptr, "wrong layout");
 		int ix = (m_menuBar)? 2: 1;
 		ly->insertWidget(ix, frm);

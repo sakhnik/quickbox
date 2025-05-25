@@ -10,7 +10,7 @@ class QFQmlReportPlugin : public QQmlExtensionPlugin
 	Q_PLUGIN_METADATA(IID QQmlExtensionInterface_iid)
 
 public:
-	QFQmlReportPlugin(QObject *parent = 0) : QQmlExtensionPlugin(parent) { }
+	QFQmlReportPlugin(QObject *parent = nullptr) : QQmlExtensionPlugin(parent) { }
 	void registerTypes(const char *uri) override;
 };
 

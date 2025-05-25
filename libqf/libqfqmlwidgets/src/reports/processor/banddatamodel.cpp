@@ -6,7 +6,6 @@
 
 #include <qf/core/utils/timescope.h>
 
-namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
@@ -44,7 +43,7 @@ BandDataModel* BandDataModel::createFromData(const QVariant &data, QObject *pare
 	else {
 		tt = qfu::TreeTable(data);
 	}
-	TreeTableBandDataModel *m = new TreeTableBandDataModel(parent);
+	auto *m = new TreeTableBandDataModel(parent);
 	m->setTreeTable(tt);
 	ret = m;
 	return ret;
@@ -86,7 +85,7 @@ QVariant TreeTableBandDataModel::headerData(int col_no, BandDataModel::DataRole 
 	if(role == Qt::DisplayRole) {
 		return treeTable().column(col_no).header();
 	}
-	else if(role == Qt::SizeHintRole) {
+	if(role == Qt::SizeHintRole) {
 		return treeTable().column(col_no).width();
 	}
 	return QVariant();

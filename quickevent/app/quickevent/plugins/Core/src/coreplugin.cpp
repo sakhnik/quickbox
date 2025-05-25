@@ -20,8 +20,6 @@
 
 namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfs = qf::core::sql;
 
 namespace Core {
 
@@ -39,7 +37,7 @@ SettingsDialog *CorePlugin::settingsDialog()
 	return m_settingsDialog;
 }
 
-const QString CorePlugin::SETTINGS_PREFIX_APPLICATION_LOCALE_LANGUAGE()
+QString CorePlugin::SETTINGS_PREFIX_APPLICATION_LOCALE_LANGUAGE()
 {
 	static const auto s = QStringLiteral("application/locale/language");
 	return s;
@@ -130,7 +128,7 @@ void CorePlugin::onInstalled()
 				if(a->oid() == curr_lang)
 					a->setChecked(true);
 				m2->addActionInto(a);
-				connect(a, &QAction::triggered, [a](bool checked) {
+				connect(a, &QAction::triggered, a, [a](bool checked) {
 					if(checked) {
 						QSettings settings;
 						settings.setValue(SETTINGS_PREFIX_APPLICATION_LOCALE_LANGUAGE(), a->oid());
@@ -188,7 +186,7 @@ void CorePlugin::launchSqlTool()
 
 	QStringList arguments;
 	arguments << "--one-time-connection-settings" << otcs.join('&');
-	QProcess *process = new QProcess(this);
+	auto *process = new QProcess(this);
 	process->start(program, arguments);
 }
 

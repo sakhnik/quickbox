@@ -1,13 +1,13 @@
 #include "actiongroup.h"
 
-namespace qf {
-namespace qmlwidgets {
+
+namespace qf::qmlwidgets {
 
 ActionGroup::ActionGroup(QObject *parent)
 	: Super(parent)
 {
 }
 
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets
+
 

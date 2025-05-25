@@ -19,7 +19,6 @@ namespace style {
 class QFQMLWIDGETS_DECL_EXPORT Brush : public StyleObject
 {
 	Q_OBJECT
-	Q_ENUMS(BrushStyle)
 	// there are some restrictions for assigning primitive types to default properties, see: pen.h
 	Q_CLASSINFO("DefaultProperty", "basedOn")
 	Q_PROPERTY(QVariant basedOn READ basedOn WRITE setBasedOn)
@@ -39,6 +38,7 @@ public:
 		FDiagPattern = Qt::FDiagPattern,
 		DiagCrossPattern = Qt::DiagCrossPattern
 	};
+	Q_ENUM(BrushStyle)
 	QF_PROPERTY_OBJECT_IMPL(Color*, c, C, olor)
 	QF_PROPERTY_IMPL(QVariant, b, B, asedOn)
 	QF_PROPERTY_IMPL2(BrushStyle, s, S, tyle, NoBrush)

@@ -6,8 +6,7 @@
 #include <QDate>
 #include <QRegularExpression>
 
-namespace qf {
-namespace core {
+namespace qf::core {
 
 const QString& Utils::nullValueString()
 {
@@ -153,7 +152,7 @@ QSet<QString> Utils::findCaptions(const QString &caption_format)
 {
 	QSet<QString> ret;
 	QRegularExpression rx;
-	rx.setPattern("\\{\\{([A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*)\\}\\}");
+	rx.setPattern(R"(\{\{([A-Za-z][A-Za-z0-9]*(\.[A-Za-z][A-Za-z0-9]*)*)\}\})");
 	auto match_iterator = rx.globalMatch(caption_format);
 	while (match_iterator.hasNext()) {
 		auto match = match_iterator.next();
@@ -186,15 +185,17 @@ QString Utils::removeJsonComments(const QString &json_str)
 {
 	// http://blog.ostermiller.org/find-comment
 	QString ret = json_str;
-	ret.replace(QRegularExpression("/\\*(?:.|[\\n])*?\\*/"), QString());
-	ret.replace(QRegularExpression("(?<!:)//.*[\\n]"), "\n");
+	static auto r1 = QRegularExpression(R"(/\*(?:.|[\n])*?\*/)");
+	ret.replace(r1, QString());
+	static auto r2 = QRegularExpression("(?<!:)//.*[\\n]");
+	ret.replace(r2, "\n");
 	return ret;
 }
 
 int Utils::versionStringToInt(const QString &version_string)
 {
 	int ret = 0;
-	for(QString s : version_string.split('.')) {
+	for(const auto &s : version_string.split('.')) {
 		int i = s.toInt();
 		ret = 100 * ret + i;
 	}
@@ -236,13 +237,13 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 	// handle quoting. tokens can be surrounded by double quotes
 	// "hello world". three consecutive double quotes represent
 	// the quote character itself.
-	for (int i = 0; i < command_line.size(); ++i) {
-		if (command_line.at(i) == QLatin1Char('"')) {
+	for (auto i : command_line) {
+		if (i == QLatin1Char('"')) {
 			++quoteCount;
 			if (quoteCount == 3) {
 				// third consecutive quote
 				quoteCount = 0;
-				tmp += command_line.at(i);
+				tmp += i;
 			}
 			continue;
 		}
@@ -251,13 +252,13 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 				inQuote = !inQuote;
 			quoteCount = 0;
 		}
-		if (!inQuote && command_line.at(i).isSpace()) {
+		if (!inQuote && i.isSpace()) {
 			if (!tmp.isEmpty()) {
 				args += tmp;
 				tmp.clear();
 			}
 		} else {
-			tmp += command_line.at(i);
+			tmp += i;
 		}
 	}
 	if (!tmp.isEmpty())
@@ -265,4 +266,4 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 	return args;
 }
 
-}}
+}

@@ -14,8 +14,7 @@ IDataWidget::IDataWidget(QWidget *data_widget)
 }
 
 IDataWidget::~IDataWidget()
-{
-}
+= default;
 
 void IDataWidget::loadDataValue(DataController *dc)
 {

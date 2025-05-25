@@ -44,7 +44,6 @@
 
 #include <typeinfo>
 
-namespace qfu = qf::core::utils;
 using namespace qf::qmlwidgets::reports;
 
 //====================================================
@@ -90,12 +89,12 @@ bool ReportViewWidget::showReport2(QWidget *parent
 		parent = qf::qmlwidgets::framework::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(parent);
 	dlg.setCentralWidget(w);
-	bool report_printed = false;
-	connect(w, &qf::qmlwidgets::reports::ReportViewWidget::reportPrinted, [&report_printed](int) {
-		report_printed = true;
+	auto report_printed = std::make_shared<bool>(false);
+	connect(w, &qf::qmlwidgets::reports::ReportViewWidget::reportPrinted, [report_printed](int) {
+		*report_printed = true;
 	});
 	dlg.exec();
-	return report_printed;
+	return *report_printed;
 }
 
 void ReportViewWidget::ScrollArea::wheelEvent(QWheelEvent * ev)
@@ -113,8 +112,7 @@ void ReportViewWidget::ScrollArea::wheelEvent(QWheelEvent * ev)
 			ev->accept();
 			return;
 		}
-		else {
-			QScrollBar *sb = verticalScrollBar();
+					QScrollBar *sb = verticalScrollBar();
 			if(sb) {
 				if(sb->value() == sb->minimum() && delta > 0) {
 					emit showPreviousPage();
@@ -139,7 +137,7 @@ void ReportViewWidget::ScrollArea::wheelEvent(QWheelEvent * ev)
 				ev->accept();
 				return;
 			}
-		}
+	
 	}
 	QScrollArea::wheelEvent(ev);
 }
@@ -261,7 +259,7 @@ void ReportViewWidget::PainterWidget::paintEvent(QPaintEvent *ev)
 	/// nakresli ramecek a stranku
 	//painter.setBrush(Qt::yellow);
 	QRect r1 = rect();
-	painter.fillRect(r1, QBrush(QColor("#CCFF99")));
+	painter.fillRect(r1, QBrush(QColor(0xCCFF99)));
 
 	reportViewWidget()->setupPainter(&painter);
 	ReportItemMetaPaintFrame *frm = reportViewWidget()->currentPage();
@@ -294,7 +292,7 @@ void ReportViewWidget::PainterWidget::mousePressEvent(QMouseEvent *e)
 		if(selected_item) {
 			if(e->button() == Qt::RightButton) {
 				//qfInfo() << "\t item type:" << typeid(*selected_item).name();
-				ReportItemMetaPaintText *it = dynamic_cast<ReportItemMetaPaintText*>(selected_item->firstChild());
+				auto *it = dynamic_cast<ReportItemMetaPaintText*>(selected_item->firstChild());
 				if(it) {
 					QMenu menu(this);
 					menu.setTitle(tr("Item menu"));
@@ -317,7 +315,7 @@ void ReportViewWidget::PainterWidget::mousePressEvent(QMouseEvent *e)
 					act_edit->setEnabled(true);
 					QAction *a = menu.exec(mapToGlobal(e->pos()));
 					if(a == act_edit) {
-						ItemValueEditorWidget *w = new ItemValueEditorWidget();
+						auto *w = new ItemValueEditorWidget();
 						w->setValue(it->text);
 						dialogs::Dialog dlg(this);
 						dlg.setCentralWidget(w);
@@ -485,8 +483,8 @@ void ReportViewWidget::view_zoomToFitWidth()
 	qfDebug() << QF_FUNC_NAME;
 	ReportItemMetaPaintFrame *frm = currentPage();
 	if(!frm) return;
-	ReportItemMetaPaintFrame::Rect r = frm->renderedRect;
-	double report_px = (r.width() + 2*PageBorder) * logicalDpiX() / 25.4;
+	auto r = frm->renderedRect;
+	double report_px = (r.width() + 2 * PageBorder) * logicalDpiX() / 25.4;
 	double widget_px = m_scrollArea->width();
 	//QScrollBar *sb = f_scrollArea->verticalScrollBar();
 	//if(sb) widget_px -= sb->width();
@@ -498,8 +496,8 @@ void ReportViewWidget::view_zoomToFitHeight()
 {
 	ReportItemMetaPaintFrame *frm = currentPage();
 	if(!frm) return;
-	ReportItemMetaPaintFrame::Rect r = frm->renderedRect;
-	double report_px = (r.height() + 2*PageBorder) * m_painterWidget->logicalDpiY() / 25.4;
+	auto r = frm->renderedRect;
+	double report_px = (r.height() + 2 * PageBorder) * m_painterWidget->logicalDpiY() / 25.4;
 	double widget_px = m_scrollArea->height();
 	double sc = widget_px / report_px * 0.98;
 	setScale(sc);
@@ -755,7 +753,7 @@ ReportItemMetaPaintFrame* ReportViewWidget::getPage(int n)
 	if(n < 0 || n >= document()->childrenCount())
 		return nullptr;
 	ReportItemMetaPaint *it = document()->child(n);
-	ReportItemMetaPaintFrame *frm = dynamic_cast<ReportItemMetaPaintFrame*>(it);
+	auto *frm = dynamic_cast<ReportItemMetaPaintFrame*>(it);
 	//qfDebug() << "\treturn:" << frm;
 	return frm;
 }
@@ -835,7 +833,7 @@ ReportItemMetaPaint* ReportViewWidget::selectItem_helper(ReportItemMetaPaint *it
 		/// traverse items in reverse order to select top level items in stacked layout
 		auto chlst = it->children();
 		for(int i=chlst.count()-1; i>=0; i--) {
-			ReportItemMetaPaint *it1 = static_cast<ReportItemMetaPaint*>(chlst[i]);
+			auto *it1 = static_cast<ReportItemMetaPaint*>(chlst[i]);
 			ReportItemMetaPaint *child_sel_it = selectItem_helper(it1, p);
 			if(child_sel_it) {
 				if(ret == it)
@@ -1048,9 +1046,9 @@ void ReportViewWidget::exportPdf(const QString &file_name)
 	if(fn.isEmpty())
 		QF_EXCEPTION(tr("empty file name"));
 	auto ext = QStringLiteral(".pdf");
-	if(!fn.toLower().endsWith(ext))
+	if(!fn.endsWith(ext, Qt::CaseInsensitive)) {
 		fn += ext;
-
+	}
 	QPrinter printer;
 	printer.setOutputFormat(QPrinter::PdfFormat);
 	printer.setOutputFileName(fn);
@@ -1071,7 +1069,7 @@ QString addHtmlEnvelope(const QString &html_body_content)
 	QString ret;
 	ret += "<html>" + eoln;
 	ret += "<head>" + eoln;
-	ret += "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>" + eoln;
+	ret += R"(<meta http-equiv="content-type" content="text/html; charset=utf-8"/>)" + eoln;
 	ret += "<title>Data</title>" + eoln;
 	ret += "<style type=\"text/css\">"
 			"th {background-color:khaki; font-weight:bold;}"

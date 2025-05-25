@@ -24,11 +24,11 @@ class SqlQueryBuilder;
 class SqlQuery : public QObject
 {
 	Q_OBJECT
-	Q_ENUMS(ParamType)
 	QML_ELEMENT
 
 public:
 	enum ParamType { In = QSql::In, Out = QSql::Out, InOut = QSql::InOut, Binary = QSql::Binary };
+	Q_ENUM(ParamType)
 public:
 	explicit SqlQuery(QObject *parent = nullptr);
 	~SqlQuery() Q_DECL_OVERRIDE;

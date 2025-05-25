@@ -2,9 +2,9 @@
 
 #include <qf/core/log.h>
 
-namespace qf {
-namespace qmlwidgets {
-namespace reports {
+
+
+namespace qf::qmlwidgets::reports {
 
 ReportItemBreak::ReportItemBreak(ReportItem *parent)
 	: Super(parent)
@@ -41,7 +41,7 @@ ReportItem::PrintResult ReportItemBreak::printMetaPaint(ReportItemMetaPaint *out
 	return ret;
 }
 
-} // namespace reports
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets::reports
+
+
 

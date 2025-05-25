@@ -17,7 +17,7 @@ QObject *QmlLogSingleton::singletontype_provider(QQmlEngine *engine, QJSEngine *
 	//Q_UNUSED(engine)
 	Q_UNUSED(scriptEngine)
 
-	QmlLogSingleton *s = new QmlLogSingleton(engine);
+	auto *s = new QmlLogSingleton(engine);
 	return s;
 }
 

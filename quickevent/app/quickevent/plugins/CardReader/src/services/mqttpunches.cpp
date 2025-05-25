@@ -28,17 +28,12 @@
 #include <QNetworkDatagram>
 #endif
 
-namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qff = qf::qmlwidgets::framework;
 //namespace qfm = qf::core::model;
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using CardReader::CardReaderPlugin;
 
-namespace CardReader {
-namespace services {
+
+namespace CardReader::services {
 
 void MqttPunches::run()
 {
@@ -146,4 +141,4 @@ void MqttPunches::init()
 	*/
 }
 
-}}
+}

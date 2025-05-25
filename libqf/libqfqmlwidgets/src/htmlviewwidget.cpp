@@ -1,8 +1,8 @@
 #include "htmlviewwidget.h"
 #include "ui_htmlviewwidget.h"
 
-namespace qf {
-namespace qmlwidgets {
+
+namespace qf::qmlwidgets {
 
 HtmlViewWidget::HtmlViewWidget(QWidget *parent) :
 	Super(parent),
@@ -79,5 +79,5 @@ void HtmlViewWidget::settleDownInDialog(dialogs::Dialog *dlg)
 	Super::settleDownInDialog(dlg);
 }
 
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets
+

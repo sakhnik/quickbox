@@ -2,9 +2,9 @@
 
 #include <qf/core/log.h>
 
-namespace quickevent {
-namespace core {
-namespace si {
+
+
+namespace quickevent::core::si {
 
 void SiId::registerQVariantFunctions()
 {
@@ -32,4 +32,4 @@ void SiId::registerQVariantFunctions()
 	}
 }
 
-}}}
+}

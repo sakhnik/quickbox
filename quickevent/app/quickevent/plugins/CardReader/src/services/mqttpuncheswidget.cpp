@@ -1,8 +1,8 @@
 #include "mqttpuncheswidget.h"
 #include "ui_mqttpuncheswidget.h"
 
-namespace CardReader {
-namespace services {
+
+namespace CardReader::services {
 
 MqttPunchesWidget::MqttPunchesWidget(QWidget *parent) :
 	Super(parent),
@@ -17,4 +17,4 @@ MqttPunchesWidget::~MqttPunchesWidget()
 	delete ui;
 }
 
-}}
+}

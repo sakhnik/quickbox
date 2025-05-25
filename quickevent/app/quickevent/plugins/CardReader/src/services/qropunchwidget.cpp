@@ -7,8 +7,8 @@
 #include <QDialog>
 #include <QFileDialog>
 
-namespace CardReader {
-namespace services {
+
+namespace CardReader::services {
 
 QrOPunchWidget::QrOPunchWidget(QWidget *parent)
 	: Super(parent)
@@ -49,7 +49,7 @@ bool QrOPunchWidget::acceptDialogDone(int result)
 
 QrOPunch *QrOPunchWidget::service()
 {
-	QrOPunch *svc = qobject_cast<QrOPunch*>(Event::services::Service::serviceByName(QrOPunch::serviceName()));
+	auto *svc = qobject_cast<QrOPunch*>(Event::services::Service::serviceByName(QrOPunch::serviceName()));
 	QF_ASSERT(svc, QrOPunch::serviceName() + " doesn't exist", return nullptr);
 	return svc;
 }
@@ -78,4 +78,4 @@ void QrOPunchWidget::onBtChooseLogFileClicked()
 	}
 }
 
-}}
+}

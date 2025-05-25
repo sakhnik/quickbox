@@ -20,6 +20,9 @@ SettingsDialog::SettingsDialog(QWidget *parent)
 	, ui(new Ui::SettingsDialog)
 {
 	ui->setupUi(this);
+
+	connect(ui->buttonBox, &QDialogButtonBox::rejected, this, &SettingsDialog::onButtonBoxRejected);
+
 	m_buttonGroup = new QButtonGroup(this);
 	connect(m_buttonGroup, &QButtonGroup::idToggled, this, [this](int page_index, bool checked) {
 		qfDebug() << "id toggled:" << page_index << checked;
@@ -38,7 +41,7 @@ SettingsDialog::~SettingsDialog()
 	delete ui;
 }
 
-void SettingsDialog::on_buttonBox_rejected()
+void SettingsDialog::onButtonBoxRejected()
 {
 	if(int page_index = m_buttonGroup->checkedId(); page_index >= 0) {
 		page(page_index)->save();
@@ -64,7 +67,7 @@ void SettingsDialog::addPage(SettingsPage *page)
 	// set widget minimum width to show all buttons, default behavior is to srt width of widget
 	// according to width of first button added
 #if QT_VERSION_MAJOR >= 6
-	ui->buttonsWidget->setMinimumWidth(std::max(ui->buttonsWidget->minimumWidth(), btn->sizeHint().width() + layout->contentsMargins().left() * 5));
+	ui->buttonsWidget->setMinimumWidth(std::max(ui->buttonsWidget->minimumWidth(), btn->sizeHint().width() + (layout->contentsMargins().left() * 5)));
 #else
 	ui->buttonsWidget->setMinimumWidth(std::max(ui->buttonsWidget->minimumWidth(), btn->sizeHint().width() + layout->margin() * 5));
 #endif

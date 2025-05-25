@@ -19,8 +19,7 @@ ClassDefWidget::ClassDefWidget(QWidget *parent)
 }
 
 ClassDefWidget::~ClassDefWidget()
-{
-}
+= default;
 
 bool ClassDefWidget::load(const QVariant &id, int mode)
 {

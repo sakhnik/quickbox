@@ -7,9 +7,9 @@
 
 #include <QDir>
 
-namespace quickevent {
-namespace core {
-namespace exporters {
+
+
+namespace quickevent::core::exporters {
 
 HtmlFileExporter::HtmlFileExporter(QObject *parent)
 	: Super(parent)
@@ -41,7 +41,7 @@ void HtmlFileExporter::exportClasses()
 
 	QVariantList class_links;
 	QList<int> class_ids;
-	QSqlQuery q = execSql(qs);
+	auto q = execSql(qs);
 	while(q.next()) {
 		int class_id = q.value("id").toInt();
 		class_ids << class_id;
@@ -80,4 +80,4 @@ void HtmlFileExporter::exportClasses()
 	}
 }
 
-}}}
+}

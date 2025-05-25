@@ -25,6 +25,9 @@ DrawingGanttWidget::DrawingGanttWidget(QWidget *parent) :
 	setPersistentSettingsId("DrawingToolWidget");
 	ui->setupUi(this);
 
+	connect(ui->actSave, &QAction::triggered, this, &DrawingGanttWidget::onActSaveTriggered);
+	connect(ui->actFind, &QAction::triggered, this, &DrawingGanttWidget::onActFindTriggered);
+
 	ui->actSave->setIcon(qf::qmlwidgets::Style::instance()->icon("save"));
 	ui->actFind->setIcon(qf::qmlwidgets::Style::instance()->icon("find"));
 
@@ -43,7 +46,7 @@ void DrawingGanttWidget::settleDownInDialog(qf::qmlwidgets::dialogs::Dialog *dlg
 	tb->addAction(ui->actSave);
 	m_edFind = new QLineEdit();
 	m_edFind->setMaximumWidth(QFontMetrics(font()).horizontalAdvance('X') * 8);
-	connect(m_edFind, &QLineEdit::textEdited, this, &DrawingGanttWidget::on_actFind_triggered);
+	connect(m_edFind, &QLineEdit::textEdited, this, &DrawingGanttWidget::onActFindTriggered);
 	tb->addWidget(m_edFind);
 	tb->addAction(ui->actFind);
 
@@ -93,7 +96,7 @@ void DrawingGanttWidget::load(int stage_id)
 	m_ganttScene->load(stage_id);
 }
 
-void drawing::DrawingGanttWidget::on_actSave_triggered()
+void drawing::DrawingGanttWidget::onActSaveTriggered()
 {
 	if(QMessageBox::information(this, tr("Save classes start times"),
 								tr("All the user edited classes start times will be overridden.\n"
@@ -106,7 +109,7 @@ void drawing::DrawingGanttWidget::on_actSave_triggered()
 	}
 }
 
-void DrawingGanttWidget::on_actFind_triggered()
+void DrawingGanttWidget::onActFindTriggered()
 {
 	QString txt = m_edFind->text().trimmed().toUpper();
 	for(QGraphicsItem *it : m_ganttScene->items()) {

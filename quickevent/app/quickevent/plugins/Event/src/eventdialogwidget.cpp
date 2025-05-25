@@ -89,6 +89,6 @@ QVariantMap EventDialogWidget::saveParams()
 	ret["cardChechCheckTimeSec"] = ui->ed_cardChecCheckTimeSec->value();
 	ret["oneTenthSecResults"] = ui->ed_oneTenthSecResults->currentIndex();
 	ret["iofRace"] = (int)ui->ed_iofRace->isChecked();
-	ret["iofXmlRaceNumber"] = (int)ui->ed_xmlRaceNumber->value();
+	ret["iofXmlRaceNumber"] = ui->ed_xmlRaceNumber->value();
 	return ret;
 }

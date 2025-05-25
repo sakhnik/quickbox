@@ -20,7 +20,7 @@ public:
 
 	QString reportsDirectoryFromSettings() const;
 private slots:
-	void on_btSelectCustomReportsDirectory_clicked();
+	void onSelectCustomReportsDirectoryClicked();
 private:
 	void load() override;
 	void save() override;

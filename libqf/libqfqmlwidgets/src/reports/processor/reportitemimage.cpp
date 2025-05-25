@@ -12,7 +12,6 @@
 #include <QSvgRenderer>
 #include <QBuffer>
 
-namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
 using namespace qf::qmlwidgets::reports;
 
@@ -312,7 +311,7 @@ ReportItemImage::PrintResult ReportItemImage::printMetaPaintChildren(ReportItemM
 		}
 		if(im.isNull())
 			qfWarning() << "Printing an empty image";
-		ReportItemMetaPaintImage *img = new ReportItemMetaPaintImage(out, this);
+		auto *img = new ReportItemMetaPaintImage(out, this);
 		img->setSuppressPrintOut(isSuppressPrintout());
 		//qfInfo() << "\t src:" << src;
 		//qfInfo() << "\t processor()->images().contains(" << src << "):" << processor()->images().contains(src);

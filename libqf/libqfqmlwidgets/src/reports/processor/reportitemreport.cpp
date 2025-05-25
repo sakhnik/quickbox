@@ -2,8 +2,6 @@
 
 #include <qf/core/log.h>
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 using namespace qf::qmlwidgets::reports;
 
 //==========================================================

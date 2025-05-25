@@ -9,8 +9,6 @@
 #include <qf/core/assert.h>
 #include <qf/core/string.h>
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
 
@@ -149,7 +147,7 @@ bool ReportItemBand::canBreak()
 
 ReportItemDetail *ReportItemBand::detail()
 {
-	ReportItemDetail *ret = findChild<ReportItemDetail*>(QString(), Qt::FindDirectChildrenOnly);
+	auto *ret = findChild<ReportItemDetail*>(QString(), Qt::FindDirectChildrenOnly);
 	return ret;
 }
 
@@ -158,13 +156,13 @@ void ReportItemBand::createChildItemsFromData()
 	BandDataModel *mod = model();
 	qfLogFuncFrame() << "model:" << mod;
 	if(mod) {
-		style::Brush *brush_lightgray = new style::Brush(this);
+		auto *brush_lightgray = new style::Brush(this);
 		{
-			style::Color *c = new style::Color(brush_lightgray);
+			auto *c = new style::Color(brush_lightgray);
 			c->setDefinition(QColor(Qt::lightGray));
 			brush_lightgray->setColor(c);
 		}
-		ReportItemFrame *it_header_frm = new ReportItemFrame(this);
+		auto *it_header_frm = new ReportItemFrame(this);
 		{
 			it_header_frm->setWidth("%");
 			it_header_frm->setLayout(ReportItemFrame::LayoutHorizontal);
@@ -173,23 +171,23 @@ void ReportItemBand::createChildItemsFromData()
 			//it_header_frm->setVinset(3);
 		}
 		addItem(it_header_frm);
-		style::Pen *pen_black1 = new style::Pen(this);
+		auto *pen_black1 = new style::Pen(this);
 		{
 			pen_black1->setWidth(1);
-			style::Color *c = new style::Color(pen_black1);
+			auto *c = new style::Color(pen_black1);
 			c->setDefinition(QColor(Qt::black));
 			pen_black1->setColor(c);
 		}
 		int col_cnt = mod->columnCount();
 		for(int i=0; i<col_cnt; i++) {
-			ReportItemPara *it_para = new ReportItemPara(it_header_frm);
+			auto *it_para = new ReportItemPara(it_header_frm);
 			it_para->setBorder(pen_black1);
 			it_para->setWidth(mod->headerData(i, Qt::SizeHintRole));
 			it_para->setText(mod->headerData(i).toString());
 			it_para->setHinset(1);
 			it_header_frm->addItem(it_para);
 		}
-		ReportItemDetail *it_det = new ReportItemDetail(this);
+		auto *it_det = new ReportItemDetail(this);
 		{
 			it_det->setWidth("%");
 			it_det->setLayout(ReportItemFrame::LayoutHorizontal);
@@ -197,7 +195,7 @@ void ReportItemBand::createChildItemsFromData()
 		}
 		addItem(it_det);
 		for(int i=0; i<col_cnt; i++) {
-			ReportItemPara *it_para = new ReportItemPara(it_det);
+			auto *it_para = new ReportItemPara(it_det);
 			it_para->setBorder(pen_black1);
 			it_para->setWidth(mod->headerData(i, Qt::SizeHintRole));
 			it_para->setHinset(1);

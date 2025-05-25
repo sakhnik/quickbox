@@ -15,63 +15,48 @@
 
 #include <QJsonDocument>
 
+#include <algorithm>
 #include <typeinfo>
 
 using namespace qf::qmlwidgets::reports;
 
 //=================================================
-//                              ReportItemMetaPaint
+// ReportItemMetaPaint
 //=================================================
-//const QString ReportItemMetaPaint::currentPageReportSubstitution = "@{#}";
 const QString ReportItemMetaPaint::pageCountReportSubstitution = "@{n}";
-//const QString ReportItemMetaPaint::checkOnReportSubstitution = "@{check:1}";
 const QString ReportItemMetaPaint::checkReportSubstitution = "@{check:${STATE}}";
-const QRegularExpression ReportItemMetaPaint::checkReportSubstitutionRegExp = QRegularExpression(QRegularExpression::anchoredPattern("@\\{check:(\\d)\\}"));
+const QRegularExpression ReportItemMetaPaint::checkReportSubstitutionRegExp = QRegularExpression(QRegularExpression::anchoredPattern(R"(@\{check:(\d)\})"));
 
 ReportItemMetaPaint::ReportItemMetaPaint()
 	: Super(nullptr)
 {
-	//f_layoutSettings = nullptr;
 }
 
 ReportItemMetaPaint::ReportItemMetaPaint(ReportItemMetaPaint *_parent, ReportItem *report_item)
 	: Super(_parent)
 {
-	if(!report_item)
-		QF_EXCEPTION("report_item is NULL.");
-	if(!report_item->processor())
-		QF_EXCEPTION("report_item->processor is NULL.");
-	//f_reportItem = report_item;
-	{
-		double fill_vertical_layout_ratio = report_item->childSize(ReportItem::LayoutVertical).fillLayoutRatio();
-		setFillVLayoutRatio(fill_vertical_layout_ratio);
-	}
+	Q_ASSERT(report_item);
+	Q_ASSERT(report_item->processor());
+	double fill_vertical_layout_ratio = report_item->childSize(ReportItem::LayoutVertical).fillLayoutRatio();
+	setFillVLayoutRatio(fill_vertical_layout_ratio);
 }
 
-ReportItemMetaPaint::~ ReportItemMetaPaint()
-{
-	//SAFE_DELETE(f_layoutSettings);
-}
+ReportItemMetaPaint::~ ReportItemMetaPaint() = default;
 
 ReportItemMetaPaint* ReportItemMetaPaint::child(int ix) const
 {
-	ReportItemMetaPaint *ret = dynamic_cast<ReportItemMetaPaint*>(Super::child(ix));
+	auto *ret = dynamic_cast<ReportItemMetaPaint*>(Super::child(ix));
 	if(!ret) {
 		qfWarning() << "Child at index" << ix << "is not a kind of ReportItemMetaPaint.";
 		//qfInfo() << NecroLog::stackTrace();
 	}
 	return ret;
 }
-/*
-ReportItem* ReportItemMetaPaint::reportItem()
-{
-	return f_reportItem;
-}
-*/
+
 void ReportItemMetaPaint::paint(ReportPainter *painter, unsigned mode)
 {
 	foreach(Super *_it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		it->paint(painter, mode);
 	}
 }
@@ -89,7 +74,7 @@ void ReportItemMetaPaint::setInset(qreal hinset, qreal vinset)
 void ReportItemMetaPaint::shiftChildren(const ReportItem::Point offset)
 {
 	foreach(Super *_it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		it->renderedRect.translate(offset);
 		it->shiftChildren(offset);
 	}
@@ -113,7 +98,7 @@ void ReportItemMetaPaint::expandChildFrames()
 	}
 	foreach(Super *_it, children()) {
 		/// ve smeru ortogonalnim k layoutu natahni vsechny deti
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		if(it->isExpandable()) {
 			if(renderedRect.flags & ReportItem::Rect::LayoutHorizontalFlag) {
 				it->renderedRect.setTop(renderedRect.top() + insetVertical());
@@ -194,16 +179,14 @@ void ReportItemMetaPaint::expandChildVerticalSpringFrames()
 			}
 		}
 		qreal rest_percent = 1 - sum_percent;
-		if(rest_percent < 0)
-			rest_percent = 0;
+		rest_percent = std::max<qreal>(rest_percent, 0);
 		qreal percent_0 = 0;
 		if(cnt_0_percent > 0)
 			percent_0 = rest_percent / cnt_0_percent;
 		if(spring_children_ixs.count()) {
 
 			double rest_mm = layout_size - sum_mm;
-			if(rest_mm < 0)
-				rest_mm = 0;
+			rest_mm = std::max<double>(rest_mm, 0);
 
 			double children_ly_offset = 0; //insetVertical();
 			for(int i=0; i<childrenCount(); i++) {
@@ -275,14 +258,18 @@ void ReportItemMetaPaint::alignChildren()
 				for(int i=0; i<childrenCount(); i++) {
 					ReportItemMetaPaint *it = child(i);
 					qfDebug() << "\t\t item potisknuty blok:" << it->renderedRect.toString();
-					if(i == 0) r1 = it->renderedRect;
-					else r1 = r1.united(it->renderedRect);
+					if(i == 0)
+						r1 = it->renderedRect;  // NOLINT(cppcoreguidelines-slicing)
+					else
+						r1 = r1.united(it->renderedRect);
 				}
 				qfDebug() << "\t potisknuty blok:" << r1.toString();
 				qreal al = 0, d;
 				if(layout() == qf::qmlwidgets::graphics::LayoutHorizontal) {
-					if(alignment() & Qt::AlignHCenter) al = 0.5;
-					else if(alignment() & Qt::AlignRight) al = 1;
+					if(alignment() & Qt::AlignHCenter)
+						al = 0.5;
+					else if(alignment() & Qt::AlignRight)
+						al = 1;
 					d = dirty_rect.width() - r1.width();
 					if(al > 0 && d > 0)  {
 						offset.rx() = d * al - (r1.left() - dirty_rect.left());
@@ -338,13 +325,13 @@ QString ReportItemMetaPaint::dump(int indent)
 	QString indent_str;
 	indent_str.fill(' ', indent);
 	const char *type_name = typeid(*this).name();
-	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(type_name).arg((qulonglong)this, 0, 16);
+	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(type_name).arg(reinterpret_cast<qulonglong>(this), 0, 16);
 	//QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(type_name).arg((qulonglong)this, 0, 16);
-	ReportItemMetaPaintFrame *frm = dynamic_cast<ReportItemMetaPaintFrame*>(this);
+	auto *frm = dynamic_cast<ReportItemMetaPaintFrame*>(this);
 	if(frm) ret += " : " + frm->renderedRect.toString();
 	ret += "\n";
 	foreach(Super *_it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		ret += it->dump(indent + 2);
 	}
 	return ret;
@@ -369,7 +356,11 @@ ReportItemMetaPaintReport::ReportItemMetaPaintReport(ReportItem *report_item)
 //           ReportItemMetaPaintFrame
 //=================================================
 ReportItemMetaPaintFrame::ReportItemMetaPaintFrame(ReportItemMetaPaint *_parent, ReportItem *report_item)
-	: ReportItemMetaPaint(_parent, report_item), lbrd(Qt::NoPen), rbrd(Qt::NoPen), tbrd(Qt::NoPen), bbrd(Qt::NoPen)
+	: ReportItemMetaPaint(_parent, report_item)
+	, lbrd(Qt::NoPen)
+	, rbrd(Qt::NoPen)
+	, tbrd(Qt::NoPen)
+	, bbrd(Qt::NoPen)
 {
 	//qfDebug() << QF_FUNC_NAME << reportElement.tagName();
 	QF_ASSERT_EX(report_item != nullptr, "ReportItem is NULL");
@@ -378,7 +369,7 @@ ReportItemMetaPaintFrame::ReportItemMetaPaintFrame(ReportItemMetaPaint *_parent,
 	ReportProcessor *proc = report_item->processor();
 	if(proc)
 		design_mode = proc->isDesignMode();
-	ReportItemFrame *frame_item = qobject_cast<ReportItemFrame*>(report_item);
+	auto *frame_item = qobject_cast<ReportItemFrame*>(report_item);
 	if(frame_item) {
 		{
 			style::Brush *b = frame_item->fill();
@@ -409,31 +400,6 @@ ReportItemMetaPaintFrame::ReportItemMetaPaintFrame(ReportItemMetaPaint *_parent,
 			}
 		}
 	}
-	/*--
-	QString s = report_item->property("fill").toString();
-	if(!s.isEmpty()) {
-		if(s.startsWith("{grid:")) {
-			s.replace('|', '"');
-			QJsonDocument json_doc = QJsonDocument::fromJson(s.toUtf8());
-			alternativeFillDef = json_doc.toVariant();
-		}
-		else
-			fill = context().styleCache().brush(s);
-	}
-	s = report_item->property("lbrd").toString();
-	if(!s.isEmpty())
-		lbrd = context().styleCache().pen(s);
-	s = report_item->property("rbrd").toString();
-	if(!s.isEmpty())
-		rbrd = context().styleCache().pen(s);
-	s = report_item->property("tbrd").toString();
-	if(!s.isEmpty())
-		tbrd = context().styleCache().pen(s);
-	s = report_item->property("bbrd").toString();
-	if(!s.isEmpty())
-		bbrd = context().styleCache().pen(s);
-	--*/
-	//qfDebug() << "\tRETURN";
 }
 
 void ReportItemMetaPaintFrame::paint(ReportPainter *painter, unsigned mode)
@@ -462,7 +428,7 @@ void ReportItemMetaPaintFrame::fillItem(QPainter *painter, bool selected)
 	//qfInfo() << "\t br:" << r.toString();
 	//qfDebug() << "\tbrush color:"
 	if(selected) {
-		painter->fillRect(r, QColor("#FFEEEE"));
+		painter->fillRect(r, QColor(0xFFEEEE));
 	}
 	else {
 		if(fill.style() != Qt::NoBrush)
@@ -516,26 +482,7 @@ void ReportItemMetaPaintFrame::drawLine(QPainter *painter, LinePos where, const 
 	}
 }
 //=================================================
-//                              ReportItemMetaPaintPage
-//=================================================
-/*
-ReportItemMetaPaintPage::ReportItemMetaPaintPage(ReportItemMetaPaint *parent, const QFDomElement &el, const ReportProcessor::Context &context)
-	: ReportItemMetaPaintFrame(parent, el, context)
-{
-}
-
-void ReportItemMetaPaintPage::paint(ReportPainter *painter)
-{
-	qfDebug() << QF_FUNC_NAME << reportElement.tagName();
-	qfDebug() << "\trenderedRect:" << renderedRect.toString();
-	//qfDebug() << "\tchildren cnt:" << children.count();
-	//painter->fillRect(renderedRect, context().brushFromString("color: white"));
-	ReportItemMetaPaintFrame::paint(painter);
-}
-	*/
-
-//=================================================
-//                              ReportItemMetaPaintText
+// ReportItemMetaPaintText
 //=================================================
 void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 {
@@ -545,10 +492,10 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 		return;
 
 	//bool is_yellow = false;
-	ReportPainter *rep_painter = dynamic_cast<ReportPainter*>(painter);
+	auto *rep_painter = painter;
 	if(rep_painter && rep_painter->isMarkEditableSqlText() && !sqlId.isEmpty()) {
 		/// zazlut cely parent frame, az do ktereho se muze editovatelny text roztahnout
-		ReportItemMetaPaintFrame *it = dynamic_cast<ReportItemMetaPaintFrame*>(parent());
+		auto *it = dynamic_cast<ReportItemMetaPaintFrame*>(parent());
 		if(it) {
 			Rect r = qf::qmlwidgets::graphics::mm2device(it->renderedRect, painter->device());
 			painter->fillRect(r, Qt::yellow);
@@ -568,25 +515,21 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 		//s = s.replace(currentPageReportSubstitution, QString::number(painter->currentPage + 1));
 		s = s.replace(pageCountReportSubstitution, QString::number(painter->pageCount));
 	}
-	Rect br = renderedRect;
+	Rect br = renderedRect; // NOLINT(cppcoreguidelines-slicing)
 	auto parent_item = parent();
 	if(parent_item) {
-		Rect pbr = parent_item->renderedRect;
+		Rect pbr = parent_item->renderedRect; // NOLINT(cppcoreguidelines-slicing)
 		qreal hinset = br.left() - pbr.left();
 		if(textOption.alignment() & Qt::AlignRight) {
 			br.moveLeft(br.left() + pbr.width() - br.width() - hinset - hinset);
 		}
 		else if(textOption.alignment() & Qt::AlignHCenter) {
-			br.moveLeft(br.left() + (pbr.width() - br.width()) / 2 - hinset);
+			br.moveLeft(br.left() + ((pbr.width() - br.width()) / 2) - hinset);
 		}
 	}
 	br = qf::qmlwidgets::graphics::mm2device(br, painter->device());
 	br.adjust(0, 0, 1, 1); /// nekdy se stane, kvuji nepresnostem prepocitavani jednotek, ze se to vyrendruje pri tisku jinak, nez pri kompilaci, tohle trochu pomaha:)
-	//qfWarning().noSpace() << "'" << s << "' flags: " << flags;
-	//painter->drawRect(br);
-#if 0
-	painter->drawText(br, flags, s);
-#else
+
 	/// to samy jako v #if 0, jen se to tiskne stejnym zpusobem, jako se to kompilovalo, coz muze ukazat, proc to vypada jinak, nez cekam
 	qreal leading = font_metrics.leading();
 	qreal height = 0;
@@ -599,7 +542,7 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 	textLayout.setFont(painter->font());
 	textLayout.setText(s);
 	textLayout.beginLayout();
-	while (1) {
+	while (true) {
 		QTextLine line = textLayout.createLine();
 		if(!line.isValid()) {
 			break;
@@ -613,18 +556,17 @@ void ReportItemMetaPaintText::paint(ReportPainter *painter, unsigned mode)
 	}
 	textLayout.endLayout();
 	textLayout.draw(painter, br.topLeft());
-#endif
 }
 
 QString ReportItemMetaPaintText::dump(int indent)
 {
 	QString indent_str;
 	indent_str.fill(' ', indent);
-	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg((qulonglong)this, 0, 16);
+	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg(reinterpret_cast<qulonglong>(this), 0, 16);
 	//QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg((qulonglong)this, 0, 16);
 	ret += QString(" '%1'\n").arg(text);
 	foreach(auto _it, children()) {
-		ReportItemMetaPaint *it = static_cast<ReportItemMetaPaint*>(_it);
+		auto *it = static_cast<ReportItemMetaPaint*>(_it);
 		ret += it->dump(indent + 2);
 	}
 	return ret;
@@ -663,7 +605,7 @@ void ReportItemMetaPaintCheck::paint(ReportPainter * painter, unsigned mode)
 		painter->drawRect(qf::qmlwidgets::graphics::mm2device(r, painter->device()));
 
 		if(check_on) {
-#if 0
+#ifdef CHECK_MARK_HOOK
 			/// CHECK hook
 			static QString s_check = "color: teal; style: solid; size:2";
 			painter->setPen(context().styleCache().pen(s_check));
@@ -696,7 +638,7 @@ void ReportItemMetaPaintImage::paint(ReportPainter *painter, unsigned mode)
 {
 	//qfDebug().color(QFLog::Green) << QF_FUNC_NAME << reportElement.tagName() << "mode:" << mode;
 	QF_ASSERT(painter, "painter is nullptr", return);
-	QPrinter *printer = dynamic_cast<QPrinter*>(painter->device());
+	auto *printer = dynamic_cast<QPrinter*>(painter->device());
 	//if(printer) { qfInfo() << "printer output format:" << printer->outputFormat() << "is native printer:" << (printer->outputFormat() == QPrinter::NativeFormat); }
 	if(printer && printer->outputFormat() == QPrinter::NativeFormat) {
 		if(isSuppressPrintOut()) {
@@ -750,7 +692,7 @@ QString ReportItemMetaPaintImage::dump(int indent)
 {
 	QString indent_str;
 	indent_str.fill(' ', indent);
-	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg((qulonglong)this, 0, 16);
+	QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg(reinterpret_cast<qulonglong>(this), 0, 16);
 	//QString ret = QString("%1[%2] 0x%3").arg(indent_str).arg(typeid(*this).name()).arg((qulonglong)this, 0, 16);
 	ret += QString(" '%1'\n").arg("image");
 	return ret;

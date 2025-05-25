@@ -3,8 +3,8 @@
 
 #include <qf/core/model/tablemodel.h>
 
-namespace qf {
-namespace qmlwidgets {
+
+namespace qf::qmlwidgets {
 
 ExportCsvTableViewWidget::ExportCsvTableViewWidget(QTableView *table_view, QWidget *parent)
 	: Super(table_view, parent)
@@ -54,6 +54,6 @@ void ExportCsvTableViewWidget::setExportOptions(const QVariant& opts) const
 	ui->lstCodec->setCurrentIndex(ui->lstCodec->findText(text_opts.codecName()));
 }
 
-} // namespace qmlwidgets
-} // namespace qf
+} // namespace qf::qmlwidgets
+
 

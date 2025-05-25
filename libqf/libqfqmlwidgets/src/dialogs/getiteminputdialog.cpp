@@ -15,7 +15,7 @@ GetItemInputDialog::GetItemInputDialog(QWidget *parent) :
 	m_label->setBuddy(m_comboBox);
 	m_label->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
 
-	QDialogButtonBox *button_box = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
+	auto *button_box = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, Qt::Horizontal, this);
 	QObject::connect(button_box, SIGNAL(accepted()), this, SLOT(accept()));
 	QObject::connect(button_box, SIGNAL(rejected()), this, SLOT(reject()));
 
@@ -28,8 +28,7 @@ GetItemInputDialog::GetItemInputDialog(QWidget *parent) :
 }
 
 GetItemInputDialog::~GetItemInputDialog()
-{
-}
+= default;
 
 void GetItemInputDialog::setLabelText(const QString &text)
 {

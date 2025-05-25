@@ -62,6 +62,6 @@ void SpinBox::keyPressEvent(QKeyEvent *event) {
 			Super::keyPressEvent(event);
 			return;
 	}
-	QKeyEvent *fake_event = new QKeyEvent(event->type(), event->key(), event->modifiers(), text, event->isAutoRepeat(), event->count());
+	auto *fake_event = new QKeyEvent(event->type(), event->key(), event->modifiers(), text, event->isAutoRepeat(), event->count());
 	QCoreApplication::postEvent(this, fake_event);
 }

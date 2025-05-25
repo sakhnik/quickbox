@@ -15,7 +15,7 @@ LentCardsSettingsPage::LentCardsSettingsPage(QWidget *parent)
 
 	ui->tblCardsTB->setTableView(ui->tblCards);
 	{
-		qfm::SqlTableModel *m = new qfm::SqlTableModel(this);
+		auto *m = new qfm::SqlTableModel(this);
 		m->addColumn("siId", tr("SI"));
 		m->addColumn("ignored", tr("Ignored"));
 		m->addColumn("note", tr("Note"));

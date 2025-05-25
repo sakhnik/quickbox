@@ -103,8 +103,7 @@ CLIOptions::CLIOptions(QObject *parent)
 }
 
 CLIOptions::~CLIOptions()
-{
-}
+= default;
 
 CLIOptions::Option& CLIOptions::addOption(const QString key, const CLIOptions::Option& opt)
 {
@@ -193,14 +192,13 @@ bool CLIOptions::setValue(const QString& name, const QVariant val, bool throw_ex
 		orf.setValue(val);
 		return true;
 	}
-	else {
-		QString msg = "setValue():"%val.toString()%" Key '"%name%"' not found.";
+			QString msg = "setValue():"%val.toString()%" Key '"%name%"' not found.";
 		qfWarning() << msg;
 		if(throw_exc) {
 			throw Exception(msg);
 		}
 		return false;
-	}
+
 }
 
 QString CLIOptions::takeArg()
@@ -293,7 +291,7 @@ QPair<QString, QString> CLIOptions::applicationDirAndName() const
 	static QString app_dir;
 	static QString app_name;
 	if(app_name.isEmpty()) {
-		if(m_allArgs.size()) {
+		if(!m_allArgs.empty()) {
 	#ifdef Q_OS_WIN
 			//static constexpr int MAX_PATH = 1024;
 			QString app_file_path;

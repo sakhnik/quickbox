@@ -43,6 +43,7 @@
 #include <QPainter>
 #include <QToolButton>
 #include <QTextStream>
+#include <algorithm>
 //#define QF_TIMESCOPE_ENABLED
 #include <qf/core/utils/timescope.h>
 
@@ -645,7 +646,7 @@ void TableView::setValueInSelection_helper(const QVariant &new_val)
 	}
 	else if(selected_row_indexes.count() > 1) {
 		qfc::sql::Connection conn;
-		qfc::model::SqlTableModel *sql_m = qobject_cast<qfc::model::SqlTableModel *>(tableModel());
+		auto *sql_m = qobject_cast<qfc::model::SqlTableModel *>(tableModel());
 		if(sql_m) {
 			try {
 				conn = sql_m->sqlConnection();
@@ -973,8 +974,9 @@ void TableView::exportCSV_helper(const QVariant &export_options)
 #endif
 
 		QVector<int> exported_columns;
-		for(auto v : export_opts.value("columns").toList())
+		for(const auto &v : export_opts.value("columns").toList()) {
 			exported_columns << v.toInt();
+		}
 		if(text_export_opts.isExportColumnNames()) {
 			for (int i = 0; i < exported_columns.count(); ++i) {
 				if(i > 0)
@@ -1132,8 +1134,7 @@ void TableView::rowExternallySaved(const QVariant &id, int mode)
 				ri = toTableModelRowNo(ri);
 			else
 				ri = tmd->rowCount();
-			if(ri > tmd->rowCount())
-				ri = tmd->rowCount();
+			ri = std::min(ri, tmd->rowCount());
 			qfDebug() << "\tri:" << ri;
 			if(ri < 0) {
 				qfWarning() << "Invalid row number:" << ri;
@@ -1152,7 +1153,7 @@ void TableView::rowExternallySaved(const QVariant &id, int mode)
 				tmd->qfm::TableModel::removeRowNoOverload(ri, !qf::core::Exception::Throw);
 				return;
 			}
-			else if(reloaded_row_cnt != 1) {
+			if(reloaded_row_cnt != 1) {
 				qfWarning() << "Inserted/Copied row id:" << id.toString() << "reloaded in" << reloaded_row_cnt << "instances.";
 				return;
 			}
@@ -1311,7 +1312,7 @@ void TableView::loadPersistentSettings()
 	QString path = persistentSettingsPath();
 	qfLogFuncFrame() << path;
 	if(!path.isEmpty()) {
-		HeaderView *horiz_header = qobject_cast<HeaderView*>(horizontalHeader());
+		auto *horiz_header = qobject_cast<HeaderView*>(horizontalHeader());
 		if(!horiz_header || horiz_header->count() == 0) {
 			qfDebug() << path << "Cannot load persistent settings, horizontal header does not exist or it is empty.";
 			return;

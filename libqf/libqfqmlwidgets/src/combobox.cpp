@@ -24,9 +24,7 @@ ComboBox::ComboBox(QWidget *parent)
 }
 
 ComboBox::~ComboBox()
-{
-
-}
+= default;
 
 void ComboBox::setCurrentData(const QVariant &val)
 {
@@ -52,7 +50,7 @@ void ComboBox::setItems(const QVariantList &items)
 {
 	blockSignals(true);
 	clear();
-	for(auto v : items) {
+	for(const auto &v : items) {
 		QVariantList vl = v.toList();
 		if(vl.isEmpty()) {
 			Super::addItem(v.toString());
@@ -205,43 +203,18 @@ void ForeignKeyComboBox::loadItems(bool force)
 					if(caption_format.contains(referencedCaptionFieldPlaceHolder, Qt::CaseInsensitive))
 						caption_format.replace(referencedCaptionFieldPlaceHolder, "{{" + capfldname + "}}", Qt::CaseInsensitive);
 					field_captions = qf::core::Utils::findCaptions(caption_format);
-					/*
-					QRegExp rx;
-					rx.setPattern("\\{\\{([A-Za-z][A-Za-z0-9]*(\\.[A-Za-z][A-Za-z0-9]*)*)\\}\\}");
-					rx.setPatternSyntax(QRegExp::RegExp);
-					int ix = 0;
-					while((ix = rx.indexIn(caption_format, ix)) != -1) {
-						qfDebug() << "\t caption:" << rx.cap(0) << rx.cap(1);
-						caption_fields << rx.cap(1);
-						ix += rx.matchedLength();
-					}
-					*/
 				}
 				qfDebug() << "\t capname:" << capfldname;
 				q.exec(query_str);
 				while(q.next()) {
-					QString caption = caption_format;
-					Q_FOREACH(QString fld, field_captions) {
+					QString format_str = caption_format;
+					for (const auto &fld : field_captions) {
 						qfDebug() << "\t replacing caption field:" << fld;
 						QVariant fld_val = q.value(fld);
-						caption = qf::core::Utils::replaceCaptions(caption, fld, fld_val);
+						format_str = qf::core::Utils::replaceCaptions(format_str, fld, fld_val);
 					}
 					QVariant id = q.value(fldname);
-					/*
-					QVariant decor;
-					if(!decorationField().isEmpty()) {
-						decor = q.value(decorationField());
-						QString decor_str = decor.toString();
-						if(decor_str.startsWith("#")) {
-							QColor c;
-							c.setNamedColor(decor_str);
-							decor = c;
-						}
-					}
-					*/
-					addItem(caption, id);
-					//cached_items << CachedItem(caption, id, decor);
-					//qfTrash() << "\t adding item:" << caption << id.toString() << decor.toString();
+					addItem(format_str, id);
 				}
 			}
 		}

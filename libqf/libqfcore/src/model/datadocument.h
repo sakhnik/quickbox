@@ -14,7 +14,6 @@ namespace model {
 class QFCORE_DECL_EXPORT DataDocument : public QObject
 {
 	Q_OBJECT
-	Q_ENUMS(RecordEditMode)
 	Q_PROPERTY(qf::core::model::DataDocument::RecordEditMode mode READ mode WRITE setMode NOTIFY modeChanged)
 	Q_PROPERTY(qf::core::model::TableModel* model READ model WRITE setModel NOTIFY modelChanged)
 	Q_PROPERTY(QVariant dataId READ dataId WRITE setDataId NOTIFY dataIdChanged)
@@ -24,6 +23,7 @@ public:
 	~DataDocument() Q_DECL_OVERRIDE;
 public:
 	enum RecordEditMode {ModeView, ModeEdit, ModeInsert, ModeCopy, ModeDelete};
+	Q_ENUM(RecordEditMode)
 
 	QF_PROPERTY_IMPL2(QString, i, I, dFieldName, QStringLiteral("id"))
 	QF_PROPERTY_IMPL(QVariant, d, D, ataId)

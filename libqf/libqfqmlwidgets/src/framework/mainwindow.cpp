@@ -198,7 +198,7 @@ void MainWindow::setPersistentSettingDomains(const QString &organization_domain,
 qf::qmlwidgets::MenuBar *MainWindow::menuBar()
 {
 	QMenuBar *mb = Super::menuBar();
-	MenuBar *menu_bar = qobject_cast<MenuBar*>(mb);
+	auto *menu_bar = qobject_cast<MenuBar*>(mb);
 	if(!menu_bar) {
 		QF_SAFE_DELETE(mb);
 		menu_bar = new MenuBar(this);
@@ -221,7 +221,7 @@ qf::qmlwidgets::ToolBar *MainWindow::toolBar(const QString &name, bool create_if
 qf::qmlwidgets::StatusBar *MainWindow::statusBar()
 {
 	QStatusBar *sb = Super::statusBar();
-	StatusBar *status_bar = qobject_cast<StatusBar*>(sb);
+	auto *status_bar = qobject_cast<StatusBar*>(sb);
 	if(!status_bar) {
 		QF_SAFE_DELETE(sb)
 		status_bar = new StatusBar(this);
@@ -242,7 +242,7 @@ void MainWindow::setStatusBar(qf::qmlwidgets::StatusBar *sbar)
 CentralWidget *MainWindow::centralWidget()
 {
 	QWidget *cw = Super::centralWidget();
-	CentralWidget *central_widget = qobject_cast<CentralWidget*>(cw);
+	auto *central_widget = qobject_cast<CentralWidget*>(cw);
 	if(!central_widget) {
 		QF_SAFE_DELETE(cw)
 		central_widget = new StackedCentralWidget(this);
@@ -256,16 +256,17 @@ CentralWidget *MainWindow::centralWidget()
 void MainWindow::setCentralWidget(CentralWidget *widget)
 {
 	qfLogFuncFrame() << widget;
-	widget->setParent(0);
+	widget->setParent(nullptr);
 	Super::setCentralWidget(widget);
 }
 
 void MainWindow::addDockWidget(Qt::DockWidgetArea area, QDockWidget *dockwidget)
 {
-	qf::qmlwidgets::framework::IPersistentSettings* ps = dynamic_cast<qf::qmlwidgets::framework::IPersistentSettings*>(dockwidget);
-	if(ps)
+	Q_ASSERT(dockwidget);
+	if(auto* ps = dynamic_cast<qf::qmlwidgets::framework::IPersistentSettings*>(dockwidget)) {
 		ps->loadPersistentSettingsRecursively();
-	dockwidget->setParent(0);
+	}
+	dockwidget->setParent(nullptr);
 	Super::addDockWidget(area, dockwidget);
 }
 
@@ -307,7 +308,7 @@ Plugin *MainWindow::pluginForObject(QObject *qml_object)
 	qfLogFuncFrame();
 	Plugin *ret = nullptr;
 	for(QObject *o = qml_object; o!=nullptr; o=o->parent()) {
-		PartWidget *pw = qobject_cast<PartWidget*>(o);
+		auto *pw = qobject_cast<PartWidget*>(o);
 		qfDebug() << o << "->" << pw;
 		if(pw) {
 			QString id = pw->featureId();
@@ -324,7 +325,7 @@ qf::qmlwidgets::dialogs::QmlDialog *MainWindow::createQmlDialog(QWidget *parent)
 {
 	if(parent == nullptr)
 		parent = this;
-	qf::qmlwidgets::dialogs::QmlDialog *ret = new qf::qmlwidgets::dialogs::QmlDialog(parent);
+	auto *ret = new qf::qmlwidgets::dialogs::QmlDialog(parent);
 	//Application *app = Application::instance();
 	//QQmlEngine *qe = app->qmlEngine();
 	//qe->setObjectOwnership(ret, QQmlEngine::JavaScriptOwnership);

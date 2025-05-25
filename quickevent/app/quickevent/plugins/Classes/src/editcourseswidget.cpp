@@ -11,7 +11,6 @@
 
 namespace qfc = qf::core;
 namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
 
@@ -26,12 +25,12 @@ EditCoursesWidget::EditCoursesWidget(QWidget *parent)
 		ui->tblCourses->setDirtyRowsMenuSectionEnabled(false);
 		ui->tblCoursesTB->setTableView(ui->tblCourses);
 		ui->tblCourses->setRowEditorMode(qfw::TableView::RowEditorMode::EditRowsInline);
-		connect(ui->tblCourses, &qfw::TableView::editCellRequest, [this](const QModelIndex &ix) {
+		connect(ui->tblCourses, &qfw::TableView::editCellRequest, this, [this](const QModelIndex &ix) {
 			if(ix.column() == this->m_coursesModel->columnIndex("code_list")) {
 				editCourseCodes(ix);
 			}
 		});
-		qfm::SqlTableModel *m = new qfm::SqlTableModel(this);
+		auto *m = new qfm::SqlTableModel(this);
 		m->addColumn("id").setReadOnly(true);
 		m->addColumn("courses.name", tr("Name"));
 		m->addColumn("courses.length", tr("Length"));

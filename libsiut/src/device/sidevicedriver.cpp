@@ -30,8 +30,7 @@ DeviceDriver::DeviceDriver(QObject *parent)
 }
 
 DeviceDriver::~DeviceDriver()
-{
-}
+= default;
 
 namespace {
 /*
@@ -107,10 +106,10 @@ void DeviceDriver::processSIMessageData(const SIMessageData &data)
 
 namespace
 {
-static const char STX = 0x02;
-static const char ETX = 0x03;
-static const char ACK = 0x06;
-static const char NAK = 0x15;
+const char STX = 0x02;
+const char ETX = 0x03;
+const char ACK = 0x06;
+const char NAK = 0x15;
 //static const char DLE = 0x10;
 }
 
@@ -123,11 +122,11 @@ void DeviceDriver::processData(const QByteArray &data)
 		if(stx_pos > 0)
 			qfWarning() << tr("Garbage received, stripping %1 characters from beginning of buffer").arg(stx_pos);
 		// remove multiple STX, this can happen
-		while(stx_pos < f_rxData.size()-1 && f_rxData[stx_pos+1] == STX)
+		while(stx_pos < f_rxData.size()-1 && f_rxData[stx_pos+1] == STX) {
 			stx_pos++;
+		}
 		if(stx_pos > 0) {
 			f_rxData = f_rxData.mid(stx_pos);
-			stx_pos = 0;
 		}
 		// STX,CMD,LEN, data, CRC1,CRC0,ETX/NAK
 		if(f_rxData.size() < 3) // STX,CMD,LEN
@@ -136,13 +135,13 @@ void DeviceDriver::processData(const QByteArray &data)
 		len += 3 + 3;
 		if(f_rxData.size() < len)
 			return;
-		uint8_t etx = (uint8_t)f_rxData[len-1];
+		auto etx = (uint8_t)f_rxData[len-1];
 		if(etx == NAK) {
 			emitDriverInfo(NecroLog::Level::Error, tr("NAK received"));
 		}
 		else if(etx == ETX) {
 			QByteArray data = f_rxData.mid(0, len);
-			uint8_t cmd = (uint8_t)data[1];
+			auto cmd = (uint8_t)data[1];
 			if(cmd < 0x80) {
 				emitDriverInfo(NecroLog::Level::Error, tr("Legacy protocol is not supported, switch station to extended one."));
 			}
@@ -179,7 +178,7 @@ void DeviceDriver::sendCommand(int cmd, const QByteArray& data)
 
 		ba += data;
 
-		int crc_sum = crc(len + 2, (unsigned char*)ba.constData() + 1);
+		int crc_sum = crc(len + 2, reinterpret_cast<const unsigned char*>(ba.constData()) + 1);
 		set_byte_at(ba, ba.length(), (crc_sum >> 8) & 0xFF);
 		set_byte_at(ba, ba.length(), crc_sum & 0xFF);
 		set_byte_at(ba, ba.length(), ETX);

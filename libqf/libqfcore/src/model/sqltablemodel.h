@@ -62,7 +62,7 @@ public:
 	}
 	Q_SIGNAL void connectionNameChanged(QString arg);
 
-	qf::core::sql::Connection sqlConnection();
+	qf::core::sql::Connection sqlConnection() const;
 	QString query() const { return m_query; }
 	void setQuery(const QString &query_str);
 	Q_SIGNAL void queryChanged(const QString &query_str);
@@ -80,7 +80,7 @@ protected:
 
 	virtual bool reloadTable(const QString &query_str);
 	QStringList tableIds(const utils::Table::FieldList &table_fields);
-	void setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str);
+	void setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str) const;
 
 	QSet<QString> referencedForeignTables();
 	QStringList tableIdsSortedAccordingToForeignKeys();

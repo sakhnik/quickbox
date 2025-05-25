@@ -15,8 +15,7 @@ DialogWidget::DialogWidget(QWidget *parent) :
 }
 
 DialogWidget::~DialogWidget()
-{
-}
+= default;
 
 bool DialogWidget::acceptDialogDone(int result)
 {
@@ -32,8 +31,8 @@ QVariant DialogWidget::acceptDialogDone_qml(const QVariant &result)
 */
 void DialogWidget::settleDownInDialog_qml(const QVariant &dlg)
 {
-	QObject *o = dlg.value<QObject*>();
-	qf::qmlwidgets::dialogs::Dialog *pdlg = qobject_cast<qf::qmlwidgets::dialogs::Dialog *>(o);
+	auto *o = dlg.value<QObject*>();
+	auto *pdlg = qobject_cast<qf::qmlwidgets::dialogs::Dialog *>(o);
 	QF_ASSERT(pdlg != nullptr, "Invalid dialog", return);
 	settleDownInDialog(pdlg);
 }

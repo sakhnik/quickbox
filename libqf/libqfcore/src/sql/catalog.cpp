@@ -12,7 +12,9 @@
 #include <QTextStream>
 #include <QIODevice>
 
-#define QFCATALOG_MYSQL_VERSION_MAJOR 5
+enum {
+QFCATALOG_MYSQL_VERSION_MAJOR = 5
+};
 
 using namespace qf::core::sql;
 

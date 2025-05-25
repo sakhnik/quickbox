@@ -2,8 +2,7 @@
 
 #include <QDateTime>
 
-namespace qf {
-namespace core {
+namespace qf::core {
 
 //=========================================================
 // LogEntryMap
@@ -114,15 +113,14 @@ LogEntryMap &LogEntryMap::setTimeStamp(const QDateTime &ts)
 QString LogEntryMap::toString() const
 {
 	QString ret = "{";
-	ret += "\"level\":" + QString::number((int)level()) + ", ";
-	ret += "\"category\":\"" + category() + "\", ";
-	ret += "\"message\":\"" + message() + "\", ";
-	ret += "\"file\":\"" + file() + "\", ";
-	ret += "\"line\":" + QString::number(line()) + ", ";
-	ret += "\"time\":\"" + timeStamp().toString(Qt::ISODate) + "\", ";
-	ret += "\"function\":\"" + function() + "\"}";
+	ret += R"("level":)" + QString::number((int)level()) + ", ";
+	ret += R"("category":")" + category() + "\", ";
+	ret += R"("message":")" + message() + "\", ";
+	ret += R"("file":")" + file() + "\", ";
+	ret += R"("line":)" + QString::number(line()) + ", ";
+	ret += R"("time":")" + timeStamp().toString(Qt::ISODate) + "\", ";
+	ret += R"("function":")" + function() + "\"}";
 	return ret;
 }
 
-} // namespace core
-} // namespace qf
+}

@@ -87,7 +87,7 @@ public:
 		QF_ASSERT(cbx != nullptr, "Bad combo!", return);
 		qfDebug() << "setting model data:" << cbx->currentText() << cbx->currentData();
 		model->setData(index, cbx->currentData(), Qt::EditRole);
-		emit const_cast<CourseItemDelegate*>(this)->courseIdChanged();
+		emit const_cast<CourseItemDelegate*>(this)->courseIdChanged(); // NOLINT(cppcoreguidelines-pro-type-const-cast)
 	}
 
 	QString displayText(const QVariant &value, const QLocale &locale) const Q_DECL_OVERRIDE
@@ -175,7 +175,7 @@ ClassesWidget::ClassesWidget(QWidget *parent) :
 		ui->tblClasses->setDirtyRowsMenuSectionEnabled(false);
 
 		ui->tblClassesTB->setTableView(ui->tblClasses);
-		qfm::SqlTableModel *m = new qfm::SqlTableModel(this);
+		auto *m = new qfm::SqlTableModel(this);
 		//m->setObjectName("classes.classesModel");
 		m->addColumn("id").setReadOnly(true);
 		m->addColumn("classes.name", tr("Class"));
@@ -239,17 +239,17 @@ void ClassesWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	qfw::Action *a_edit = part_widget->menuBar()->actionForPath("edit", true);
 	a_edit->setText(tr("&Edit"));
 	{
-		qfw::Action *a = new qfw::Action(tr("Cou&rses"), this);
+		auto *a = new qfw::Action(tr("Cou&rses"), this);
 		connect(a, &QAction::triggered, this, &ClassesWidget::edit_courses);
 		a_edit->addActionInto(a);
 	}
 	{
-		qfw::Action *a = new qfw::Action(tr("Co&des"), this);
+		auto *a = new qfw::Action(tr("Co&des"), this);
 		connect(a, &QAction::triggered, this, &ClassesWidget::edit_codes);
 		a_edit->addActionInto(a);
 	}
 	{
-		qfw::Action *a = new qfw::Action(tr("Classes &layout"));
+		auto *a = new qfw::Action(tr("Classes &layout"));
 		a->setShortcut(tr("Ctrl+L"));
 		connect(a, &QAction::triggered, this, &ClassesWidget::edit_classes_layout);
 		a_edit->addActionInto(a);
@@ -258,22 +258,22 @@ void ClassesWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	qfw::Action *a_import = part_widget->menuBar()->actionForPath("import", true);
 	a_import->setText(tr("&Import"));
 	{
-		qfw::Action *a = new qfw::Action(tr("OCAD TXT"), this);
+		auto *a = new qfw::Action(tr("OCAD TXT"), this);
 		connect(a, &QAction::triggered, this, &ClassesWidget::import_ocad_txt);
 		a_import->addActionInto(a);
 	}
 	{
-		qfw::Action *a = new qfw::Action(tr("OCAD v8"), this);
+		auto *a = new qfw::Action(tr("OCAD v8"), this);
 		connect(a, &QAction::triggered, this, &ClassesWidget::import_ocad_v8);
 		a_import->addActionInto(a);
 	}
 	{
-		qfw::Action *a = new qfw::Action(tr("OCAD IOF XML 2.0"), this);
+		auto *a = new qfw::Action(tr("OCAD IOF XML 2.0"), this);
 		connect(a, &QAction::triggered, this, &ClassesWidget::import_ocad_iofxml_2);
 		a_import->addActionInto(a);
 	}
 	{
-		qfw::Action *a = new qfw::Action(tr("OCAD IOF XML 3.0"), this);
+		auto *a = new qfw::Action(tr("OCAD IOF XML 3.0"), this);
 		connect(a, &QAction::triggered, this, &ClassesWidget::import_ocad_iofxml_3);
 		a_import->addActionInto(a);
 	}
@@ -281,7 +281,7 @@ void ClassesWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	qfw::ToolBar *main_tb = part_widget->toolBar("main", true);
 	//main_tb->addAction(m_actCommOpen);
 	{
-		QLabel *lbl = new QLabel(tr("Stage "));
+		auto *lbl = new QLabel(tr("Stage "));
 		main_tb->addWidget(lbl);
 	}
 	{
@@ -469,7 +469,7 @@ void ClassesWidget::import_ocad_txt()
 		try {
 			QMap<QString, ImportCourseDef> defined_courses_map;
 			enum {ColCourseName = 0, ColLenght, ColClimb, ColCodesCount, ColCodes};
-			for(QString line : lines) {
+			for(const auto &line : lines) {
 				// coursename lenght_km climb codes_count S1-code_1[-code_n]-F1
 				if(line.isEmpty())
 					continue;
@@ -539,7 +539,7 @@ void ClassesWidget::import_ocad_v8()
 		try {
 			bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
 			QMap<QString, ImportCourseDef> defined_courses_map;
-			for(QString line : lines) {
+			for(const auto &line : lines) {
 				// [classname];coursename;[relay.leg];lenght_km;climb;S1;dist_1;code_1[;dist_n;code_n];dist_finish;F1
 				if(line.isEmpty())
 					continue;

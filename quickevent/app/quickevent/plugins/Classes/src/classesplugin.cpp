@@ -22,7 +22,6 @@
 
 #include <QQmlEngine>
 
-namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 //namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfs = qf::core::sql;
@@ -68,7 +67,7 @@ void ClassesPlugin::onInstalled()
 
 QObject *ClassesPlugin::createClassDocument(QObject *parent)
 {
-	ClassDocument *ret = new ClassDocument(parent);
+	auto *ret = new ClassDocument(parent);
 	return ret;
 }
 
@@ -129,11 +128,11 @@ void ClassesPlugin::createCourses(int stage_id, const QList<ImportCourseDef> &co
 			if(q.next() && q.value(0).toInt() == 0) {
 				QSet<QString> class_names;
 				for(const ImportCourseDef &cd : courses) {
-					for(auto class_name : cd.classes())
+					for(const auto &class_name : cd.classes())
 						class_names << class_name;
 				}
 				ClassDocument doc;
-				for(auto class_name : class_names) {
+				for(const auto &class_name : class_names) {
 					qfInfo() << "inserting class" << class_name;
 					doc.loadForInsert();
 					doc.setValue("name", class_name);
@@ -164,7 +163,7 @@ void ClassesPlugin::createCourses(int stage_id, const QList<ImportCourseDef> &co
 			if(!is_relays) {
 				QString qs = "UPDATE classdefs SET courseId=:courseId WHERE classId=:classId AND stageId=:stageId";
 				q.prepare(qs, qf::core::Exception::Throw);
-				for(auto class_name : cd.classes()) {
+				for(const auto &class_name : cd.classes()) {
 					int class_id = class_ids.value(class_name);
 					if(class_id > 0) {
 						qfInfo() << "\t" << "updating classdefs for" << class_name << "stage:" << stage_id;
@@ -179,7 +178,7 @@ void ClassesPlugin::createCourses(int stage_id, const QList<ImportCourseDef> &co
 				}
 			}
 			course_ids[cd.name()] = course_id;
-			for(auto v : cd.codes()) {
+			for(const auto &v : cd.codes()) {
 				auto code = v.toInt();
 				if(code <= 0)
 					QF_EXCEPTION("Invalid code: " + v.toString());

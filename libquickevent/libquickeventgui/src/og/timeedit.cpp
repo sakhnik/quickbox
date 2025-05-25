@@ -4,9 +4,9 @@
 
 #include <qf/core/log.h>
 
-namespace quickevent {
-namespace gui {
-namespace og {
+
+
+namespace quickevent::gui::og {
 
 TimeEdit::TimeEdit(QWidget *parent)
 	: Super(parent)
@@ -15,9 +15,7 @@ TimeEdit::TimeEdit(QWidget *parent)
 }
 
 TimeEdit::~TimeEdit()
-{
-
-}
+= default;
 
 core::og::TimeMs TimeEdit::timeMs() const
 {
@@ -35,4 +33,4 @@ void TimeEdit::setTimeMs(const core::og::TimeMs &t)
 	}
 }
 
-}}}
+}

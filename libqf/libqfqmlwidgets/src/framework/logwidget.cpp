@@ -20,9 +20,9 @@
 
 namespace qfm = qf::core::model;
 
-namespace qf {
-namespace qmlwidgets {
-namespace framework {
+
+
+namespace qf::qmlwidgets::framework {
 
 LogWidgetTableView::LogWidgetTableView(QWidget *parent)
 	: Super(parent)
@@ -98,7 +98,7 @@ LogWidget::LogWidget(QWidget *parent)
 	ui->btCopyToClipboard->setDefaultAction(ui->tableView->copySelectionToClipboardAction());
 
 	{
-		QAction *a = new QAction(tr("Maximal log length"), this);
+		auto *a = new QAction(tr("Maximal log length"), this);
 		connect(a, &QAction::triggered, this, [this]() {
 			qf::core::model::LogTableModel *m = this->logTableModel();
 			int max_rows = m->maximumRowCount();
@@ -110,7 +110,7 @@ LogWidget::LogWidget(QWidget *parent)
 		tableMenuButton()->addAction(a);
 	}
 	{
-		QAction *a = new QAction(this);
+		auto *a = new QAction(this);
 		a->setSeparator(true);
 		tableMenuButton()->addAction(a);
 	}
@@ -227,10 +227,9 @@ bool LogWidget::isAutoScroll()
 			//fprintf(stderr, "BOTTOM scrollbar min: %d max: %d value: %d\n", sb->minimum(), sb->maximum(), sb->value());
 			return (sb->value() == sb->maximum());
 		}
-		else {
-			//fprintf(stderr, "TOP scrollbar min: %d max: %d value: %d\n", sb->minimum(), sb->maximum(), sb->value());
+					//fprintf(stderr, "TOP scrollbar min: %d max: %d value: %d\n", sb->minimum(), sb->maximum(), sb->value());
 			return (sb->value() == sb->minimum());
-		}
+	
 	}
 	return false;
 }
@@ -255,18 +254,18 @@ void LogWidget::clearCategoryActions()
 void LogWidget::addCategoryActions(const QString &caption, const QString &id, NecroLog::Level level)
 {
 	QString menu_caption = "[%1] " + caption;
-	QMenu *m = new QMenu(this);
+	auto *m = new QMenu(this);
 	m_loggingCategoriesMenus << m;
-	QAction *a = new QAction(caption, m);
+	auto *a = new QAction(caption, m);
 	a->setData(id);
 	a->setMenu(m);
 	tableMenuButton()->addAction(a);
-	QActionGroup *ag_loglevel = new QActionGroup(a);
+	auto *ag_loglevel = new QActionGroup(a);
 	for (int i = static_cast<int>(NecroLog::Level::Invalid); i <= static_cast<int>(NecroLog::Level::Debug); i++) {
 		if(i == static_cast<int>(NecroLog::Level::Fatal))
 			continue;
 		QString cap = NecroLog::levelToString(static_cast<NecroLog::Level>(i));
-		QAction *a2 = new QAction(cap, a);
+		auto *a2 = new QAction(cap, a);
 		ag_loglevel->addAction(a2);
 		m->addAction(a2);
 		a2->setCheckable(true);
@@ -309,7 +308,7 @@ QMap<QString, NecroLog::Level> LogWidget::selectedLogCategories() const
 	QMap<QString, NecroLog::Level> categories;
 	for(QAction *a : m_logLevelActions) {
 		if(a->isChecked()) {
-			QAction *pa = qobject_cast<QAction*>(a->parent());
+			auto *pa = qobject_cast<QAction*>(a->parent());
 			QF_ASSERT(pa != nullptr, "Bad parent", continue);
 			NecroLog::Level level = static_cast<NecroLog::Level>(a->data().toInt());
 			QChar level_c = (level == NecroLog::Level::Invalid)? ' ': NecroLog::levelToString(level)[0];
@@ -366,6 +365,6 @@ void LogWidget::checkScrollToLastEntry()
 	}
 }
 
-} // namespace framework
-} // namespace qmlwiggets
-} // namespace qf
+} // namespace qf::qmlwidgets::framework
+// namespace qmlwiggets
+

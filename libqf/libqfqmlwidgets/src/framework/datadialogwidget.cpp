@@ -10,13 +10,9 @@ using namespace qf::qmlwidgets::framework;
 DataDialogWidget::DataDialogWidget(QWidget *parent)
 	: Super(parent)
 {
-
 }
 
-DataDialogWidget::~DataDialogWidget()
-{
-
-}
+DataDialogWidget::~DataDialogWidget() = default;
 
 qf::qmlwidgets::DataController *DataDialogWidget::dataController()
 {

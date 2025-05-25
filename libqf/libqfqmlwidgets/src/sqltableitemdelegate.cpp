@@ -28,7 +28,7 @@ QString SqlTableItemDelegate::displayText(const QVariant &value, const QLocale &
 QWidget *SqlTableItemDelegate::createEditor(QWidget *parent, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
 	QVariant v = index.data(qf::core::model::TableModel::ColumnDefinitionRole);
-	qf::core::model::TableModel::ColumnDefinition cd = v.value<qf::core::model::TableModel::ColumnDefinition>();
+	auto cd = v.value<qf::core::model::TableModel::ColumnDefinition>();
 	if(cd.castType() == qMetaTypeId<qf::core::sql::DbEnum>()) {
 		auto *editor = new QComboBox(parent);
 		auto m = qobject_cast<const qf::core::model::SqlTableModel*>(view()->tableModel());
@@ -48,15 +48,14 @@ QWidget *SqlTableItemDelegate::createEditor(QWidget *parent, const QStyleOptionV
 		//connect(editor, SIGNAL(activated(int)), this, SLOT(commitAndCloseEditor()));
 		return editor;
 	}
-	else {
-		return Super::createEditor(parent, option, index);
-	}
+			return Super::createEditor(parent, option, index);
+
 }
 
 void SqlTableItemDelegate::setEditorData(QWidget *editor, const QModelIndex &index) const
 {
 	QVariant v = index.data(qf::core::model::TableModel::ColumnDefinitionRole);
-	qf::core::model::TableModel::ColumnDefinition cd = v.value<qf::core::model::TableModel::ColumnDefinition>();
+	auto cd = v.value<qf::core::model::TableModel::ColumnDefinition>();
 	if(cd.castType() == qMetaTypeId<qf::core::sql::DbEnum>()) {
 		auto cbx = qobject_cast<QComboBox*>(editor);
 		if(cbx) {
@@ -74,7 +73,7 @@ void SqlTableItemDelegate::setEditorData(QWidget *editor, const QModelIndex &ind
 void SqlTableItemDelegate::setModelData(QWidget *editor, QAbstractItemModel *model, const QModelIndex &index) const
 {
 	QVariant v = index.data(qf::core::model::TableModel::ColumnDefinitionRole);
-	qf::core::model::TableModel::ColumnDefinition cd = v.value<qf::core::model::TableModel::ColumnDefinition>();
+	auto cd = v.value<qf::core::model::TableModel::ColumnDefinition>();
 	if(cd.castType() == qMetaTypeId<qf::core::sql::DbEnum>()) {
 		auto cbx = qobject_cast<QComboBox*>(editor);
 		if(cbx) {

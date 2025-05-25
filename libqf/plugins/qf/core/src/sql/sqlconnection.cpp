@@ -171,7 +171,7 @@ bool SqlConnection::rollback()
 
 SqlQuery *SqlConnection::createQuery()
 {
-	SqlQuery *ret = new SqlQuery();
+	auto *ret = new SqlQuery();
 	ret->setDatabase(nativeSqlConnection());
 	return ret;
 }

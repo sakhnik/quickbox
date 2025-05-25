@@ -35,9 +35,7 @@ AppStatusBar::AppStatusBar(QWidget *parent)
 }
 
 AppStatusBar::~AppStatusBar()
-{
-
-}
+= default;
 
 void AppStatusBar::setEventName(const QString &event_name)
 {

@@ -20,7 +20,6 @@ class QFQMLWIDGETS_DECL_EXPORT Frame : public QFrame
 	Q_PROPERTY(QQmlListProperty<QWidget> widgets READ widgets)
 	Q_CLASSINFO("DefaultProperty", "widgets")
 	Q_PROPERTY(LayoutType layoutType READ layoutType WRITE setLayoutType NOTIFY layoutTypeChanged)
-	Q_ENUMS(LayoutType)
 	Q_PROPERTY(qf::qmlwidgets::LayoutTypeProperties* layoutProperties READ layoutTypeProperties WRITE setLayoutTypeProperties)
 	/// attachedObjects is a workaround for https://github.com/fvacek/quickbox/issues/2
 	Q_PROPERTY(QQmlListProperty<QObject> attachedObjects READ attachedObjects)
@@ -29,6 +28,7 @@ private:
 	typedef QFrame Super;
 public:
 	enum LayoutType {LayoutInvalid, LayoutHorizontal, LayoutVertical, LayoutGrid, LayoutForm};
+	Q_ENUM(LayoutType)
 public:
 	explicit Frame(QWidget *parent = nullptr);
 	~Frame() Q_DECL_OVERRIDE;

@@ -6,9 +6,9 @@
 
 #include <QJsonDocument>
 
-namespace quickevent {
-namespace core {
-namespace si {
+
+
+namespace quickevent::core::si {
 
 PunchRecord::PunchRecord(const qf::core::sql::Query &q)
 	: Super(q.values())
@@ -21,4 +21,4 @@ QString PunchRecord::toString() const
 	return QString::fromUtf8(jsd.toJson(QJsonDocument::Compact));
 }
 
-}}}
+}

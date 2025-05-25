@@ -8,6 +8,7 @@
 #include <QColor>
 #include <QPixmap>
 #include <QIcon>
+#include <algorithm>
 
 namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
@@ -28,11 +29,13 @@ bool TableModel::ColumnDefinition::matchesSqlId(const QString column_name) const
 }
 
 //=========================================
-//        TableModel
+// TableModel
 //=========================================
-QString TableModel::m_defaultTimeFormat = QStringLiteral("hh:mm:ss");
-QString TableModel::m_defaultDateFormat = QStringLiteral("yyyy-MM-dd");
-QString TableModel::m_defaultDateTimeFormat = QStringLiteral("yyyy-MM-ddThh:mm:ss");
+namespace {
+const auto DEFAULT_TIME_FORMAT = QStringLiteral("hh:mm:ss");
+const auto DEFAULT_DATE_FORMAT = QStringLiteral("yyyy-MM-dd");
+const auto DEFAULT_DATETIME_FORMAT = QStringLiteral("yyyy-MM-ddThh:mm:ss");
+}
 
 TableModel::TableModel(QObject *parent)
 	: Super(parent)
@@ -152,14 +155,14 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 		QString format = cd.format();
 		if(format.isEmpty()) {
 			if(type == QMetaType::QDate) {
-				format = m_defaultDateFormat;
+				format = DEFAULT_DATE_FORMAT;
 			}
 			else if(type == QMetaType::QTime) {
-				format = m_defaultTimeFormat;
+				format = DEFAULT_TIME_FORMAT;
 				//qfInfo() << "format" << format;
 			}
 			else if(type == QMetaType::QDateTime) {
-				format = m_defaultDateTimeFormat;
+				format = DEFAULT_DATETIME_FORMAT;
 				//qfInfo() << "format" << format;
 			}
 		}
@@ -786,8 +789,7 @@ bool TableModel::insertRows(int row_ix, int count, const QModelIndex &parent)
 	qfLogFuncFrame() << "row:" << row_ix << "count:" << count;
 	if(count < 0)
 		return false;
-	if(row_ix < 0)
-		row_ix = 0;
+	row_ix = std::max(row_ix, 0);
 	beginInsertRows(parent, row_ix, row_ix + count - 1);
 	bool ok = true;
 	for(int i=0; i<count; i++) {
@@ -882,7 +884,7 @@ qfu::TreeTable TableModel::toTreeTable(const QString& table_name, const QVariant
 			}
 			cd.setName(headerData(ix, Qt::Horizontal, FieldNameRole).toString());
 			if(t > 0)
-				cd.setType((int)t);
+				cd.setType(t);
 			cd.setHeader(cap);
 			//ret.appendColumn(headerData(ix, Qt::Horizontal, FieldNameRole).toString(), t, cap);
 		}

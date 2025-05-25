@@ -32,13 +32,13 @@ protected:
 public:
 	void loadColumns(qf::core::model::TableModel *model);
 protected slots:
-	void on_btColumnsAll_clicked();
-	void on_btColumnsNone_clicked();
-	void on_btColumnsInvert_clicked();
-	void on_btColumnsAppendSelected_clicked();
-	void on_btColumnsRemoveSelected_clicked();
-	void on_btColumnShiftUp_clicked();
-	void on_btColumnShiftDown_clicked();
+	void onColumnsAllClicked();
+	void onColumnsNoneClicked();
+	void onColumnsInvertClicked();
+	void onColumnsAppendSelectedClicked();
+	void onColumnsRemoveSelectedClicked();
+	void onColumnShiftUpClicked();
+	void onColumnShiftDownClicked();
 public:
 	/// [{caption:"",origin:("table" | "model"),index:(col_ix | fld_ix)}, ...]
 	QVariantList exportedColumns() const;

@@ -5,8 +5,7 @@
 namespace siut {
 
 SIPunch::SIPunch()
-{
-}
+= default;
 
 SIPunch::SIPunch(int code, int time)
 {
@@ -28,7 +27,7 @@ SIPunch::SIPunch(const QByteArray &card_data, int ix)
 	punching time PTH, PTL - 12h binary
 	*/
 	setTime((uint16_t)getUnsigned(card_data, ix + 2, 2));
-	uint8_t pdt = (uint8_t)card_data[ix];
+	auto pdt = (uint8_t)card_data[ix];
 	uint16_t code_complete = ((pdt & 0x60) >> 6) << 8;
 	code_complete += (uint8_t)card_data[ix + 1];
 	setCode(code_complete);

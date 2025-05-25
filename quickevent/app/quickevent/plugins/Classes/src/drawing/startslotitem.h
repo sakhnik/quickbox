@@ -42,7 +42,7 @@ public:
 	ClassItem* takeClassItemAt(int ix);
 
 	void setStartOffset(int start_offset);
-	int startOffset();
+	int startOffset() const;
 
 	//void setLocked(bool b);
 	//bool isLocked() const;

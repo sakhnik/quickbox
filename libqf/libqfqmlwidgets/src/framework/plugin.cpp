@@ -9,6 +9,7 @@
 #include <QFile>
 #include <QDirIterator>
 #include <QCoreApplication>
+#include <algorithm>
 
 using namespace qf::qmlwidgets::framework;
 

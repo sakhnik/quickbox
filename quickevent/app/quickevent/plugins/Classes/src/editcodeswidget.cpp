@@ -3,9 +3,6 @@
 
 #include <qf/core/model/sqltablemodel.h>
 
-namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
 
@@ -21,7 +18,7 @@ EditCodesWidget::EditCodesWidget(QWidget *parent)
 		//ui->tableView->setEditRowsSectionEnabled(false);
 		ui->tableView->setDirtyRowsMenuSectionEnabled(false);
 		ui->tableViewTB->setTableView(ui->tableView);
-		qfm::SqlTableModel *m = new qfm::SqlTableModel(this);
+		auto *m = new qfm::SqlTableModel(this);
 		//m->setObjectName("classes.classesModel");
 		m->addColumn("id").setReadOnly(true);
 		//m->addColumn("codes.type", tr("Type", "control type")).setToolTip(tr("Control type"));

@@ -12,7 +12,6 @@
 #include <qf/core/utils/timescope.h>
 
 namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 using namespace qf::qmlwidgets::reports;
 
 //==========================================================
@@ -153,7 +152,7 @@ QString ReportItemFrame::toString(int indent, int indent_offset)
 
 QQmlListProperty<ReportItem> ReportItemFrame::items()
 {
-	return QQmlListProperty<ReportItem>(this, 0,
+	return QQmlListProperty<ReportItem>(this, nullptr,
 										ReportItemFrame::addItemFunction,
 										ReportItemFrame::countItemsFunction,
 										ReportItemFrame::itemAtFunction,
@@ -163,11 +162,11 @@ QQmlListProperty<ReportItem> ReportItemFrame::items()
 
 void ReportItemFrame::insertItem(int ix, QObject *item_object)
 {
-	ReportItem *item = qobject_cast<ReportItem *>(item_object);
+	auto *item = qobject_cast<ReportItem *>(item_object);
 	if (item) {
 		item->setParent(this);
 		this->m_items.insert(ix, item);
-		ReportItemFrame *frm = qobject_cast<ReportItemFrame*>(item);
+		auto *frm = qobject_cast<ReportItemFrame*>(item);
 		if(frm)
 			frm->initDesignedRect();
 	}
@@ -181,7 +180,7 @@ void ReportItemFrame::addItem(QObject *item_object)
 void ReportItemFrame::addItemFunction(QQmlListProperty<ReportItem> *list_property, ReportItem *item)
 {
 	if (item) {
-		ReportItemFrame *that = static_cast<ReportItemFrame*>(list_property->object);
+		auto *that = static_cast<ReportItemFrame*>(list_property->object);
 		item->setParent(that);
 		that->m_items << item;
 	}
@@ -189,20 +188,20 @@ void ReportItemFrame::addItemFunction(QQmlListProperty<ReportItem> *list_propert
 
 ReportItem *ReportItemFrame::itemAtFunction(QQmlListProperty<ReportItem> *list_property, WidgetIndexType index)
 {
-	ReportItemFrame *that = static_cast<ReportItemFrame*>(list_property->object);
+	auto *that = static_cast<ReportItemFrame*>(list_property->object);
 	return that->m_items.value(index);
 }
 
 void ReportItemFrame::removeAllItemsFunction(QQmlListProperty<ReportItem> *list_property)
 {
-	ReportItemFrame *that = static_cast<ReportItemFrame*>(list_property->object);
+	auto *that = static_cast<ReportItemFrame*>(list_property->object);
 	qDeleteAll(that->m_items);
 	that->m_items.clear();
 }
 
 ReportItemFrame::WidgetIndexType ReportItemFrame::countItemsFunction(QQmlListProperty<ReportItem> *list_property)
 {
-	ReportItemFrame *that = static_cast<ReportItemFrame*>(list_property->object);
+	auto *that = static_cast<ReportItemFrame*>(list_property->object);
 	return that->itemCount();
 }
 
@@ -484,7 +483,7 @@ ReportItem::PrintResult ReportItemFrame::printMetaPaintChildren(ReportItemMetaPa
 						d = sz.size;
 				}
 				else {
-					ReportItemFrame *frit = qobject_cast<ReportItemFrame*>(child_item_to_print);
+					auto *frit = qobject_cast<ReportItemFrame*>(child_item_to_print);
 					if(frit)
 						qfWarning() << "This should never happen" << child_item_to_print;
 				}
@@ -572,7 +571,7 @@ ReportItem::PrintResult ReportItemFrame::printMetaPaint(ReportItemMetaPaint *out
 		double ly_size = frame_content_br.width() - (columns_gap * (sl.count() - 1));
 		column_sizes = qf::qmlwidgets::graphics::makeLayoutSizes(sl, ly_size);
 	}
-	ReportItemMetaPaintFrame *metapaint_frame = new ReportItemMetaPaintFrame(out, this);
+	auto *metapaint_frame = new ReportItemMetaPaintFrame(out, this);
 	QF_ASSERT_EX(metapaint_frame != nullptr, "Meta paint item for item " + QString(this->metaObject()->className()) + " not created.");
 	metapaint_frame->setInset(hinset(), vinset());
 	metapaint_frame->setLayout((qf::qmlwidgets::graphics::Layout)layout());
@@ -614,9 +613,8 @@ ReportItem::PrintResult ReportItemFrame::printMetaPaint(ReportItemMetaPaint *out
 								//qfWarning() << "new m_indexToPrint:" << parent_frame->m_indexToPrint;
 								continue;
 							}
-							else {
-								qfWarning() << "Index to print == 0: Internal error!";
-							}
+															qfWarning() << "Index to print == 0: Internal error!";
+						
 						}
 						break;
 					}
@@ -650,9 +648,9 @@ ReportItem::PrintResult ReportItemFrame::printMetaPaint(ReportItemMetaPaint *out
 	if(designedRect.horizontalUnit == Rect::UnitPercent)
 		dirty_rect.setWidth(frame_content_br.width()); /// horizontalni rozmer musi ctit procenta
 	else if(designedRect.horizontalUnit == Rect::UnitMM && designedRect.width() > Epsilon)
-		dirty_rect.setWidth(designedRect.width() - 2*hinset());
+		dirty_rect.setWidth(designedRect.width() - (2*hinset()));
 	if(designedRect.verticalUnit == Rect::UnitMM && designedRect.height() > Epsilon)
-		dirty_rect.setHeight(designedRect.height() - 2*vinset());
+		dirty_rect.setHeight(designedRect.height() - (2*vinset()));
 	/// pri rendrovani se muze stat, ze dirtyRect nezacina na bbr, to ale alignment zase spravi
 	dirty_rect.moveTopLeft(frame_content_br.topLeft());
 

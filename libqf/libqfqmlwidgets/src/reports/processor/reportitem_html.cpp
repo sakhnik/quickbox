@@ -20,7 +20,6 @@
 
 #include <QDomElement>
 
-namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
 
@@ -102,7 +101,7 @@ ReportItem::PrintResult ReportItemBand::printHtml(ReportItem::HTMLElement &out)
 ReportItem::PrintResult ReportItemDetail::printHtml(HTMLElement & out)
 {
 	qfLogFuncFrame() << "current index:" << currentIndex();
-	ReportItemBand *band = qobject_cast<ReportItemBand*>(parent());
+	auto *band = qobject_cast<ReportItemBand*>(parent());
 	BandDataModel *model = nullptr;
 	if(band) {
 		model = band->model();

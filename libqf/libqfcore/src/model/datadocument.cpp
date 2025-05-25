@@ -4,19 +4,14 @@
 #include "../core/assert.h"
 #include "../utils/table.h"
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 using namespace qf::core::model;
 
-DataDocument::DataDocument(QObject *parent) : QObject(parent)
+DataDocument::DataDocument(QObject *parent)
+	: QObject(parent)
 {
-
 }
 
-DataDocument::~DataDocument()
-{
-
-}
+DataDocument::~DataDocument() = default;
 
 QString DataDocument::recordEditModeToString(DataDocument::RecordEditMode m)
 {
@@ -45,7 +40,7 @@ void DataDocument::setModel(TableModel *m)
 
 const TableModel *DataDocument::model() const
 {
-	QF_ASSERT_EX(m_model != nullptr, "Model is NULL");
+	Q_ASSERT(m_model);
 	return m_model;
 }
 

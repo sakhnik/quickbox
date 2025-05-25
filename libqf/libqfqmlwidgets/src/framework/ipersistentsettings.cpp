@@ -90,7 +90,7 @@ QString IPersistentSettings::effectivePersistentSettingsPathPrefix()
 	if(!pp.isEmpty())
 		return pp;
 	for(QObject *obj=m_controlledObject->parent(); obj!=nullptr; obj=obj->parent()) {
-		IPersistentSettings *ps = dynamic_cast<IPersistentSettings*>(obj);
+		auto *ps = dynamic_cast<IPersistentSettings*>(obj);
 		if(ps)
 			return ps->effectivePersistentSettingsPathPrefix();
 	}
@@ -104,7 +104,7 @@ QString IPersistentSettings::rawPersistentSettingsPath()
 	QStringList raw_path;
 	if(!persistent_id.isEmpty()) {
 		for(QObject *obj=m_controlledObject->parent(); obj!=nullptr; obj=obj->parent()) {
-			IPersistentSettings *ps = dynamic_cast<IPersistentSettings*>(obj);
+			auto *ps = dynamic_cast<IPersistentSettings*>(obj);
 			if(ps) {
 				QString pp = ps->rawPersistentSettingsPath();
 				if(!pp.isEmpty())
@@ -113,13 +113,12 @@ QString IPersistentSettings::rawPersistentSettingsPath()
 				//qfWarning() << "\tcorrect value should be:" << parent_id;
 				break;
 			}
-			else {
-				QVariant vid = obj->property("persistentSettingsId");
+							QVariant vid = obj->property("persistentSettingsId");
 				QString parent_id = vid.toString();
 				if(!parent_id.isEmpty()) {
 					raw_path.insert(0, parent_id);
 				}
-			}
+		
 			// reading property using QQmlProperty is crashing my app Qt 5.3.1 commit a83826dad0f62d7a96f5a6093240e4c8f7f2e06e
 			//QQmlProperty p(obj, "persistentSettingsId");
 			//QVariant v2 = p.read();

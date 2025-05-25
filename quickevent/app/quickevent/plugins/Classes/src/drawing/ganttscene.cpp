@@ -14,7 +14,7 @@ using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
 GanttScene::GanttScene(QObject * parent)
-	: Super(parent), m_ganttItem()
+	: Super(parent)
 {
 	setDisplayUnit(QFontMetrics(QFont()).lineSpacing() / 2);
 

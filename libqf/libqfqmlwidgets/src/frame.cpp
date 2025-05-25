@@ -39,9 +39,9 @@ void Frame::setLayoutType(Frame::LayoutType ly_type)
 	if(ly_type != layoutType()) {
 		//QList<QLayoutItem*> layout_items;
 		QLayout *old_ly = layout();
-		if(old_ly) {
+		
 			delete old_ly;
-		}
+		
 		m_layoutType = ly_type;
 		Q_FOREACH(auto w, m_childWidgets) {
 			addToLayout(w);
@@ -65,7 +65,7 @@ void Frame::setVisible(bool b)
 
 QQmlListProperty<QWidget> Frame::widgets()
 {
-	return QQmlListProperty<QWidget>(this, 0,
+	return QQmlListProperty<QWidget>(this, nullptr,
 									 Frame::addWidgetFunction,
 									 Frame::countWidgetsFunction,
 									 Frame::widgetAtFunction,
@@ -76,27 +76,27 @@ QQmlListProperty<QWidget> Frame::widgets()
 void Frame::addWidgetFunction(QQmlListProperty<QWidget> *list_property, QWidget *value)
 {
 	if (value) {
-		Frame *that = static_cast<Frame*>(list_property->object);
+		auto *that = static_cast<Frame*>(list_property->object);
 		that->add(value);
 	}
 }    
 
 QWidget * Frame::widgetAtFunction(QQmlListProperty<QWidget> *list_property, WidgetIndexType index)
 {
-	Frame *that = static_cast<Frame*>(list_property->object);
+	auto *that = static_cast<Frame*>(list_property->object);
 	return that->at(index);
 }
 
 
 void Frame::removeAllWidgetsFunction(QQmlListProperty<QWidget> *list_property)
 {
-	Frame *that = static_cast<Frame*>(list_property->object);
+	auto *that = static_cast<Frame*>(list_property->object);
 	that->removeAll();
 }
 
 Frame::WidgetIndexType Frame::countWidgetsFunction(QQmlListProperty<QWidget> *list_property)
 {
-	Frame *that = static_cast<Frame*>(list_property->object);
+	auto *that = static_cast<Frame*>(list_property->object);
 	return that->count();
 }
 
@@ -106,7 +106,7 @@ void Frame::add(QWidget *widget)
 		//qDebug() << "adding widget" << widget << widget->parent();
 		/// widget cannot be simply reparented
 		/// NULL parent should be set first
-		widget->setParent(0);
+		widget->setParent(nullptr);
 		widget->setParent(this);
 		m_childWidgets << widget;
 		//Super::layout()->addWidget(widget);
@@ -146,7 +146,7 @@ void Frame::addToLayout(QWidget *widget)
 		qfDebug() << "\tnew layout:" << layout() << this;
 	}
 	qfDebug() << "\tadding:" << widget << "to layout:" << layout() << this;
-	LayoutPropertiesAttached *layout_props_attached = qobject_cast<LayoutPropertiesAttached*>(qmlAttachedPropertiesObject<LayoutProperties>(widget, false));
+	auto *layout_props_attached = qobject_cast<LayoutPropertiesAttached*>(qmlAttachedPropertiesObject<LayoutProperties>(widget, false));
 	if(layout_props_attached) {
 		LayoutTypeProperties::SizePolicy sph = layout_props_attached->horizontalSizePolicy();
 		LayoutTypeProperties::SizePolicy spv = layout_props_attached->verticalSizePolicy();
@@ -154,7 +154,7 @@ void Frame::addToLayout(QWidget *widget)
 			widget->setSizePolicy((QSizePolicy::Policy)sph, (QSizePolicy::Policy)spv);
 	}
 	{
-		QGridLayout *ly = qobject_cast<QGridLayout*>(layout());
+		auto *ly = qobject_cast<QGridLayout*>(layout());
 		if(ly) {
 			LayoutTypeProperties *props = layoutTypeProperties();
 			LayoutTypeProperties::Flow flow = LayoutTypeProperties::LeftToRight;
@@ -193,7 +193,7 @@ void Frame::addToLayout(QWidget *widget)
 		}
 	}
 	{
-		QFormLayout *ly = qobject_cast<QFormLayout*>(layout());
+		auto *ly = qobject_cast<QFormLayout*>(layout());
 		if(ly) {
 			QString buddy_text;
 			int column_span = 1;
@@ -217,7 +217,7 @@ void Frame::addToLayout(QWidget *widget)
 		}
 	}
 	{
-		QBoxLayout *ly = qobject_cast<QBoxLayout*>(layout());
+		auto *ly = qobject_cast<QBoxLayout*>(layout());
 		if(ly) {
 			ly->addWidget(widget);
 			return;

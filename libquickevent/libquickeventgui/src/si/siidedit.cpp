@@ -1,8 +1,8 @@
 #include "siidedit.h"
 
-namespace quickevent {
-namespace gui {
-namespace si {
+
+
+namespace quickevent::gui::si {
 
 SiIdEdit::SiIdEdit(QWidget *parent)
 	: Super(parent)
@@ -32,4 +32,4 @@ QString SiIdEdit::textFromValue(int value) const
 	return QString::number(value);
 }
 
-}}}
+}

@@ -15,12 +15,10 @@ namespace qfd = qf::qmlwidgets::dialogs;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
-namespace Event {
-namespace services {
 
-//static const char *KEY_IS_RUNNING = "isRunning";
+namespace Event::services {
 
-QList<Service*> Service::m_services;
+QList<Service*> Service::m_services; // NOLINT(cppcoreguidelines-avoid-non-const-global-variables)
 
 Service::Service(const QString &name, QObject *parent)
 	: QObject(parent)
@@ -76,7 +74,7 @@ void Service::saveSettings()
 {
 	QSettings ss;
 	ss.beginGroup(settingsGroup());
-	for(const QString &key : m_settings.keys()) {
+	for(const auto &[key, _] : m_settings.asKeyValueRange()) {
 		ss.setValue(key, m_settings[key]);
 	}
 }
@@ -154,4 +152,4 @@ qf::qmlwidgets::framework::DialogWidget *Service::createDetailWidget()
 	return nullptr;
 }
 
-}}
+}

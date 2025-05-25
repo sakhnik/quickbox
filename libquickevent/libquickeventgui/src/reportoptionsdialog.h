@@ -93,7 +93,7 @@ public:
 
 	void setOptions(const Options &options);
 	Options options() const;
-	Q_SLOT QVariantMap optionsMap() const {return options();}
+	Q_INVOKABLE QVariantMap optionsMap() const {return options();}
 	static Options savedOptions(const QString &persistent_settings_id = QString());
 
 	Q_INVOKABLE QVariantMap reportProperties() const;

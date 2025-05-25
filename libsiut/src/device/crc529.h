@@ -5,7 +5,7 @@
 extern "C" {
 #endif
 
-unsigned int crc(unsigned int uiCount, unsigned char *pucDat);
+unsigned int crc(unsigned int uiCount, const unsigned char *pucDat);
 
 #ifdef __cplusplus
 }

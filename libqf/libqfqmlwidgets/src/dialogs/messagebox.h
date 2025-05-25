@@ -37,7 +37,7 @@ public:
 private:
 	bool loadShowAgainDisabled();
 	void saveShowAgainDisabled(bool b);
-	QString showAgainPersistentSettingsId();
+	QString showAgainPersistentSettingsId() const;
 };
 
 }}}

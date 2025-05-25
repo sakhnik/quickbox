@@ -25,7 +25,7 @@ public:
 
 	void addPage(SettingsPage *page);
 private slots:
-	void on_buttonBox_rejected();
+	void onButtonBoxRejected();
 	//ReportsSettingsPage *reportsSettingsPage() const;
 	//CardReaderSettingsPage *cardReaderSettingsPage() const;
 private:

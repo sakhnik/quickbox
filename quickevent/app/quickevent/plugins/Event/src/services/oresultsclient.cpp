@@ -23,19 +23,13 @@
 #include <QStandardPaths>
 #include <QTextStream>
 #include <QTimer>
-#include <regex>
 
-namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
 using Runs::RunsPlugin;
 
-namespace Event {
-namespace services {
+namespace Event::services {
 
 OResultsClient::OResultsClient(QObject *parent)
 	: Super(OResultsClient::serviceName(), parent)
@@ -112,7 +106,7 @@ void OResultsClient::loadSettings()
 
 void OResultsClient::sendFile(QString name, QString request_path, QString file, std::function<void()> on_success) {
 
-	QHttpMultiPart *multi_part = new QHttpMultiPart(QHttpMultiPart::FormDataType);
+	auto *multi_part = new QHttpMultiPart(QHttpMultiPart::FormDataType);
 
 	QHttpPart api_key_part;
 	api_key_part.setHeader(QNetworkRequest::ContentDispositionHeader, QVariant("form-data; name=\"apiKey\""));
@@ -332,4 +326,4 @@ QByteArray OResultsClient::zlibCompress(QByteArray data)
 	return compressedData;
 }
 
-}}
+}

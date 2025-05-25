@@ -32,7 +32,7 @@ void GanttRuler::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 			p2.setY(-tick_h * 3);
 			QString s = QString::number(i);
 			QRectF r = painter->boundingRect(0, 0, 0, 0, Qt::TextDontClip, s);
-			r.moveLeft(p1.x() - r.width() / 2);
+			r.moveLeft(p1.x() - (r.width() / 2));
 			r.moveTop(rect().top());
 			//qfInfo() << s << r.left() << r.top() << r.width() << r.height();
 			painter->drawText(r, s);

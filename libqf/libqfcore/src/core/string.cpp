@@ -1,6 +1,8 @@
-#include "string.h"
+#include "string.h" // NOLINT(modernize-deprecated-headers)
 
 #include <QStringList>
+
+#include <algorithm>
 
 using namespace qf::core;
 
@@ -9,10 +11,10 @@ qf::core::String qf::core::String::slice(int start, int end) const
 	int l = length();
 	if(start < 0) start += l;
 	if(end < 0) end += l;
-	if(start < 0) start = 0;
-	if(end < 0) end = 0;
-	if(end > l) end = l;
-	if(start > end) start = end;
+	start = std::max(start, 0);
+	end = std::max(end, 0);
+	end = std::min(end, l);
+	start = std::min(start, end);
 	//qfTrash() << "\tstart:" << start << "end:" << end;
 	//qfTrash() << "\tthis:" << *this;
 	return mid(start, end - start);
@@ -66,10 +68,9 @@ QStringList String::splitAndTrim(QChar sep, QChar quote, bool trim_parts, SplitB
 			if(fs2.value(0) == quote && fs2.value(-1) == quote)
 				fs2 = fs2.slice(1, -1);
 		}
-		if(!fs2.isEmpty())
+		if(!fs2.isEmpty() || keep_empty_parts == KeepEmptyParts) {
 			ret.append(fs2);
-		else if(keep_empty_parts == KeepEmptyParts)
-			ret.append(fs2);
+		}
 	}
 	return ret;
 }

@@ -9,10 +9,7 @@ Brush::Brush(QObject *parent) :
 {
 }
 
-Brush::~Brush()
-{
-	//qfLogFuncFrame();
-}
+Brush::~Brush() = default;
 
 QBrush Brush::brush()
 {
@@ -24,7 +21,7 @@ QBrush Brush::brush()
 			qfDebug() << "\t based on:" << v.toString();
 			if(v.isValid()) {
 				QObject *o = styleobjectFromVariant(v);
-				Brush *based_on = qobject_cast<Brush*>(o);
+				auto *based_on = qobject_cast<Brush*>(o);
 				qfDebug() << "\t\t based on object:" << based_on;
 				if(based_on) {
 					m_brush = based_on->brush();

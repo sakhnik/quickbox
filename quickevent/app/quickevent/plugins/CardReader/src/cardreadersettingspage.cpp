@@ -32,6 +32,9 @@ CardReaderSettingsPage::CardReaderSettingsPage(QWidget *parent)
 {
 	ui = new Ui::CardReaderSettingsPage;
 	ui->setupUi(this);
+
+	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &CardReaderSettingsPage::onTestConnectionClicked);
+
 	m_caption = tr("Card reader");
 	{
 		auto *cbx = ui->cbxCardCheckType;
@@ -57,7 +60,8 @@ CardReaderSettingsPage::~CardReaderSettingsPage()
 	delete ui;
 }
 
-static void load_combo_text(QComboBox *cbx, const QVariant &val, bool init_current_index = true)
+namespace {
+void load_combo_text(QComboBox *cbx, const QVariant &val, bool init_current_index = true)
 {
 	int ix = cbx->findText(val.toString());
 	if(ix >= 0) {
@@ -72,13 +76,14 @@ static void load_combo_text(QComboBox *cbx, const QVariant &val, bool init_curre
 		}
 	}
 }
+}
 
 void CardReaderSettingsPage::load()
 {
 	{
 		ui->lstDevice->clear();
 		QList<QSerialPortInfo> port_list = QSerialPortInfo::availablePorts();
-		for(auto port : port_list) {
+		for(const auto &port : port_list) {
 			//ui->lstDevice->addItem(QString("n:%1 l:%2").arg(port.portName()).arg(port.systemLocation()));
 			ui->lstDevice->addItem(port.systemLocation());
 		}
@@ -139,7 +144,7 @@ void CardReaderSettingsPage::save()
 }
 
 
-void CardReaderSettingsPage::on_btTestConnection_clicked()
+void CardReaderSettingsPage::onTestConnectionClicked()
 {
 	QString device = ui->lstDevice->currentText();
 	int baud_rate = ui->lstBaudRate->currentText().toInt();
@@ -158,7 +163,7 @@ void CardReaderSettingsPage::on_btTestConnection_clicked()
 			sidriver->processData(ba);
 		});
 		connect(sidriver, &siut::DeviceDriver::dataToSend, comport, &siut::CommPort::sendData);
-		siut::SiTaskStationConfig *cmd = new siut::SiTaskStationConfig();
+		auto *cmd = new siut::SiTaskStationConfig();
 		connect(cmd, &siut::SiTaskStationConfig::finished, this, [this, comport, sidriver, progress](bool ok, QVariant result) {
 			if(ok) {
 				siut::SiStationConfig cfg(result.toMap());

@@ -9,8 +9,6 @@
 
 #include <qf/core/utils/timescope.h>
 
-namespace qfc = qf::core;
-namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
 
@@ -83,7 +81,7 @@ ReportItem::PrintResult ReportItemDetail::printMetaPaint(ReportItemMetaPaint *ou
 {
 	qfLogFuncFrame();
 	QF_TIME_SCOPE("ReportItemDetail::printMetaPaint");
-	ReportItemBand *band = qobject_cast<ReportItemBand*>(parent());
+	auto *band = qobject_cast<ReportItemBand*>(parent());
 	BandDataModel *model = nullptr;
 	if(band) {
 		model = band->model();
