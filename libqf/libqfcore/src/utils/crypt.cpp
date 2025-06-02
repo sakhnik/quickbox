@@ -43,16 +43,14 @@ QByteArray code_byte(quint8 b)
 	QByteArray ret;
 	/// hodnoty, ktere nejsou pismena se ukladaji jako cislo
 	/// format cisla je 4 bity cislo % 10 [0-9] + 4 bity cislo / 10 [A-Z]
-	std::array<char, 3> buff = {0, 0, 0};
 	if((b>='A' && b<='Z') || (b>='a' && b<='z')) {
 		ret.append(b);
 	}
 	else {
 		quint8 b1 = b%10;
 		b /= 10;
-		buff[0] = b1 + '0';
-		buff[1] = (b1 % 2)? b + 'A': b + 'a';
-		ret.append(buff);
+		ret.append(b1 + '0');
+		ret.append((b1 % 2)? b + 'A': b + 'a');
 	}
 	return ret;
 }
@@ -63,29 +61,30 @@ QByteArray Crypt::encrypt(const QByteArray &data, int min_length) const
 	QByteArray dest;
 
 	/// nahodne se vybere hodnota, kterou se string zaxoruje a ta se ulozi na zacatek
-	auto val = (unsigned)myrand();
+	auto val = myrand();
 	val += QTime::currentTime().msec();
 	val %= 256;
-	if(val == 0)
+	if(val == 0) {
 		val = 1;/// fix case vhen val == 0 and generator C == 0 also
-	auto b = (quint8)val;
+	}
+	auto b = static_cast<quint8>(val);
 	dest += code_byte(b);
 
 	/// a tou se to zaxoruje
 	for(char i : data) {
-		b = ((quint8)i);
+		b = static_cast<quint8>(i);
 		if(b == 0)
 			break;
 		val = m_generator(val);
-		b = b ^ (quint8)val;
+		b = b ^ static_cast<quint8>(val);
 		dest += code_byte(b);
 	}
 	quint8 bb = 0;
 	while(dest.size() < min_length) {
 		val = m_generator(val);
-		b = bb ^ (quint8)val;
+		b = bb ^ static_cast<quint8>(val);
 		dest += code_byte(b);
-		bb = (quint8)myrand();
+		bb = static_cast<quint8>(myrand());
 	}
 	return dest;
 }
@@ -93,11 +92,11 @@ QByteArray Crypt::encrypt(const QByteArray &data, int min_length) const
 namespace {
 quint8 take_byte(const QByteArray &ba, int &i)
 {
-	quint8 b = ((quint8)ba[i++]);
+	quint8 b = (static_cast<quint8>(ba[i++]));
 	if((b>='A' && b<='Z') || (b>='a' && b<='z')) {
 	}
 	else {
-		quint8 b1 = b;
+		auto b1 = b;
 		b1 = b1 - '0';
 		if(i < ba.size()) {
 			b = ba[i++];
@@ -124,7 +123,7 @@ QByteArray Crypt::decodeArray(const QByteArray &ba) const
 	while(i<ba.size()) {
 		val = m_generator(val);
 		quint8 b = take_byte(ba, i);
-		b = b ^ (quint8)val;
+		b = b ^ static_cast<quint8>(val);
 		ret.append(b);
 	}
 	return ret;

@@ -55,7 +55,7 @@ void ConnectionSettings::setServerUser(const QString &s)
 void ConnectionSettings::setServerPassword(const QString &s)
 {
 	QByteArray ba = Core::CorePlugin::encrypt(s.toUtf8(), 32);
-	setValue(EVENT + '/' + DATA_STORAGE + '/' + SQL_SERVER + '/' + PASSWORD, QString::fromLatin1(ba));
+	setValue(EVENT + '/' + DATA_STORAGE + '/' + SQL_SERVER + '/' + PASSWORD, QString::fromUtf8(ba));
 }
 
 void ConnectionSettings::setSingleWorkingDir(const QString &s)
