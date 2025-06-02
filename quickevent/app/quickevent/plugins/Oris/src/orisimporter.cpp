@@ -143,7 +143,7 @@ void OrisImporter::getTextAndProcess(const QUrl &url, QObject *context, std::fun
 	auto *manager = networkAccessManager();
 	qf::core::network::NetworkReply *reply = manager->get(url);
 	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater);
+	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater); // NOLINT(readability-suspicious-call-argument)
 	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::qmlwidgets::framework::MainWindow::showProgress);
 	connect(reply, &qf::core::network::NetworkReply::finished, context, [reply, process_call_back](bool get_ok) {
 		qfInfo() << "Get:" << reply->url().toString() << "OK:" << get_ok;
