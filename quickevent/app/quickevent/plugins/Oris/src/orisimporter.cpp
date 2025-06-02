@@ -380,10 +380,13 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 			if(!stage_count)
 				stage_count = 1;
 			int sport_id = data.value(QStringLiteral("Sport")).toObject().value(QStringLiteral("ID")).toString().toInt();
-			int discipline_id = data.value(QStringLiteral("Discipline")).toObject().value(QStringLiteral("ID")).toString().toInt();
-			qfInfo() << "pocet etap:" << stage_count << "sport id:" << sport_id << "discipline id:" << discipline_id;
-			//event_api.initEventConfig();
-			//var cfg = event_api.eventConfig;
+			int di = data.value(QStringLiteral("Discipline")).toObject().value(QStringLiteral("ID")).toString().toInt();
+			auto discipline_id_opt = Event::EventConfig::disciplineFromInt(di);//.value_or(Event::EventConfig::Discipline::Classic);
+			if (!discipline_id_opt.has_value()) {
+				qfError() << "OrisImporter: Unknown discipline ID:" << di;
+			}
+			auto discipline = discipline_id_opt.value_or(Event::EventConfig::Discipline::Classic);
+			qfInfo() << "pocet etap:" << stage_count << "sport id:" << sport_id << "discipline id:" << di;
 			QVariantMap ecfg;
 			ecfg["stageCount"] = stage_count;
 			ecfg["name"] = data.value(QStringLiteral("Name")).toString();
@@ -393,7 +396,7 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 			ecfg["mainReferee"] = jsonObjectToFullName(data, QStringLiteral("MainReferee"));
 			ecfg["director"] = jsonObjectToFullName(data, QStringLiteral("Director"));
 			ecfg["sportId"] = sport_id;
-			ecfg["disciplineId"] = discipline_id;
+			ecfg["disciplineId"] = static_cast<int>(discipline);
 			ecfg["importId"] = event_id;
 			ecfg["time"] = QTime::fromString(data.value(QStringLiteral("StartTime")).toString(), QStringLiteral("hh:mm"));
 			if(!getPlugin<EventPlugin>()->createEvent(QString(), ecfg))

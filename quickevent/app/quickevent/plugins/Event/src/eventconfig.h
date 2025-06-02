@@ -21,11 +21,15 @@ class EventConfig : public QObject
 	//Q_PROPERTY(QString eventName READ eventName)
 public:
 	enum class Sport {OB = 1, LOB, MTBO, TRAIL};
-	enum class Discipline {Classic = 1, ShortRace, Sprint,
+	enum class Discipline {Classic = 1,
+						   ShortRace,
+						   Sprint,
 						   Relays = 5,
 						   Teams = 6,
 						   NightRace = 9,
+						   SprintRelays = 15,
 						  };
+	static std::optional<Discipline> disciplineFromInt(int i);
 public:
 	explicit EventConfig(QObject *parent = nullptr);
 public:
@@ -41,11 +45,15 @@ public:
 	int stageCount() const;
 	int currentStageId() const;
 	int sportId() const;
-	int disciplineId() const;
+	Discipline discipline() const;
 	int importId() const;
 	int handicapLength() const;
 	bool isHandicap() const {return handicapLength() > 0;}
-	bool isRelays() const {return disciplineId() == (int)Discipline::Relays || disciplineId() == (int)Discipline::Teams;}
+	bool isRelays() const {
+		return discipline() == Discipline::Relays
+				|| discipline() == Discipline::Teams
+				|| discipline() == Discipline::SprintRelays;
+	}
 	bool isIofRace() const;
 	int iofXmlRaceNumber() const;
 	QString eventName() const;

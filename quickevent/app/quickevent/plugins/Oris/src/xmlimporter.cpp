@@ -736,7 +736,7 @@ bool XmlImporter::importEvent(QXmlStreamReader &reader, const XmlCreators creato
 	QString race_name;
 	int event_id = -1;
 	QMap <QString, SRace> races;
-	Event::EventConfig::Discipline discipline_id = Event::EventConfig::Discipline::Classic;
+	auto discipline = Event::EventConfig::Discipline::Classic;
 
 	while(reader.readNextStartElement()) {
 		if(reader.name().toString() == "Event") {
@@ -748,10 +748,9 @@ bool XmlImporter::importEvent(QXmlStreamReader &reader, const XmlCreators creato
 				else if (reader.name().toString() == "Form") {
 					auto form = reader.readElementText();
 					if (form == "Relay")
-						discipline_id = Event::EventConfig::Discipline::Relays;
+						discipline = Event::EventConfig::Discipline::Relays;
 					else if (form == "Team")
-						discipline_id = Event::EventConfig::Discipline::Teams;
-					// default Individual == Event::EventConfig::Discipline::Classic
+						discipline = Event::EventConfig::Discipline::Teams;
 				}
 				else if (reader.name().toString() == "Race") {
 					SRace race;
@@ -800,7 +799,7 @@ bool XmlImporter::importEvent(QXmlStreamReader &reader, const XmlCreators creato
 		ecfg["mainReferee"] = QString();
 		ecfg["director"] = QString();
 		ecfg["sportId"] = static_cast<int>(Event::EventConfig::Sport::OB);
-		ecfg["disciplineId"] = static_cast<int>(discipline_id);
+		ecfg["disciplineId"] = static_cast<int>(discipline);
 		ecfg["importId"] = event_id;
 		ecfg["time"] = event_race.datetime.time();
 		ecfg["iofRace"] = 1;
