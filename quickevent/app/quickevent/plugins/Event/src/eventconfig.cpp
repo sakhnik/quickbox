@@ -18,24 +18,24 @@ namespace {
 const auto EVENT_NAME = QStringLiteral("event.name");
 }
 
+std::optional<EventConfig::Discipline> EventConfig::disciplineFromInt(int i)
+{
+	switch (static_cast<Discipline>(i)) {
+	case Discipline::Classic: return Discipline::Classic;
+	case Discipline::ShortRace: return Discipline::ShortRace;
+	case Discipline::Sprint: return Discipline::Sprint;
+	case Discipline::Relays: return Discipline::Relays;
+	case Discipline::Teams: return Discipline::Teams;
+	case Discipline::NightRace: return Discipline::NightRace;
+	case Discipline::SprintRelays: return Discipline::SprintRelays;
+	}
+	return {};
+}
+
 EventConfig::EventConfig(QObject *parent)
 	: QObject(parent)
 {
 }
-/*
-void EventConfig::setValues(const QVariantMap &vals)
-{
-	m_data.clear();
-	QMapIterator<QString, QVariant> it(vals);
-	while(it.hasNext()) {
-		it.next();
-		QString key = it.key();
-		if(knownKeys().contains(key)) {
-			m_data[key] = it.value();
-		}
-	}
-}
-*/
 QVariant EventConfig::value(const QStringList &path, const QVariant &default_value) const
 {
 	//QF_ASSERT(knownKeys().contains(key), "Key " + key + " is not known key!", return QVariant());
@@ -183,9 +183,10 @@ int EventConfig::sportId() const
 	return value(QStringLiteral("event.sportId")).toInt();
 }
 
-int EventConfig::disciplineId() const
+EventConfig::Discipline EventConfig::discipline() const
 {
-	return value(QStringLiteral("event.disciplineId")).toInt();
+	auto di = value(QStringLiteral("event.disciplineId")).toInt();
+	return disciplineFromInt(di).value_or(Discipline::Classic);
 }
 
 int EventConfig::importId() const

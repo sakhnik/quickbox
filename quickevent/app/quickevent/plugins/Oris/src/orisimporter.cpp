@@ -40,7 +40,7 @@
 namespace {
 QByteArray convertCp1250ToUtf8(const QByteArray &input) {
 	iconv_t cd = iconv_open("UTF-8", "CP1250");
-	if (cd == (iconv_t)-1) {
+	if (cd == reinterpret_cast<iconv_t>(-1)) {
 		qfWarning() << "iconv_open failed";
 		return input;
 	}
@@ -50,7 +50,7 @@ QByteArray convertCp1250ToUtf8(const QByteArray &input) {
 	QByteArray output;
 	output.resize(outBytesLeft);
 
-	char *inBuf = const_cast<char *>(input.data());
+	char *inBuf = const_cast<char *>(input.data()); // NOLINT(cppcoreguidelines-pro-type-const-cast)
 	char *outBuf = output.data();
 
 	size_t result = iconv(cd, &inBuf, &inBytesLeft, &outBuf, &outBytesLeft);
@@ -81,7 +81,8 @@ void OrisImporter::saveJsonBackup(const QString &fn, const QJsonDocument &jsd)
 	}
 }
 
-static QJsonDocument load_offline_json(const QString &fn)
+namespace {
+QJsonDocument load_offline_json(const QString &fn)
 {
 	QJsonDocument ret;
 	QString dir = qf::core::utils::FileUtils::osTempDir() + '/' + "quickevent";
@@ -90,6 +91,7 @@ static QJsonDocument load_offline_json(const QString &fn)
 		ret = QJsonDocument::fromJson(f.readAll());
 	}
 	return ret;
+}
 }
 
 OrisImporter::OrisImporter(QObject *parent)
@@ -109,9 +111,9 @@ qf::core::network::NetworkAccessManager *OrisImporter::networkAccessManager()
 void OrisImporter::getJsonAndProcess(const QUrl &url, QObject *context, std::function<void (const QJsonDocument &)> process_call_back)
 {
 	auto *manager = networkAccessManager();
-	qf::core::network::NetworkReply *reply = manager->get(url);
+	auto *reply = manager->get(url);
 	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater);
+	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater); // NOLINT(readability-suspicious-call-argument)
 	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::qmlwidgets::framework::MainWindow::showProgress);
 	connect(reply, &qf::core::network::NetworkReply::finished, context, [reply, process_call_back](bool get_ok) {
 		qfInfo() << "Get:" << reply->url().toString() << "OK:" << get_ok;
@@ -141,7 +143,7 @@ void OrisImporter::getTextAndProcess(const QUrl &url, QObject *context, std::fun
 	auto *manager = networkAccessManager();
 	qf::core::network::NetworkReply *reply = manager->get(url);
 	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater);
+	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater); // NOLINT(readability-suspicious-call-argument)
 	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::qmlwidgets::framework::MainWindow::showProgress);
 	connect(reply, &qf::core::network::NetworkReply::finished, context, [reply, process_call_back](bool get_ok) {
 		qfInfo() << "Get:" << reply->url().toString() << "OK:" << get_ok;
@@ -362,10 +364,12 @@ void OrisImporter::chooseAndImport()
 	}
 }
 
-static QString jsonObjectToFullName(const QJsonObject &data, const QString &field_name)
+namespace {
+QString jsonObjectToFullName(const QJsonObject &data, const QString &field_name)
 {
 	QJsonObject jso = data.value(field_name).toObject();
 	return jso.value(QStringLiteral("FirstName")).toString() + ' ' + jso.value(QStringLiteral("LastName")).toString();
+}
 }
 
 void OrisImporter::importEvent(int event_id, std::function<void ()> success_callback)
@@ -380,10 +384,13 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 			if(!stage_count)
 				stage_count = 1;
 			int sport_id = data.value(QStringLiteral("Sport")).toObject().value(QStringLiteral("ID")).toString().toInt();
-			int discipline_id = data.value(QStringLiteral("Discipline")).toObject().value(QStringLiteral("ID")).toString().toInt();
-			qfInfo() << "pocet etap:" << stage_count << "sport id:" << sport_id << "discipline id:" << discipline_id;
-			//event_api.initEventConfig();
-			//var cfg = event_api.eventConfig;
+			int di = data.value(QStringLiteral("Discipline")).toObject().value(QStringLiteral("ID")).toString().toInt();
+			auto discipline_id_opt = Event::EventConfig::disciplineFromInt(di);//.value_or(Event::EventConfig::Discipline::Classic);
+			if (!discipline_id_opt.has_value()) {
+				qfError() << "OrisImporter: Unknown discipline ID:" << di;
+			}
+			auto discipline = discipline_id_opt.value_or(Event::EventConfig::Discipline::Classic);
+			qfInfo() << "pocet etap:" << stage_count << "sport id:" << sport_id << "discipline id:" << di;
 			QVariantMap ecfg;
 			ecfg["stageCount"] = stage_count;
 			ecfg["name"] = data.value(QStringLiteral("Name")).toString();
@@ -393,7 +400,7 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 			ecfg["mainReferee"] = jsonObjectToFullName(data, QStringLiteral("MainReferee"));
 			ecfg["director"] = jsonObjectToFullName(data, QStringLiteral("Director"));
 			ecfg["sportId"] = sport_id;
-			ecfg["disciplineId"] = discipline_id;
+			ecfg["disciplineId"] = static_cast<int>(discipline);
 			ecfg["importId"] = event_id;
 			ecfg["time"] = QTime::fromString(data.value(QStringLiteral("StartTime")).toString(), QStringLiteral("hh:mm"));
 			if(!getPlugin<EventPlugin>()->createEvent(QString(), ecfg))
@@ -525,7 +532,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 			//QSet<int> used_idsi;
 			for(auto it = data.constBegin(); it != data.constEnd(); ++it) {
 				QJsonObject competitor_o = it.value().toObject();
-				Competitors::CompetitorDocument *doc = new Competitors::CompetitorDocument();
+				auto *doc = new Competitors::CompetitorDocument();
 				doc_lst << doc;
 				Runs runs;
 				Runs orig_runs;
@@ -614,7 +621,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 			for(const auto &[import_id, id] : imported_competitors.asKeyValueRange()) {
 				auto *doc = new Competitors::CompetitorDocument();
 				doc_lst << doc;
-				doc->load(id, doc->ModeDelete);
+				doc->load(id, Competitors::CompetitorDocument::ModeDelete);
 			}
 			static const QStringList fields = QStringList()
 											  << QStringLiteral("classId")
@@ -660,7 +667,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 			};
 			for(Competitors::CompetitorDocument *doc : doc_lst) {
 				QVariantList tr = QVariantList() << QStringLiteral("tr");
-				if(doc->mode() == doc->ModeInsert) {
+				if(doc->mode() == Competitors::CompetitorDocument::ModeInsert) {
 					doc->setProperty(KEY_IS_DATA_DIRTY, true);
 					for(QString fldn : fields) {
 						auto td = QVariantList() << QStringLiteral("td") << field_string(doc, fldn);
@@ -668,7 +675,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 					}
 					new_entries_rows.insert(new_entries_rows.length(), tr);
 				}
-				else if(doc->mode() == doc->ModeEdit) {
+				else if(doc->mode() == Competitors::CompetitorDocument::ModeEdit) {
 					static QVariantMap green_attrs{{QStringLiteral("bgcolor"), QStringLiteral("khaki")}};
 					for(QString fldn : fields) {
 						bool is_dirty = false;
@@ -697,7 +704,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 					if(doc->property(KEY_IS_DATA_DIRTY).toBool())
 						edited_entries_rows.insert(edited_entries_rows.length(), tr);
 				}
-				else if(doc->mode() == doc->ModeDelete) {
+				else if(doc->mode() == Competitors::CompetitorDocument::ModeDelete) {
 					for(const QString &fldn : fields) {
 						auto td = QVariantList() << QStringLiteral("td") << field_string(doc, fldn);
 						tr.insert(tr.length(), td);
@@ -754,7 +761,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 				//QMap<int, int> cid_sid_changes; // competitorId->siId
 				for(Competitors::CompetitorDocument *doc : doc_lst) {
 					doc->setEmitDbEventsOnSave(false);
-					if(doc->mode() == doc->ModeInsert || doc->mode() == doc->ModeEdit) {
+					if(doc->mode() == Competitors::CompetitorDocument::ModeInsert || doc->mode() == Competitors::CompetitorDocument::ModeEdit) {
 						if(doc->property(KEY_IS_DATA_DIRTY).toBool()) {
 							doc->save();
 							Runs runs(doc->property(KEY_RUNS));
@@ -773,7 +780,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 							}
 						}
 					}
-					else if(doc->mode() == doc->ModeDelete) {
+					else if(doc->mode() == Competitors::CompetitorDocument::ModeDelete) {
 						if(!no_drops)
 							doc->drop();
 					}
