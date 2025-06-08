@@ -91,8 +91,13 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 		if(col == RunsTableModel::col_runFlags || col == RunsTableModel::col_cardFlags) {
 			return;
 		}
-		auto competitor_id = tv->selectedRow().value("competitorId");
-		emit editCompetitorRequest(competitor_id.toInt(), mode);
+		if (mode == qf::core::model::DataDocument::ModeInsert) {
+			emit editCompetitorRequest(0, mode);
+		}
+		else {
+			auto competitor_id = tv->selectedRow().value("competitorId");
+			emit editCompetitorRequest(competitor_id.toInt(), mode);
+		}
 	});
 	connect(ui->tblRuns, &qfw::TableView::editCellRequest, this, [this](QModelIndex index) {
 		auto col = index.column();
