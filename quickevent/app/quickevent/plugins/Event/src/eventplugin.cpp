@@ -455,9 +455,6 @@ void EventPlugin::emitDbEvent(const QString &domain, const QVariant &data, bool 
 {
 	qfLogFuncFrame() << "domain:" << domain << "payload:" << data;
 	int connection_id = qf::core::sql::Connection::defaultConnection().connectionId();
-	QTimer::singleShot(0, this, [this, domain, data]() {
-		emit dbEvent(domain, data);
-	});
 	if(loopback) {
 		// emit queued
 		//emit dbEventNotify(domain, payload);
@@ -1342,7 +1339,6 @@ void EventPlugin::onDbEventNotify(const QString &domain, int connection_id, cons
 	else if(domain == QLatin1String(Event::EventPlugin::DBEVENT_REGISTRATIONS_IMPORTED)) {
 		reloadRegistrationsModel();
 	}
-	emit dbEventNotify(domain, connection_id, data);
 }
 
 void EventPlugin::reloadRegistrationsModel()

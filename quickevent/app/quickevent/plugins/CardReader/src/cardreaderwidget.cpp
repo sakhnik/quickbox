@@ -490,8 +490,9 @@ void CardReaderWidget::onDbEventNotify(const QString &domain, int connection_id,
 	Q_UNUSED(connection_id)
 	if(domain == QLatin1String(Event::EventPlugin::DBEVENT_CARD_READ)) {
 		int card_id = data.toInt();
-		if(isVisible())
+		if(isVisible()) {
 			updateTableView(card_id);
+		}
 	}
 }
 
@@ -685,10 +686,11 @@ void CardReaderWidget::processSIPunch(const siut::SIPunch &rec)
 	punch.setsiid(rec.cardNumber());
 	if(currentReaderMode() == CardReaderSettings::ReaderMode::Readout) {
 		int run_id = getPlugin<CardReaderPlugin>()->findRunId(rec.cardNumber(), siut::SICard::INVALID_SI_TIME);
-		if(run_id == 0)
+		if(run_id == 0) {
 			appendLog(NecroLog::Level::Error, tr("Cannot find run for punch record SI: %1").arg(rec.cardNumber()));
-		else
+		} else {
 			punch.setrunid(run_id);
+		}
 	}
 	int punch_id = getPlugin<CardReaderPlugin>()->savePunchRecordToSql(punch);
 	if(punch_id > 0) {

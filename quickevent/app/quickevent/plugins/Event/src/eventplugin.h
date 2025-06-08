@@ -97,8 +97,6 @@ public:
 	Q_INVOKABLE void emitDbEvent(const QString &domain, const QVariant &data = QVariant(), bool loopback = true);
 	/// emitted only if loopback is not set
 	Q_SIGNAL void dbEventNotify(const QString &domain, int connection_id, const QVariant &payload);
-	/// emitted always
-	Q_SIGNAL void dbEvent(const QString &domain, const QVariant &payload);
 
 	Q_INVOKABLE QString sqlDriverName();
 
