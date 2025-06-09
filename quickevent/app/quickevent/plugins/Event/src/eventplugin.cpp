@@ -457,7 +457,6 @@ void EventPlugin::emitDbEvent(const QString &domain, const QVariant &data, bool 
 	int connection_id = qf::core::sql::Connection::defaultConnection().connectionId();
 	if(loopback) {
 		// emit queued
-		//emit dbEventNotify(domain, payload);
 		QTimer::singleShot(0, this, [this, domain, connection_id, data]() {
 			emit dbEventNotify(domain, connection_id, data);
 		});

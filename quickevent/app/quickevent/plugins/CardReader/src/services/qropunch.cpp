@@ -10,8 +10,9 @@
 
 #include <qf/core/log.h>
 
-#include <QJsonParseError>
 #include <QTcpSocket>
+#include <QJsonParseError>
+#include <QJsonDocument>
 
 #include <memory>
 #include <regex>
@@ -179,7 +180,7 @@ void QrOPunch::onReadyRead()
 			m_logFileFs << std::endl;
 		}
 		QJsonParseError parseError{};
-		QJsonDocument jsonDoc = QJsonDocument::fromJson(data, &parseError);
+		auto jsonDoc = QJsonDocument::fromJson(data, &parseError);
 		if (jsonDoc.isNull()) {
 			QTcpSocket::connect(socket, &QTcpSocket::bytesWritten, [socket](qint64) {
 				if (!socket->bytesToWrite())

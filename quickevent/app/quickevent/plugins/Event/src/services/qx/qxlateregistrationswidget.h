@@ -20,12 +20,12 @@ public:
 	explicit QxLateRegistrationsWidget(QWidget *parent = nullptr);
 	~QxLateRegistrationsWidget() override;
 
-	void onDbEventNotify(const QString &domain, const QVariant &payload);
+	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &payload);
 	void onVisibleChanged(bool is_visible);
 private:
 	QxClientService* service();
 	void reload();
-	void addQxChangeRow(int change_sql_id);
+	void addQxChangeRow(int sql_id);
 
 	void resizeColumns();
 	void showMessage(const QString &msg, bool is_error = false);

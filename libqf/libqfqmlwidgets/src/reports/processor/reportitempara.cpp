@@ -8,7 +8,7 @@
 #include <qf/core/string.h>
 
 #include <QDateTime>
-
+#include <QRegularExpression>
 
 using namespace qf::qmlwidgets::reports;
 
@@ -74,7 +74,7 @@ ReportItem::PrintResult ReportItemPara::printMetaPaintChildren(ReportItemMetaPai
 		device_bounding_rect = qmlwidgets::graphics::mm2device(bounding_rect, processor()->paintDevice());
 
 		bool render_check_mark = false;
-		QRegularExpression rx = ReportItemMetaPaint::checkReportSubstitutionRegExp;
+		auto rx = ReportItemMetaPaint::checkReportSubstitutionRegExp;
 		if(auto match = rx.match(text_to_layout); match.hasMatch()) {
 			//bool check_on = rx.capturedTexts().value(1) == "1";
 			device_bounding_rect = font_metrics.boundingRect('X');

@@ -8,12 +8,12 @@
 #include "reportpainter.h"
 #include "reportprocessor.h"
 #include "style/pen.h"
-#include "style/color.h"
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
 
 #include <QJsonDocument>
+#include <QRegularExpression>
 
 #include <algorithm>
 #include <typeinfo>

@@ -19,7 +19,7 @@
 #include <qf/core/log.h>
 
 #include <QDomElement>
-
+#include <QRegularExpression>
 
 using namespace qf::qmlwidgets::reports;
 
@@ -148,7 +148,7 @@ ReportItem::PrintResult ReportItemPara::printHtml(HTMLElement & out)
 	QDomElement el_div = out.ownerDocument().createElement("div");
 	QDomElement el_p = out.ownerDocument().createElement("p");
 	QString text = paraText();
-	QRegularExpression rx = ReportItemMetaPaint::checkReportSubstitutionRegExp;
+	auto rx = ReportItemMetaPaint::checkReportSubstitutionRegExp;
 	if(auto match = rx.match(text); match.hasMatch()) {
 		bool check_on = match.capturedTexts().value(1) == "1";
 		text = (check_on)? "X": QString();

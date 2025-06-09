@@ -345,8 +345,9 @@ void QxClientService::pollQxChanges()
 				else {
 					auto records = json.array().toVariantList();
 					qf::core::sql::Query q;
-					q.prepare("INSERT INTO qxchanges (data_type, data, run_id, source, user_id, status, status_message, stage_id, change_id)"
-							  " VALUES (:data_type, :data, :run_id, :source, :user_id, :status, :status_message, :stage_id, :change_id)");
+					q.prepare("INSERT INTO qxchanges (data_type, data, run_id, source, user_id, status, status_message, stage_id, change_id, created)"
+							  " VALUES (:data_type, :data, :run_id, :source, :user_id, :status, :status_message, :stage_id, :change_id, :created)"
+							  " RETURNING id");
 					for (const auto &v : records) {
 						auto rec = v.toMap();
 						auto ba = QJsonDocument::fromVariant(rec.value("data")).toJson(QJsonDocument::Compact);
@@ -362,9 +363,16 @@ void QxClientService::pollQxChanges()
 						auto change_id = rec.value("id").toInt();
 						Q_ASSERT(change_id > 0);
 						q.bindValue(":change_id", change_id);
+						auto created = QDateTime::fromString(rec.value("created").toString(), Qt::ISODate);
+						qfInfo() << "created:" << created.toString(Qt::ISODate);
+						q.bindValue(":created", created);
 						// may fail on prikey violation if more clients are inserting simultaneously
 						if (q.exec()) {
-							getPlugin<EventPlugin>()->emitDbEvent(Event::EventPlugin::DBEVENT_QX_CHANGE_RECEIVED, q.lastInsertId(), true);
+							if (q.next()) {
+								auto id = q.value(0).toInt();
+								qfInfo() << "insert ID:" << id;
+								getPlugin<EventPlugin>()->emitDbEvent(Event::EventPlugin::DBEVENT_QX_CHANGE_RECEIVED, id, true);
+							}
 						}
 						else {
 							qfInfo() << "sql error:" << q.lastErrorText();

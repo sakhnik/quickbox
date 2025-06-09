@@ -64,6 +64,7 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 		}
 	});
 
+	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::dbEventNotify, this, &QxLateRegistrationsWidget::onDbEventNotify, Qt::QueuedConnection);
 }
 
 QxLateRegistrationsWidget::~QxLateRegistrationsWidget()
@@ -71,12 +72,12 @@ QxLateRegistrationsWidget::~QxLateRegistrationsWidget()
 	delete ui;
 }
 
-void QxLateRegistrationsWidget::onDbEventNotify(const QString &domain, const QVariant &payload)
+void QxLateRegistrationsWidget::onDbEventNotify(const QString &domain, int connection_id, const QVariant &payload)
 {
-	Q_UNUSED(payload)
+	Q_UNUSED(connection_id)
 	if(domain == QLatin1String(Event::EventPlugin::DBEVENT_QX_CHANGE_RECEIVED)) {
-		int change_id = payload.toInt();
-		addQxChangeRow(change_id);
+		int sql_id = payload.toInt();
+		addQxChangeRow(sql_id);
 	}
 }
 
@@ -137,19 +138,19 @@ void QxLateRegistrationsWidget::reload()
 	m_model->reload();
 }
 
-void QxLateRegistrationsWidget::addQxChangeRow(int change_sql_id)
+void QxLateRegistrationsWidget::addQxChangeRow(int sql_id)
 {
-	if(change_sql_id <= 0) {
+	qfInfo() << "reloading change id:" << sql_id << "col id:" << COL_ID;
+	if(sql_id <= 0) {
 		return;
 	}
 	m_model->insertRow(0);
-	m_model->setValue(0, COL_ID, change_sql_id);
+	m_model->setValue(0, COL_ID, sql_id);
 	int cnt = m_model->reloadRow(0);
 	if(cnt != 1) {
-		qfWarning() << "Inserted qx change row id:" << change_sql_id << "reloaded in" << cnt << "instances.";
+		qfWarning() << "Inserted qx change row id:" << sql_id << "reloaded in" << cnt << "instances.";
 		return;
 	}
-	ui->tableView->updateRow(0);
 }
 
 

@@ -1,6 +1,5 @@
 #include "clioptions.h"
 #include "../core/log.h"
-//#include "../core/logdevice.h"
 #include "../core/assert.h"
 #include "../core/utils.h"
 
@@ -8,12 +7,12 @@
 #include <QStringList>
 #include <QDir>
 #include <QJsonParseError>
+#include <QJsonDocument>
 
 #ifdef Q_OS_WIN
 #include <qt_windows.h>
 #endif
 
-#include <limits>
 #include <iostream>
 
 using namespace qf::core::utils;
