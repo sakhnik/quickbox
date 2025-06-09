@@ -12,8 +12,6 @@
 #include <QDomElement>
 #include <QTextStream>
 
-#include <limits>
-
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
 static const auto SkipEmptyParts = QString::SkipEmptyParts;
 #else
@@ -420,7 +418,7 @@ QVariant TableRow::value(int col) const
 			  QString("Column %1 is out of range %2").arg(col).arg(d->values.size()),
 			  return ret);
 	ret = d->values.value(col);
-	//qfInfo().nospace() << "col: " << col << " value: '" << ret.toString() << "' type: " << ret.typeName() << " is null: " << ret.isNull() << " is valid: " << ret.isValid();
+	// qfInfo().nospace() << "col: " << col << " value: '" << ret.toString() << "' type: " << ret.typeName() << " is null: " << ret.isNull() << " is valid: " << ret.isValid();
 	return ret;
 }
 

@@ -5,6 +5,7 @@
 #include "../utils/treetable.h"
 
 #include <QTime>
+#include <QTimeZone>
 #include <QColor>
 #include <QPixmap>
 #include <QIcon>
@@ -177,7 +178,7 @@ QVariant TableModel::data(const QModelIndex &index, int role) const
 			}
 			else if(type == QMetaType::QDateTime) {
 				QDateTime dt = ret.toDateTime();
-				ret = dt.toString(format);
+				ret = dt.toLocalTime().toString(format);
 			}
 		}
 	}

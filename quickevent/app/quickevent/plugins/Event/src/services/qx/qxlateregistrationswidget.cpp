@@ -140,7 +140,7 @@ void QxLateRegistrationsWidget::reload()
 
 void QxLateRegistrationsWidget::addQxChangeRow(int sql_id)
 {
-	qfInfo() << "reloading change id:" << sql_id << "col id:" << COL_ID;
+	qfDebug() << "reloading change id:" << sql_id << "col id:" << COL_ID;
 	if(sql_id <= 0) {
 		return;
 	}

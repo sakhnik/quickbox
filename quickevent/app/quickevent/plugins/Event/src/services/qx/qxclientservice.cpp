@@ -364,13 +364,13 @@ void QxClientService::pollQxChanges()
 						Q_ASSERT(change_id > 0);
 						q.bindValue(":change_id", change_id);
 						auto created = QDateTime::fromString(rec.value("created").toString(), Qt::ISODate);
-						qfInfo() << "created:" << created.toString(Qt::ISODate);
+						qfDebug() << "created:" << created.toString(Qt::ISODate);
 						q.bindValue(":created", created);
 						// may fail on prikey violation if more clients are inserting simultaneously
 						if (q.exec()) {
 							if (q.next()) {
 								auto id = q.value(0).toInt();
-								qfInfo() << "insert ID:" << id;
+								qfDebug() << "insert ID:" << id;
 								getPlugin<EventPlugin>()->emitDbEvent(Event::EventPlugin::DBEVENT_QX_CHANGE_RECEIVED, id, true);
 							}
 						}
