@@ -815,11 +815,8 @@ void OrisImporter::importRegistrations(std::function<void ()> success_callback)
 		QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
 		// import clubs
 		int items_processed = 0;
-		int items_count = 0;
-		for(auto it = data.constBegin(); it != data.constEnd(); ++it) {
-			items_count++;
-		}
-		fwk->showProgress(tr("Importing registrations"), 1, items_count);
+		int items_count = data.size();
+		fwk->showProgress(tr("Importing registrations"), items_processed, items_count);
 		try {
 			qfLogScope("importRegistrations");
 			qf::core::sql::Transaction transaction;
@@ -875,11 +872,8 @@ void OrisImporter::importClubs(std::function<void ()> success_callback)
 		QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
 		// import clubs
 		int items_processed = 0;
-		int items_count = 0;
-		for(auto it = data.constBegin(); it != data.constEnd(); ++it) {
-			items_count++;
-		}
-		fwk->showProgress(tr("Importing clubs"), 1, items_count);
+		int items_count = data.size();
+		fwk->showProgress(tr("Importing clubs"), items_processed, items_count);
 		try {
 			qfLogScope("importClubs");
 			qf::core::sql::Transaction transaction;
