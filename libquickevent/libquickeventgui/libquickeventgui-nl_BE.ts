@@ -194,12 +194,14 @@
     </message>
     <message>
         <location filename="src/reportoptionsdialog.ui" line="467"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(class name, start time,  runner name)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>(class name, start time, runner name)</source>
+        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(class name, start time,  runner name)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location filename="src/reportoptionsdialog.ui" line="477"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(start time, class name, runner name)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>(start time, class name, runner name)</source>
+        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(start time, class name, runner name)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -209,7 +211,8 @@
     </message>
     <message>
         <location filename="src/reportoptionsdialog.ui" line="487"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(runner name, class name, start time)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>(runner name, class name, start time)</source>
+        <oldsource>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;(runner name, class name, start time)&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</oldsource>
         <translation type="unfinished"></translation>
     </message>
     <message>

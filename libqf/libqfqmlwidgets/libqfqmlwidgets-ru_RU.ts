@@ -105,27 +105,27 @@
 <context>
     <name>qf::qmlwidgets::HeaderView</name>
     <message>
-        <location filename="src/headerview.cpp" line="66"/>
+        <location filename="src/headerview.cpp" line="65"/>
         <source>Resize section to contents</source>
         <translation>Изменить размер раздела по содержанию</translation>
     </message>
     <message>
-        <location filename="src/headerview.cpp" line="68"/>
+        <location filename="src/headerview.cpp" line="67"/>
         <source>Resize all sections to contents</source>
         <translation>Изменить размер всех разделов по содержанию</translation>
     </message>
     <message>
-        <location filename="src/headerview.cpp" line="69"/>
+        <location filename="src/headerview.cpp" line="68"/>
         <source>Hide section</source>
         <translation>Скрыть раздел</translation>
     </message>
     <message>
-        <location filename="src/headerview.cpp" line="70"/>
+        <location filename="src/headerview.cpp" line="69"/>
         <source>Show all sections</source>
         <translation>Показать все разделы</translation>
     </message>
     <message>
-        <location filename="src/headerview.cpp" line="71"/>
+        <location filename="src/headerview.cpp" line="70"/>
         <source>Sections in natural order</source>
         <translation>Разделы в естественном порядке</translation>
     </message>
@@ -155,37 +155,37 @@
 <context>
     <name>qf::qmlwidgets::TableView</name>
     <message>
-        <location filename="src/tableview.cpp" line="76"/>
+        <location filename="src/tableview.cpp" line="77"/>
         <source>Left click selects all, right click for menu.</source>
         <translation>Нажатие левой кнопкой мыши выделяет все, нажатие правой кнопкой мыши - для меню.</translation>
     </message>
     <message>
-        <location filename="src/tableview.cpp" line="678"/>
+        <location filename="src/tableview.cpp" line="680"/>
         <source>Enter value</source>
         <translation>Введите значение</translation>
     </message>
     <message>
-        <location filename="src/tableview.cpp" line="678"/>
+        <location filename="src/tableview.cpp" line="680"/>
         <source>new value:</source>
         <translation>новое значение:</translation>
     </message>
     <message>
-        <location filename="src/tableview.cpp" line="785"/>
+        <location filename="src/tableview.cpp" line="787"/>
         <source>Save File</source>
         <translation>Сохранить файл</translation>
     </message>
     <message>
-        <location filename="src/tableview.cpp" line="797"/>
+        <location filename="src/tableview.cpp" line="799"/>
         <source>Open File</source>
         <translation>Открыть файл</translation>
     </message>
     <message>
-        <location filename="src/tableview.cpp" line="954"/>
+        <location filename="src/tableview.cpp" line="956"/>
         <source>Save as ...</source>
         <translation>Сохранить как ...</translation>
     </message>
     <message>
-        <location filename="src/tableview.cpp" line="960"/>
+        <location filename="src/tableview.cpp" line="962"/>
         <source>Cannot open file &apos;%1&apos; for writing.</source>
         <translation>Невозможно открыть файл &apos;% 1&apos; для записи.</translation>
     </message>
@@ -477,7 +477,7 @@
 <context>
     <name>qf::qmlwidgets::TableViewToolBar</name>
     <message>
-        <location filename="src/tableviewtoolbar.cpp" line="69"/>
+        <location filename="src/tableviewtoolbar.cpp" line="67"/>
         <source>Filter</source>
         <translation>Фильтр</translation>
     </message>
@@ -627,7 +627,7 @@
 <context>
     <name>qf::qmlwidgets::framework::DialogWidget</name>
     <message>
-        <location filename="src/framework/dialogwidget.cpp" line="51"/>
+        <location filename="src/framework/dialogwidget.cpp" line="50"/>
         <source>Cannot find action name &apos;%1&apos;</source>
         <translation>Не удается найти имя действия &apos;% 1&apos;</translation>
     </message>
@@ -707,7 +707,7 @@
 <context>
     <name>qf::qmlwidgets::framework::MainWindow</name>
     <message>
-        <location filename="src/framework/mainwindow.cpp" line="300"/>
+        <location filename="src/framework/mainwindow.cpp" line="301"/>
         <source>Plugin for feature id: &apos;%1&apos; is not installed!</source>
         <translation>Плагин для идентификатора функции: «% 1» не установлен!</translation>
     </message>
@@ -715,7 +715,7 @@
 <context>
     <name>qf::qmlwidgets::framework::PartSwitch</name>
     <message>
-        <location filename="src/framework/partswitch.cpp" line="37"/>
+        <location filename="src/framework/partswitch.cpp" line="33"/>
         <source>Part switch</source>
         <translation>Переключатель разделов</translation>
     </message>
@@ -854,12 +854,12 @@
         <translation>таблица</translation>
     </message>
     <message>
-        <location filename="src/internal/tableviewchoosecolumnswidget.cpp" line="28"/>
+        <location filename="src/internal/tableviewchoosecolumnswidget.cpp" line="36"/>
         <source>name</source>
         <translation>название</translation>
     </message>
     <message>
-        <location filename="src/internal/tableviewchoosecolumnswidget.cpp" line="28"/>
+        <location filename="src/internal/tableviewchoosecolumnswidget.cpp" line="36"/>
         <source>width</source>
         <translation>ширина</translation>
     </message>
@@ -974,102 +974,102 @@
 <context>
     <name>qf::qmlwidgets::reports::ReportViewWidget</name>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="525"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="523"/>
         <source>&amp;File</source>
         <translation>&amp;Файл</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="533"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="531"/>
         <source>&amp;View</source>
         <translation>&amp;Просмотр</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="567"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="565"/>
         <source>First page</source>
         <translation>Первая страница</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="574"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="572"/>
         <source>Prev page</source>
         <translation>Предыдущая страница</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="581"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="579"/>
         <source>Next page</source>
         <translation>Следующая страница</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="588"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="586"/>
         <source>Last page</source>
         <translation>Последняя страница</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="595"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="593"/>
         <source>Zoom in</source>
         <translation>Увеличить</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="602"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="600"/>
         <source>Zoom out</source>
         <translation>Уменьшить</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="609"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="607"/>
         <source>Zoom to fit width</source>
         <translation>Вписать содержимое по ширине</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="616"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="614"/>
         <source>Zoom to fit height</source>
         <translation>Вписать содержимое по высоте</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="623"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="621"/>
         <source>&amp;Print</source>
         <translation>&amp;Распечатать</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="631"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="629"/>
         <source>Print pre&amp;view</source>
         <translation>Предварительный просмотр печати</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="638"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="636"/>
         <source>Export PD&amp;F</source>
         <translation>Экспортировать в формате PDF</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="640"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="638"/>
         <source>Export in the Adobe Acrobat PDF format</source>
         <translation>Экспорт в формате Adobe Acrobat PDF</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="646"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="644"/>
         <source>Export &amp;HTML</source>
         <translation>Экспорт HTML</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="648"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="646"/>
         <source>Export data in HTML</source>
         <translation>Экспорт данных в HTML</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1049"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1047"/>
         <source>empty file name</source>
         <translation>пустое имя файла</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1111"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1109"/>
         <source>Save as PDF</source>
         <translation>Сохранить как PDF</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1126"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1124"/>
         <source>Save as HTML</source>
         <translation>Сохранить как HTML</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1131"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="1129"/>
         <source>Cannot open &apos;%1&apos; for write.</source>
         <translation>Не удается открыть % 1 для записи.</translation>
     </message>
@@ -1081,12 +1081,12 @@
 <context>
     <name>qf::qmlwidgets::reports::ReportViewWidget::PainterWidget</name>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="300"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="298"/>
         <source>Item menu</source>
         <translation>Пункт меню</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/reportviewwidget.cpp" line="301"/>
+        <location filename="src/reports/widgets/reportviewwidget.cpp" line="299"/>
         <source>Editovat text</source>
         <translation>Редактировать текст</translation>
     </message>
