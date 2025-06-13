@@ -65,6 +65,7 @@ public:
 	int dbVersion() const;
 	std::optional<int> maximumCardCheckAdvanceSec() const;
 	bool isOneTenthSecResults() const;
+	QString orisEventKey() const;
 private:
 	// void checkApiKey();
 	void save_helper(QVariantMap &ret, const QString &current_path, const QVariant &val);

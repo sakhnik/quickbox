@@ -63,7 +63,9 @@ void EventDialogWidget::loadParams(const QVariantMap &params)
 	ui->cbxDisciplineId->setCurrentIndex(params.value("disciplineId").toInt() - 1);
 	if(ui->cbxDisciplineId->currentIndex() < 0)
 		ui->cbxDisciplineId->setCurrentIndex(0);
-	ui->ed_importId->setText(params.value("importId").toString());
+	ui->ed_orisImportId->setText(params.value("importId").toString());
+	ui->ed_orisRace->setChecked(!ui->ed_orisImportId->text().isEmpty());
+	ui->ed_orisEventKey->setText(params.value("orisEventKey").toString());
 	ui->ed_cardChecCheckTimeSec->setValue(params.value("cardChechCheckTimeSec").toInt());
 	ui->ed_oneTenthSecResults->setCurrentIndex(params.value("oneTenthSecResults").toInt());
 	ui->ed_iofRace->setChecked(params.value("iofRace").toInt() != 0);
@@ -85,7 +87,8 @@ QVariantMap EventDialogWidget::saveParams()
 	ret["handicapLength"] = ui->ed_handicapLength->value();
 	ret["sportId"] = (ui->cbxSportId->currentIndex() <= 0) ? 1 : ui->cbxSportId->currentIndex() + 1;
 	ret["disciplineId"] = (ui->cbxDisciplineId->currentIndex() <= 0) ? 1 : ui->cbxDisciplineId->currentIndex() + 1;
-	ret["importId"] = ui->ed_importId->text().toInt();
+	ret["importId"] = ui->ed_orisImportId->text().toInt();
+	ret["orisEventKey"] = ui->ed_orisEventKey->text();
 	ret["cardChechCheckTimeSec"] = ui->ed_cardChecCheckTimeSec->value();
 	ret["oneTenthSecResults"] = ui->ed_oneTenthSecResults->currentIndex();
 	ret["iofRace"] = (int)ui->ed_iofRace->isChecked();

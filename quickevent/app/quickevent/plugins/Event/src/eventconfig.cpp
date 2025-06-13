@@ -283,6 +283,11 @@ int EventConfig::iofXmlRaceNumber() const
 	return value(QStringLiteral("event.iofXmlRaceNumber")).toInt();
 }
 
+QString EventConfig::orisEventKey() const
+{
+	return value(QStringLiteral("event.orisEventKey")).toString();
+}
+
 /*
 const QSet<QString> &EventConfig::knownKeys()
 {
