@@ -65,11 +65,21 @@ void OrisPlugin::onInstalled()
 	*/
 	act_import_oris->addSeparatorInto();
 	{
-		qfw::Action *a = act_import_oris->addActionInto("clubs", tr("&Clubs and registrations"));
+		auto a = act_import_oris->addActionInto("clubs", tr("&Clubs and registrations"));
 		connect(a, &qfw::Action::triggered, m_orisImporter, [this]() {
 				m_orisImporter->importRegistrations([this]() {
 				m_orisImporter->importClubs();
 			});
+		});
+		a->setEnabled(false);
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+			a->setEnabled(is_event_open);
+		});
+	}
+	{
+		auto a = act_import_oris->addActionInto("onet-time-clubs", tr("&Update one-time clubs"));
+		connect(a, &qfw::Action::triggered, m_orisImporter, [this]() {
+				m_orisImporter->importMissingOneTimeClubs();
 		});
 		a->setEnabled(false);
 		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {

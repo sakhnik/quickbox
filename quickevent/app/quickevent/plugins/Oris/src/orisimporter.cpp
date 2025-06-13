@@ -32,6 +32,7 @@
 #include <QTime>
 #include <QUrl>
 #include <QInputDialog>
+#include <QMessageBox>
 
 #if QT_VERSION_MAJOR >= 6
 // workaround to decode cp-1250 on linux, needed for relays import from Oris
@@ -358,7 +359,9 @@ void OrisImporter::chooseAndImport()
 	if(event_id > 0) {
 		importEvent(event_id, [this]() {
 			importRegistrations([this]() {
-				importClubs();
+				importClubs([this]() {
+					importMissingOneTimeClubs();
+				});
 			});
 		});
 	}
@@ -902,6 +905,80 @@ void OrisImporter::importClubs(std::function<void ()> success_callback)
 			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
 		}
 	});
+}
+
+void OrisImporter::getAndImportClub(const QString &club, const QString &key)
+{
+	QUrl url(QString("https://oris.orientacnisporty.cz/API/?format=json&method=getClub&id=%1&eventkey=%2").arg(club).arg(key));
+	getJsonAndProcess(url, this, [club](const QJsonDocument &jsd) {
+		saveJsonBackup(QString("Club_%1").arg(club), jsd);
+		QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
+		auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		try {
+			qf::core::sql::Query q;
+			q.prepare("INSERT INTO clubs (name, abbr, importId) VALUES (:name, :abbr, :importId)", qf::core::Exception::Throw);
+			QString abbr = data.value(QStringLiteral("Abbr")).toString();
+			QString name = data.value(QStringLiteral("Name")).toString();
+			q.bindValue(":abbr", abbr);
+			q.bindValue(":name", name);
+			q.bindValue(":importId", data.value(QStringLiteral("ID")).toString().toInt());
+			q.exec(qf::core::Exception::Throw);
+		}
+		catch (qf::core::Exception &e) {
+			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		}
+	});
+}
+
+void OrisImporter::importMissingOneTimeClubs()
+{
+	auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	auto event_key = getPlugin<EventPlugin>()->eventConfig()->orisEventKey();
+	if (event_key.isEmpty()) {
+		QMessageBox::warning(fwk,tr("Warning"),tr("For import one-time clubs, you need to fill ORIS Event Key in File->Event->Edit event"));
+		return;
+	}
+
+	qf::core::sql::Query q;
+	// list all entries, find missing clubs by registration and try to ask ORIS for names of this clubs
+	std::map <QString, int> clubs; // map of existing clubs
+	std::list <QString> missing_clubs;
+	try {
+		q.exec("SELECT id, abbr FROM clubs ORDER BY id", qf::core::Exception::Throw);
+		while(q.next()) {
+			clubs[q.value(1).toString()] = q.value(0).toInt();
+		}
+
+		q.exec("SELECT id, registration FROM competitors WHERE registration != '' ORDER BY id", qf::core::Exception::Throw);
+		while(q.next()) {
+			auto club = q.value(1).toString().mid(0,3);
+			if (!club.isEmpty()) {
+				auto it = clubs.find(club);
+				if (it == clubs.end())	// club not found
+					missing_clubs.push_back(club);
+			}
+		}
+
+		if (missing_clubs.empty()) {
+			QMessageBox::information(fwk,tr("Information"),tr("No missing one-time clubs found."));
+			return;
+		}
+
+		int items_processed = 0;
+		int items_count = missing_clubs.size();
+		fwk->showProgress(tr("Importing one-time clubs"), 0, items_count);
+		qfLogScope("importClubs");
+		for (auto &abbr : missing_clubs) {
+			getAndImportClub(abbr,event_key);
+			items_processed++;
+		}
+
+		fwk->hideProgress();
+		qfInfo() << "Import of "<< items_processed << " new one-time clubs started...";
+	}
+	catch (qf::core::Exception &e) {
+		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+	}
 }
 
 
