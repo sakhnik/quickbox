@@ -585,7 +585,7 @@
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="59"/>
         <source>Warning</source>
-        <translation>Varování</translation>
+        <translation>Upozornění</translation>
     </message>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="64"/>

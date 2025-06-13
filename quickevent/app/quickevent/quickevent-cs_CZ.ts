@@ -356,7 +356,7 @@
         <location filename="plugins/CardReader/src/cardreadersettingspage.cpp" line="174"/>
         <location filename="plugins/CardReader/src/cardreadersettingspage.cpp" line="190"/>
         <source>Warning</source>
-        <translation>Varování</translation>
+        <translation>Upozornění</translation>
     </message>
     <message>
         <location filename="plugins/CardReader/src/cardreadersettingspage.cpp" line="174"/>
@@ -1437,7 +1437,7 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
     <message>
         <location filename="plugins/Competitors/src/competitorwidget.cpp" line="224"/>
         <source>New start time:</source>
-        <translation type="unfinished"></translation>
+        <translation>Nový čas startu:</translation>
     </message>
     <message>
         <location filename="plugins/Competitors/src/competitorwidget.cpp" line="531"/>
@@ -2271,7 +2271,7 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
     <message>
         <location filename="plugins/Event/src/eventplugin.cpp" line="396"/>
         <source>Registrations</source>
-        <translation type="unfinished">Registrace</translation>
+        <translation>Registrace</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventplugin.cpp" line="699"/>
@@ -2454,22 +2454,22 @@ Použij: Soubor --&gt; Importovat --&gt; Závod (*.qbe) pro konverzi dat do aktu
     <message>
         <location filename="plugins/Event/src/eventplugin.cpp" line="1358"/>
         <source>Name</source>
-        <translation type="unfinished">Jméno</translation>
+        <translation>Jméno</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventplugin.cpp" line="1359"/>
         <source>Reg</source>
-        <translation type="unfinished">Reg. č.</translation>
+        <translation>Reg. č.</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventplugin.cpp" line="1360"/>
         <source>Lic</source>
-        <translation type="unfinished">Lic</translation>
+        <translation>Lic</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventplugin.cpp" line="1361"/>
         <source>SI</source>
-        <translation type="unfinished">SI</translation>
+        <translation>SI</translation>
     </message>
 </context>
 <context>
@@ -2937,38 +2937,39 @@ V případě chyb neváhejte napsat na support@oresults.eu</translation>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="349"/>
         <source>Is IOF Race (data from Eventor - eventor.orienteering.org)</source>
-        <translation type="unfinished"></translation>
+        <translation>Závod je IOF (data se berou z Eventoru - eventor.orienteering.org)</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="359"/>
         <source>ORIS</source>
-        <translation type="unfinished"></translation>
+        <translation>ORIS</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="365"/>
         <source>Event key</source>
-        <translation type="unfinished"></translation>
+        <translation>Bezpečnostní klíč závodu</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="375"/>
         <source>Unique event security key (32 chars)</source>
-        <translation type="unfinished"></translation>
+        <translation>Jedinečný bezpečnostní klíč závodu (32 znaků)</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="382"/>
         <source>Used for import one-time clubs
 source - ORIS-&gt;Event-&gt;Information-&gt;Event key</source>
-        <translation type="unfinished"></translation>
+        <translation>Použito pro import klubů u jednorázových přihlášek
+zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="393"/>
         <source>Event id</source>
-        <translation type="unfinished"></translation>
+        <translation>ID závodu</translation>
     </message>
     <message>
         <location filename="plugins/Event/src/eventdialogwidget.ui" line="400"/>
         <source>Is ORIS Race (data from ORIS - oris.orientacnisporty.cz)</source>
-        <translation type="unfinished"></translation>
+        <translation>Závod je z ORISu (data se berou z ORISu - oris.orientacnisporty.cz)</translation>
     </message>
     <message>
         <source>Import ID</source>
@@ -3600,7 +3601,7 @@ source - ORIS-&gt;Event-&gt;Information-&gt;Event key</source>
     <message>
         <location filename="plugins/Oris/src/orisplugin.cpp" line="80"/>
         <source>&amp;Update one-time clubs</source>
-        <translation type="unfinished"></translation>
+        <translation>&amp;Aktualizovat jednorázové kluby</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/orisplugin.cpp" line="89"/>
@@ -3708,27 +3709,27 @@ source - ORIS-&gt;Event-&gt;Information-&gt;Event key</source>
     <message>
         <location filename="plugins/Oris/src/orisimporter.cpp" line="938"/>
         <source>Warning</source>
-        <translation type="unfinished">Varování</translation>
+        <translation>Upozornění</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/orisimporter.cpp" line="938"/>
         <source>For import one-time clubs, you need to fill ORIS Event Key in File-&gt;Event-&gt;Edit event</source>
-        <translation type="unfinished"></translation>
+        <translation>Pro import jednorázových klubů je potřeba mít vyplněn ORISový bezpečnostní klíč závodu v Soubor-&gt;Závod-&gt;Upravit závod</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/orisimporter.cpp" line="963"/>
         <source>Information</source>
-        <translation type="unfinished">Informace</translation>
+        <translation>Informace</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/orisimporter.cpp" line="963"/>
         <source>No missing one-time clubs found.</source>
-        <translation type="unfinished"></translation>
+        <translation>Nenalezen žádný chybějící jednorázový klub.</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/orisimporter.cpp" line="969"/>
         <source>Importing one-time clubs</source>
-        <translation type="unfinished"></translation>
+        <translation>Importuji jednorázové kluby</translation>
     </message>
     <message>
         <location filename="plugins/Oris/src/orisimporter.cpp" line="127"/>
@@ -5191,17 +5192,17 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
     <message>
         <location filename="plugins/Runs/src/runstablemodel.cpp" line="43"/>
         <source>Ranking pos</source>
-        <translation type="unfinished">Ranking umístění</translation>
+        <translation>Ranking umístění</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablemodel.cpp" line="43"/>
         <source>Runner&apos;s position in CZ ranking.</source>
-        <translation type="unfinished">Pozice závodníka v CZ rankingu.</translation>
+        <translation>Pozice závodníka v CZ rankingu.</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablemodel.cpp" line="44"/>
         <source>IOF ID</source>
-        <translation type="unfinished">IOF ID</translation>
+        <translation>IOF ID</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablemodel.cpp" line="91"/>
@@ -5344,7 +5345,7 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
     <message>
         <location filename="plugins/Runs/src/runstablewidget.cpp" line="229"/>
         <source>Set class in selected rows</source>
-        <translation type="unfinished">Nastavit kategorii ve vybraných řádcích</translation>
+        <translation>Nastavit kategorii ve vybraných řádcích</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablewidget.cpp" line="245"/>
@@ -5364,12 +5365,12 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
     <message>
         <location filename="plugins/Runs/src/runstablewidget.cpp" line="336"/>
         <source>Dialog</source>
-        <translation type="unfinished">Dialog</translation>
+        <translation>Dialog</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablewidget.cpp" line="337"/>
         <source>Select class</source>
-        <translation type="unfinished">Vyberte kategorii</translation>
+        <translation>Vyberte kategorii</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runstablewidget.cpp" line="366"/>
@@ -5548,7 +5549,7 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
         <location filename="plugins/Runs/src/runswidget.cpp" line="229"/>
         <location filename="plugins/Runs/src/runswidget.cpp" line="1140"/>
         <source>Competitors statistics</source>
-        <translation type="unfinished">Statistiky závodníků</translation>
+        <translation>Statistiky závodníků</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="235"/>
@@ -5637,27 +5638,27 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="1048"/>
         <source>Really delete all the selected competitors? This action cannot be reverted.</source>
-        <translation type="unfinished">Opravdu odstranit všechny vybrané závodníky? Tato akce nemůže být vrácena.</translation>
+        <translation>Opravdu odstranit všechny vybrané závodníky? Tato akce nemůže být vrácena.</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="1061"/>
         <source>Confirm deletion of %1 competitors.</source>
-        <translation type="unfinished">Potvrďte odstranění %1 závodníků.</translation>
+        <translation>Potvrďte odstranění %1 závodníků.</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="1154"/>
         <source>Edit Competitor</source>
-        <translation type="unfinished">Upravit závodníka</translation>
+        <translation>Upravit závodníka</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="1158"/>
         <source>Save</source>
-        <translation type="unfinished"></translation>
+        <translation>Uložit</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="1164"/>
         <source>Ok and &amp;next</source>
-        <translation type="unfinished"></translation>
+        <translation>Ok a &amp;další</translation>
     </message>
     <message>
         <location filename="plugins/Runs/src/runswidget.cpp" line="311"/>
