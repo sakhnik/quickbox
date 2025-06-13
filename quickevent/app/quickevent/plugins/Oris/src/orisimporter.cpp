@@ -33,6 +33,7 @@
 #include <QUrl>
 #include <QInputDialog>
 #include <QMessageBox>
+#include <set>
 
 #if QT_VERSION_MAJOR >= 6
 // workaround to decode cp-1250 on linux, needed for relays import from Oris
@@ -942,7 +943,7 @@ void OrisImporter::importMissingOneTimeClubs()
 	qf::core::sql::Query q;
 	// list all entries, find missing clubs by registration and try to ask ORIS for names of this clubs
 	std::map <QString, int> clubs; // map of existing clubs
-	std::list <QString> missing_clubs;
+	std::set <QString> missing_clubs;
 	try {
 		q.exec("SELECT id, abbr FROM clubs ORDER BY id", qf::core::Exception::Throw);
 		while(q.next()) {
@@ -954,8 +955,8 @@ void OrisImporter::importMissingOneTimeClubs()
 			auto club = q.value(1).toString().mid(0,3);
 			if (!club.isEmpty()) {
 				auto it = clubs.find(club);
-				if (it == clubs.end())	// club not found
-					missing_clubs.push_back(club);
+				if (it == clubs.end()) // club not found
+					missing_clubs.insert(club);
 			}
 		}
 
@@ -974,7 +975,7 @@ void OrisImporter::importMissingOneTimeClubs()
 		}
 
 		fwk->hideProgress();
-		qfInfo() << "Import of "<< items_processed << " new one-time clubs started...";
+		qfInfo() << "Import of"<< items_processed << "new one-time clubs started...";
 	}
 	catch (qf::core::Exception &e) {
 		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
