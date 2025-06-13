@@ -950,6 +950,7 @@ void OrisImporter::importMissingOneTimeClubs()
 			clubs[q.value(1).toString()] = q.value(0).toInt();
 		}
 
+		// from competitors table
 		q.exec("SELECT id, registration FROM competitors WHERE registration != '' ORDER BY id", qf::core::Exception::Throw);
 		while(q.next()) {
 			auto club = q.value(1).toString().mid(0,3);
@@ -957,6 +958,19 @@ void OrisImporter::importMissingOneTimeClubs()
 				auto it = clubs.find(club);
 				if (it == clubs.end()) // club not found
 					missing_clubs.insert(club);
+			}
+		}
+
+		if (getPlugin<EventPlugin>()->eventConfig()->isRelays()) {
+			// also from relays table
+			q.exec("SELECT id, club FROM relays ORDER BY id", qf::core::Exception::Throw);
+			while(q.next()) {
+				auto club = q.value(1).toString();
+				if (!club.isEmpty()) {
+					auto it = clubs.find(club);
+					if (it == clubs.end()) // club not found
+						missing_clubs.insert(club);
+				}
 			}
 		}
 
