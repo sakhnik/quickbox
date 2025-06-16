@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>400</width>
-    <height>730</height>
+    <height>675</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -265,26 +265,6 @@
     </widget>
    </item>
    <item row="12" column="0">
-    <widget class="QLabel" name="label_10">
-     <property name="text">
-      <string>Import ID</string>
-     </property>
-     <property name="buddy">
-      <cstring>ed_handicapLength</cstring>
-     </property>
-    </widget>
-   </item>
-   <item row="12" column="1">
-    <widget class="QLineEdit" name="ed_importId">
-     <property name="alignment">
-      <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
-     </property>
-     <property name="readOnly">
-      <bool>true</bool>
-     </property>
-    </widget>
-   </item>
-   <item row="13" column="0">
     <widget class="QLabel" name="label_14">
      <property name="text">
       <string>Card check</string>
@@ -294,7 +274,7 @@
      </property>
     </widget>
    </item>
-   <item row="13" column="1">
+   <item row="12" column="1">
     <widget class="QSpinBox" name="ed_cardChecCheckTimeSec">
      <property name="toolTip">
       <string>Maximal distance between card CHECK and START time</string>
@@ -316,7 +296,7 @@
      </property>
     </widget>
    </item>
-   <item row="14" column="0">
+   <item row="13" column="0">
     <widget class="QLabel" name="label_15">
      <property name="text">
       <string>1/10 sec results</string>
@@ -326,7 +306,7 @@
      </property>
     </widget>
    </item>
-   <item row="14" column="1">
+   <item row="13" column="1">
     <widget class="QComboBox" name="ed_oneTenthSecResults">
      <item>
       <property name="text">
@@ -340,7 +320,7 @@
      </item>
     </widget>
    </item>
-   <item row="15" column="0" colspan="2">
+   <item row="14" column="0" colspan="2">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
       <string>IOF Eventor</string>
@@ -366,7 +346,68 @@
          <string>IOF Eventor race - used for IOF XML exports</string>
         </property>
         <property name="text">
-         <string>Is IOF Race (data from Eventor)</string>
+         <string>Is IOF Race (data from Eventor - eventor.orienteering.org)</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="15" column="0" colspan="2">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>ORIS</string>
+     </property>
+     <layout class="QFormLayout" name="formLayout_3">
+      <item row="2" column="0">
+       <widget class="QLabel" name="label_17">
+        <property name="text">
+         <string>Event key</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLineEdit" name="ed_orisEventKey">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Unique event security key (32 chars)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QLabel" name="label_18">
+        <property name="text">
+         <string>Used for import one-time clubs
+source - ORIS-&gt;Event-&gt;Information-&gt;Event key</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_19">
+        <property name="text">
+         <string>Event id</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QCheckBox" name="ed_orisRace">
+        <property name="text">
+         <string>Is ORIS Race (data from ORIS - oris.orientacnisporty.cz)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="ed_orisImportId">
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
         </property>
        </widget>
       </item>
@@ -388,7 +429,13 @@
   <tabstop>ed_handicapLength</tabstop>
   <tabstop>cbxSportId</tabstop>
   <tabstop>cbxDisciplineId</tabstop>
-  <tabstop>ed_importId</tabstop>
+  <tabstop>ed_cardChecCheckTimeSec</tabstop>
+  <tabstop>ed_oneTenthSecResults</tabstop>
+  <tabstop>ed_iofRace</tabstop>
+  <tabstop>ed_xmlRaceNumber</tabstop>
+  <tabstop>ed_orisRace</tabstop>
+  <tabstop>ed_orisImportId</tabstop>
+  <tabstop>ed_orisEventKey</tabstop>
  </tabstops>
  <resources/>
  <connections/>
