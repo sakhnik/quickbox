@@ -222,10 +222,12 @@ void RelayWidget::removeLeg()
 		return;
 	qf::core::utils::TableRow row = ui->tblLegs->selectedRow();
 	int run_id = row.value("runs.id").toInt();
-	qfDebug() << "run id:" << run_id;
-	if(run_id > 0) {
+	int comp_id = row.value("runs.competitorid").toInt();
+	qfDebug() << "run id:" << run_id << "comp id:" << comp_id;
+	if(run_id > 0 && comp_id > 0) {
 		qf::core::sql::Query q;
 		q.exec("DELETE FROM runs WHERE id=" + QString::number(run_id), qf::core::Exception::Throw);
+		q.exec("DELETE FROM competitors WHERE id=" + QString::number(comp_id), qf::core::Exception::Throw);
 		loadLegsTable();
 	}
 }
