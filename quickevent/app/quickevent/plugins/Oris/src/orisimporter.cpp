@@ -410,6 +410,7 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 			if(!getPlugin<EventPlugin>()->createEvent(QString(), ecfg))
 				return;
 
+			bool is_relay = getPlugin<EventPlugin>()->eventConfig()->isRelays();
 			//QString event_name = getPlugin<EventPlugin>()->eventName();
 			qfLogScope("importEvent");
 			qf::core::sql::Transaction transaction;
@@ -431,6 +432,15 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 				doc.setValue("id", class_id);
 				doc.setValue("name", class_name);
 				doc.save();
+				if (is_relay) {
+					int legs = class_o.value(QStringLiteral("Legs")).toString().toInt();
+					qf::core::sql::Query q;
+					q.execThrow("UPDATE classdefs SET"
+								" relayLegCount=" + QString::number(legs) +
+								" WHERE classId=" + QString::number(class_id) +
+								" AND stageId=1"
+								);
+				}
 			}
 			transaction.commit();
 			fwk->hideProgress();
