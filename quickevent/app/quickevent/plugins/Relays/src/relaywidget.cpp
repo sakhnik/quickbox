@@ -217,6 +217,9 @@ void RelayWidget::addLeg()
 void RelayWidget::removeLeg()
 {
 	qfLogFuncFrame();
+	QModelIndex curr_ix = ui->tblLegs->currentIndex();
+	if(!curr_ix.isValid())
+		return;
 	qf::core::utils::TableRow row = ui->tblLegs->selectedRow();
 	int run_id = row.value("runs.id").toInt();
 	qfDebug() << "run id:" << run_id;
