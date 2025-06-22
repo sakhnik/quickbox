@@ -30,9 +30,6 @@
 #include <QPushButton>
 
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfw = qf::qmlwidgets;
-namespace qfc = qf::core;
-namespace qfs = qf::core::sql;
 
 namespace {
 
