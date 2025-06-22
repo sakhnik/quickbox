@@ -150,7 +150,7 @@ bool  RelayWidget::load(const QVariant &id, int mode)
 
 bool  RelayWidget::saveData()
 {
-	Relays::RelayDocument*doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
+	auto doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
 	if(doc->value(QStringLiteral("classId")).toInt() == 0) {
 		qf::qmlwidgets::dialogs::MessageBox::showWarning(this, tr("Class should be entered."));
 		return false;
@@ -195,7 +195,7 @@ void RelayWidget::addLeg()
 {
 	if(!saveData())
 		return;
-	Relays::RelayDocument*doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
+	auto doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
 	auto *w = new AddLegDialogWidget();
 	w->setClassId(doc->value(QStringLiteral("classId")).toInt());
 	w->setRelayId(doc->dataId().toInt());
@@ -241,7 +241,7 @@ void RelayWidget::moveLegUp()
 	int leg = row.value("runs.leg").toInt();
 	if(leg <= 1)
 		return;
-	Relays::RelayDocument*doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
+	auto doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
 	int relay_id = doc->dataId().toInt();
 	int run_id = row.value("runs.id").toInt();
 	QVariant run_stime = row.value("startTimeMs");
@@ -293,7 +293,7 @@ void RelayWidget::moveLegDown()
 	int leg = row.value("runs.leg").toInt();
 	if(leg >= max_leg)
 		return;
-	Relays::RelayDocument*doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
+	auto doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
 	int relay_id = doc->dataId().toInt();
 	int run_id = row.value("runs.id").toInt();
 	QVariant run_stime = row.value("startTimeMs");
