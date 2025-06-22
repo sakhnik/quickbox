@@ -175,16 +175,16 @@ int EventPlugin::stageCount()
 
 void EventPlugin::setCurrentStageId(int stage_id)
 {
-	int ix = m_cbxStage->currentIndex();
-	if(ix == stage_id-1)
+	if(m_currentStageId == stage_id) {
 		return;
-	m_cbxStage->setCurrentIndex(stage_id - 1);
+	}
+	m_currentStageId = stage_id;
 	emit currentStageIdChanged(stage_id);
 }
 
 int EventPlugin::currentStageId()
 {
-	return m_cbxStage->currentIndex() + 1;
+	return m_currentStageId;
 }
 
 int EventPlugin::stageIdForRun(int run_id)
@@ -339,8 +339,12 @@ void EventPlugin::onInstalled()
 		bt_stage->setCheckable(true);
 		tb->addWidget(bt_stage);
 		m_cbxStage = new QComboBox();
-		connect(m_cbxStage, &QComboBox::activated, this, &EventPlugin::onCbxStageActivated);
-		connect(this, &EventPlugin::currentStageIdChanged, bt_stage, [bt_stage](int stage_id) {
+		connect(m_cbxStage, &QComboBox::activated, this, [this](int ix) {
+			setCurrentStageId(ix + 1);
+		});
+		connect(this, &EventPlugin::currentStageIdChanged, bt_stage, [this, bt_stage](int stage_id) {
+			QSignalBlocker b(m_cbxStage);
+			m_cbxStage->setCurrentIndex(stage_id - 1);
 			bt_stage->setText(tr("Current stage E%1").arg(stage_id));
 		});
 		QAction *act_stage = tb->addWidget(m_cbxStage);
@@ -415,16 +419,12 @@ void EventPlugin::updateWindowTitle()
 	fwk->setWindowTitle(title);
 }
 
-void EventPlugin::onCbxStageActivated(int ix)
-{
-	emit this->currentStageIdChanged(ix + 1);
-}
-
 void EventPlugin::loadCurrentStageId()
 {
-	int stage_id = 0;
-	if(!eventName().isEmpty())
+	int stage_id = 1;
+	if(!eventName().isEmpty()) {
 		stage_id = eventConfig()->currentStageId();
+	}
 	setCurrentStageId(stage_id);
 }
 
@@ -610,16 +610,16 @@ void EventPlugin::onEventOpened()
 	if(!isEventOpen())
 		return;
 	qfLogFuncFrame() << "stage count:" << stageCount();
-	m_cbxStage->blockSignals(true);
-	m_cbxStage->clear();
-	int stage_cnt = stageCount();
-	for (int i = 0; i < stage_cnt; ++i) {
-		m_cbxStage->addItem("E" + QString::number(i + 1), i + 1);
+	{
+		QSignalBlocker b(m_cbxStage);
+		m_cbxStage->clear();
+		int stage_cnt = stageCount();
+		for (int i = 0; i < stage_cnt; ++i) {
+			m_cbxStage->addItem("E" + QString::number(i + 1), i + 1);
+		}
+		m_cbxStage->setCurrentIndex(-1);
 	}
-	m_cbxStage->setCurrentIndex(-1);
-	m_cbxStage->blockSignals(false);
 	loadCurrentStageId();
-	//emit this->currentStageIdChanged(currentStageId());
 }
 
 EventPlugin::ConnectionType EventPlugin::connectionType() const
