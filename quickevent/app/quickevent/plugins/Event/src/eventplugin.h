@@ -124,7 +124,6 @@ private:
 
 	Q_SLOT void onEventOpened();
 	Q_SLOT void connectToSqlServer();
-	Q_SLOT void onCbxStageActivated(int ix);
 	Q_SLOT void loadCurrentStageId();
 	Q_SLOT void saveCurrentStageId(int current_stage);
 	Q_SLOT void editStage();
@@ -155,6 +154,7 @@ private:
 	Event::EventConfig *m_eventConfig = nullptr;
 	bool m_sqlServerConnected = false;
 	QComboBox *m_cbxStage = nullptr;
+	int m_currentStageId = 0;
 	QMap<int, StageData> m_stageCache;
 	QMap<int, QString> m_classNameCache;
 

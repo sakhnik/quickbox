@@ -50,14 +50,6 @@ QxClientService::QxClientService(QObject *parent)
 	: Super(QxClientService::serviceId(), parent)
 {
 	auto *event_plugin = getPlugin<EventPlugin>();
-
-	connect(event_plugin, &EventPlugin::eventOpenChanged, this, [](bool is_open) {
-		if (is_open) {
-		}
-		else {
-		}
-	});
-
 	connect(event_plugin, &Event::EventPlugin::dbEventNotify, this, &QxClientService::onDbEventNotify, Qt::QueuedConnection);
 }
 
@@ -222,6 +214,8 @@ int QxClientService::eventId() const
 
 QByteArray QxClientService::apiToken() const
 {
+	// API token must not be cached to enable service point
+	// always to current stage event on qxhttpd
 	auto *event_plugin = getPlugin<EventPlugin>();
 	auto current_stage = event_plugin->currentStageId();
 	return event_plugin->stageData(current_stage).qxApiToken().toUtf8();
