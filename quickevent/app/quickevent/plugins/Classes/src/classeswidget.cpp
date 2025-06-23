@@ -454,6 +454,11 @@ static QString normalize_course_name(const QString &course_name)
 
 void ClassesWidget::import_ocad_txt()
 {
+	if (getPlugin<EventPlugin>()->eventConfig()->isRelays()) {
+		QMessageBox::warning(this,tr("Warning"),tr("Import does not yet support relays."));
+		return;
+	}
+
 	QString fn = qfd::FileDialog::getOpenFileName(this, tr("Open file"));
 	if(fn.isEmpty())
 		return;
@@ -630,6 +635,11 @@ static QString dump_element(const QDomElement &el)
 
 void ClassesWidget::import_ocad_iofxml_2()
 {
+	if (getPlugin<EventPlugin>()->eventConfig()->isRelays()) {
+		QMessageBox::warning(this,tr("Warning"),tr("Import does not yet support relays."));
+		return;
+	}
+
 	qfLogFuncFrame();
 	QString fn = qfd::FileDialog::getOpenFileName(this, tr("Open file"), QString(), tr("XML files (*.xml);; All files (*)"));
 	if(fn.isEmpty())
@@ -699,6 +709,11 @@ void ClassesWidget::import_ocad_iofxml_2()
 
 void ClassesWidget::import_ocad_iofxml_3()
 {
+	if (getPlugin<EventPlugin>()->eventConfig()->isRelays()) {
+		QMessageBox::warning(this,tr("Warning"),tr("Import does not yet support relays."));
+		return;
+	}
+
 	qfLogFuncFrame();
 	//static constexpr int START_CODE0 = 0;
 	//static const int FINISH_CODE0 = quickevent::core::CodeDef::FINISH_PUNCH_CODE - 1;
