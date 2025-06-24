@@ -644,7 +644,7 @@ is currently flagged &quot;not running&quot; for this stage (race).
 If you continue, this flag will be removed</source>
         <translation>SI čip je přiřazován k závodníkovi, který má nastaveno,
 že v této etapě (v tomto závodu) nestartuje.
-Pokud budete pokračovat, toto označení bude odebráno.</translation>
+Pokud budete pokračovat, toto označení bude odebráno</translation>
     </message>
     <message>
         <location filename="plugins/CardReader/src/cardreaderwidget.cpp" line="1067"/>
@@ -1101,14 +1101,14 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="639"/>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="713"/>
         <source>Warning</source>
-        <translation type="unfinished"></translation>
+        <translation>Upozornění</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="458"/>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="639"/>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="713"/>
         <source>Import does not yet support relays.</source>
-        <translation type="unfinished"></translation>
+        <translation>Import zatím nepodporuje štafety.</translation>
     </message>
     <message>
         <location filename="plugins/Classes/src/classeswidget.cpp" line="462"/>
@@ -1822,7 +1822,7 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
         <location filename="plugins/Core/src/coreplugin.cpp" line="155"/>
         <source>&amp;About Quick Event</source>
         <oldsource>&amp;About Quick event</oldsource>
-        <translation type="unfinished">O &amp;aplikaci Quick Event</translation>
+        <translation>O &amp;aplikaci Quick Event</translation>
     </message>
     <message>
         <location filename="plugins/Core/src/coreplugin.cpp" line="160"/>
@@ -1837,7 +1837,7 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
     <message>
         <location filename="plugins/Core/src/coreplugin.cpp" line="210"/>
         <source>The &lt;b&gt;Quick Event&lt;/b&gt; is an application which helps you to organize the orienteering events.&lt;br/&gt;&lt;br/&gt;version: %1&lt;br/&gt;commit: %7&lt;br/&gt;min. db version: %2&lt;br/&gt;build: %3 %4&lt;br/&gt;SSL build: %5&lt;br/&gt;SSL run: %6</source>
-        <translation type="unfinished"></translation>
+        <translation>&lt;b&gt;Quick Event&lt;/b&gt; je aplikace na pořádání závodů v orientačním běhu.&lt;br/&gt;&lt;br/&gt;Verze aplikace: %1&lt;br/&gt;commit: %7&lt;br/&gt;Minimální verze databáze: %2&lt;br/&gt;Datum a čas sestavení: %3 %4&lt;br/&gt;Verze SSL knihovny při sestavení: %5&lt;br/&gt;Verze aktuálně využívané SSL knihovny: %6</translation>
     </message>
     <message>
         <source>The &lt;b&gt;Quick Event&lt;/b&gt; is an application which helps you to organize the orienteering events.&lt;br/&gt;&lt;br/&gt;version: %1&lt;br/&gt;min. db version: %2&lt;br/&gt;build: %3 %4&lt;br/&gt;SSL build: %5&lt;br/&gt;SSL run: %6</source>
@@ -4264,7 +4264,7 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="93"/>
         <source>Is Running</source>
-        <translation type="unfinished"></translation>
+        <translation>Startuje</translation>
     </message>
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="119"/>
@@ -4289,7 +4289,7 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="158"/>
         <source>Add new &amp;vacants</source>
-        <translation type="unfinished"></translation>
+        <translation>Přidat nové &amp;vakanty</translation>
     </message>
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="164"/>
@@ -4475,17 +4475,17 @@ Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translati
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="718"/>
         <source>vac</source>
-        <translation type="unfinished"></translation>
+        <translation>vak</translation>
     </message>
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="720"/>
         <source>Enter number of new vacants</source>
-        <translation type="unfinished"></translation>
+        <translation>Zadejte počet nových vakantů</translation>
     </message>
     <message>
         <location filename="plugins/Relays/src/relayswidget.cpp" line="720"/>
         <source>Vacants count for class %1 :</source>
-        <translation type="unfinished"></translation>
+        <translation>Počet vakantů pro kategorii %1 :</translation>
     </message>
 </context>
 <context>
@@ -6431,7 +6431,7 @@ Přejete si uložit změny?</translation>
     <message>
         <location filename="plugins/Relays/qml/reports/startList_classes_condensed.qml" line="8"/>
         <source>Start list by classes</source>
-        <translation type="unfinished">Startovní listina po kategoriích</translation>
+        <translation>Startovní listina po kategoriích</translation>
     </message>
 </context>
 <context>
@@ -6486,7 +6486,7 @@ Přejete si uložit změny?</translation>
     <message>
         <location filename="plugins/Relays/qml/reports/startList_clubs_condensed.qml" line="8"/>
         <source>Start list by clubs</source>
-        <translation type="unfinished">Startovní listina po klubech</translation>
+        <translation>Startovní listina po klubech</translation>
     </message>
 </context>
 <context>
