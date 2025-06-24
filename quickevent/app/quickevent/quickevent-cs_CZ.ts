@@ -1097,20 +1097,34 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
         <translation>Chcete odstranit všechny definice tratí pro etapu %1?</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="457"/>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="527"/>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="634"/>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="705"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="458"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="639"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="713"/>
+        <source>Warning</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="458"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="639"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="713"/>
+        <source>Import does not yet support relays.</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="462"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="532"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="644"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="720"/>
         <source>Open file</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="634"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="644"/>
         <source>XML files (*.xml);; All files (*)</source>
         <translation>XML soubory (*.xml);; Všechny soubory (*)</translation>
     </message>
     <message>
-        <location filename="plugins/Classes/src/classeswidget.cpp" line="802"/>
+        <location filename="plugins/Classes/src/classeswidget.cpp" line="817"/>
         <source>Class name &apos;%1&apos; seems to be combined, separate it to more classes?</source>
         <translation>Název kategorie &apos;%1&apos; je pravděpodobně složený. Mám jej rozdělit na více kategorií?</translation>
     </message>
@@ -1806,8 +1820,9 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
     </message>
     <message>
         <location filename="plugins/Core/src/coreplugin.cpp" line="155"/>
-        <source>&amp;About Quick event</source>
-        <translation>O &amp;aplikaci Quick Event</translation>
+        <source>&amp;About Quick Event</source>
+        <oldsource>&amp;About Quick event</oldsource>
+        <translation type="unfinished">O &amp;aplikaci Quick Event</translation>
     </message>
     <message>
         <location filename="plugins/Core/src/coreplugin.cpp" line="160"/>
@@ -1815,17 +1830,21 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
         <translation>O knihovně &amp;Qt</translation>
     </message>
     <message>
-        <location filename="plugins/Core/src/coreplugin.cpp" line="203"/>
+        <location filename="plugins/Core/src/coreplugin.cpp" line="209"/>
         <source>About Quick Event</source>
         <translation>O aplikaci Quick Event</translation>
     </message>
     <message>
-        <location filename="plugins/Core/src/coreplugin.cpp" line="204"/>
-        <source>The &lt;b&gt;Quick Event&lt;/b&gt; is an application which helps you to organize the orienteering events.&lt;br/&gt;&lt;br/&gt;version: %1&lt;br/&gt;min. db version: %2&lt;br/&gt;build: %3 %4&lt;br/&gt;SSL build: %5&lt;br/&gt;SSL run: %6</source>
-        <translation>&lt;b&gt;Quick Event&lt;/b&gt; je aplikace na pořádání závodů v orientačním běhu.&lt;br/&gt;&lt;br/&gt;Verze aplikace: %1&lt;br/&gt;Minimální verze databáze: %2&lt;br/&gt;Datum a čas sestavení: %3 %4&lt;br/&gt;Verze SSL knihovny při sestavení: %5&lt;br/&gt;Verze aktuálně využívané SSL knihovny: %6</translation>
+        <location filename="plugins/Core/src/coreplugin.cpp" line="210"/>
+        <source>The &lt;b&gt;Quick Event&lt;/b&gt; is an application which helps you to organize the orienteering events.&lt;br/&gt;&lt;br/&gt;version: %1&lt;br/&gt;commit: %7&lt;br/&gt;min. db version: %2&lt;br/&gt;build: %3 %4&lt;br/&gt;SSL build: %5&lt;br/&gt;SSL run: %6</source>
+        <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="plugins/Core/src/coreplugin.cpp" line="223"/>
+        <source>The &lt;b&gt;Quick Event&lt;/b&gt; is an application which helps you to organize the orienteering events.&lt;br/&gt;&lt;br/&gt;version: %1&lt;br/&gt;min. db version: %2&lt;br/&gt;build: %3 %4&lt;br/&gt;SSL build: %5&lt;br/&gt;SSL run: %6</source>
+        <translation type="vanished">&lt;b&gt;Quick Event&lt;/b&gt; je aplikace na pořádání závodů v orientačním běhu.&lt;br/&gt;&lt;br/&gt;Verze aplikace: %1&lt;br/&gt;Minimální verze databáze: %2&lt;br/&gt;Datum a čas sestavení: %3 %4&lt;br/&gt;Verze SSL knihovny při sestavení: %5&lt;br/&gt;Verze aktuálně využívané SSL knihovny: %6</translation>
+    </message>
+    <message>
+        <location filename="plugins/Core/src/coreplugin.cpp" line="231"/>
         <source>About Qt</source>
         <translation>O knihovně Qt</translation>
     </message>
@@ -1966,7 +1985,7 @@ Zvažte nastavení intervalu pro všechny kategorie.</translation>
 <context>
     <name>DbSchema</name>
     <message>
-        <location filename="plugins/Event/qml/DbSchema.qml" line="507"/>
+        <location filename="plugins/Event/qml/DbSchema.qml" line="511"/>
         <source>Data version</source>
         <translation>Verze dat</translation>
     </message>
@@ -3290,71 +3309,71 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
 <context>
     <name>LegsModel</name>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="68"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="65"/>
         <source>Leg</source>
         <comment>relays.leg</comment>
         <translation>Úsek</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="68"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="65"/>
         <source>Leg</source>
         <translation>Úsek</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="69"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="66"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="70"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="67"/>
         <source>Reg</source>
         <translation>Reg. č.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="71"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="68"/>
         <source>SI</source>
         <translation>SI</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="72"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="69"/>
         <source>Start</source>
         <translation>Start</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="73"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="70"/>
         <source>Time</source>
         <translation>Čas</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="74"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="71"/>
         <source>NC</source>
         <comment>runs.notCompeting</comment>
         <translation>MS</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="74"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="71"/>
         <source>Not competing</source>
         <translation>Mimo soutěž</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="75"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="72"/>
         <source>D</source>
         <comment>runs.disqualified</comment>
         <translation>D</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="75"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="72"/>
         <source>Disqualified</source>
         <translation>Diskvalifikace</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="76"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="73"/>
         <source>E</source>
         <comment>runs.misPunch</comment>
         <translation>E</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="76"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="73"/>
         <source>Card mispunch</source>
         <translation>Chybné ražení</translation>
     </message>
@@ -3647,107 +3666,107 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
 <context>
     <name>OrisImporter</name>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="168"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="169"/>
         <source>Cannot find Oris import ID.</source>
         <translation>Nelze najít ORIS ID pro provedení synchronizace.</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="720"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="731"/>
         <source>New entries</source>
         <translation>Nové přihlášky</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="721"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="732"/>
         <source>Edited entries</source>
         <translation>Upravené přihlášky</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="722"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="733"/>
         <source>Deleted entries</source>
         <translation>Smazané přihlášky</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="725"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="736"/>
         <source>Oris import report</source>
         <translation>Zpráva o importu z ORISu</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="735"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="746"/>
         <source>Save without drops</source>
         <translation>Uložit bez smazaných</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="742"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="753"/>
         <source>Export</source>
         <translation>Exportovat</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="744"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="755"/>
         <source>Export as ...</source>
         <translation>Exportovat jako ...</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="744"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="755"/>
         <source>HTML files *.html (*.html)</source>
         <translation>soubory HTML *.html(*.html)</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="751"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="762"/>
         <source>Cannot open file &apos;%1&apos; for writing.</source>
         <translation>Soubor &apos;%1&apos; nelze otevřít pro zápis.</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="822"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="833"/>
         <source>Importing registrations</source>
         <translation>Importuji registrace</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="879"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="890"/>
         <source>Importing clubs</source>
         <translation>Importuji kluby</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="938"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="949"/>
         <source>Warning</source>
         <translation>Upozornění</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="938"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="949"/>
         <source>For import one-time clubs, you need to fill ORIS Event Key in File-&gt;Event-&gt;Edit event</source>
         <translation>Pro import jednorázových klubů je potřeba mít vyplněn ORISový bezpečnostní klíč závodu v Soubor-&gt;Závod-&gt;Upravit závod</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="963"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="988"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="963"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="988"/>
         <source>No missing one-time clubs found.</source>
         <translation>Nenalezen žádný chybějící jednorázový klub.</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="969"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="994"/>
         <source>Importing one-time clubs</source>
         <translation>Importuji jednorázové kluby</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="127"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="128"/>
         <source>JSON document parse error: %1 at: %2 near: %3</source>
         <translation>Chyba při analýze JSON dokumentu: %1 na: %2 poblíž: %3</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="341"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="342"/>
         <source>Import finished successfully.</source>
         <translation>Import byl úspěšně dokončen.</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="811"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="822"/>
         <source>Import ORIS Registrations</source>
         <translation>Importovat registrace z ORISu</translation>
     </message>
     <message>
-        <location filename="plugins/Oris/src/orisimporter.cpp" line="811"/>
+        <location filename="plugins/Oris/src/orisimporter.cpp" line="822"/>
         <source>Year of registration:</source>
         <translation>Registrace z roku:</translation>
     </message>
@@ -4082,7 +4101,7 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
     </message>
     <message>
         <location filename="plugins/Relays/src/relaywidget.ui" line="35"/>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="99"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="96"/>
         <source>Relay</source>
         <translation>Štafeta</translation>
     </message>
@@ -4171,17 +4190,17 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
         <translation>Ctrl+R</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="158"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="155"/>
         <source>Class should be entered.</source>
         <translation>Není zadána kategorie.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="162"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="159"/>
         <source>Relay ID invalid.</source>
         <translation>Neplatné ID štafety.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaywidget.cpp" line="205"/>
+        <location filename="plugins/Relays/src/relaywidget.cpp" line="202"/>
         <source>Add leg</source>
         <translation>Přidat úsek</translation>
     </message>
@@ -4200,12 +4219,12 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
         <translation>&amp;Štafety</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaysplugin.cpp" line="823"/>
+        <location filename="plugins/Relays/src/relaysplugin.cpp" line="827"/>
         <source>Relays IOF-XML 3.0 results</source>
         <translation>Výsledky štafet ve formátu IOF XML 3.0</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relaysplugin.cpp" line="964"/>
+        <location filename="plugins/Relays/src/relaysplugin.cpp" line="968"/>
         <source>Relays IOF-XML 3.0 startlist</source>
         <translation>Startovka štafet ve formátu IOF XML 3.0</translation>
     </message>
@@ -4218,230 +4237,255 @@ zdroj - ORIS-&gt;Závod-&gt;Informace-&gt;Bezpečnostní klíč závodu</transla
         <translation>Formulář</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="87"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="88"/>
         <source>Class</source>
         <translation>Kategorie</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="88"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="89"/>
         <source>Club</source>
         <translation>Klub</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="89"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="90"/>
         <source>Name</source>
         <translation>Jméno</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="90"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="91"/>
         <source>Number</source>
         <translation>Číslo</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="91"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="92"/>
         <source>Note</source>
         <translation>Poznámka</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="117"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="93"/>
+        <source>Is Running</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="119"/>
         <source>&amp;Class </source>
         <translation>&amp;Kategorie </translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="144"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="146"/>
         <source>&amp;Relays</source>
         <translation>&amp;Štafety</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="146"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="148"/>
         <source>&amp;Assign numbers</source>
         <translation>&amp;Přiřadit čísla</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="151"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="153"/>
         <source>&amp;Import bibs from CSV</source>
         <translation>&amp;Importovat startovní čísla z soubrou CSV</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="157"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="158"/>
+        <source>Add new &amp;vacants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="164"/>
         <source>&amp;Print</source>
         <translation>&amp;Tisk</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="159"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="186"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="166"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="193"/>
         <source>&amp;Start list</source>
         <translation>&amp;Startovní listina</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="160"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="167"/>
         <source>&amp;Classes</source>
         <translation>&amp;Kategorie</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="163"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="170"/>
         <source>C&amp;lubs</source>
         <translation>K&amp;luby</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="167"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="192"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="174"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="199"/>
         <source>&amp;Results</source>
         <translation>&amp;Výsledky</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="169"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="176"/>
         <source>&amp;After n legs</source>
         <translation>&amp;Po n úsecích</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="174"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="181"/>
         <source>&amp;Overall</source>
         <oldsource>&amp;Overal</oldsource>
         <translation>&amp;Celkové</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="179"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="186"/>
         <source>Overall condensed</source>
         <translation>Celkové zestručněné</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="185"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="192"/>
         <source>E&amp;xport</source>
         <translation>E&amp;xportovat</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="188"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="194"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="195"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="201"/>
         <source>IOF-XML 3.0</source>
         <translation>IOF XML 3.0</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="213"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="220"/>
         <source>--- all ---</source>
         <translation>-- všechny --</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="242"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="249"/>
         <source>Edit Relay</source>
         <oldsource>Edit  Relay</oldsource>
         <translation>Upravit štafetu</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="245"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="252"/>
         <source>Save and &amp;next</source>
         <translation>Uložit a &amp;další</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="277"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="284"/>
         <source>Really delete all the selected relays? This action cannot be reverted.</source>
         <translation>Opravdu odstranit všechny vybrané štafety? Tuto akci nelze vrátit zpět.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="290"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="297"/>
         <source>Confirm deletion of %1 relays.</source>
         <translation>Potvrďte smazání %1 štafet.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="310"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="317"/>
         <source>Dialog</source>
         <translation>Dialog</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="310"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="317"/>
         <source>Assign relay numbers method</source>
         <translation>Způsob přiřazení čísel štafetám</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="311"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="318"/>
         <source>Random number</source>
         <translation>Náhodné číslo</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="311"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="318"/>
         <source>In alphabetical order</source>
         <translation>V abecedním pořadí</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="431"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="445"/>
         <source>Start list by classes</source>
         <translation>Startovní listina po kategoriích</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="450"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="467"/>
         <source>Start list by clubs</source>
         <translation>Startovní listina po klubech</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="478"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="502"/>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="526"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="495"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="519"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="543"/>
         <source>Results</source>
         <translation>Výsledky</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="536"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="553"/>
         <source>Save as %1</source>
         <translation>Uložit jako %1</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="569"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="586"/>
         <source>Import UTF8 text file with comma separated values with first row as header.&lt;br/&gt;Separator is semicolon(;).&lt;br/&gt;Updates only existing relays (key is Club, Relay Name &amp; Class).</source>
         <translation>Importovat soubor s hodnotami oddělenými čárkou (CSV), včetně záhlaví, v kódování UTF-8.&lt;br/&gt;Oddělovač je středník(;).&lt;br/&gt;Aktualizuje pouze existujiící štafety (klíč je Klub, Název štafety a Kategorie).</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="570"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="587"/>
         <source>Each row should have following columns: &lt;ol&gt;&lt;li&gt;Club abbr &lt;i&gt;- key (part1)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Relay name &lt;i&gt;- key (part2)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Start number (Bib)&lt;/li&gt;&lt;li&gt;Class (Optional - if not filed, trying to guess from the starting number)&lt;/li&gt;&lt;/ol&gt;</source>
         <translation>Každý řádek by měl mít následující sloupce:&lt;ol&gt;&lt;li&gt;Zkratka klubu &lt;i&gt;- klíč (část1)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Název štafety&lt;i&gt; - klíč (část2)&lt;/i&gt;&lt;/li&gt;&lt;li&gt;Startovní číslo&lt;/li&gt;&lt;li&gt;Kategorii (Volitelné - pokud není vyplněno,  zkouší se kategorie odhadnout podle startovního čísla)&lt;/li&gt;&lt;/ol&gt;</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="582"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="599"/>
         <source>Open file</source>
         <translation>Otevřít soubor</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="582"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="599"/>
         <source>CSV files (*.csv *.txt)</source>
         <translation>soubory CSV (*.csv *.txt)</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="598"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="615"/>
         <source>Cannot open file &apos;%1&apos; for reading.</source>
         <translation>Soubor &apos;%1&apos; nelze otevřít pro čtení.</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="617"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="634"/>
         <source>Fields separation error, invalid CSV format, Error reading CSV line: [%1]</source>
         <translation>Chyba při analýze CSV souboru, neplatný formát, chyba při čtení řádky: [%1]</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="627"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="644"/>
         <source>Error reading CSV line: [%1]</source>
         <translation>Chyba při čtení souboru CSV, řádek: [%1]</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="638"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="655"/>
         <source>Cannot guess class name from bib: &apos;%1&apos;</source>
         <translation>Nemohu odhadnout název kategorie podle startovního čísla: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="643"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="660"/>
         <source>Undefined class name: &apos;%1&apos;</source>
         <translation>Neznámý název kategorie: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="680"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="697"/>
         <source>Information</source>
         <translation>Informace</translation>
     </message>
     <message>
-        <location filename="plugins/Relays/src/relayswidget.cpp" line="680"/>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="697"/>
         <source>Import file finished. Imported %1 of %2 lines
 
 Press refresh button to show imported data.</source>
         <translation>Import souboru hotov. Importováno %1 z %2 řádků
 
 Stskněte tlačítko pro obnovení pro zobrazení importovaných dat.</translation>
+    </message>
+    <message>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="718"/>
+        <source>vac</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="720"/>
+        <source>Enter number of new vacants</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="plugins/Relays/src/relayswidget.cpp" line="720"/>
+        <source>Vacants count for class %1 :</source>
+        <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
@@ -6383,6 +6427,14 @@ Přejete si uložit změny?</translation>
     </message>
 </context>
 <context>
+    <name>startList_classes_condensed</name>
+    <message>
+        <location filename="plugins/Relays/qml/reports/startList_classes_condensed.qml" line="8"/>
+        <source>Start list by classes</source>
+        <translation type="unfinished">Startovní listina po kategoriích</translation>
+    </message>
+</context>
+<context>
     <name>startList_classes_nstages</name>
     <message numerus="yes">
         <location filename="plugins/Runs/qml/reports/startList_classes_nstages.qml" line="14"/>
@@ -6427,6 +6479,14 @@ Přejete si uložit změny?</translation>
         <location filename="plugins/Runs/qml/reports/startList_clubs.qml" line="136"/>
         <source>R </source>
         <translation>P </translation>
+    </message>
+</context>
+<context>
+    <name>startList_clubs_condensed</name>
+    <message>
+        <location filename="plugins/Relays/qml/reports/startList_clubs_condensed.qml" line="8"/>
+        <source>Start list by clubs</source>
+        <translation type="unfinished">Startovní listina po klubech</translation>
     </message>
 </context>
 <context>
