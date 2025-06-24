@@ -73,6 +73,8 @@ ReportOptionsDialog::ReportOptionsDialog(QWidget *parent)
 	connect(this, &ReportOptionsDialog::resultOptionsVisibleChanged, ui->grpResultOptions, &QGroupBox::setVisible);
 	connect(this, &ReportOptionsDialog::startTimeFormatVisibleChanged, ui->grpStartTimes, &QGroupBox::setVisible);
 	connect(this, &ReportOptionsDialog::startlistOrderFirstByVisibleChanged, ui->grpStartlistOrderBy, &QGroupBox::setVisible);
+	connect(this, &ReportOptionsDialog::relayOptionsVisibleChanged, ui->grpRelayOptions, &QGroupBox::setVisible);
+
 }
 
 ReportOptionsDialog::~ReportOptionsDialog()
@@ -253,6 +255,7 @@ void ReportOptionsDialog::setOptions(const ReportOptionsDialog::Options &options
 	ui->btStartOrder1->setChecked(start_order_by == StartlistOrderFirstBy::ClassName);
 	ui->btStartOrder2->setChecked(start_order_by == StartlistOrderFirstBy::StartTime);
 	ui->btStartOrder3->setChecked(start_order_by == StartlistOrderFirstBy::Names);
+	ui->chkRelayOpts_ShowLegs->setChecked(options.isRelayShowLegsDetails());
 }
 
 ReportOptionsDialog::Options ReportOptionsDialog::options() const
@@ -287,6 +290,8 @@ ReportOptionsDialog::Options ReportOptionsDialog::options() const
 	opts.setStartTimeFormat((int)start_time_format);
 	StartlistOrderFirstBy start_order_by = startlistOrderFirstBy();
 	opts.setStartlistOrderFirstBy((int)start_order_by);
+	opts.setRelayShowLegsDetails(ui->chkRelayOpts_ShowLegs->isChecked());
+
 	return opts;
 }
 
@@ -372,6 +377,16 @@ void ReportOptionsDialog::resetPersistentSettings()
     setOptions(new_options);
     savePersistentSettings();
 }
+
+void ReportOptionsDialog::setStartListForRelays()
+{
+	setStartListOptionsVisible(true);
+	setVacantsVisible(true);
+	ui->chkStartOpts_PrintStartNumbers->setVisible(false);
+	ui->lblStartNumber->setVisible(false);
+	ui->cbxStartNumber->setVisible(false);
+}
+
 
 }
 

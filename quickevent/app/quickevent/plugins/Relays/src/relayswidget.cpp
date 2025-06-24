@@ -63,6 +63,7 @@ enum Columns {
 	col_relays_name,
 	col_relays_number,
 	col_relays_note,
+	col_relays_isrunning,
 	col_COUNT
 };
 }// namespace
@@ -89,6 +90,7 @@ RelaysWidget::RelaysWidget(QWidget *parent) :
 	m->setColumn(col_relays_name, CD("name", tr("Name")));
 	m->setColumn(col_relays_number, CD("number", tr("Number")));
 	m->setColumn(col_relays_note, CD("note", tr("Note")));
+	m->setColumn(col_relays_isrunning, CD("isrunning", tr("Is Running")));
 	ui->tblRelays->setTableModel(m);
 	m_tblModel = m;
 
@@ -151,6 +153,11 @@ void RelaysWidget::settleDownInPartWidget(::PartWidget *part_widget)
 		auto *a = new qfw::Action("importBibs", tr("&Import bibs from CSV"));
 		a_relays->addActionInto(a);
 		connect(a, &qfw::Action::triggered, this, &RelaysWidget::relays_importBibs);
+	}
+	{
+		auto *a = new qfw::Action("addVacants", tr("Add new &vacants"));
+		a_relays->addActionInto(a);
+		connect(a, &qfw::Action::triggered, this, &RelaysWidget::relays_addVacants);
 	}
 
 	auto *a_print = part_widget->menuBar()->actionForPath("print");
@@ -344,7 +351,7 @@ void RelaysWidget::relays_assignNumbers()
 	reload();
 }
 
-QVariant RelaysWidget::startListByClubsTableData()
+QVariant RelaysWidget::startListByClubsTableData(bool with_vacants)
 {
 	qfLogFuncFrame();
 	qf::core::model::SqlTableModel model;
@@ -378,6 +385,8 @@ QVariant RelaysWidget::startListByClubsTableData()
 				.join("relays.classId", "classes.id")
 				.where("relays.club='{{club}}'")
 				.orderBy("classes.name, relayName");
+		if (!with_vacants)
+			qb.where("relays.isRunning");
 		model.setQueryBuilder(qb, true);
 	}
 	{
@@ -420,13 +429,18 @@ void RelaysWidget::print_start_list_classes()
 {
 	quickevent::gui::ReportOptionsDialog dlg(this);
 	dlg.setPersistentSettingsId("relaysStartReportOptions");
+	dlg.loadPersistentSettings();
+	dlg.setStartListForRelays();
+	dlg.setRelayOptionsVisible(true);
 	//dlg.setClassNamesFilter(class_names);
 	if(!dlg.exec())
 		return;
 	QVariantMap props = dlg.reportProperties();
-	QVariant td = getPlugin<RelaysPlugin>()->startListByClassesTableData(dlg.sqlWhereExpression());
+	bool vacants =  dlg.isStartListPrintVacants();
+	QVariant td = getPlugin<RelaysPlugin>()->startListByClassesTableData(dlg.sqlWhereExpression(), vacants);
+	auto report_name = (dlg.options().isRelayShowLegsDetails()) ? "startList_classes.qml" : "startList_classes_condensed.qml";
 	qf::qmlwidgets::reports::ReportViewWidget::showReport(this
-														  , getPlugin<RelaysPlugin>()->findReportFile("startList_classes.qml")
+														  , getPlugin<RelaysPlugin>()->findReportFile(report_name)
 														  , td
 														  , tr("Start list by classes")
 														  , "printStartList"
@@ -439,13 +453,16 @@ void RelaysWidget::print_start_list_clubs()
 	quickevent::gui::ReportOptionsDialog dlg(this);
 	dlg.setPersistentSettingsId("relaysStartReportOptions");
 	dlg.loadPersistentSettings();
+	dlg.setStartListForRelays();
 	dlg.setClassFilterVisible(false);
 	if(!dlg.exec())
 		return;
 	QVariantMap props = dlg.reportProperties();
-	QVariant td = startListByClubsTableData();
+	bool vacants =  dlg.isStartListPrintVacants();
+	QVariant td = startListByClubsTableData(vacants);
+	auto report_name = (dlg.options().isRelayShowLegsDetails()) ? "startList_clubs.qml" : "startList_clubs_condensed.qml";
 	qf::qmlwidgets::reports::ReportViewWidget::showReport(this,
-														  getPlugin<RelaysPlugin>()->findReportFile("startList_clubs.qml")
+														  getPlugin<RelaysPlugin>()->findReportFile(report_name)
 														  , td
 														  , tr("Start list by clubs")
 														  , "printStartList"
@@ -678,6 +695,43 @@ void RelaysWidget::relays_importBibs() {
 		transaction.commit();
 		qfInfo() << fn << "Imported"<< i << "of" << n-1 << "data lines"; // -1 is header
 		QMessageBox::information(this, tr("Information"), QString(tr("Import file finished. Imported %1 of %2 lines\n\nPress refresh button to show imported data.").arg(i).arg(n-1)));
+	}
+	catch (const qf::core::Exception &e) {
+		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+	}
+}
+
+void RelaysWidget::relays_addVacants()
+{
+	auto fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	QMap<QString, int> rel_classes;
+	qf::core::sql::Query q;
+	q.exec("SELECT id, name FROM classes");
+	while(q.next()) {
+		rel_classes[q.value("name").toString()] = q.value("id").toInt();
+	}
+
+	try {
+		int created = 0;
+		int cnt = 0;
+		bool ok;
+		QString vacant = tr("vac");
+		for (auto [key, value] : rel_classes.asKeyValueRange()) {
+			cnt = QInputDialog::getInt(fwk, tr("Enter number of new vacants"), QString(tr("Vacants count for class %1 :")).arg(key), cnt, 0, 999, 1, &ok);
+			if(!ok) break;
+			if (cnt > 0) {
+				qfInfo() << "Add" << cnt << "new vacants for:" << key;
+				for (int i = 0; i < cnt; i++) {
+					q.exec("INSERT INTO relays (club, name, classid, isrunning) VALUES ('"+vacant+"', 0, "
+						+ QString::number(value) + ", false) ", qf::core::Exception::Throw);
+				}
+				created+= cnt;
+			}
+		}
+		if (created > 0) {
+			qfInfo() << "Created"<< created << "new vacants.";
+			reload();
+		}
 	}
 	catch (const qf::core::Exception &e) {
 		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);

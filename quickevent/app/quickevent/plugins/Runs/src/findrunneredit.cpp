@@ -106,7 +106,7 @@ QVariantMap FindRunnerEdit::selectedRunner() const
 
 void FindRunnerEdit::onCompleterActivated(const QModelIndex &index)
 {
-	qfLogFuncFrame() << index << index.data();
+	qfLogFuncFrame();// << index << index.data();
 	auto *proxy_model = qobject_cast<QAbstractProxyModel*>(completer()->completionModel());
 	QF_ASSERT(proxy_model != nullptr, "Bat proxy model!", return);
 	QModelIndex ix = proxy_model->mapToSource(index);

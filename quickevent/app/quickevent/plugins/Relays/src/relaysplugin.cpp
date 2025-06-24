@@ -241,7 +241,8 @@ qf::core::utils::TreeTable RelaysPlugin::nLegsClassResultsTable(int class_id, in
 				.select("COALESCE(relays.club, '') || ' ' || COALESCE(relays.name, '') AS relayName")
 				.from("relays")
 				.join("relays.club", "clubs.abbr")
-				.where("relays.classId=" QF_IARG(class_id));
+				.where("relays.classId=" QF_IARG(class_id))
+				.where("relays.isRunning");
 		q.execThrow(qb.toString());
 		while(q.next()) {
 			Relay r;
@@ -466,7 +467,7 @@ qf::core::utils::TreeTable RelaysPlugin::nLegsClassResultsTable(int class_id, in
 	return tt;
 }
 
-QVariant RelaysPlugin::startListByClassesTableData(const QString &class_filter)
+QVariant RelaysPlugin::startListByClassesTableData(const QString &class_filter, bool with_vacants)
 {
 	qfLogFuncFrame() << class_filter;
 	qf::core::model::SqlTableModel model;
@@ -495,6 +496,9 @@ QVariant RelaysPlugin::startListByClassesTableData(const QString &class_filter)
 				.join("relays.club", "clubs.abbr")
 				.where("relays.classId={{class_id}}")
 				.orderBy("relays.number, relayName");
+		if (!with_vacants)
+			qb.where("relays.isRunning");
+
 		model.setQueryBuilder(qb, true);
 	}
 	{
@@ -828,7 +832,7 @@ QString RelaysPlugin::startListIofXml30()
 {
 	QDateTime start00 = getPlugin<EventPlugin>()->stageStartDateTime(1);
 	qfDebug() << "creating table";
-	qf::core::utils::TreeTable tt_classes = startListByClassesTableData(QString());
+	qf::core::utils::TreeTable tt_classes = startListByClassesTableData(QString(),false);
 	QVariantList start_list{
 		"StartList",
 		QVariantMap{

@@ -211,6 +211,8 @@ add_executable(quickevent
 	plugins/Relays/qml/reports/results_condensed.qml
 	plugins/Relays/qml/reports/startList_classes.qml
 	plugins/Relays/qml/reports/startList_clubs.qml
+	plugins/Relays/qml/reports/startList_classes_condensed.qml
+	plugins/Relays/qml/reports/startList_clubs_condensed.qml
 
 	plugins/Runs/qml/reports/competitorsWithCardRent.qml
 	plugins/Runs/qml/reports/results_nstages.qml

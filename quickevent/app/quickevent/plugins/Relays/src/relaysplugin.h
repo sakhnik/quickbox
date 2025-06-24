@@ -46,7 +46,7 @@ public:
 	qf::core::utils::TreeTable nLegsClassResultsTable(int class_id, int leg_count, int places, bool exclude_not_finish);
 	QString startListIofXml30();
 	QString resultsIofXml30();
-	QVariant startListByClassesTableData(const QString &class_filter);
+	QVariant startListByClassesTableData(const QString &class_filter, bool with_vacants);
 private:
 	Q_SLOT void onInstalled();
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);

@@ -40,10 +40,11 @@ private:
 
 	//void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
 
-	QVariant startListByClubsTableData();
+	QVariant startListByClubsTableData(bool with_vacants);
 
 	void relays_assignNumbers();
 	void relays_importBibs();
+	void relays_addVacants();
 
 	void print_start_list_classes();
 	void print_start_list_clubs();
