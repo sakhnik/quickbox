@@ -68,7 +68,7 @@ QVariant FindRunnersModel::data(const QModelIndex &index, int role) const
 					+ SI + table_row.value(col_siid).toString() + ' '
 					+ BIB + table_row.value(col_bib).toString();
 		}
-		else if(role == Qt::EditRole) {
+		if(role == Qt::EditRole) {
 			return table_row.value(col_class_name).toString() + ' '
 					+ table_row.value(col_searchkey).toString() + ' '
 					+ table_row.value(col_registration).toString() + ' '
