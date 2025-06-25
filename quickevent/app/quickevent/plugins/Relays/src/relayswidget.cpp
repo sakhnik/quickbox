@@ -90,7 +90,7 @@ RelaysWidget::RelaysWidget(QWidget *parent) :
 	m->setColumn(col_relays_name, CD("name", tr("Name")));
 	m->setColumn(col_relays_number, CD("number", tr("Number")));
 	m->setColumn(col_relays_note, CD("note", tr("Note")));
-	m->setColumn(col_relays_isrunning, CD("isrunning", tr("Is Running")));
+	m->setColumn(col_relays_isrunning, CD("isRelRunning", tr("Is Running")));
 	ui->tblRelays->setTableModel(m);
 	m_tblModel = m;
 
@@ -386,7 +386,7 @@ QVariant RelaysWidget::startListByClubsTableData(bool with_vacants)
 				.where("relays.club='{{club}}'")
 				.orderBy("classes.name, relayName");
 		if (!with_vacants)
-			qb.where("relays.isRunning");
+			qb.where("relays.isRelRunning");
 		model.setQueryBuilder(qb, true);
 	}
 	{
@@ -722,7 +722,7 @@ void RelaysWidget::relays_addVacants()
 			if (cnt > 0) {
 				qfInfo() << "Add" << cnt << "new vacants for:" << key;
 				for (int i = 0; i < cnt; i++) {
-					q.exec("INSERT INTO relays (club, name, classid, isrunning) VALUES ('"+vacant+"', 0, "
+					q.exec("INSERT INTO relays (club, name, classid, isRelRunning) VALUES ('"+vacant+"', 0, "
 						+ QString::number(value) + ", false) ", qf::core::Exception::Throw);
 				}
 				created+= cnt;

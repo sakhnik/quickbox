@@ -306,7 +306,7 @@ Schema {
 				Field { name: 'name'; type: String {} },
 				Field { name: 'note'; type: String {} },
 				Field { name: 'importId'; type: Int {} },
-				Field { name: 'isRunning'; type: Boolean { }
+				Field { name: 'isRelRunning'; type: Boolean { }
 					defaultValue: true;
 					notNull: true
 				}

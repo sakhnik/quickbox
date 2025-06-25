@@ -363,10 +363,10 @@ void ClassesWidget::reload()
 				, qf::core::sql::QueryBuilder::INNER_JOIN);
 		qfDebug() << qb1.toString();
 		qf::core::sql::QueryBuilder qb2;
-		qb2.select("COUNT(relays.isRunning)")
+		qb2.select("COUNT(relays.isRelRunning)")
 			.from("relays")
 			.where("relays.classId=classdefs.classId"
-							" AND relays.isRunning");
+							" AND relays.isRelRunning");
 		qfDebug() << qb2.toString();
 		qfs::QueryBuilder qb;
 		qb.select2("classes", "*")
