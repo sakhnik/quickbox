@@ -39,6 +39,7 @@ ReportOptionsDialog::ReportOptionsDialog(QWidget *parent)
 	ui->grpResultOptions->setVisible(false);
 	ui->grpStartTimes->setVisible(false);
 	ui->grpStartlistOrderBy->setVisible(false);
+	ui->grpRelayOptions->setVisible(false);
 	ui->btRegExp->setEnabled(QSqlDatabase::database().driverName().endsWith(QLatin1String("PSQL"), Qt::CaseInsensitive));
 
 	{

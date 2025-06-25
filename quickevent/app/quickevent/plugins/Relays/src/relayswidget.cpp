@@ -363,6 +363,8 @@ QVariant RelaysWidget::startListByClubsTableData(bool with_vacants)
 				.groupBy("club")
 				.orderBy("club")
 				.as("relay_clubs");
+		if (!with_vacants)
+			qb1.where("relays.isRelRunning");
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("relay_clubs", "club")
 				.select2("clubs", "name")
@@ -454,6 +456,7 @@ void RelaysWidget::print_start_list_clubs()
 	dlg.setPersistentSettingsId("relaysStartReportOptions");
 	dlg.loadPersistentSettings();
 	dlg.setStartListForRelays();
+	dlg.setRelayOptionsVisible(true);
 	dlg.setClassFilterVisible(false);
 	if(!dlg.exec())
 		return;
