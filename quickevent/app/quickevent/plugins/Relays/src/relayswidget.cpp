@@ -723,7 +723,7 @@ void RelaysWidget::relays_addVacants()
 			cnt = QInputDialog::getInt(fwk, tr("Enter number of new vacants"), QString(tr("Vacants count for class %1 :")).arg(key), cnt, 0, 999, 1, &ok);
 			if(!ok) break;
 			if (cnt > 0) {
-				qfInfo() << "Add" << cnt << "new vacants for:" << key;
+				qfDebug() << "Add" << cnt << "new vacants for:" << key;
 				for (int i = 0; i < cnt; i++) {
 					q.exec("INSERT INTO relays (club, name, classid, isRelRunning) VALUES ('"+vacant+"', 0, "
 						+ QString::number(value) + ", false) ", qf::core::Exception::Throw);
@@ -732,7 +732,7 @@ void RelaysWidget::relays_addVacants()
 			}
 		}
 		if (created > 0) {
-			qfInfo() << "Created"<< created << "new vacants.";
+			qfDebug() << "Created"<< created << "new vacants.";
 			reload();
 		}
 	}

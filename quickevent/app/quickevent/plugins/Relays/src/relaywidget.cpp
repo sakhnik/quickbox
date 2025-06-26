@@ -127,7 +127,7 @@ RelayWidget:: RelayWidget(QWidget *parent) :
 
 bool  RelayWidget::loadLegsTable()
 {
-	qf::core::model::DataDocument *doc = dataController()->document();
+	auto doc = dataController()->document();
 	qf::core::sql::QueryBuilder qb;
 	qb.select2("runs", "*")
 			.select2("competitors", "registration")
@@ -178,7 +178,7 @@ void RelayWidget::checkLegsStartTimes()
 		if(leg == 1 && m_legsModel->value(i, LegsModel::col_runs_startTimeMs).isNull()) {
 			/// assign class start time
 			int run_id = m_legsModel->tableRow(i).value(QStringLiteral("runs.id")).toInt();
-			qf::core::model::DataDocument *doc = dataDocument();
+			auto doc = dataDocument();
 			int class_id = doc->value(QStringLiteral("relays.classId")).toInt();
 			qf::core::sql::Query q;
 			q.execThrow("SELECT startTimeMin FROM classdefs WHERE classId=" QF_IARG(class_id));
@@ -196,7 +196,7 @@ void RelayWidget::addLeg()
 	if(!saveData())
 		return;
 	auto doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
-	auto *w = new AddLegDialogWidget();
+	auto w = new AddLegDialogWidget();
 	w->setClassId(doc->value(QStringLiteral("classId")).toInt());
 	w->setRelayId(doc->dataId().toInt());
 	w->setWindowTitle(tr("Add leg"));
@@ -217,10 +217,10 @@ void RelayWidget::addLeg()
 void RelayWidget::removeLeg()
 {
 	qfLogFuncFrame();
-	QModelIndex curr_ix = ui->tblLegs->currentIndex();
+	auto curr_ix = ui->tblLegs->currentIndex();
 	if(!curr_ix.isValid())
 		return;
-	qf::core::utils::TableRow row = ui->tblLegs->selectedRow();
+	auto row = ui->tblLegs->selectedRow();
 	int run_id = row.value("runs.id").toInt();
 	int comp_id = row.value("runs.competitorid").toInt();
 	qfDebug() << "run id:" << run_id << "comp id:" << comp_id;
@@ -234,10 +234,10 @@ void RelayWidget::removeLeg()
 
 void RelayWidget::moveLegUp()
 {
-	QModelIndex curr_ix = ui->tblLegs->currentIndex();
+	auto curr_ix = ui->tblLegs->currentIndex();
 	if(!curr_ix.isValid())
 		return;
-	qf::core::utils::TableRow row = ui->tblLegs->selectedRow();
+	auto row = ui->tblLegs->selectedRow();
 	int leg = row.value("runs.leg").toInt();
 	if(leg <= 1)
 		return;
@@ -279,17 +279,17 @@ void RelayWidget::moveLegUp()
 
 void RelayWidget::moveLegDown()
 {
-	QModelIndex curr_ix = ui->tblLegs->currentIndex();
+	auto curr_ix = ui->tblLegs->currentIndex();
 	if(!curr_ix.isValid())
 		return;
-	qf::core::model::TableModel *m = ui->tblLegs->tableModel();
+	auto m = ui->tblLegs->tableModel();
 	int max_leg = 0;
 	for (int i = 0; i < m->rowCount(); ++i) {
 		int l = m->value(i, "runs.leg").toInt();
 		if(l > max_leg)
 			max_leg = l;
 	}
-	qf::core::utils::TableRow row = ui->tblLegs->selectedRow();
+	auto row = ui->tblLegs->selectedRow();
 	int leg = row.value("runs.leg").toInt();
 	if(leg >= max_leg)
 		return;
