@@ -641,9 +641,11 @@ bool SqlTableModel::reloadTable(const QString &query_str)
 	qf::core::sql::Connection sql_conn = sqlConnection();
 	qfs::Query q(sql_conn);
 	m_recentlyExecutedQueryString = query_str;
+	m_recentlyExecutedQueryError = {};
 	bool ok = q.exec(query_str);
 	if(!ok) {
 		qfError() << QString("SQL Error: %1\n%2").arg(q.lastError().text()).arg(query_str);
+		m_recentlyExecutedQueryError = q.lastError().text();
 		return false;
 	}
 	if(q.isSelect()) {
