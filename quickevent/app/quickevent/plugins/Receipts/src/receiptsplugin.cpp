@@ -288,7 +288,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 										" AND runs.finishTimeMs > 0"
 										" AND runs.leg=" QF_IARG(leg),
 										qf::core::sql::QueryBuilder::INNER_JOIN)
-						.orderBy("misPunch, disqualified, isRunning, runs.timeMs");
+						.orderBy("misPunch, disqualified, relays.isRunning, runs.isRunning, runs.timeMs");
 			}
 			else {
 				int class_id = model.value(0, "competitors.classId").toInt();
@@ -297,7 +297,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 						.from("competitors")
 						.joinRestricted("competitors.id", "runs.competitorId", "runs.stageId=" QF_IARG(stage_id) " AND competitors.classId=" QF_IARG(class_id), qf::core::sql::QueryBuilder::INNER_JOIN)
 						.where("runs.finishTimeMs > 0")
-						.orderBy("misPunch, disqualified, isRunning, runs.timeMs");
+						.orderBy("misPunch, disqualified, runs.isRunning, runs.timeMs");
 			}
 			//qfInfo() << qb.toString();
 			auto q = qf::core::sql::Query::fromExec(qb.toString());

@@ -417,7 +417,7 @@ void EmmaClient::exportStartListRacomTxt() const
 			.join("runs.id", "cards.runId")
 			.where("runs.stageId=" QF_IARG(current_stage));
 	if(is_relays) {
-		qb.select2("relays","number");
+		qb.select2("relays","number, isrunning");
 		qb.join("runs.relayId", "relays.id");
 		qb.join("relays.classId", "classes.id");
 		qb.orderBy("runs.leg, relays.number ASC");
@@ -438,7 +438,8 @@ void EmmaClient::exportStartListRacomTxt() const
 		if (id == last_id)
 			continue;
 		bool is_running = (q2.value("runs.isrunning").isNull()) ? false : q2.value("runs.isrunning").toBool();
-		if (!is_running)
+		bool is_rel_running = (q2.value("relays.isrunning").isNull()) ? false : q2.value("relays.isrunning").toBool();
+		if (!is_running || !is_rel_running)
 			continue;
 		last_id = id;
 		int si = q2.value("runs.siId").toInt();
@@ -545,7 +546,7 @@ void EmmaClient::exportStartListRacomCsv() const
 		.join("runs.id", "cards.runId")
 		.where("runs.stageId=" QF_IARG(current_stage));
 	if(is_relays) {
-		qb.select2("relays","number");
+		qb.select2("relays","number, isrunning");
 		qb.join("runs.relayId", "relays.id");
 		qb.join("relays.classId", "classes.id");
 		qb.orderBy("runs.leg, relays.number ASC");
@@ -566,7 +567,8 @@ void EmmaClient::exportStartListRacomCsv() const
 		if (id == last_id)
 			continue;
 		bool is_running = (q2.value("runs.isrunning").isNull()) ? false : q2.value("runs.isrunning").toBool();
-		if (!is_running)
+		bool is_rel_running = (q2.value("relays.isrunning").isNull()) ? false : q2.value("relays.isrunning").toBool();
+		if (!is_running || !is_rel_running)
 			continue;
 		last_id = id;
 		int si = q2.value("runs.siId").toInt();
