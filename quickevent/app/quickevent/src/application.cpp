@@ -68,3 +68,8 @@ Application *Application::instance(bool must_exist)
 	return ret;
 }
 
+QString Application::versionString() const
+{
+	return QCoreApplication::applicationVersion();
+}
+

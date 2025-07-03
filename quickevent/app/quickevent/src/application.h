@@ -21,6 +21,8 @@ public:
 
 	AppCliOptions* cliOptions() {return m_cliOptions;}
 
+	Q_INVOKABLE QString versionString() const;
+
 	Q_SIGNAL void newLogEntry(const qf::core::LogEntryMap &le);
 	void emitNewLogEntry(const qf::core::LogEntryMap &le) { emit newLogEntry(le); }
 private:

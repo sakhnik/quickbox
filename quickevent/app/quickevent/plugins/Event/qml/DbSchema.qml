@@ -54,7 +54,8 @@ Schema {
 				Field { name: 'name'; type: String { } },
 				Field { name: 'length'; type: Int { } },
 				Field { name: 'climb'; type: Int { } },
-				Field { name: 'note'; type: String { } }
+				Field { name: 'note'; type: String { } },
+				Field { name: 'mapCount'; type: Int { } }
 			]
 			indexes: [
 				Index {fields: ['name']; unique: false } // for relays
@@ -132,7 +133,6 @@ Schema {
 				Field { name: 'vacantsAfter'; type: Int { } 
 					comment: 'place n vacants gap after last competitor in class start list'
 				},
-				Field { name: 'mapCount'; type: Int { } },
 				Field { name: 'resultsCount'; type: Int { }
 					comment: 'number of finished competitors, when the results were printed'
 				},

@@ -1107,7 +1107,7 @@ void RunsWidget::report_competitorsStatistics()
 			qfs::QueryBuilder qb;
 			qb.select2("classes", "name")
 				.select("COUNT(runs.id) AS runCount")
-				.select("MAX(classdefs.mapCount) as mapCount") // classdefs.mapCount must be in any agregation function in PSQL, MIN can be here as well
+				.select("0 as mapCount") // classdefs.mapCount must be in any agregation function in PSQL, MIN can be here as well
 				.from("classes")
 				.joinRestricted("classes.id", "classdefs.classid", "classdefs.stageId={{stage_id}}")
 				.join("classes.id", "competitors.classId")

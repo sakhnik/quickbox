@@ -38,7 +38,7 @@
    <item>
     <widget class="qf::qmlwidgets::Splitter" name="splitter">
      <property name="orientation">
-      <enum>Qt::Horizontal</enum>
+      <enum>Qt::Orientation::Horizontal</enum>
      </property>
      <widget class="QFrame" name="frame">
       <property name="sizePolicy">
@@ -82,7 +82,10 @@
           </widget>
          </item>
          <item>
-          <widget class="QCheckBox" name="chkUseAllMaps">
+          <widget class="QCheckBox" name="chkUseAllMaps_NIY">
+           <property name="enabled">
+            <bool>false</bool>
+           </property>
            <property name="sizePolicy">
             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
              <horstretch>0</horstretch>
@@ -90,7 +93,7 @@
             </sizepolicy>
            </property>
            <property name="toolTip">
-            <string>When checked, all the maps defined for class will be used during drawing</string>
+            <string>This feature is not implemented in QE3</string>
            </property>
            <property name="text">
             <string>Use all maps</string>

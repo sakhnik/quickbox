@@ -546,7 +546,7 @@ DbSchema *EventPlugin::dbSchema()
 int EventPlugin::dbVersion()
 {
 	// equals to minimal app version compatible with this DB
-	return 30200;
+	return 30300;
 }
 
 QString EventPlugin::dbVersionString()
