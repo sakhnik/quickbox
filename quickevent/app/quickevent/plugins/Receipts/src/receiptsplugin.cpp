@@ -29,6 +29,7 @@
 #include <QDomDocument>
 #include <QSqlRecord>
 #include <QPrinterInfo>
+#include <QMessageBox>
 
 //#define QF_TIMESCOPE_ENABLED
 #include <qf/core/utils/timescope.h>
@@ -467,13 +468,18 @@ void ReceiptsPlugin::previewReceipt(int card_id)
 	//qfInfo() << "previewReceipe_classic, card id:" << card_id;
 	ReceiptsSettings settings;
 	auto *w = new qf::qmlwidgets::reports::ReportViewWidget();
+	if (settings.receiptPath().isEmpty()) {
+		auto fwk = qff::MainWindow::frameWork();
+		QMessageBox::warning(fwk,tr("Warning"),tr("Receipt report type is not defined.\nPlease go to Settings->Receipts and set receipt type."));
+		return;
+	}
 	w->setPersistentSettingsId("cardPreview");
 	w->setWindowTitle(tr("Receipt"));
 	w->setReport(findReportFile(settings.receiptPath()));
 	QVariantMap dt = receiptTablesData(card_id);
 	for(auto key : dt.keys())
 		w->setTableData(key, dt.value(key));
-	qff::MainWindow *fwk = qff::MainWindow::frameWork();
+	auto fwk = qff::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(fwk);
 	dlg.setCentralWidget(w);
 	dlg.exec();
@@ -485,6 +491,11 @@ bool ReceiptsPlugin::printReceipt(int card_id)
 	QF_TIME_SCOPE("ReceiptsPlugin::printReceipt()");
 	try {
 		ReceiptsSettings settings;
+		if (settings.receiptPath().isEmpty()) {
+			auto fwk = qff::MainWindow::frameWork();
+			QMessageBox::warning(fwk,tr("Warning"),tr("Receipt report type is not defined.\nPlease go to Settings->Receipts and set receipt type."));
+			return false;
+		}
 		QVariantMap dt = receiptTablesData(card_id);
 		return receiptsPrinter()->printReceipt(settings.receiptPath(), dt, card_id);
 	}
