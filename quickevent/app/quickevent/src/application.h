@@ -19,12 +19,7 @@ public:
 
 	static Application* instance(bool must_exist = true);
 
-	static int dbVersion();
-
 	AppCliOptions* cliOptions() {return m_cliOptions;}
-
-	Q_INVOKABLE QString versionString() const;
-	Q_INVOKABLE QString dbVersionString() const;
 
 	Q_SIGNAL void newLogEntry(const qf::core::LogEntryMap &le);
 	void emitNewLogEntry(const qf::core::LogEntryMap &le) { emit newLogEntry(le); }

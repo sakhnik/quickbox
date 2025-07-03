@@ -107,6 +107,7 @@ public:
 
 	DbSchema* dbSchema();
 	static int dbVersion();
+	static QString dbVersionString();
 
 	Q_SLOT void onInstalled();
 

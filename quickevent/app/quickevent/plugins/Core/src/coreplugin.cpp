@@ -3,6 +3,8 @@
 #include "widgets/settingsdialog.h"
 #include "widgets/reportssettingspage.h"
 
+#include <plugins/Event/src/eventplugin.h>
+
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/qmlwidgets/action.h>
 #include <qf/qmlwidgets/menubar.h>
@@ -193,13 +195,8 @@ void CorePlugin::launchSqlTool()
 void CorePlugin::aboutQuickEvent()
 {
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
-	QString version_string;
-	QMetaObject::invokeMethod(fwk, "versionString", Qt::DirectConnection
-							  , Q_RETURN_ARG(QString, version_string));
-	QString db_version_string;
-	QMetaObject::invokeMethod(fwk, "dbVersionString", Qt::DirectConnection
-							  , Q_RETURN_ARG(QString, db_version_string));
-
+	QString version_string = QCoreApplication::applicationVersion();
+	QString db_version_string = Event::EventPlugin::dbVersionString();
 	auto commit_sha = QStringLiteral(COMMIT_SHA);
 	if (commit_sha.isEmpty()) {
 		commit_sha = "N/A";
