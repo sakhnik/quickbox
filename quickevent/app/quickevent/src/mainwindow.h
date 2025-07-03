@@ -12,10 +12,6 @@ public:
 	explicit MainWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
 	~MainWindow() override;
 
-	Q_INVOKABLE QString versionString() const;
-	Q_INVOKABLE QString dbVersionString() const;
-	Q_INVOKABLE int dbVersion() const;
-
 	void loadPlugins() override;
 protected:
 	void onPluginsLoaded() Q_DECL_OVERRIDE;

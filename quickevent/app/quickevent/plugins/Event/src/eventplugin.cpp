@@ -545,11 +545,19 @@ DbSchema *EventPlugin::dbSchema()
 
 int EventPlugin::dbVersion()
 {
-	qff::MainWindow *fwk = qff::MainWindow::frameWork();
-	int db_version = 0;
-	QMetaObject::invokeMethod(fwk, "dbVersion", Qt::DirectConnection
-							  , Q_RETURN_ARG(int, db_version));
-	return db_version;
+	// equals to minimal app version compatible with this DB
+	return 30200;
+}
+
+QString EventPlugin::dbVersionString()
+{
+	int dbv = dbVersion();
+	int rev = dbv % 100;
+	dbv /= 100;
+	int min = dbv % 100;
+	int maj = dbv / 100;
+
+	return QString("%1.%2.%3").arg(maj).arg(min).arg(rev);
 }
 
 void EventPlugin::onDbEvent(const QString &name, QSqlDriver::NotificationSource source, const QVariant &payload)

@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "application.h"
 #include "loggerwidget.h"
 
 #include <qf/qmlwidgets/framework/stackedcentralwidget.h>
@@ -17,40 +16,17 @@
 #include <plugins/Relays/src/relaysplugin.h>
 #include <plugins/Speaker/src/speakerplugin.h>
 
-#include <QLabel>
+#include <QCoreApplication>
 
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags) :
 	Super(parent, flags)
 {
-	setWindowTitle(tr("Quick Event ver. %1").arg(versionString()));
+	setWindowTitle(tr("Quick Event ver. %1").arg(QCoreApplication::applicationVersion()));
 	setWindowIcon(QIcon(":/quickevent/images/quickevent64.png"));
 }
 
-MainWindow::~MainWindow()
-{
-}
+MainWindow::~MainWindow() = default;
 
-QString MainWindow::versionString() const
-{
-	return Application::instance()->versionString();
-}
-
-QString MainWindow::dbVersionString() const
-{
-	return Application::instance()->dbVersionString();
-}
-
-int MainWindow::dbVersion() const
-{
-	return Application::instance()->dbVersion();
-}
-/*
-QString MainWindow::settingsPrefix_application_locale_language()
-{
-	static const QString s = SETTINGS_PREFIX_APPLICATION_LOCALE_LANGUAGE;
-	return s;
-}
-*/
 void MainWindow::onPluginsLoaded()
 {
 	{
