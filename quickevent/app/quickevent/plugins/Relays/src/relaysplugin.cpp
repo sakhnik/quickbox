@@ -242,7 +242,7 @@ qf::core::utils::TreeTable RelaysPlugin::nLegsClassResultsTable(int class_id, in
 				.from("relays")
 				.join("relays.club", "clubs.abbr")
 				.where("relays.classId=" QF_IARG(class_id))
-				.where("relays.isRelRunning");
+				.where("relays.isRunning");
 		q.execThrow(qb.toString());
 		while(q.next()) {
 			Relay r;
@@ -497,7 +497,7 @@ QVariant RelaysPlugin::startListByClassesTableData(const QString &class_filter, 
 				.where("relays.classId={{class_id}}")
 				.orderBy("relays.number, relayName");
 		if (!with_vacants)
-			qb.where("relays.isRelRunning");
+			qb.where("relays.isRunning");
 
 		model.setQueryBuilder(qb, true);
 	}
