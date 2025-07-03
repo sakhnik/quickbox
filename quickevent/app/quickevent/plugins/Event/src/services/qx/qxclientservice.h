@@ -71,11 +71,12 @@ public:
 	void exportRuns(QObject *context, std::function<void (QString)> call_back = nullptr);
 
 	QNetworkReply* loadQxChanges(int from_id);
+
+	QByteArray apiToken() const;
 private:
 	int eventId() const;
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
-	QByteArray apiToken() const;
 	QUrl exchangeServerUrl() const;
 	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	enum class SpecFile {StartListIofXml3, RunsCsv};

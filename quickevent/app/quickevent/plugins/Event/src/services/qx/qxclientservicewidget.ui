@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>404</width>
-    <height>376</height>
+    <height>419</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,6 +16,16 @@
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Exchange server url</string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1">
+      <widget class="QLineEdit" name="edServerUrl"/>
+     </item>
      <item row="1" column="0">
       <widget class="QLabel" name="label_5">
        <property name="toolTip">
@@ -26,17 +36,46 @@
        </property>
       </widget>
      </item>
-     <item row="5" column="1">
-      <widget class="QLineEdit" name="edOChecklistUrl">
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-      </widget>
-     </item>
      <item row="1" column="1">
       <widget class="QLineEdit" name="edApiToken"/>
      </item>
-     <item row="4" column="1">
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_6">
+       <property name="toolTip">
+        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
+       </property>
+       <property name="text">
+        <string>Current stage</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1">
+      <widget class="QSpinBox" name="edCurrentStage">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="minimum">
+        <number>1</number>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_4">
+       <property name="toolTip">
+        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
+       </property>
+       <property name="text">
+        <string>Event ID</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1">
       <widget class="QSpinBox" name="edEventId">
        <property name="enabled">
         <bool>false</bool>
@@ -55,33 +94,7 @@
        </property>
       </widget>
      </item>
-     <item row="3" column="1">
-      <widget class="QSpinBox" name="edCurrentStage">
-       <property name="enabled">
-        <bool>false</bool>
-       </property>
-       <property name="alignment">
-        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
-       </property>
-       <property name="readOnly">
-        <bool>true</bool>
-       </property>
-       <property name="minimum">
-        <number>1</number>
-       </property>
-      </widget>
-     </item>
-     <item row="3" column="0">
-      <widget class="QLabel" name="label_6">
-       <property name="toolTip">
-        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
-       </property>
-       <property name="text">
-        <string>Current stage</string>
-       </property>
-      </widget>
-     </item>
-     <item row="5" column="0">
+     <item row="4" column="0">
       <widget class="QLabel" name="label_3">
        <property name="toolTip">
         <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
@@ -91,27 +104,14 @@
        </property>
       </widget>
      </item>
-     <item row="0" column="0">
-      <widget class="QLabel" name="label_2">
-       <property name="text">
-        <string>Exchange server url</string>
+     <item row="4" column="1">
+      <widget class="QLineEdit" name="edOChecklistUrl">
+       <property name="readOnly">
+        <bool>true</bool>
        </property>
       </widget>
      </item>
-     <item row="4" column="0">
-      <widget class="QLabel" name="label_4">
-       <property name="toolTip">
-        <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
-       </property>
-       <property name="text">
-        <string>Event ID</string>
-       </property>
-      </widget>
-     </item>
-     <item row="0" column="1" colspan="2">
-      <widget class="QLineEdit" name="edServerUrl"/>
-     </item>
-     <item row="6" column="0">
+     <item row="5" column="0">
       <widget class="QLabel" name="label_7">
        <property name="toolTip">
         <string>Fill this url into HTTP POST synchonization method in O-CheckList</string>
@@ -121,7 +121,7 @@
        </property>
       </widget>
      </item>
-     <item row="6" column="1">
+     <item row="5" column="1">
       <widget class="QLineEdit" name="edOChecklistUrlHeader">
        <property name="readOnly">
         <bool>true</bool>
