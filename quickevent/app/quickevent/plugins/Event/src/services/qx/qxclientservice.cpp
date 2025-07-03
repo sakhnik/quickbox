@@ -259,7 +259,7 @@ void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *co
 {
 	switch (file) {
 	case SpecFile::StartListIofXml3:
-		postFileCompressed("/api/event/current/upload/startlist", {}, data, context, call_back);
+		postFileCompressed({}, "startlist-iof3.xml", data, context, call_back);
 		break;
 	case SpecFile::RunsCsv:
 		postFileCompressed({}, "runs.csv", data, context, call_back);

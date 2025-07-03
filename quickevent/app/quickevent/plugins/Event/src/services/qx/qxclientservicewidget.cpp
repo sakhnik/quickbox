@@ -36,7 +36,7 @@ QxClientServiceWidget::QxClientServiceWidget(QWidget *parent)
 	auto current_stage = event_plugin->currentStageId();
 	auto settings = svc->settings();
 	ui->edServerUrl->setText(settings.exchangeServerUrl());
-	ui->edApiToken->setText(event_plugin->stageData(current_stage).qxApiToken());
+	ui->edApiToken->setText(svc->apiToken());
 	ui->edCurrentStage->setValue(current_stage);
 	connect(ui->btTestConnection, &QAbstractButton::clicked, this, &QxClientServiceWidget::testConnection);
 	connect(ui->btExportEventInfo, &QAbstractButton::clicked, this, &QxClientServiceWidget::exportEventInfo);
