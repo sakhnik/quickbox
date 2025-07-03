@@ -7,12 +7,61 @@
 #include <qf/core/sql/connection.h>
 #include <qf/qmlwidgets/dialogs/dialog.h>
 #include <qf/qmlwidgets/dialogbuttonbox.h>
+
 #include <QPushButton>
 
 namespace qfc = qf::core;
 namespace qfw = qf::qmlwidgets;
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
+
+class CoursesTableModel : public qfm::SqlTableModel
+{
+	Q_OBJECT
+private:
+	using Super = qfm::SqlTableModel;
+public:
+	enum Columns {
+		Col_id,
+		Col_name,
+		Col_length,
+		Col_climb,
+		Col_mapCount,
+		Col_runCount,
+		Col_note,
+		Col_codeCount,
+		Col_codeList,
+		Col_COUNT
+	};
+
+	CoursesTableModel(QObject *parent) : Super(parent)
+	{
+		clearColumns(Col_COUNT);
+		setColumn(Col_id, qf::core::model::TableModel::ColumnDefinition("id", tr("Id")).setReadOnly(true));
+		setColumn(Col_name, qf::core::model::TableModel::ColumnDefinition("courses.name", tr("Name")));
+		setColumn(Col_length, qf::core::model::TableModel::ColumnDefinition("courses.length", tr("Length")));
+		setColumn(Col_climb, qf::core::model::TableModel::ColumnDefinition("courses.climb", tr("Climb")));
+		setColumn(Col_mapCount, qf::core::model::TableModel::ColumnDefinition("courses.mapCount", tr("Maps")));
+		setColumn(Col_runCount, qf::core::model::TableModel::ColumnDefinition("run_count", tr("Runners")));
+		setColumn(Col_note, qf::core::model::TableModel::ColumnDefinition("courses.note", tr("Note")));
+		setColumn(Col_codeCount, qf::core::model::TableModel::ColumnDefinition("code_count", tr("Code count")).setReadOnly(true));
+		setColumn(Col_codeList, qf::core::model::TableModel::ColumnDefinition("code_list", tr("Codes")).setReadOnly(true));
+	}
+public:
+	QVariant data(const QModelIndex &index, int role) const override
+	{
+		if(index.column() == Col_runCount) {
+			if(role == Qt::BackgroundRole) {
+				auto run_count = index.data().toInt();
+				QModelIndex ix = index.sibling(index.row(), Col_mapCount);
+				auto map_count = ix.data().toInt();
+				if(run_count > map_count)
+					return QColor("salmon");
+			}
+		}
+		return Super::data(index, role);
+	}
+};
 
 EditCoursesWidget::EditCoursesWidget(QWidget *parent)
 	: Super(parent)
@@ -30,14 +79,7 @@ EditCoursesWidget::EditCoursesWidget(QWidget *parent)
 				editCourseCodes(ix);
 			}
 		});
-		auto *m = new qfm::SqlTableModel(this);
-		m->addColumn("id").setReadOnly(true);
-		m->addColumn("courses.name", tr("Name"));
-		m->addColumn("courses.length", tr("Length"));
-		m->addColumn("courses.climb", tr("Climb"));
-		m->addColumn("courses.note", tr("Note"));
-		m->addColumn("code_count", tr("Cnt")).setToolTip(tr("Control count"));
-		m->addColumn("code_list", tr("Codes"));
+		auto *m = new CoursesTableModel(this);
 		ui->tblCourses->setTableModel(m);
 		m_coursesModel = m;
 	}
@@ -73,10 +115,18 @@ EditCoursesWidget::EditCoursesWidget(QWidget *parent)
 
 		qfs::QueryBuilder qb;
 		qb.select2("courses", "*")
+				.select("COUNT(runs.id) AS run_count")
 				.select(code_list_query + "AS code_list")
 				.select(qb_code_count.toString())
 				.from("courses")
+				.join("courses.id", "classdefs.courseId", qf::core::sql::QueryBuilder::INNER_JOIN)
+				.join("classdefs.classId", "classes.id")
+				.join("classes.id", "competitors.classId")
+				.joinRestricted("competitors.id", "runs.competitorId", "runs.isRunning")
+				.where("classdefs.stageId=runs.stageId")
+				.groupBy("courses.id")
 				.orderBy("courses.name");
+
 		m_coursesModel->setQueryBuilder(qb, false);
 		m_coursesModel->reload();
 	}
@@ -113,3 +163,5 @@ void EditCoursesWidget::editCourseCodes(const QModelIndex &ix)
 	dlg.setCentralWidget(w);
 	dlg.exec();
 }
+
+#include "editcourseswidget.moc"
