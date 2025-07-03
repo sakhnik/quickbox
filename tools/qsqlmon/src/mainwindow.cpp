@@ -348,47 +348,47 @@ void MainWindow::createActions()
 	*/
 	a = new QAction(tr("&Config"), this);
 	a->setStatusTip(tr("Open the aplication config window"));
-	connect(a, SIGNAL(triggered()), this, SLOT(configure()));
+	connect(a, &QAction::triggered, this, &MainWindow::configure);
 	actionMap["config"] = a;
 
 	a = new QAction(tr("&Quit"), this);
 	a->setShortcut(tr("Ctrl+Q"));
 	a->setStatusTip(tr("Exit the application"));
-	connect(a, SIGNAL(triggered()), this, SLOT(close()));
+	connect(a, &QAction::triggered, this, &MainWindow::close);
 	actionMap["exit"] = a;
 
 	a = new QAction(QPixmap(":/images/lightning.png"), "&Execute SQL", this);
 	a->setShortcut(tr("Shift+Enter"));
 	a->setStatusTip(tr("Execute SQL command"));
-	connect(a, SIGNAL(triggered()), this, SLOT(executeSql()));
+	connect(a, &QAction::triggered, this, &MainWindow::executeSql);
 	actionMap["executeSql"] = a;
 
 	a = new QAction(QPixmap(":/images/lightning-file.png"), "&Execute SQL script", this);
 	//a->setShortcut(tr("Shift+Enter"));
 	a->setStatusTip(tr("Execute SQL script"));
-	connect(a, SIGNAL(triggered()), this, SLOT(executeSqlScript()));
+	connect(a, &QAction::triggered, this, &MainWindow::executeSqlScript);
 	actionMap["executeSqlScript"] = a;
 
 	a = new QAction(QPixmap(":/images/lightning-selection.png"), "&Execute selected lines", this);
 	//a->setShortcut(tr("Shift+Enter"));
 	a->setStatusTip(tr("Execute selected lines"));
-	connect(a, SIGNAL(triggered()), this, SLOT(executeSelectedLines()));
+	connect(a, &QAction::triggered, this, &MainWindow::executeSelectedLines);
 	actionMap["executeSelectedLines"] = a;
 
 	a = new QAction("&Set SQL delimiter", this);
 	//a->setShortcut(tr("Shift+Enter"));
 	a->setStatusTip(tr("Set SQL delimiter"));
-	connect(a, SIGNAL(triggered()), this, SLOT(setSqlDelimiter()));
+	connect(a, &QAction::triggered, this, &MainWindow::setSqlDelimiter);
 	actionMap["setSqlDelimiter"] = a;
 
 	a = new QAction("Show SQL journal", this);
-	connect(a, SIGNAL(triggered()), this, SLOT(showSqlJournal()));
+	connect(a, &QAction::triggered, this, &MainWindow::showSqlJournal);
 	actionMap["showSqlJournal"] = a;
 
 	a = new QAction(QPixmap(":/images/tear-off.png"), tr("Tear off SQL table"), this);
 	a->setShortcut(tr("Ctrl+T"));
 	a->setToolTip(tr("Tear off SQL table in a new modeless window"));
-	connect(a, SIGNAL(triggered()), this, SLOT(tearOffTable()));
+	connect(a, &QAction::triggered, this, &MainWindow::tearOffTable);
 	actionMap["tearOffTable"] = a;
 
 	a = new QAction(QPixmap(":/libqfgui/images/wordwrap.png"), tr("Word wrap"), this);
@@ -396,48 +396,48 @@ void MainWindow::createActions()
 	a->setChecked(true);
 	//a->setShortcut(tr("Ctrl+T"));
 	//a->setToolTip(tr("Tear off SQL table in a new modeless window"));
-	connect(a, SIGNAL(triggered(bool)), this, SLOT(wordWrapSqlEditor(bool)));
+	connect(a, &QAction::triggered, this, &MainWindow::wordWrapSqlEditor);
 	actionMap["wordWrapSqlEditor"] = a;
 
-    //qfDebug("%s: %i",__FILE__, __LINE__);
+	//qfDebug("%s: %i",__FILE__, __LINE__);
 	a = new QAction(tr("&About"), this);
 	a->setStatusTip(tr("Show the application's About box"));
-	connect(a, SIGNAL(triggered()), this, SLOT(about()));
+	connect(a, &QAction::triggered, this, &MainWindow::about);
 	actionMap["about"] = a;
 
 	a = new QAction(tr("&About Qt"), this);
 	//a->setStatusTip(tr("Show the application's About box"));
-	connect(a, SIGNAL(triggered()), this, SLOT(aboutQt()));
+	connect(a, &QAction::triggered, this, &MainWindow::aboutQt);
 	actionMap["aboutQt"] = a;
 
 	a = new QAction(tr("&Change Log"), this);
-	connect(a, SIGNAL(triggered()), this, SLOT(changeLog()));
+	connect(a, &QAction::triggered, this, &MainWindow::changeLog);
 	actionMap["changeLog"] = a;
 
 	a = new QAction(tr("&MySQL syntax"), this);
-	connect(a, SIGNAL(triggered()), this, SLOT(mysqlSyntax()));
+	connect(a, &QAction::triggered, this, &MainWindow::mysqlSyntax);
 	actionMap["mysqlSyntax"] = a;
 
 	a = new QAction(tr("&SQLite syntax"), this);
-	connect(a, SIGNAL(triggered()), this, SLOT(sqliteSyntax()));
+	connect(a, &QAction::triggered, this, &MainWindow::sqliteSyntax);
 	actionMap["sqliteSyntax"] = a;
 
 	a = new QAction(tr("&Available drivers"), this);
-	connect(a, SIGNAL(triggered()), this, SLOT(availableDrivers()));
+	connect(a, &QAction::triggered, this, &MainWindow::availableDrivers);
 	actionMap["availableDrivers"] = a;
 
 	a = new QAction(tr("&Check drivers"), this);
-	connect(a, SIGNAL(triggered()), this, SLOT(checkDrivers()));
+	connect(a, &QAction::triggered, this, &MainWindow::checkDrivers);
 	actionMap["checkDrivers"] = a;
 	/*
 	a = new QAction(tr("About &Qt"), this);
 	a->setStatusTip(tr("Show the Qt library's About box"));
-	connect(a, SIGNAL(triggered()), this, SLOT(aboutQt()));
+	connect(a, &QAction::triggered, this, &MainWindow::aboutQt()));
 	actionMap["aboutQt"] = a;
 	*/
 	a = new QAction(tr("Add connection"), this);
 	a->setStatusTip(tr("Add database connection to the tree"));
-	connect(a, SIGNAL(triggered()), this, SLOT(addServer()));
+	connect(a, &QAction::triggered, this, [this]() { addServer(); });
 	actionMap["addServer"] = a;
 }
 
@@ -569,14 +569,8 @@ bool MainWindow::execQuery(const QString& query_str)
 			m->setQuery(qs);
 			ok = m->reload();
 			if(ok) {
-				if(is_select) {
-					/// if query was select
-					ui.queryView->tableView()->resizeColumnsToContents();
-					ui.queryView->setInfo(qs);
-				}
-				else {
-					appendInfo(tr("affected rows: %1").arg(m->recentlyExecutedQueryRowsAffected()));
-				}
+				ui.queryView->tableView()->resizeColumnsToContents();
+				ui.queryView->setInfo(qs);
 			}
 			else {
 				QString msg = m->recentlyExecutedQueryError().text();
@@ -649,7 +643,6 @@ static bool is_white_space(QChar c)
 
 void MainWindow::executeSql()
 {
-
 	/// extract command under cursor position (commands are separated by ;)
 	SqlTextEdit *ed = sqlDock->ui.txtSql;
 	qf::core::String s = ed->toPlainText();
