@@ -39,7 +39,6 @@ namespace qff = qf::qmlwidgets::framework;
 using ::PartWidget;
 using qff::getPlugin;
 using Event::EventPlugin;
-using Receipts::ReceiptsPlugin;
 using CardReader::CardReaderPlugin;
 
 namespace Receipts {
