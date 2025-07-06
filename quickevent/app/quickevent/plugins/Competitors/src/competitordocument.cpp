@@ -101,8 +101,9 @@ bool CompetitorDocument::saveData()
 		else {
 			competitor_id = dataId().toInt();
 		}
-		if(m_isEmitDbEventsOnSave)
+		if(m_isEmitDbEventsOnSave) {
 			getPlugin<EventPlugin>()->emitDbEvent(Event::EventPlugin::DBEVENT_COMPETITOR_EDITED, competitor_id);
+		}
 	}
 	return ret;
 }

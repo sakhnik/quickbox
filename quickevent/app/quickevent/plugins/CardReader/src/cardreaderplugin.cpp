@@ -532,7 +532,6 @@ bool CardReaderPlugin::processCardToRunAssignment(int card_id, int run_id)
 					QVariantList param {
 						next_leg_run_id,
 						QVariantMap {
-							{"runs.id", next_leg_run_id},
 							{"runs.startTimeMs", new_next_leg_start_time},
 						}
 					};

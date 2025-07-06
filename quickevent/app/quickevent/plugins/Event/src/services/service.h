@@ -55,12 +55,12 @@ public:
 	Q_SIGNAL void statusChanged(Status new_status);
 
 	void setRunning(bool on);
+	bool isRunning() const { return status() == Status::Running; }
 
 	static void addService(Service *service);
 	static int serviceCount() {return m_services.count();}
 	static Service* serviceAt(int ix);
 	static Service* serviceByName(const QString &service_name);
-	//Q_SIGNAL void serviceCountChanged(int new_count);
 protected:
 	virtual void loadSettings();
 	QString settingsGroup() const;

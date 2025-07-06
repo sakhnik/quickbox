@@ -490,15 +490,14 @@ Schema {
 				Field { name: 'id'; type: Serial { primaryKey: true } },
 				Field { name: 'stage_id'; type: Int { } },
 				Field { name: 'change_id'; type: Int { } },
-				Field { name: 'run_id'; type: Int { } },
+				Field { name: 'data_id'; type: Int { } },
 				Field { name: 'data_type'; type: String { } },
 				Field { name: 'data'; type: String { } },
 				Field { name: 'source'; type: String { } },
 				Field { name: 'user_id'; type: String { } },
 				Field { name: 'status'; type: String { } },
 				Field { name: 'status_message'; type: String { } },
-				Field { name: 'created'; type: DateTime { } },
-				Field { name: 'row_lock'; type: Int { } }
+				Field { name: 'created'; type: DateTime { } }
 			]
 			indexes: [
 				Index {fields: ['stage_id', 'change_id']; unique: true }

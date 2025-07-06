@@ -49,17 +49,22 @@ QxClientServiceWidget::~QxClientServiceWidget()
 	delete ui;
 }
 
-void QxClientServiceWidget::setMessage(const QString &msg, bool is_error)
+void QxClientServiceWidget::setMessage(const QString &msg, MessageType msg_type)
 {
 	if (msg.isEmpty()) {
 		ui->lblStatus->setStyleSheet({});
 	}
 	else {
-		if (is_error) {
-			ui->lblStatus->setStyleSheet("background: salmon");
-		}
-		else {
-			ui->lblStatus->setStyleSheet("background: lightgreen");
+		switch (msg_type) {
+		case MessageType::Ok:
+		ui->lblStatus->setStyleSheet("background: lightgreen");
+		break;
+		case MessageType::Error:
+		ui->lblStatus->setStyleSheet("background: salmon");
+		break;
+		case MessageType::Progress:
+		ui->lblStatus->setStyleSheet("background: orange");
+		break;
 		}
 	}
 	ui->lblStatus->setText(msg);
@@ -120,7 +125,7 @@ void QxClientServiceWidget::testConnection()
 			setMessage(tr("Connected OK"));
 		}
 		else {
-			setMessage(tr("Connection error: %1").arg(reply->errorString()), true);
+			setMessage(tr("Connection error: %1").arg(reply->errorString()), MessageType::Error);
 		}
 	});
 }
@@ -139,7 +144,7 @@ void QxClientServiceWidget::exportEventInfo()
 			setMessage(tr("Event info updated OK"));
 		}
 		else {
-			setMessage(tr("Event info update error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), true);
+			setMessage(tr("Event info update error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), MessageType::Error);
 		}
 	});
 }
@@ -149,13 +154,13 @@ void QxClientServiceWidget::exportStartList()
 	auto *svc = service();
 	Q_ASSERT(svc);
 	saveSettings();
-	setMessage(tr("Start list export started ..."));
+	setMessage(tr("Start list export started ..."), MessageType::Progress);
 	svc->exportStartListIofXml3(this, [this](auto err) {
 		if (err.isEmpty()) {
 			setMessage(tr("Start list exported Ok"));
 		}
 		else {
-			setMessage(err, true);
+			setMessage(err, MessageType::Error);
 		}
 	});
 }
@@ -165,13 +170,13 @@ void QxClientServiceWidget::exportRuns()
 	auto *svc = service();
 	Q_ASSERT(svc);
 	saveSettings();
-	setMessage(tr("Runs export started ..."));
+	setMessage(tr("Runs export started ..."), MessageType::Progress);
 	svc->exportRuns(this, [this](auto err) {
 		if (err.isEmpty()) {
 			setMessage(tr("Runs exported Ok"));
 		}
 		else {
-			setMessage(err, true);
+			setMessage(err, MessageType::Error);
 		}
 	});
 }

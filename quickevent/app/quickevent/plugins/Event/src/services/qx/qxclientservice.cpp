@@ -71,7 +71,7 @@ void QxClientService::run() {
 			auto data = reply->readAll();
 			auto doc = QJsonDocument::fromJson(data);
 			EventInfo event_info(doc.toVariant().toMap());
-			setStatusMessage(event_info.name());
+			setStatusMessage(event_info.name() + (event_info.stage_count() > 1? QStringLiteral(" E%1").arg(event_info.stage()): QString()));
 			m_eventId = event_info.id();
 			connectToSSE(m_eventId);
 			if (!m_pollChangesTimer) {
@@ -115,11 +115,11 @@ void QxClientService::loadSettings()
 
 void QxClientService::onDbEventNotify(const QString &domain, int connection_id, const QVariant &data)
 {
-	if (status() != Status::Running) {
-		return;
-	}
 	Q_UNUSED(connection_id)
 	Q_UNUSED(data)
+	if (!isRunning()) {
+		return;
+	}
 	if(domain == QLatin1String(Event::EventPlugin::DBEVENT_CARD_PROCESSED_AND_ASSIGNED)) {
 		//auto checked_card = quickevent::core::si::CheckedCard(data.toMap());
 		//int competitor_id = getPlugin<RunsPlugin>()->competitorForRun(checked_card.runId());
@@ -130,9 +130,33 @@ void QxClientService::onDbEventNotify(const QString &domain, int connection_id, 
 		//onCompetitorChanged(competitor_id);
 	}
 	else if (domain == Event::EventPlugin::DBEVENT_RUN_CHANGED) {
-		//if (auto *node = m_rootNode->findChild<CurrentStageRunsNode*>(); node) {
-		//	node->sendRunChangedSignal(data);
-		//}
+		auto lst = data.toList();
+		auto run_id = lst.value(0).toInt();
+		auto ei = eventInfo();
+		bool this_stage = false;
+		qf::core::sql::Query q;
+		q.execThrow(QStringLiteral("SELECT COUNT(*) FROM runs WHERE id=%1 AND stageId=%2").arg(run_id).arg(ei.stage()));
+		if (q.next()) {
+			this_stage = q.value(0).toInt() == 1;
+		}
+		if (!this_stage) {
+			return;
+		}
+		auto qe_run_rec = lst.value(1).toMap();
+		auto qx_run_rec = QVariantMap();
+		auto remap_key = [&qe_run_rec, &qx_run_rec](const QString &qe_key, const QString &qx_key) {
+			if (qe_run_rec.contains(qe_key)) {
+				qx_run_rec[qx_key] = qe_run_rec.value(qe_key);
+			}
+		};
+
+		qfInfo() << "DBEVENT_RUN_CHANGED run id:" << run_id << "data:" << QString::fromUtf8(QJsonDocument::fromVariant(qe_run_rec).toJson(QJsonDocument::Compact));
+
+		remap_key("runs.siId", "si_id");
+		remap_key("competitors.registration", "registration");
+		if (!qx_run_rec.isEmpty()) {
+			httpPostJson( "/api/event/current/changes/run-updated", QStringLiteral("run_id=%1").arg(run_id), qx_run_rec);
+		}
 	}
 }
 
@@ -255,7 +279,7 @@ void QxClientService::postFileCompressed(std::optional<QString> path, std::optio
 	});
 }
 
-void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void (QString)> call_back)
+void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *context, const std::function<void (QString)> &call_back)
 {
 	switch (file) {
 	case SpecFile::StartListIofXml3:
@@ -274,6 +298,46 @@ QByteArray QxClientService::zlibCompress(QByteArray data)
 	// internally qCompress uses zlib
 	compressedData.remove(0, 4);
 	return compressedData;
+}
+
+void QxClientService::httpPostJson(const QString &path, const QString &query, QVariantMap json, QObject *context, const std::function<void (QString)> &call_back)
+{
+	if (!isRunning()) {
+		return;
+	}
+	auto url = exchangeServerUrl();
+
+	url.setPath(path);
+	url.setQuery(query);
+
+	QNetworkRequest request;
+	request.setUrl(url);
+	request.setRawHeader(QX_API_TOKEN, apiToken());
+	request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
+	auto data = QJsonDocument::fromVariant(json).toJson(QJsonDocument::Compact);
+	qfInfo() << "HTTP POST JSON:" << url.toString() << "data:" << QString::fromUtf8(data);
+	QNetworkReply *reply = networkManager()->post(request, data);
+	if (context) {
+		connect(reply, &QNetworkReply::finished, context, [reply, url, call_back]() {
+			QString err;
+			if(reply->error()) {
+				err = reply->errorString();
+				qfWarning() << "HTTP POST:" << url.toString() << "error:" << err;
+			}
+			if (call_back) {
+				call_back(err);
+			}
+			reply->deleteLater();
+		});
+	}
+	else {
+		connect(reply, &QNetworkReply::finished, [reply, url, call_back]() {
+			if(reply->error()) {
+				qfWarning() << "HTTP POST:" << url.toString() << "error:" << reply->errorString();
+			}
+			reply->deleteLater();
+		});
+	}
 }
 
 void QxClientService::connectToSSE(int event_id)
@@ -316,13 +380,13 @@ void QxClientService::pollQxChanges()
 	}
 	int stage_id = event_plugin->currentStageId();
 	try {
-		int start_id = 0;
+		int max_change_id = 0;
 		qf::core::sql::Query q;
-		q.execThrow("SELECT MAX(id) FROM qxchanges");
+		q.execThrow("SELECT MAX(change_id) FROM qxchanges");
 		if (q.next()) {
-			start_id = q.value(0).toInt() + 1;
+			max_change_id = q.value(0).toInt();
 		}
-		auto *reply = loadQxChanges(start_id);
+		auto *reply = loadQxChanges(max_change_id + 1);
 		connect(reply, &QNetworkReply::finished, this, [reply, stage_id]() {
 			QString err;
 			if(reply->error()) {
@@ -339,8 +403,8 @@ void QxClientService::pollQxChanges()
 				else {
 					auto records = json.array().toVariantList();
 					qf::core::sql::Query q;
-					q.prepare("INSERT INTO qxchanges (data_type, data, run_id, source, user_id, status, status_message, stage_id, change_id, created)"
-							  " VALUES (:data_type, :data, :run_id, :source, :user_id, :status, :status_message, :stage_id, :change_id, :created)"
+					q.prepare("INSERT INTO qxchanges (data_type, data, data_id, source, user_id, status, status_message, stage_id, change_id, created)"
+							  " VALUES (:data_type, :data, :data_id, :source, :user_id, :status, :status_message, :stage_id, :change_id, :created)"
 							  " RETURNING id");
 					for (const auto &v : records) {
 						auto rec = v.toMap();
@@ -348,7 +412,7 @@ void QxClientService::pollQxChanges()
 						auto data = QString::fromUtf8(ba);
 						q.bindValue(":data_type", rec.value("data_type"));
 						q.bindValue(":data", data);
-						q.bindValue(":run_id", rec.value("run_id"));
+						q.bindValue(":data_id", rec.value("data_id"));
 						q.bindValue(":source", rec.value("source"));
 						q.bindValue(":user_id", rec.value("user_id"));
 						q.bindValue(":status", rec.value("status"));
@@ -389,6 +453,7 @@ EventInfo QxClientService::eventInfo() const
 	auto *event_config = event_plugin->eventConfig();
 	EventInfo ei;
 	ei.set_stage(event_plugin->currentStageId());
+	ei.set_stage_count(event_plugin->stageCount());
 	ei.set_name(event_config->eventName());
 	ei.set_place(event_config->eventPlace());
 	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));

@@ -9,15 +9,14 @@ class QTimer;
 namespace Event::services::qx {
 
 static constexpr auto COL_ID = "id";
-static constexpr auto COL_DATA = "data";
 static constexpr auto COL_DATA_TYPE = "data_type";
+static constexpr auto COL_DATA_ID = "data_id";
+static constexpr auto COL_DATA = "data";
 static constexpr auto COL_STATUS = "status";
 static constexpr auto COL_STATUS_MESSAGE = "status_message";
 static constexpr auto COL_SOURCE = "source";
-static constexpr auto COL_RUN_ID = "run_id";
 static constexpr auto COL_USER_ID = "user_id";
 static constexpr auto COL_CREATED = "created";
-static constexpr auto COL_CROW_LOCK = "row_lock";
 
 static constexpr auto STATUS_PENDING = "Pending";
 
@@ -37,6 +36,7 @@ private:
 
 	QF_VARIANTMAP_FIELD(int, i, set_i, d)
 	QF_VARIANTMAP_FIELD(int, s, set_s, tage)
+	QF_VARIANTMAP_FIELD(int, s, set_s, tage_count)
 	QF_VARIANTMAP_FIELD(QString, n, set_n, ame)
 	QF_VARIANTMAP_FIELD(QString, p, set_p, lace)
 	QF_VARIANTMAP_FIELD(QString, s, set_s, tart_time)
@@ -80,8 +80,10 @@ private:
 	QUrl exchangeServerUrl() const;
 	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	enum class SpecFile {StartListIofXml3, RunsCsv};
-	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
+	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, const std::function<void(QString error)> &call_back = nullptr);
 	QByteArray zlibCompress(QByteArray data);
+
+	void httpPostJson(const QString &path, const QString &query, QVariantMap json, QObject *context = nullptr, const std::function<void (QString)> &call_back = nullptr);
 
 	void connectToSSE(int event_id);
 	void disconnectSSE();
