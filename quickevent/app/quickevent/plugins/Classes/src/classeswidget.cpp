@@ -187,7 +187,7 @@ ClassesWidget::ClassesWidget(QWidget *parent) :
 		m->addColumn("classdefs.vacantsAfter", tr("VA")).setToolTip(tr("Vacants after"));
 		m->addColumn("classdefs.lastStartTimeMin", tr("Last")).setToolTip(tr("Start time of last competitor in class."));
 		m->addColumn("runsCount", tr("Count")).setToolTip(tr("Runners count"));
-		// m->addColumn("classdefs.mapCount", tr("Maps"));
+		m->addColumn("classdefs.mapCount", tr("Maps"));
 		m->addColumn("classdefs.courseId", tr("Course")).setAlignment(Qt::AlignLeft);
 		//m->addColumn("courses.name", tr("Course")).setReadOnly(true);
 		m->addColumn("courses.length", tr("Length"));
@@ -214,7 +214,7 @@ ClassesWidget::ClassesWidget(QWidget *parent) :
 		m_courseCodesModel = m;
 	}
 	connect(ui->tblClasses, &qf::qmlwidgets::TableView::currentRowChanged, this, &ClassesWidget::reloadCourseCodes);
-	connect(ui->chkUseAllMaps_NIY, &QCheckBox::toggled, this, [this](bool checked) {
+	connect(ui->chkUseAllMaps, &QCheckBox::toggled, this, [this](bool checked) {
 		auto evplugin = getPlugin<EventPlugin>();
 		auto data = evplugin->stageData(selectedStageId());
 		data.setUseAllMaps(checked);
@@ -410,7 +410,7 @@ void ClassesWidget::reload()
 		}
 		m_courseItemDelegate->setCourses(courses);
 	}
-	ui->chkUseAllMaps_NIY->setChecked(getPlugin<EventPlugin>()->stageData(stage_id).isUseAllMaps());
+	ui->chkUseAllMaps->setChecked(getPlugin<EventPlugin>()->stageData(stage_id).isUseAllMaps());
 	reloadCourseCodes();
 }
 

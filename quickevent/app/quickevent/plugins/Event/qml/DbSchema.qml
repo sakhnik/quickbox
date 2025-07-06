@@ -133,6 +133,7 @@ Schema {
 				Field { name: 'vacantsAfter'; type: Int { } 
 					comment: 'place n vacants gap after last competitor in class start list'
 				},
+				Field { name: 'mapCount'; type: Int { } },
 				Field { name: 'resultsCount'; type: Int { }
 					comment: 'number of finished competitors, when the results were printed'
 				},
