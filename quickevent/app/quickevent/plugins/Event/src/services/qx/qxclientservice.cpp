@@ -389,13 +389,13 @@ EventInfo QxClientService::eventInfo() const
 	auto *event_config = event_plugin->eventConfig();
 	EventInfo ei;
 	ei.set_stage(event_plugin->currentStageId());
+	ei.set_stage_count(event_plugin->stageCount());
 	ei.set_name(event_config->eventName());
 	ei.set_place(event_config->eventPlace());
 	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));
 
-	QStringList columns{"name", "control_count", "length", "climb", "start_time", "interval", "start_slot_count"};
 	qf::core::sql::Query q;
-	q.execThrow(QStringLiteral("SELECT classes.name AS name, COUNT(codes.id) AS control_count, length, climb, startTimeMin AS start_time, startIntervalMin as interval, lastStartTimeMin AS last_time"
+	q.execThrow(QStringLiteral("SELECT classes.name AS name, COUNT(codes.id) AS control_count, length, climb, startTimeMin AS start_time, startIntervalMin as interval, lastStartTimeMin AS start_slot_count"
 							   " FROM classes"
 							   " LEFT JOIN classdefs ON classes.id=classdefs.classId AND classdefs.stageId=%1"
 							   " LEFT JOIN courses ON classdefs.courseId=courses.id"
@@ -408,27 +408,22 @@ EventInfo QxClientService::eventInfo() const
 				.arg(quickevent::core::CodeDef::PUNCH_CODE_MAX)
 				);
 	QVariantList classes;
-	classes.insert(classes.length(), columns);
 	while (q.next()) {
-		QVariantList values;
-		auto rec = q.record();
-		for (auto i = 0; i < rec.count(); ++i) {
-			values << q.value(i);
-		}
+		auto rec = q.values();
 		auto interval = q.value("interval").toInt();
 		if (interval > 0) {
-			auto start_time = q.value("start_time").toInt();
-			auto last_time = q.value("last_time").toInt();
+			auto start_time = rec.value("start_time").toInt();
+			auto last_time = rec.value("start_slot_count").toInt();
 			auto start_slot_count = 1 + ((last_time - start_time) / interval);
-			values.last() = start_slot_count;
+			rec["start_slot_count"] = start_slot_count;
 		}
 		else {
-			values.last() = 0;
+			rec["start_slot_count"] = 0;
 		}
-		classes.insert(classes.length(), values);
+		classes << rec;
 	}
 	ei.set_classes(classes);
-	qfInfo() << qf::core::Utils::qvariantToJson(ei, false);
+	// qfInfo() << qf::core::Utils::qvariantToJson(ei, false);
 	return ei;
 }
 

@@ -150,7 +150,7 @@ void QxClientServiceWidget::exportStartList()
 	Q_ASSERT(svc);
 	saveSettings();
 	setMessage(tr("Start list export started ..."));
-	svc->exportStartListIofXml3(this, [this](auto err) {
+	svc->postStartListIofXml3(this, [this](auto err) {
 		if (err.isEmpty()) {
 			setMessage(tr("Start list exported Ok"));
 		}
@@ -166,7 +166,7 @@ void QxClientServiceWidget::exportRuns()
 	Q_ASSERT(svc);
 	saveSettings();
 	setMessage(tr("Runs export started ..."));
-	svc->exportRuns(this, [this](auto err) {
+	svc->postRuns(this, [this](auto err) {
 		if (err.isEmpty()) {
 			setMessage(tr("Runs exported Ok"));
 		}

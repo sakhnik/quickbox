@@ -37,9 +37,11 @@ private:
 
 	QF_VARIANTMAP_FIELD(int, i, set_i, d)
 	QF_VARIANTMAP_FIELD(int, s, set_s, tage)
+	QF_VARIANTMAP_FIELD(int, s, set_s, tage_count)
 	QF_VARIANTMAP_FIELD(QString, n, set_n, ame)
 	QF_VARIANTMAP_FIELD(QString, p, set_p, lace)
 	QF_VARIANTMAP_FIELD(QString, s, set_s, tart_time)
+	QF_VARIANTMAP_FIELD(QVariantList, c, set_c, lasses)
 public:
 	EventInfo(const QVariantMap &data = QVariantMap()) : QVariantMap(data) {}
 };
@@ -67,8 +69,8 @@ public:
 	QNetworkReply* getRemoteEventInfo(const QString &qxhttp_host, const QString &api_token);
 	QNetworkReply* postEventInfo(const QString &qxhttp_host, const QString &api_token);
 
-	void exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
-	void exportRuns(QObject *context, std::function<void (QString)> call_back = nullptr);
+	void postStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
+	void postRuns(QObject *context, std::function<void (QString)> call_back = nullptr);
 
 	QNetworkReply* loadQxChanges(int from_id);
 
