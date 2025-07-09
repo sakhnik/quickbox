@@ -17,6 +17,11 @@ Application::Application(int &argc, char **argv) :
 {
 }
 
+QString Application::versionString() const
+{
+	return QCoreApplication::applicationVersion();
+}
+
 Application::~Application()
 = default;
 

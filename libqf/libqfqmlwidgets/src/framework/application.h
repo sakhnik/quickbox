@@ -23,7 +23,9 @@ private:
 	typedef QApplication Super;
 public:
 	explicit Application(int & argc, char ** argv);
-	~Application() Q_DECL_OVERRIDE;
+	~Application() override;
+
+	Q_INVOKABLE QString versionString() const;
 public:
 	static Application* instance(bool must_exist = true);
 	MainWindow* frameWork();
