@@ -171,7 +171,7 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	return nm->post(request, data);
 }
 
-void QxClientService::exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back)
+void QxClientService::postStartListIofXml3(QObject *context, std::function<void (QString)> call_back)
 {
 	auto *ep = getPlugin<EventPlugin>();
 	int current_stage = ep->currentStageId();
@@ -182,7 +182,7 @@ void QxClientService::exportStartListIofXml3(QObject *context, std::function<voi
 	}
 }
 
-void QxClientService::exportRuns(QObject *context, std::function<void (QString)> call_back)
+void QxClientService::postRuns(QObject *context, std::function<void (QString)> call_back)
 {
 	auto *ep = getPlugin<EventPlugin>();
 	int current_stage = ep->currentStageId();
@@ -392,6 +392,43 @@ EventInfo QxClientService::eventInfo() const
 	ei.set_name(event_config->eventName());
 	ei.set_place(event_config->eventPlace());
 	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));
+
+	QStringList columns{"name", "control_count", "length", "climb", "start_time", "interval", "start_slot_count"};
+	qf::core::sql::Query q;
+	q.execThrow(QStringLiteral("SELECT classes.name AS name, COUNT(codes.id) AS control_count, length, climb, startTimeMin AS start_time, startIntervalMin as interval, lastStartTimeMin AS last_time"
+							   " FROM classes"
+							   " LEFT JOIN classdefs ON classes.id=classdefs.classId AND classdefs.stageId=%1"
+							   " LEFT JOIN courses ON classdefs.courseId=courses.id"
+							   " LEFT JOIN coursecodes ON coursecodes.courseId=courses.id"
+							   " LEFT JOIN codes ON coursecodes.codeId=codes.id AND codes.code>=%2 AND codes.code<=%3"
+							   " GROUP BY classes.id, classes.name, length, climb, startTimeMin, startIntervalMin, lastStartTimeMin"
+							   " ORDER BY classes.name")
+				.arg(ei.stage())
+				.arg(quickevent::core::CodeDef::PUNCH_CODE_MIN)
+				.arg(quickevent::core::CodeDef::PUNCH_CODE_MAX)
+				);
+	QVariantList classes;
+	classes.insert(classes.length(), columns);
+	while (q.next()) {
+		QVariantList values;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			values << q.value(i);
+		}
+		auto interval = q.value("interval").toInt();
+		if (interval > 0) {
+			auto start_time = q.value("start_time").toInt();
+			auto last_time = q.value("last_time").toInt();
+			auto start_slot_count = 1 + ((last_time - start_time) / interval);
+			values.last() = start_slot_count;
+		}
+		else {
+			values.last() = 0;
+		}
+		classes.insert(classes.length(), values);
+	}
+	ei.set_classes(classes);
+	qfInfo() << qf::core::Utils::qvariantToJson(ei, false);
 	return ei;
 }
 
