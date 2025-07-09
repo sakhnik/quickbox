@@ -5,6 +5,7 @@
 #include <QSet>
 #include <QDate>
 #include <QRegularExpression>
+#include <QJsonDocument>
 
 namespace qf::core {
 
@@ -264,6 +265,24 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 	if (!tmp.isEmpty())
 		args += tmp;
 	return args;
+}
+
+QVariant Utils::jsonToQVariant(const QString &json)
+{
+	QJsonParseError error;
+	auto doc = QJsonDocument::fromJson(json.toUtf8(), &error);
+	if (error.error != QJsonParseError::NoError) {
+		qfError() << json << "Json parse error:" << error.errorString();
+		return {};
+	}
+	return doc.toVariant();
+}
+
+QString Utils::qvariantToJson(const QVariant &v, bool compact)
+{
+	auto doc = QJsonDocument::fromVariant(v);
+	auto ba = doc.toJson(compact? QJsonDocument::Compact: QJsonDocument::Indented);
+	return QString::fromUtf8(ba);
 }
 
 }
