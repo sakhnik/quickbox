@@ -210,6 +210,9 @@ public:
 	}
 
 	static QStringList parseProgramAndArgumentsList(const QString &command_line);
+
+	static QVariant jsonToQVariant(const QString &json);
+	static QString qvariantToJson(const QVariant &v, bool compact = true);
 };
 
 }}

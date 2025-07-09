@@ -28,7 +28,7 @@ GanttItem::GanttItem(QGraphicsItem *parent)
 
 int GanttItem::startSlotItemIndex(const StartSlotItem *it) const
 {
-	return m_startSlotItems.indexOf((StartSlotItem *)it);
+	return m_startSlotItems.indexOf(it);
 }
 
 StartSlotItem *GanttItem::startSlotItemAt(int ix, bool throw_ex)
@@ -65,7 +65,7 @@ void GanttItem::load(int stage_id)
 	qfLogFuncFrame();
 	Event::StageData stage_data = getPlugin<EventPlugin>()->stageData(stage_id);
 	DrawingConfig dc(stage_data.drawingConfig());
-	QVariantList stsllst = dc.startSlots();
+	QVariantList start_slot_list = dc.startSlots();
 
 	qfs::Query q(qfs::Connection::forName());
 	qf::core::sql::QueryBuilder qb1;
@@ -104,7 +104,7 @@ void GanttItem::load(int stage_id)
 			if(slot_ix > curr_slot_ix) {
 				slot_item = addStartSlotItem();
 				curr_slot_ix = slot_ix;
-				StartSlotData sd(stsllst.value(slot_ix).toMap());
+				StartSlotData sd(start_slot_list.value(slot_ix).toMap());
 				slot_item->setData(sd);
 			}
 		}
@@ -114,8 +114,13 @@ void GanttItem::load(int stage_id)
 				slot_item = addStartSlotItem();
 			}
 		}
-		auto *class_it = slot_item->addClassItem();
-		class_it->setData(cd);
+		if (slot_item) {
+			auto *class_it = slot_item->addClassItem();
+			class_it->setData(cd);
+		}
+		else {
+			QF_EXCEPTION("internal error");
+		}
 	}
 	updateGeometry();
 	checkClassClash();
@@ -134,8 +139,7 @@ void GanttItem::save(int stage_id)
 			start_slots << sd;
 		}
 		dc.setStartSlots(start_slots);
-		QJsonDocument jsd = QJsonDocument::fromVariant(dc);
-		QString dc_str = QString::fromUtf8(jsd.toJson(QJsonDocument::Compact));
+		auto dc_str = qf::core::Utils::qvariantToJson(dc);
 
 		QString qs = "UPDATE stages SET drawingConfig=:drawingConfig WHERE id=:id";
 		qfs::Query q(qfs::Connection::forName());

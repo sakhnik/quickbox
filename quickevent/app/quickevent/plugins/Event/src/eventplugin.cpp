@@ -245,7 +245,14 @@ StageData EventPlugin::stageData(int stage_id)
 		doc.load(stage_id);
 		StageData data;
 		for (const auto &[k, v] : doc.values().asKeyValueRange()) {
-			data[k.toLower()] = v;
+			auto key = k.toLower();
+			if (key == "drawingconfig" && v.userType() == qMetaTypeId<QString>()) {
+				// convert json to variantmap
+				data[key] = qf::core::Utils::jsonToQVariant(v.toString());
+			}
+			else {
+				data[key] = v;
+			}
 		}
 		m_stageCache[stage_id] = StageData(data);
 	}
