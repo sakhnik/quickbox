@@ -490,7 +490,7 @@ Schema {
 				Field { name: 'id'; type: Serial { primaryKey: true } },
 				Field { name: 'stage_id'; type: Int { } },
 				Field { name: 'change_id'; type: Int { } },
-				Field { name: 'run_id'; type: Int { } },
+				Field { name: 'data_id'; type: Int { } },
 				Field { name: 'data_type'; type: String { } },
 				Field { name: 'data'; type: String { } },
 				Field { name: 'orig_data'; type: String { }

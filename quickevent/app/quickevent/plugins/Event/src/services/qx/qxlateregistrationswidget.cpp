@@ -8,6 +8,7 @@
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/core/model/sqltablemodel.h>
 #include <qf/core/log.h>
+#include <qf/core/sql/query.h>
 
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
@@ -22,33 +23,27 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 	ui->setupUi(this);
 
 	ui->tableView->setPersistentSettingsId("tblQxLateRegistrations");
-	ui->tableView->setInsertRowEnabled(true);
+	ui->tableView->setInsertRowEnabled(false);
 	ui->tableView->setCloneRowEnabled(false);
-	ui->tableView->setRemoveRowEnabled(true);
+	ui->tableView->setRemoveRowEnabled(false);
 	ui->tableView->setDirtyRowsMenuSectionEnabled(false);
 
 	ui->toolbar->setTableView(ui->tableView);
 	m_model = new qfm::SqlTableModel(this);
 	//m->setObjectName("classes.classesModel");
 	m_model->addColumn(COL_ID).setReadOnly(true).setAlignment(Qt::AlignLeft);
+	m_model->addColumn(COL_STATUS, tr("Status"));
 	m_model->addColumn(COL_DATA_TYPE, tr("Type"));
+	m_model->addColumn(COL_DATA_ID, tr("Data ID")).setAlignment(Qt::AlignLeft);
 	m_model->addColumn(COL_DATA, tr("Data"));//.setToolTip(tr("Locked for drawing"));
 	m_model->addColumn(COL_SOURCE, tr("Source"));
-	m_model->addColumn(COL_RUN_ID, tr("Run")).setAlignment(Qt::AlignLeft);
 	m_model->addColumn(COL_USER_ID, tr("User"));
-	m_model->addColumn(COL_STATUS, tr("Status"));
 	m_model->addColumn(COL_STATUS_MESSAGE, tr("Status message"));
 	m_model->addColumn(COL_CREATED, tr("Created"));
-	m_model->addColumn(COL_CROW_LOCK, tr("Locked"));
 	ui->tableView->setTableModel(m_model);
-
 
 	showMessage({});
 	setEnabled(false);
-
-	//connect(ui->btReload, &QAbstractButton::clicked, this, &QxLateRegistrationsWidget::reload);
-	//connect(ui->btResizeColumns, &QAbstractButton::clicked, this, &QxLateRegistrationsWidget::resizeColumns);
-	//connect(ui->btApply, &QAbstractButton::clicked, this, &QxLateRegistrationsWidget::applyCurrentChange);
 
 	auto *svc = service();
 	connect(svc, &Service::statusChanged, this, [this](Service::Status new_status){
@@ -65,6 +60,41 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 	});
 
 	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::dbEventNotify, this, &QxLateRegistrationsWidget::onDbEventNotify, Qt::QueuedConnection);
+
+	{
+		auto *lst = ui->lstType;
+		lst->addItem("All");
+		lst->addItem("RunUpdateRequest");
+		lst->addItem("RunUpdated");
+		lst->addItem("OcChange");
+		lst->addItem("RadioPunch");
+		lst->addItem("CardReadout");
+		lst->setCurrentIndex(0);
+		connect(lst, &QComboBox::currentIndexChanged, this, &QxLateRegistrationsWidget::reload);
+	}
+	connect(ui->chkNull, &QCheckBox::checkStateChanged, this, &QxLateRegistrationsWidget::reload);
+	connect(ui->chkPending, &QCheckBox::checkStateChanged, this, &QxLateRegistrationsWidget::reload);
+	connect(ui->chkLocked, &QCheckBox::checkStateChanged, this, &QxLateRegistrationsWidget::reload);
+	connect(ui->chkAccepted, &QCheckBox::checkStateChanged, this, &QxLateRegistrationsWidget::reload);
+	connect(ui->chkRejected, &QCheckBox::checkStateChanged, this, &QxLateRegistrationsWidget::reload);
+
+	connect(ui->btAll, &QPushButton::clicked, this, [this]() {
+		QSignalBlocker sb1(ui->lstType);
+		ui->lstType->setCurrentIndex(0);
+
+		QSignalBlocker sb2(ui->chkNull);
+		ui->chkNull->setChecked(true);
+		QSignalBlocker sb3(ui->chkPending);
+		ui->chkPending->setChecked(true);
+		QSignalBlocker sb4(ui->chkLocked);
+		ui->chkLocked->setChecked(true);
+		QSignalBlocker sb5(ui->chkAccepted);
+		ui->chkAccepted->setChecked(true);
+		QSignalBlocker sb6(ui->chkRejected);
+		ui->chkRejected->setChecked(true);
+
+		reload();
+	});
 }
 
 QxLateRegistrationsWidget::~QxLateRegistrationsWidget()
@@ -132,7 +162,30 @@ void QxLateRegistrationsWidget::reload()
 	qb.select2("qxchanges", "*")
 			.from("qxchanges")
 			.where("stage_id=" + QString::number(stage_id))
-			.orderBy("id");//.limit(10);
+			.orderBy("id");
+	QStringList status_cond_list;
+	if (ui->chkNull->isChecked()) {
+		status_cond_list << "status IS NULL";
+	}
+	if (ui->chkPending->isChecked()) {
+		status_cond_list << "status='Pending'";
+	}
+	if (ui->chkLocked->isChecked()) {
+		status_cond_list << "status LIKE 'Locked%'";
+	}
+	if (ui->chkAccepted->isChecked()) {
+		status_cond_list << "status='Accepted'";
+	}
+	if (ui->chkRejected->isChecked()) {
+		status_cond_list << "status='Rejected'";
+	}
+	if (!status_cond_list.isEmpty()) {
+		qb.where('(' + status_cond_list.join(" OR ") + ')');
+	}
+	if (auto ix = ui->lstType->currentIndex(); ix > 0) {
+		auto data_type = ui->lstType->currentText();
+		qb.where(QStringLiteral("data_type='%1'").arg(data_type));
+	}
 	qfDebug() << qb.toString();
 	m_model->setQueryBuilder(qb, false);
 	m_model->reload();
@@ -140,10 +193,20 @@ void QxLateRegistrationsWidget::reload()
 
 void QxLateRegistrationsWidget::addQxChangeRow(int sql_id)
 {
-	qfDebug() << "reloading change id:" << sql_id << "col id:" << COL_ID;
+	qfDebug() << "reloading qxchanges row id:" << sql_id << "col id:" << COL_ID;
 	if(sql_id <= 0) {
 		return;
 	}
+
+	auto qb = m_model->queryBuilder();
+	qb.where(QStringLiteral("id=%1").arg(sql_id));
+	qf::core::sql::Query q;
+	q.execThrow(qb.toString());
+	if (!q.next()) {
+		// inserted row is filtered out
+		return;
+	}
+
 	m_model->insertRow(0);
 	m_model->setValue(0, COL_ID, sql_id);
 	int cnt = m_model->reloadRow(0);
