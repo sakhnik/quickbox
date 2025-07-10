@@ -81,7 +81,7 @@ private:
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
 	QUrl exchangeServerUrl() const;
 	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
-	enum class SpecFile {StartListIofXml3, RunsCsv};
+	enum class SpecFile {StartListIofXml3, RunsCsvJson};
 	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	QByteArray zlibCompress(QByteArray data);
 

@@ -280,9 +280,14 @@ QVariant Utils::jsonToQVariant(const QString &json)
 
 QString Utils::qvariantToJson(const QVariant &v, bool compact)
 {
+	return QString::fromUtf8(qvariantToJsonUtf8(v, compact));
+}
+
+QByteArray Utils::qvariantToJsonUtf8(const QVariant &v, bool compact)
+{
 	auto doc = QJsonDocument::fromVariant(v);
 	auto ba = doc.toJson(compact? QJsonDocument::Compact: QJsonDocument::Indented);
-	return QString::fromUtf8(ba);
+	return ba;
 }
 
 }

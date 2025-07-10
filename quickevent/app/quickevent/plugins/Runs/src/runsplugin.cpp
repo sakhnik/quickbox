@@ -421,6 +421,59 @@ int RunsPlugin::competitorForRun(int run_id)
 	return competitor_id;
 }
 
+QVariantList RunsPlugin::qxExportRunsCsvJson(int stage_id)
+{
+	QVariantList csv;
+	auto append_list = [&csv](QVariantList lst) {
+		csv.insert(csv.size(), lst);
+	};
+	enum Column {run_id = 0, class_name, registration, si_id, first_name, last_name, start_time, check_time, finish_time, status, COUNT};
+	constexpr std::array<const char*, Column::COUNT> colNames = {
+		"run_id", "class_name", "registration", "si_id", "first_name", "last_name", "start_time", "check_time", "finish_time", "status"
+	};
+	auto col_name = [&colNames](Column col) { return colNames.at(col); };
+	{
+		QVariantList cols;
+		for (auto i = 0; i < COUNT; ++i) {
+			cols << col_name(static_cast<Column>(i));
+		}
+		append_list(cols);
+	}
+	QDateTime start00 = getPlugin<EventPlugin>()->stageStartDateTime(stage_id);
+	auto msec_to_date_time = [start00](const QVariant &msec) {
+		if (msec.isNull()) {
+			return QVariant();
+		}
+		auto dt = start00.addMSecs(msec.toInt());
+		return QVariant::fromValue(dt);
+	};
+	qfs::QueryBuilder qb;
+	qb.select2("runs", "*")
+			.select2("competitors", "registration, licence, lastName, firstName")
+			.select2("classes", "name")
+			.from("runs")
+			.innerJoinRestricted("runs.competitorId", "competitors.id", "runs.stageId=" QF_IARG(stage_id) " AND runs.isRunning")
+			.join("competitors.classId", "classes.id");
+	qfs::Query q;
+	q.execThrow(qb.toString());
+	while (q.next()) {
+		QVariantList rec(COUNT);
+		rec[run_id] = q.value("runs.id");
+		rec[class_name] = q.value("classes.name");
+		rec[registration] = q.value("registration");
+		rec[si_id] = q.value("runs.siId");
+		rec[first_name] = q.value("firstName");
+		rec[last_name] = q.value("lastName");
+		rec[start_time] = msec_to_date_time(q.value("startTimeMs"));
+		rec[check_time] = msec_to_date_time(q.value("checkTimeMs"));
+		rec[finish_time] = msec_to_date_time(q.value("finishTimeMs"));
+		auto run_status = quickevent::core::RunStatus::fromQuery(q);
+		rec[status] = run_status.toHtmlExportString();
+		append_list(rec);
+	}
+	return csv;
+}
+/*
 QString RunsPlugin::qxExportRunsCsv(int stage_id)
 {
 	QString csv;
@@ -489,7 +542,7 @@ QString RunsPlugin::qxExportRunsCsv(int stage_id)
 
 	return csv;
 }
-
+*/
 qf::core::utils::Table RunsPlugin::nstagesClassResultsTable(int stages_count, int class_id, int places, bool exclude_disq)
 {
 	qfs::QueryBuilder qb;

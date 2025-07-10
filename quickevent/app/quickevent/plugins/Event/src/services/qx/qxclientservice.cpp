@@ -21,6 +21,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QUrlQuery>
+#include <QSqlField>
 
 using namespace qf::core;
 using namespace qf::qmlwidgets;
@@ -71,7 +72,7 @@ void QxClientService::run() {
 			auto data = reply->readAll();
 			auto doc = QJsonDocument::fromJson(data);
 			EventInfo event_info(doc.toVariant().toMap());
-			setStatusMessage(event_info.name());
+			setStatusMessage(tr("%1 E%2").arg(event_info.name()).arg(event_info.stage()));
 			m_eventId = event_info.id();
 			connectToSSE(m_eventId);
 			if (!m_pollChangesTimer) {
@@ -188,8 +189,9 @@ void QxClientService::postRuns(QObject *context, std::function<void (QString)> c
 	int current_stage = ep->currentStageId();
 	bool is_relays = ep->eventConfig()->isRelays();
 	if (!is_relays) {
-		auto runs = getPlugin<RunsPlugin>()->qxExportRunsCsv(current_stage);
-		uploadSpecFile(SpecFile::RunsCsv, runs.toUtf8(), context, call_back);
+		auto runs = getPlugin<RunsPlugin>()->qxExportRunsCsvJson(current_stage);
+		auto json = qf::core::Utils::qvariantToJsonUtf8(runs, false);
+		uploadSpecFile(SpecFile::RunsCsvJson, json, context, call_back);
 	}
 }
 
@@ -261,8 +263,8 @@ void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *co
 	case SpecFile::StartListIofXml3:
 		postFileCompressed({}, "startlist-iof3.xml", data, context, call_back);
 		break;
-	case SpecFile::RunsCsv:
-		postFileCompressed({}, "runs.csv", data, context, call_back);
+	case SpecFile::RunsCsvJson:
+		postFileCompressed({}, "runs.csv.json", data, context, call_back);
 		break;
 	}
 }
@@ -407,24 +409,61 @@ EventInfo QxClientService::eventInfo() const
 				.arg(quickevent::core::CodeDef::PUNCH_CODE_MIN)
 				.arg(quickevent::core::CodeDef::PUNCH_CODE_MAX)
 				);
+
 	QVariantList classes;
+	{
+		// QStringList columns{"name", "control_count", "length", "climb", "start_time", "interval", "start_slot_count"};
+		QStringList columns;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			columns << rec.field(i).name();
+		}
+		classes.insert(classes.length(), columns);
+	}
 	while (q.next()) {
-		auto rec = q.values();
+		QVariantList values;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			values << q.value(i);
+		}
 		auto interval = q.value("interval").toInt();
 		if (interval > 0) {
-			auto start_time = rec.value("start_time").toInt();
-			auto last_time = rec.value("start_slot_count").toInt();
+			auto start_time = q.value("start_time").toInt();
+			auto last_time = q.value("last_time").toInt();
 			auto start_slot_count = 1 + ((last_time - start_time) / interval);
-			rec["start_slot_count"] = start_slot_count;
+			values.last() = start_slot_count;
 		}
 		else {
-			rec["start_slot_count"] = 0;
+			values.last() = 0;
 		}
-		classes << rec;
+		classes.insert(classes.length(), values);
 	}
 	ei.set_classes(classes);
 	// qfInfo() << qf::core::Utils::qvariantToJson(ei, false);
 	return ei;
+}
+
+auto query_to_json_csv(QSqlQuery &q)
+{
+	QVariantList csv;
+	{
+		// QStringList columns{"name", "control_count", "length", "climb", "start_time", "interval", "start_slot_count"};
+		QStringList columns;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			columns << rec.field(i).name();
+		}
+		csv.insert(csv.length(), columns);
+	}
+	while (q.next()) {
+		QVariantList values;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			values << q.value(i);
+		}
+		csv.insert(csv.length(), values);
+	}
+	return csv;
 }
 
 } // namespace Event::services::qx
