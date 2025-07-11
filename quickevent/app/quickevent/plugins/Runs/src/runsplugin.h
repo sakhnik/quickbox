@@ -134,7 +134,7 @@ private:
 	int courseForRun_Relays(int run_id);
 	QString getClubAbbrFromName(QString name);
 
-	void writeCSOSHeader(QTextStream &ts);
+	void writeCSOSHeader(QTextStream &ts) const;
 
 	void addStartTimeTextToClass(qf::core::utils::TreeTable &tt2, const qint64 start00_epoch_sec, const quickevent::gui::ReportOptionsDialog::StartTimeFormat start_time_format);
 	void addStartTimeTextToClass(qf::core::utils::TreeTable &tt2, const int stages_count, const QVector<qint64> &start00_epoch_sec, const quickevent::gui::ReportOptionsDialog::StartTimeFormat start_time_format);

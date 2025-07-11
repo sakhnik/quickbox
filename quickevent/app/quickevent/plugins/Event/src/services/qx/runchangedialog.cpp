@@ -27,6 +27,11 @@ RunChangeDialog::RunChangeDialog(int change_id, int run_id, int lock_number, con
 	ui->btAccept->setDisabled(true);
 	ui->btReject->setDisabled(true);
 
+	connect(ui->chkForce, &QCheckBox::checkStateChanged, this, [this]() {
+		ui->btAccept->setDisabled(!ui->chkForce->isChecked());
+		ui->btReject->setDisabled(!ui->chkForce->isChecked());
+	});
+
 	ui->edClassName->setText(run_change.class_name.value_or(QString()));
 	ui->edNote->setText(run_change.note);
 
@@ -132,6 +137,12 @@ void RunChangeDialog::lockChange()
 				ui->btReject->setDisabled(false);
 
 				ui->edLockNumber->setValue(id);
+
+				qf::core::sql::Query q;
+				q.execThrow(QStringLiteral("UPDATE qxchanges SET lock_number=%1, status='Locked' WHERE id=%2")
+							.arg(connection_id)
+							.arg(m_changeId)
+							);
 			}
 			else {
 				setMessage(tr("Change is locked already by other client: %1, current client id:.%2").arg(id).arg(connection_id), false);

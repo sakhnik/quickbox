@@ -287,15 +287,15 @@ void QxLateRegistrationsWidget::onTableDoubleClicked(const QModelIndex &ix)
 	}
 	auto change_id = m_model->value(row, COL_ID).toInt();
 	auto status = m_model->value(row, COL_STATUS).toString();
-	auto connection_id = QxClientService::currentConnectionId();
 	auto lock_number = m_model->value(row, COL_LOCK_NUMBER).toInt();
 	auto data_id = m_model->value(row, COL_DATA_ID).toInt();
 	auto data = m_model->value(row, COL_DATA).toString().toUtf8();
 	auto change_rec = QJsonDocument::fromJson(data).toVariant().toMap();
 	auto run_change = RunChange::fromVariantMap(change_rec.value(DATA_TYPE_RUN_UPDATE_REQUEST).toMap());
-	if (status == STATUS_PENDING || (status == STATUS_LOCKED && lock_number == connection_id)) {
+	if (status == STATUS_PENDING || status == STATUS_LOCKED) {
 		RunChangeDialog dlg(change_id, data_id, lock_number, run_change, this);
 		dlg.exec();
+		ui->tableView->reloadRow(row);
 	}
 }
 

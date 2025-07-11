@@ -3,9 +3,7 @@
 #include <QJsonDocument>
 #include <QVariantMap>
 
-namespace Event {
-namespace services {
-namespace qx {
+namespace Event::services::qx {
 
 // RunChange RunChange::fromJsonString(const QString &json)
 // {
@@ -28,6 +26,6 @@ RunChange RunChange::fromVariantMap(const QVariantMap &map)
 	return ret;
 }
 
-} // namespace qx
-} // namespace services
-} // namespace Event
+} // namespace Event::services::qx
+
+

@@ -1144,9 +1144,9 @@ static QString make_width(const QString &s, int width)
 	return ret;
 }
 
-void RunsPlugin::writeCSOSHeader(QTextStream &ts)
+void RunsPlugin::writeCSOSHeader(QTextStream &ts) const
 {
-	Event::EventPlugin *evp = getPlugin<EventPlugin>();
+	auto *evp = getPlugin<EventPlugin>();
 	int stage_id = selectedStageId();
 	QDateTime start_dt = evp->stageStartDateTime(stage_id);
 	Event::EventConfig *ec = evp->eventConfig();
