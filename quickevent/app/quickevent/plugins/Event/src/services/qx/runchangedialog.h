@@ -1,6 +1,8 @@
 #ifndef RUNCHANGEDIALOG_H
 #define RUNCHANGEDIALOG_H
 
+#include "runchange.h"
+
 #include <QDialog>
 
 namespace Event::services::qx {
@@ -25,12 +27,20 @@ private:
 	void setMessage(const QString &msg = {}, bool error = false);
 
 	void loadOrigValues();
+	void loadClassId();
+
 	void lockChange();
 
+	void resolveChanges(bool is_accepted);
+	void applyLocalChanges(bool is_accepted);
 private:
 	Ui::RunChangeDialog *ui;
 	int m_changeId = 0;
 	int m_runId = 0;
+	int m_competitorId = 0;
+	int m_classId = 0;
+	int m_lockNumber = 0;
+	OrigRunRecord m_origValues;
 };
 
 

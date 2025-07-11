@@ -13,6 +13,9 @@
 #include <QNetworkReply>
 #include <QUrlQuery>
 #include <QJsonDocument>
+#include <QMessageBox>
+
+using namespace  qf::core::model;
 
 namespace Event::services::qx {
 
@@ -30,6 +33,12 @@ RunChangeDialog::RunChangeDialog(int change_id, int run_id, int lock_number, con
 	connect(ui->chkForce, &QCheckBox::checkStateChanged, this, [this]() {
 		ui->btAccept->setDisabled(!ui->chkForce->isChecked());
 		ui->btReject->setDisabled(!ui->chkForce->isChecked());
+	});
+	connect(ui->btAccept, &QPushButton::clicked, this, [this]() {
+		resolveChanges(true);
+	});
+	connect(ui->btReject, &QPushButton::clicked, this, [this]() {
+		resolveChanges(false);
 	});
 
 	ui->edClassName->setText(run_change.class_name.value_or(QString()));
@@ -52,6 +61,9 @@ RunChangeDialog::RunChangeDialog(int change_id, int run_id, int lock_number, con
 
 	if (run_id > 0) {
 		loadOrigValues();
+	}
+	else {
+		loadClassId();
 	}
 	lockChange();
 }
@@ -93,21 +105,40 @@ void RunChangeDialog::loadOrigValues()
 							   " LEFT JOIN classes ON competitors.classId=classes.id")
 				.arg(m_runId)
 				);
-	int competitor_id = 0;
 	if (q.next()) {
 		ui->edClassName->setText(q.value("class_name").toString());
-		competitor_id = q.value("competitor_id").toInt();
+		m_competitorId = q.value("competitor_id").toInt();
 	}
 
-	using namespace  qf::core::model;
-
 	Competitors::CompetitorDocument doc;
-	doc.load(competitor_id, DataDocument::ModeView);
+	doc.load(m_competitorId, DataDocument::ModeView);
 
-	ui->edFirstNameOrig->setText(doc.value("firstName").toString());
-	ui->edLastNameOrig->setText(doc.value("lastName").toString());
-	ui->edRegistrationOrig->setText(doc.value("registration").toString());
-	ui->edSiCardOrig->setValue(doc.value("siId").toInt());
+	m_origValues.first_name = doc.value("firstName").toString();
+	m_origValues.last_name = doc.value("lastName").toString();
+	m_origValues.registration = doc.value("registration").toString();
+	m_origValues.si_id = doc.value("siId").toInt();
+
+	ui->edFirstNameOrig->setText(m_origValues.first_name);
+	ui->edLastNameOrig->setText(m_origValues.last_name);
+	ui->edRegistrationOrig->setText(m_origValues.registration);
+	ui->edSiCardOrig->setValue(m_origValues.si_id);
+}
+
+void RunChangeDialog::loadClassId()
+{
+	auto class_name = ui->edClassName->text();
+	if (class_name.isEmpty()) {
+		return;
+	}
+	qf::core::sql::Query q;
+	q.execThrow(QStringLiteral("SELECT id"
+							   " FROM classes"
+							   " WHERE name='%1'")
+				.arg(class_name)
+				);
+	if (q.next()) {
+		m_classId = q.value("id").toInt();
+	}
 }
 
 void RunChangeDialog::lockChange()
@@ -118,25 +149,25 @@ void RunChangeDialog::lockChange()
 	auto url = svc->exchangeServerUrl();
 	// qfInfo() << "url " << url.toString();
 	url.setPath("/api/event/current/changes/lock-change");
+
 	QUrlQuery query;
 	query.addQueryItem("change_id", QString::number(m_changeId));
 	auto connection_id = QxClientService::currentConnectionId();
 	query.addQueryItem("lock_number", QString::number(connection_id));
 	url.setQuery(query);
 	// qfInfo() << "GET " << url.toString();
+
 	request.setUrl(url);
 	request.setRawHeader(QxClientService::QX_API_TOKEN, svc->apiToken());
 	auto *reply = nm->get(request);
 	connect(reply, &QNetworkReply::finished, this, [this, reply, connection_id]() {
 		auto data = reply->readAll();
 		if (reply->error() == QNetworkReply::NetworkError::NoError) {
-			auto id = data.toInt();
-			qfInfo() << "lock reply:" << QString::fromUtf8(data) << "id:" << id;
-			if (id == connection_id) {
+			m_lockNumber = data.toInt();
+			ui->edLockNumber->setValue(m_lockNumber);
+			if (m_lockNumber == connection_id) {
 				ui->btAccept->setDisabled(false);
 				ui->btReject->setDisabled(false);
-
-				ui->edLockNumber->setValue(id);
 
 				qf::core::sql::Query q;
 				q.execThrow(QStringLiteral("UPDATE qxchanges SET lock_number=%1, status='Locked' WHERE id=%2")
@@ -145,7 +176,7 @@ void RunChangeDialog::lockChange()
 							);
 			}
 			else {
-				setMessage(tr("Change is locked already by other client: %1, current client id:.%2").arg(id).arg(connection_id), false);
+				setMessage(tr("Change is locked already by other client: %1, current client id:.%2").arg(m_lockNumber).arg(connection_id), false);
 			}
 		}
 		else {
@@ -153,6 +184,89 @@ void RunChangeDialog::lockChange()
 		}
 		reply->deleteLater();
 	});
+}
+
+void RunChangeDialog::resolveChanges(bool is_accepted)
+{
+	if (is_accepted) {
+		applyLocalChanges(is_accepted);
+	}
+	auto *svc = service();
+	auto *nm = svc->networkManager();
+	QNetworkRequest request;
+	auto url = svc->exchangeServerUrl();
+	// qfInfo() << "url " << url.toString();
+	url.setPath("/api/event/current/changes/resolve-change");
+
+	QUrlQuery query;
+	query.addQueryItem("change_id", QString::number(m_changeId));
+	query.addQueryItem("lock_number", QString::number(m_lockNumber));
+	query.addQueryItem("accepted", is_accepted? "true": "false");
+	query.addQueryItem("status_message", ui->edStatusMessage->text());
+	url.setQuery(query);
+
+	request.setUrl(url);
+	request.setRawHeader(QxClientService::QX_API_TOKEN, svc->apiToken());
+	auto *reply = nm->get(request);
+	connect(reply, &QNetworkReply::finished, this, [this, reply]() {
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			accept();
+		}
+		else {
+			QMessageBox::warning(this,
+								 QCoreApplication::applicationName(),
+								 tr("Update change error: %1").arg(reply->errorString()));
+		}
+		reply->deleteLater();
+	});
+}
+
+void RunChangeDialog::applyLocalChanges(bool is_accepted)
+{
+	bool is_insert = m_runId == 0;
+	Competitors::CompetitorDocument doc;
+	doc.load(m_competitorId, is_insert? DataDocument::ModeInsert: DataDocument::ModeEdit);
+	if (is_insert) {
+		doc.setValue("classId", m_classId);
+	}
+	if (ui->grpFirstName->isChecked()) {
+		doc.setValue("firstName", ui->edFirstName->text());
+	}
+	if (ui->grpLastName->isChecked()) {
+		doc.setValue("lastName", ui->edLastName->text());
+	}
+	if (ui->grpRegistration->isChecked()) {
+		doc.setValue("registration", ui->edRegistration->text());
+	}
+	if (ui->grpSiCard->isChecked()) {
+		if (is_insert) {
+			doc.setValue("siId", ui->edSiCard->value());
+		}
+		else {
+			qf::core::sql::Query q;
+			q.execThrow(QStringLiteral("UPDATE runs SET siId=%1 WHERE id=%2")
+						.arg(ui->edSiCard->value())
+						.arg(m_runId)
+						);
+		}
+	}
+	doc.save();
+	{
+		qf::core::sql::Query q;
+		q.execThrow(QStringLiteral("UPDATE qxchanges SET status='%1' WHERE id=%2")
+					.arg(is_accepted? "Accepted": "Rejected")
+					.arg(m_changeId)
+					);
+	}
+	{
+		auto dc_str = qf::core::Utils::qvariantToJson(m_origValues.toVariantMap());
+		QString qs = "UPDATE qxchanges SET orig_data=:orig_data WHERE id=:id";
+		qf::core::sql::Query q;
+		q.prepare(qs, qf::core::Exception::Throw);
+		q.bindValue(":orig_data", dc_str);
+		q.bindValue(":id", m_changeId);
+		q.exec(qf::core::Exception::Throw);
+	}
 }
 
 } // namespace Event::services::qx

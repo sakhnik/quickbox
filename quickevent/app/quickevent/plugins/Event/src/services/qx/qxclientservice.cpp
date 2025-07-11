@@ -494,7 +494,7 @@ EventInfo QxClientService::eventInfo() const
 		auto interval = q.value("interval").toInt();
 		if (interval > 0) {
 			auto start_time = q.value("start_time").toInt();
-			auto last_time = q.value("last_time").toInt();
+			auto last_time = q.value("start_slot_count").toInt();
 			auto start_slot_count = 1 + ((last_time - start_time) / interval);
 			values.last() = start_slot_count;
 		}

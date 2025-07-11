@@ -26,6 +26,16 @@ RunChange RunChange::fromVariantMap(const QVariantMap &map)
 	return ret;
 }
 
+QVariantMap OrigRunRecord::toVariantMap() const
+{
+	QVariantMap ret;
+	ret["first_name"] = first_name;
+	ret["last_name"] = last_name;
+	ret["registration"] = registration;
+	ret["si_id"] = si_id;
+	return ret;
+}
+
 } // namespace Event::services::qx
 
 

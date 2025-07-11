@@ -26,6 +26,7 @@ constexpr auto COL_ID = "id";
 constexpr auto COL_DATA_TYPE = "data_type";
 constexpr auto COL_DATA_ID = "data_id";
 constexpr auto COL_DATA = "data";
+constexpr auto COL_ORIG_DATA = "orig_data";
 constexpr auto COL_STATUS = "status";
 constexpr auto COL_STATUS_MESSAGE = "status_message";
 constexpr auto COL_SOURCE = "source";
@@ -64,12 +65,13 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 	m_model->addColumn(COL_STATUS, tr("Status"));
 	m_model->addColumn(COL_DATA_TYPE, tr("Type"));
 	m_model->addColumn(COL_DATA_ID, tr("Data ID")).setAlignment(Qt::AlignLeft);
-	m_model->addColumn(COL_DATA, tr("Data"));//.setToolTip(tr("Locked for drawing"));
 	m_model->addColumn(COL_SOURCE, tr("Source"));
 	m_model->addColumn(COL_USER_ID, tr("User"));
 	m_model->addColumn(COL_STATUS_MESSAGE, tr("Status message"));
 	m_model->addColumn(COL_CREATED, tr("Created"));
 	m_model->addColumn(COL_LOCK_NUMBER, tr("Lock"));
+	m_model->addColumn(COL_DATA, tr("Data"));//.setToolTip(tr("Locked for drawing"));
+	m_model->addColumn(COL_ORIG_DATA, tr("Data"));//.setToolTip(tr("Locked for drawing"));
 	ui->tableView->setTableModel(m_model);
 
 	showMessage({});

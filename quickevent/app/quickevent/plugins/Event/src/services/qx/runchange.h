@@ -24,6 +24,8 @@ struct OrigRunRecord
 	QString registration;
 	int si_id;
 	// bool si_id_rent;
+
+	QVariantMap toVariantMap() const;
 };
 
 // struct ChangesRecord
