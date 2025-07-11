@@ -8,18 +8,6 @@ class QTimer;
 
 namespace Event::services::qx {
 
-static constexpr auto COL_ID = "id";
-static constexpr auto COL_DATA_TYPE = "data_type";
-static constexpr auto COL_DATA_ID = "data_id";
-static constexpr auto COL_DATA = "data";
-static constexpr auto COL_STATUS = "status";
-static constexpr auto COL_STATUS_MESSAGE = "status_message";
-static constexpr auto COL_SOURCE = "source";
-static constexpr auto COL_USER_ID = "user_id";
-static constexpr auto COL_CREATED = "created";
-
-static constexpr auto STATUS_PENDING = "Pending";
-
 class QxClientServiceSettings : public ServiceSettings
 {
 	using Super = ServiceSettings;
@@ -74,11 +62,13 @@ public:
 	QNetworkReply* loadQxChanges(int from_id);
 
 	QByteArray apiToken() const;
+	static int currentConnectionId();
+	QUrl exchangeServerUrl() const;
+
 private:
 	int eventId() const;
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
-	QUrl exchangeServerUrl() const;
 	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	enum class SpecFile {StartListIofXml3, RunsCsvJson};
 	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, const std::function<void(QString error)> &call_back = nullptr);

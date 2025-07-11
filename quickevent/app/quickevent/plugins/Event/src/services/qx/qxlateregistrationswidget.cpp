@@ -2,6 +2,8 @@
 #include "ui_qxlateregistrationswidget.h"
 
 #include "qxclientservice.h"
+#include "runchangedialog.h"
+#include "runchange.h"
 
 #include <plugins/Event/src/eventplugin.h>
 
@@ -10,17 +12,44 @@
 #include <qf/core/log.h>
 #include <qf/core/sql/query.h>
 
+#include <QMenu>
+#include <QJsonDocument>
+
 namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
+namespace qfw = qf::qmlwidgets;
 using qf::qmlwidgets::framework::getPlugin;
 
 namespace Event::services::qx {
+
+constexpr auto COL_ID = "id";
+constexpr auto COL_DATA_TYPE = "data_type";
+constexpr auto COL_DATA_ID = "data_id";
+constexpr auto COL_DATA = "data";
+constexpr auto COL_STATUS = "status";
+constexpr auto COL_STATUS_MESSAGE = "status_message";
+constexpr auto COL_SOURCE = "source";
+constexpr auto COL_USER_ID = "user_id";
+constexpr auto COL_CREATED = "created";
+constexpr auto COL_LOCK_NUMBER = "lock_number";
+
+constexpr auto STATUS_PENDING = "Pending";
+constexpr auto STATUS_LOCKED = "Locked";
+
+constexpr auto DATA_TYPE_RUN_UPDATE_REQUEST = "RunUpdateRequest";
+
+constexpr auto SOURCE_WWW = "www";
 
 QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 	QWidget(parent),
 	ui(new Ui::QxLateRegistrationsWidget)
 {
 	ui->setupUi(this);
+
+	ui->tableView->setReadOnly(true);
+	ui->tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+	connect(ui->tableView, &qfw::TableView::customContextMenuRequested, this, &QxLateRegistrationsWidget::onTableCustomContextMenuRequest);
+	connect(ui->tableView, &qfw::TableView::doubleClicked, this, &QxLateRegistrationsWidget::onTableDoubleClicked);
 
 	ui->tableView->setPersistentSettingsId("tblQxLateRegistrations");
 	ui->tableView->setInsertRowEnabled(false);
@@ -40,6 +69,7 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 	m_model->addColumn(COL_USER_ID, tr("User"));
 	m_model->addColumn(COL_STATUS_MESSAGE, tr("Status message"));
 	m_model->addColumn(COL_CREATED, tr("Created"));
+	m_model->addColumn(COL_LOCK_NUMBER, tr("Lock"));
 	ui->tableView->setTableModel(m_model);
 
 	showMessage({});
@@ -231,6 +261,42 @@ void QxLateRegistrationsWidget::applyCurrentChange()
 	//int competitor_id = 0;
 	// int result = getPlugin<Competitors::CompetitorsPlugin>()->editCompetitor(competitor_id, run_id == 0? Mode::Insert: Mode::Edit);
 
+}
+
+void QxLateRegistrationsWidget::onTableCustomContextMenuRequest(const QPoint &pos)
+{
+	QAction a_neco(tr("Neco"), nullptr);
+	QList<QAction*> lst;
+	lst << &a_neco;
+	QAction *a = QMenu::exec(lst, ui->tableView->viewport()->mapToGlobal(pos));
+	if(a == &a_neco) {
+		//printSelectedCards();
+	}
+}
+
+void QxLateRegistrationsWidget::onTableDoubleClicked(const QModelIndex &ix)
+{
+	auto row = ix.row();
+	auto data_type = m_model->value(row, COL_DATA_TYPE).toString();
+	if (data_type != DATA_TYPE_RUN_UPDATE_REQUEST) {
+		return;
+	}
+	auto source = m_model->value(row, COL_SOURCE).toString();
+	if (source != SOURCE_WWW) {
+		return;
+	}
+	auto change_id = m_model->value(row, COL_ID).toInt();
+	auto status = m_model->value(row, COL_STATUS).toString();
+	auto connection_id = QxClientService::currentConnectionId();
+	auto lock_number = m_model->value(row, COL_LOCK_NUMBER).toInt();
+	auto data_id = m_model->value(row, COL_DATA_ID).toInt();
+	auto data = m_model->value(row, COL_DATA).toString().toUtf8();
+	auto change_rec = QJsonDocument::fromJson(data).toVariant().toMap();
+	auto run_change = RunChange::fromVariantMap(change_rec.value(DATA_TYPE_RUN_UPDATE_REQUEST).toMap());
+	if (status == STATUS_PENDING || (status == STATUS_LOCKED && lock_number == connection_id)) {
+		RunChangeDialog dlg(change_id, data_id, lock_number, run_change, this);
+		dlg.exec();
+	}
 }
 
 }

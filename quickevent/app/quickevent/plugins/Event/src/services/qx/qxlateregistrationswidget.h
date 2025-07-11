@@ -30,6 +30,10 @@ private:
 	void resizeColumns();
 	void showMessage(const QString &msg, bool is_error = false);
 	void applyCurrentChange();
+
+	void onTableCustomContextMenuRequest(const QPoint &pos);
+	void onTableDoubleClicked(const QModelIndex &ix);
+
 private:
 	Ui::QxLateRegistrationsWidget *ui;
 	qf::core::model::SqlTableModel *m_model;

@@ -127,6 +127,7 @@ void QxClientServiceWidget::testConnection()
 		else {
 			setMessage(tr("Connection error: %1").arg(reply->errorString()), MessageType::Error);
 		}
+		reply->deleteLater();
 	});
 }
 
@@ -146,6 +147,7 @@ void QxClientServiceWidget::exportEventInfo()
 		else {
 			setMessage(tr("Event info update error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), MessageType::Error);
 		}
+		reply->deleteLater();
 	});
 }
 

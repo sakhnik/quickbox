@@ -7,6 +7,7 @@
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/core/log.h>
 #include <qf/core/sql/query.h>
+#include <qf/core/sql/connection.h>
 
 #include <QCoreApplication>
 #include <QDir>
@@ -528,6 +529,11 @@ auto query_to_json_csv(QSqlQuery &q)
 		csv.insert(csv.length(), values);
 	}
 	return csv;
+}
+
+int QxClientService::currentConnectionId()
+{
+	return qf::core::sql::Connection::forName().connectionId();
 }
 
 } // namespace Event::services::qx
