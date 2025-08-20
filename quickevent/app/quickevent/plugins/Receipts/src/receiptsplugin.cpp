@@ -151,7 +151,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 	int course_id = checked_card.courseId();
 	int leg = 0;
 	int relay_num = 0;
-	int current_standings = 0;
+	int current_standings = 1;
 	int competitors_finished = 0;
 	int best_time = 0;
 	QMap<int, int> best_laps; // position->time
@@ -304,7 +304,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 				bool dis = q.value("dis").toBool();
 				int time = q.value("timeMs").toInt();
 				if(!dis) {
-					if(time <= checked_card.timeMs())
+					if(time < checked_card.timeMs())
 						current_standings++;
 					if(best_time == 0 || time < best_time)
 						best_time = time;
