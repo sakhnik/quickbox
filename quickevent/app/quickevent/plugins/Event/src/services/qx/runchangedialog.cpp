@@ -144,61 +144,62 @@ void RunChangeDialog::loadClassId()
 
 void RunChangeDialog::lockChange()
 {
-	auto *svc = service();
-	auto *nm = svc->networkManager();
+	// NIY
+	// auto *svc = service();
+	// auto *nm = svc->networkManager();
 
-	auto path = QStringLiteral("/api/event/%1/changes").arg(svc->eventId());
-	QUrlQuery query;
-	query.addQueryItem("from_id", QString::number(m_changeId));
-	query.addQueryItem("limit", QString::number(1));
-	svc->getHttpJson(path, query, this, [this](auto data, auto error) {
-		if (!error.isEmpty()) {
-			setMessage(error, true);
-			return;
-		}
-		auto rec = data.toList().value(0).toMap();
-	});
+	// auto path = QStringLiteral("/api/event/%1/changes").arg(svc->eventId());
+	// QUrlQuery query;
+	// query.addQueryItem("from_id", QString::number(m_changeId));
+	// query.addQueryItem("limit", QString::number(1));
+	// svc->getHttpJson(path, query, this, [this](auto data, auto error) {
+	// 	if (!error.isEmpty()) {
+	// 		setMessage(error, true);
+	// 		return;
+	// 	}
+	// 	auto rec = data.toList().value(0).toMap();
+	// });
 
 
-	QNetworkRequest request;
-	auto url = svc->exchangeServerUrl();
-	// qfInfo() << "url " << url.toString();
-	url.setPath("/api/event/current/changes/lock-change");
+	// QNetworkRequest request;
+	// auto url = svc->exchangeServerUrl();
+	// // qfInfo() << "url " << url.toString();
+	// url.setPath("/api/event/current/changes/lock-change");
 
-	QUrlQuery query;
-	query.addQueryItem("change_id", QString::number(m_changeId));
-	auto connection_id = QxClientService::currentConnectionId();
-	query.addQueryItem("lock_number", QString::number(connection_id));
-	url.setQuery(query);
-	qfInfo() << "GET " << url.toString();
+	// QUrlQuery query;
+	// query.addQueryItem("change_id", QString::number(m_changeId));
+	// auto connection_id = QxClientService::currentConnectionId();
+	// query.addQueryItem("lock_number", QString::number(connection_id));
+	// url.setQuery(query);
+	// qfInfo() << "GET " << url.toString();
 
-	request.setUrl(url);
-	request.setRawHeader(QxClientService::QX_API_TOKEN, svc->apiToken());
-	auto *reply = nm->get(request);
-	connect(reply, &QNetworkReply::finished, this, [this, reply, connection_id]() {
-		auto data = reply->readAll();
-		if (reply->error() == QNetworkReply::NetworkError::NoError) {
-			m_lockNumber = data.toInt();
-			ui->edLockNumber->setValue(m_lockNumber);
-			if (m_lockNumber == connection_id) {
-				ui->btAccept->setDisabled(false);
-				ui->btReject->setDisabled(false);
+	// request.setUrl(url);
+	// request.setRawHeader(QxClientService::QX_API_TOKEN, svc->apiToken());
+	// auto *reply = nm->get(request);
+	// connect(reply, &QNetworkReply::finished, this, [this, reply, connection_id]() {
+	// 	auto data = reply->readAll();
+	// 	if (reply->error() == QNetworkReply::NetworkError::NoError) {
+	// 		m_lockNumber = data.toInt();
+	// 		ui->edLockNumber->setValue(m_lockNumber);
+	// 		if (m_lockNumber == connection_id) {
+	// 			ui->btAccept->setDisabled(false);
+	// 			ui->btReject->setDisabled(false);
 
-				qf::core::sql::Query q;
-				q.execThrow(QStringLiteral("UPDATE qxchanges SET lock_number=%1, status='Locked' WHERE id=%2")
-							.arg(connection_id)
-							.arg(m_changeId)
-							);
-			}
-			else {
-				setMessage(tr("Change is locked already by other client: %1, current client id:.%2").arg(m_lockNumber).arg(connection_id), false);
-			}
-		}
-		else {
-			setMessage(tr("Lock change error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), true);
-		}
-		reply->deleteLater();
-	});
+	// 			qf::core::sql::Query q;
+	// 			q.execThrow(QStringLiteral("UPDATE qxchanges SET lock_number=%1, status='Locked' WHERE id=%2")
+	// 						.arg(connection_id)
+	// 						.arg(m_changeId)
+	// 						);
+	// 		}
+	// 		else {
+	// 			setMessage(tr("Change is locked already by other client: %1, current client id:.%2").arg(m_lockNumber).arg(connection_id), false);
+	// 		}
+	// 	}
+	// 	else {
+	// 		setMessage(tr("Lock change error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), true);
+	// 	}
+	// 	reply->deleteLater();
+	// });
 }
 
 void RunChangeDialog::resolveChanges(bool is_accepted)

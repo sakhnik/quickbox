@@ -868,15 +868,16 @@ qf::core::utils::TreeTable RunsPlugin::addLapsToStageResultsTable(int course_id,
 			int stp = q.value(3).toInt();
 			if(stp <= 0)
 				continue;
-			stp_times[pos][run_id] = RunStp{run_id, stp};
+			stp_times[pos][run_id] = RunStp{.runId=run_id, .time=stp};
 			int lap = q.value(4).toInt();
 			if(lap <= 0)
 				continue;
-			lap_times[pos][run_id] = RunStp{run_id, lap};
+			lap_times[pos][run_id] = RunStp{.runId=run_id, .time=lap};
 		}
 	}
 	auto make_pos = [](QMap<int, RunStpMap> &times) {
-		for(int pos : times.keys()) {
+		const auto control_positions = times.keys();
+		for(int pos : control_positions) {
 			RunStpMap &map = times[pos];
 			QList<RunStp> lst = map.values();
 			std::sort(lst.begin(), lst.end(), [](const RunStp &a, const RunStp &b) { return a.time < b.time; });
@@ -896,10 +897,10 @@ qf::core::utils::TreeTable RunsPlugin::addLapsToStageResultsTable(int course_id,
 			const RunStp &stprun = stps.value(run_id);
 			const RunStpMap &laps = lap_times.value(j+1);
 			const RunStp &laprun = laps.value(run_id);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 0, stprun.time);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 1, stprun.pos);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 2, laprun.time);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 3, laprun.pos);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 0, stprun.time);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 1, stprun.pos);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 2, laprun.time);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 3, laprun.pos);
 		}
 		tt.setRow(i, tt_row);
 	}
@@ -2211,7 +2212,6 @@ void RunsPlugin::export_startListClubsHtml()
 	if(QDir().mkpath(file_name)) {
 		QString default_file_name = "startlist-clubs.html";
 		file_name += "/" + default_file_name;
-		QVariantMap options;
 		qf::core::utils::HtmlUtils::FromHtmlListOptions opts;
 		opts.setDocumentTitle(tr("Start list by clubs"));
 		QString str = qf::core::utils::HtmlUtils::fromHtmlList(body, opts);
@@ -2324,7 +2324,6 @@ QString RunsPlugin::export_resultsHtmlStage(bool with_laps)
 	fwk->hideProgress();
 	if(QDir().mkpath(file_dir)) {
 		QString file_name = file_dir + "/results.html";
-		QVariantMap options;
 		qf::core::utils::HtmlUtils::FromHtmlListOptions opts;
 		opts.setDocumentTitle(tr("Stage results"));
 		QString str = qf::core::utils::HtmlUtils::fromHtmlList(body, opts);
@@ -2516,7 +2515,7 @@ void RunsPlugin::exportResultsHtmlStageWithLaps(const QString &laps_file_name, c
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "brb"}}, tr("Loss")},
 				};
 		int i = 1;
-		for(QVariant v : course_codes) {
+		for(const auto &_ : course_codes) {
 			append_list(trr, QVariantList{"th"
 										  , QVariantMap{{"class", "br"}, {"colspan", "2"}}
 										  , (i < course_codes.size())? QVariant(i++): tr("FIN")});
@@ -2531,7 +2530,7 @@ void RunsPlugin::exportResultsHtmlStageWithLaps(const QString &laps_file_name, c
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "brb bbb"}}, "\u00A0"},
 				};
 		int i = 1;
-		for(QVariant v : course_codes) {
+		for(const auto &v : course_codes) {
 			append_list(trr, QVariantList{"th",
 										  QVariantMap{{QStringLiteral("class"), "br bbb"}, {"colspan", "2"}},
 										  (i++ < course_codes.size())? QVariant(quickevent::core::CodeDef{v.toMap()}.code()): QVariant("\u00A0")});

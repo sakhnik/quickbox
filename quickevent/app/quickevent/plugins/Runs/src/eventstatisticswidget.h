@@ -27,12 +27,12 @@ public:
 
 	void loadPersistentSettings();
 	void savePersistentSettings();
-private slots:
-	void on_btReload_clicked();
-	void on_btOptions_clicked();
-	void on_btPrintResultsSelected_clicked();
-	void on_btPrintResultsNew_clicked();
-	void on_btClearNewInSelectedRows_clicked();
+private:
+	void onReloadClicked();
+	void onOptionsClicked();
+	void onPrintResultsSelectedClicked();
+	void onPrintResultsNewClicked();
+	void onClearNewInSelectedRowsClicked();
 private:
 	int currentStageId();
 	void initAutoRefreshTimer();
