@@ -25,8 +25,6 @@
 #include <QScrollBar>
 #include <QPushButton>
 
-namespace qfs = qf::core::sql;
-namespace qfu = qf::core::utils;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
@@ -260,10 +258,10 @@ QVariant FooterModel::headerData(int section, Qt::Orientation orientation, int r
 		if(role == Qt::DisplayRole) {
 			return m_columnSums.value(section);
 		}
-		else if(role == Qt::TextAlignmentRole) {
+		if(role == Qt::TextAlignmentRole) {
 			return Qt::AlignRight;
 		}
-		else if(role == Qt::BackgroundRole) {
+		if(role == Qt::BackgroundRole) {
 			return QColor("khaki");
 		}
 	}
@@ -358,9 +356,7 @@ FooterView::FooterView(QTableView *table_view, QWidget *parent)
 	}
 }
 
-FooterView::~FooterView()
-{
-}
+FooterView::~FooterView() = default;
 
 void FooterView::resetFooterAttributes()
 {
