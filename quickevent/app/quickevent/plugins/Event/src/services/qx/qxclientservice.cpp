@@ -7,6 +7,7 @@
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/core/log.h>
 #include <qf/core/sql/query.h>
+#include <qf/core/sql/connection.h>
 
 #include <QCoreApplication>
 #include <QDir>
@@ -21,6 +22,7 @@
 #include <QJsonDocument>
 #include <QJsonArray>
 #include <QUrlQuery>
+#include <QSqlField>
 
 using namespace qf::core;
 using namespace qf::qmlwidgets;
@@ -71,7 +73,7 @@ void QxClientService::run() {
 			auto data = reply->readAll();
 			auto doc = QJsonDocument::fromJson(data);
 			EventInfo event_info(doc.toVariant().toMap());
-			setStatusMessage(event_info.name());
+			setStatusMessage(event_info.name() + (event_info.stage_count() > 1? QStringLiteral(" E%1").arg(event_info.stage()): QString()));
 			m_eventId = event_info.id();
 			connectToSSE(m_eventId);
 			if (!m_pollChangesTimer) {
@@ -115,11 +117,11 @@ void QxClientService::loadSettings()
 
 void QxClientService::onDbEventNotify(const QString &domain, int connection_id, const QVariant &data)
 {
-	if (status() != Status::Running) {
-		return;
-	}
 	Q_UNUSED(connection_id)
 	Q_UNUSED(data)
+	if (!isRunning()) {
+		return;
+	}
 	if(domain == QLatin1String(Event::EventPlugin::DBEVENT_CARD_PROCESSED_AND_ASSIGNED)) {
 		//auto checked_card = quickevent::core::si::CheckedCard(data.toMap());
 		//int competitor_id = getPlugin<RunsPlugin>()->competitorForRun(checked_card.runId());
@@ -130,9 +132,33 @@ void QxClientService::onDbEventNotify(const QString &domain, int connection_id, 
 		//onCompetitorChanged(competitor_id);
 	}
 	else if (domain == Event::EventPlugin::DBEVENT_RUN_CHANGED) {
-		//if (auto *node = m_rootNode->findChild<CurrentStageRunsNode*>(); node) {
-		//	node->sendRunChangedSignal(data);
-		//}
+		auto lst = data.toList();
+		auto run_id = lst.value(0).toInt();
+		auto ei = eventInfo();
+		bool this_stage = false;
+		qf::core::sql::Query q;
+		q.execThrow(QStringLiteral("SELECT COUNT(*) FROM runs WHERE id=%1 AND stageId=%2").arg(run_id).arg(ei.stage()));
+		if (q.next()) {
+			this_stage = q.value(0).toInt() == 1;
+		}
+		if (!this_stage) {
+			return;
+		}
+		auto qe_run_rec = lst.value(1).toMap();
+		auto qx_run_rec = QVariantMap();
+		auto remap_key = [&qe_run_rec, &qx_run_rec](const QString &qe_key, const QString &qx_key) {
+			if (qe_run_rec.contains(qe_key)) {
+				qx_run_rec[qx_key] = qe_run_rec.value(qe_key);
+			}
+		};
+
+		qfInfo() << "DBEVENT_RUN_CHANGED run id:" << run_id << "data:" << QString::fromUtf8(QJsonDocument::fromVariant(qe_run_rec).toJson(QJsonDocument::Compact));
+
+		remap_key("runs.siId", "si_id");
+		remap_key("competitors.registration", "registration");
+		if (!qx_run_rec.isEmpty()) {
+			httpPostJson( "/api/event/current/changes/run-updated", QStringLiteral("run_id=%1").arg(run_id), qx_run_rec);
+		}
 	}
 }
 
@@ -171,7 +197,7 @@ QNetworkReply *QxClientService::postEventInfo(const QString &qxhttp_host, const 
 	return nm->post(request, data);
 }
 
-void QxClientService::exportStartListIofXml3(QObject *context, std::function<void (QString)> call_back)
+void QxClientService::postStartListIofXml3(QObject *context, std::function<void (QString)> call_back)
 {
 	auto *ep = getPlugin<EventPlugin>();
 	int current_stage = ep->currentStageId();
@@ -182,23 +208,54 @@ void QxClientService::exportStartListIofXml3(QObject *context, std::function<voi
 	}
 }
 
-void QxClientService::exportRuns(QObject *context, std::function<void (QString)> call_back)
+void QxClientService::postRuns(QObject *context, std::function<void (QString)> call_back)
 {
 	auto *ep = getPlugin<EventPlugin>();
 	int current_stage = ep->currentStageId();
 	bool is_relays = ep->eventConfig()->isRelays();
 	if (!is_relays) {
-		auto runs = getPlugin<RunsPlugin>()->qxExportRunsCsv(current_stage);
-		uploadSpecFile(SpecFile::RunsCsv, runs.toUtf8(), context, call_back);
+		auto runs = getPlugin<RunsPlugin>()->qxExportRunsCsvJson(current_stage);
+		auto json = qf::core::Utils::qvariantToJsonUtf8(runs, false);
+		uploadSpecFile(SpecFile::RunsCsvJson, json, context, call_back);
 	}
 }
 
-QNetworkReply* QxClientService::loadQxChanges(int from_id)
+void QxClientService::getHttpJson(const QString &path, const QUrlQuery &query, QObject *context, const std::function<void (QVariant, QString)> &call_back)
+{
+	auto url = exchangeServerUrl();
+	url.setPath(path);
+	url.setQuery(query);
+	// qfInfo() << url.toString();
+	QNetworkRequest request;
+	request.setUrl(url);
+	auto *reply = networkManager()->get(request);
+	// connect(reply, &QNetworkReply::finished, reply, &QNetworkReply::deleteLater);
+	connect(reply, &QNetworkReply::finished, context, [call_back, reply]() {
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			QJsonParseError err;
+			auto data = reply->readAll();
+			auto json = QJsonDocument::fromJson(data, &err).toVariant();
+			if (err.error != QJsonParseError::NoError) {
+				call_back({}, err.errorString());
+			}
+			else {
+				call_back(json, {});
+			}
+		}
+		else {
+			call_back({}, reply->errorString());
+		}
+		reply->deleteLater();
+	});
+}
+
+QNetworkReply* QxClientService::getQxChangesReply(int from_id)
 {
 	auto url = exchangeServerUrl();
 
 	url.setPath(QStringLiteral("/api/event/%1/changes").arg(eventId()));
 	url.setQuery(QStringLiteral("from_id=%1").arg(from_id));
+	qfInfo() << url.toString();
 	QNetworkRequest request;
 	request.setUrl(url);
 	return networkManager()->get(request);
@@ -255,14 +312,14 @@ void QxClientService::postFileCompressed(std::optional<QString> path, std::optio
 	});
 }
 
-void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *context, std::function<void (QString)> call_back)
+void QxClientService::uploadSpecFile(SpecFile file, QByteArray data, QObject *context, const std::function<void (QString)> &call_back)
 {
 	switch (file) {
 	case SpecFile::StartListIofXml3:
 		postFileCompressed({}, "startlist-iof3.xml", data, context, call_back);
 		break;
-	case SpecFile::RunsCsv:
-		postFileCompressed({}, "runs.csv", data, context, call_back);
+	case SpecFile::RunsCsvJson:
+		postFileCompressed({}, "runs.csv.json", data, context, call_back);
 		break;
 	}
 }
@@ -274,6 +331,46 @@ QByteArray QxClientService::zlibCompress(QByteArray data)
 	// internally qCompress uses zlib
 	compressedData.remove(0, 4);
 	return compressedData;
+}
+
+void QxClientService::httpPostJson(const QString &path, const QString &query, QVariantMap json, QObject *context, const std::function<void (QString)> &call_back)
+{
+	if (!isRunning()) {
+		return;
+	}
+	auto url = exchangeServerUrl();
+
+	url.setPath(path);
+	url.setQuery(query);
+
+	QNetworkRequest request;
+	request.setUrl(url);
+	request.setRawHeader(QX_API_TOKEN, apiToken());
+	request.setHeader(QNetworkRequest::ContentTypeHeader, QVariant("application/json"));
+	auto data = QJsonDocument::fromVariant(json).toJson(QJsonDocument::Compact);
+	qfInfo() << "HTTP POST JSON:" << url.toString() << "data:" << QString::fromUtf8(data);
+	QNetworkReply *reply = networkManager()->post(request, data);
+	if (context) {
+		connect(reply, &QNetworkReply::finished, context, [reply, url, call_back]() {
+			QString err;
+			if(reply->error()) {
+				err = reply->errorString();
+				qfWarning() << "HTTP POST:" << url.toString() << "error:" << err;
+			}
+			if (call_back) {
+				call_back(err);
+			}
+			reply->deleteLater();
+		});
+	}
+	else {
+		connect(reply, &QNetworkReply::finished, [reply, url, call_back]() {
+			if(reply->error()) {
+				qfWarning() << "HTTP POST:" << url.toString() << "error:" << reply->errorString();
+			}
+			reply->deleteLater();
+		});
+	}
 }
 
 void QxClientService::connectToSSE(int event_id)
@@ -316,13 +413,13 @@ void QxClientService::pollQxChanges()
 	}
 	int stage_id = event_plugin->currentStageId();
 	try {
-		int start_id = 0;
+		int max_change_id = 0;
 		qf::core::sql::Query q;
-		q.execThrow("SELECT MAX(id) FROM qxchanges");
+		q.execThrow("SELECT MAX(change_id) FROM qxchanges WHERE stage_id=" + QString::number(event_plugin->currentStageId()));
 		if (q.next()) {
-			start_id = q.value(0).toInt() + 1;
+			max_change_id = q.value(0).toInt();
 		}
-		auto *reply = loadQxChanges(start_id);
+		auto *reply = getQxChangesReply(max_change_id + 1);
 		connect(reply, &QNetworkReply::finished, this, [reply, stage_id]() {
 			QString err;
 			if(reply->error()) {
@@ -339,8 +436,8 @@ void QxClientService::pollQxChanges()
 				else {
 					auto records = json.array().toVariantList();
 					qf::core::sql::Query q;
-					q.prepare("INSERT INTO qxchanges (data_type, data, run_id, source, user_id, status, status_message, stage_id, change_id, created)"
-							  " VALUES (:data_type, :data, :run_id, :source, :user_id, :status, :status_message, :stage_id, :change_id, :created)"
+					q.prepare("INSERT INTO qxchanges (data_type, data, data_id, source, user_id, status, status_message, stage_id, change_id, created)"
+							  " VALUES (:data_type, :data, :data_id, :source, :user_id, :status, :status_message, :stage_id, :change_id, :created)"
 							  " RETURNING id");
 					for (const auto &v : records) {
 						auto rec = v.toMap();
@@ -348,7 +445,7 @@ void QxClientService::pollQxChanges()
 						auto data = QString::fromUtf8(ba);
 						q.bindValue(":data_type", rec.value("data_type"));
 						q.bindValue(":data", data);
-						q.bindValue(":run_id", rec.value("run_id"));
+						q.bindValue(":data_id", rec.value("data_id"));
 						q.bindValue(":source", rec.value("source"));
 						q.bindValue(":user_id", rec.value("user_id"));
 						q.bindValue(":status", rec.value("status"));
@@ -389,10 +486,84 @@ EventInfo QxClientService::eventInfo() const
 	auto *event_config = event_plugin->eventConfig();
 	EventInfo ei;
 	ei.set_stage(event_plugin->currentStageId());
+	ei.set_stage_count(event_plugin->stageCount());
 	ei.set_name(event_config->eventName());
 	ei.set_place(event_config->eventPlace());
 	ei.set_start_time(event_plugin->stageStartDateTime(event_plugin->currentStageId()).toString(Qt::ISODate));
+
+	qf::core::sql::Query q;
+	q.execThrow(QStringLiteral("SELECT classes.name AS name, COUNT(codes.id) AS control_count, length, climb, startTimeMin AS start_time, startIntervalMin as interval, lastStartTimeMin AS start_slot_count"
+							   " FROM classes"
+							   " LEFT JOIN classdefs ON classes.id=classdefs.classId AND classdefs.stageId=%1"
+							   " LEFT JOIN courses ON classdefs.courseId=courses.id"
+							   " LEFT JOIN coursecodes ON coursecodes.courseId=courses.id"
+							   " LEFT JOIN codes ON coursecodes.codeId=codes.id AND codes.code>=%2 AND codes.code<=%3"
+							   " GROUP BY classes.id, classes.name, length, climb, startTimeMin, startIntervalMin, lastStartTimeMin"
+							   " ORDER BY classes.name")
+				.arg(ei.stage())
+				.arg(quickevent::core::CodeDef::PUNCH_CODE_MIN)
+				.arg(quickevent::core::CodeDef::PUNCH_CODE_MAX)
+				);
+
+	QVariantList classes;
+	{
+		// QStringList columns{"name", "control_count", "length", "climb", "start_time", "interval", "start_slot_count"};
+		QStringList columns;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			columns << rec.field(i).name();
+		}
+		classes.insert(classes.length(), columns);
+	}
+	while (q.next()) {
+		QVariantList values;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			values << q.value(i);
+		}
+		auto interval = q.value("interval").toInt();
+		if (interval > 0) {
+			auto start_time = q.value("start_time").toInt();
+			auto last_time = q.value("start_slot_count").toInt();
+			auto start_slot_count = 1 + ((last_time - start_time) / interval);
+			values.last() = start_slot_count;
+		}
+		else {
+			values.last() = 0;
+		}
+		classes.insert(classes.length(), values);
+	}
+	ei.set_classes(classes);
+	// qfInfo() << qf::core::Utils::qvariantToJson(ei, false);
 	return ei;
+}
+
+auto query_to_json_csv(QSqlQuery &q)
+{
+	QVariantList csv;
+	{
+		// QStringList columns{"name", "control_count", "length", "climb", "start_time", "interval", "start_slot_count"};
+		QStringList columns;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			columns << rec.field(i).name();
+		}
+		csv.insert(csv.length(), columns);
+	}
+	while (q.next()) {
+		QVariantList values;
+		auto rec = q.record();
+		for (auto i = 0; i < rec.count(); ++i) {
+			values << q.value(i);
+		}
+		csv.insert(csv.length(), values);
+	}
+	return csv;
+}
+
+int QxClientService::currentConnectionId()
+{
+	return qf::core::sql::Connection::forName().connectionId();
 }
 
 } // namespace Event::services::qx

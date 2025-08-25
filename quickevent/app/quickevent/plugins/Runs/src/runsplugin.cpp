@@ -421,6 +421,59 @@ int RunsPlugin::competitorForRun(int run_id)
 	return competitor_id;
 }
 
+QVariantList RunsPlugin::qxExportRunsCsvJson(int stage_id)
+{
+	QVariantList csv;
+	auto append_list = [&csv](QVariantList lst) {
+		csv.insert(csv.size(), lst);
+	};
+	enum Column {run_id = 0, class_name, registration, si_id, first_name, last_name, start_time, check_time, finish_time, status, COUNT};
+	constexpr std::array<const char*, Column::COUNT> colNames = {
+		"run_id", "class_name", "registration", "si_id", "first_name", "last_name", "start_time", "check_time", "finish_time", "status"
+	};
+	auto col_name = [&colNames](Column col) { return colNames.at(col); };
+	{
+		QVariantList cols;
+		for (auto i = 0; i < COUNT; ++i) {
+			cols << col_name(static_cast<Column>(i));
+		}
+		append_list(cols);
+	}
+	QDateTime start00 = getPlugin<EventPlugin>()->stageStartDateTime(stage_id);
+	auto msec_to_date_time = [start00](const QVariant &msec) {
+		if (msec.isNull()) {
+			return QVariant();
+		}
+		auto dt = start00.addMSecs(msec.toInt());
+		return QVariant::fromValue(dt);
+	};
+	qfs::QueryBuilder qb;
+	qb.select2("runs", "*")
+			.select2("competitors", "registration, licence, lastName, firstName")
+			.select2("classes", "name")
+			.from("runs")
+			.innerJoinRestricted("runs.competitorId", "competitors.id", "runs.stageId=" QF_IARG(stage_id) " AND runs.isRunning")
+			.join("competitors.classId", "classes.id");
+	qfs::Query q;
+	q.execThrow(qb.toString());
+	while (q.next()) {
+		QVariantList rec(COUNT);
+		rec[run_id] = q.value("runs.id");
+		rec[class_name] = q.value("classes.name");
+		rec[registration] = q.value("registration");
+		rec[si_id] = q.value("runs.siId");
+		rec[first_name] = q.value("firstName");
+		rec[last_name] = q.value("lastName");
+		rec[start_time] = msec_to_date_time(q.value("startTimeMs"));
+		rec[check_time] = msec_to_date_time(q.value("checkTimeMs"));
+		rec[finish_time] = msec_to_date_time(q.value("finishTimeMs"));
+		auto run_status = quickevent::core::RunStatus::fromQuery(q);
+		rec[status] = run_status.toHtmlExportString();
+		append_list(rec);
+	}
+	return csv;
+}
+/*
 QString RunsPlugin::qxExportRunsCsv(int stage_id)
 {
 	QString csv;
@@ -489,7 +542,7 @@ QString RunsPlugin::qxExportRunsCsv(int stage_id)
 
 	return csv;
 }
-
+*/
 qf::core::utils::Table RunsPlugin::nstagesClassResultsTable(int stages_count, int class_id, int places, bool exclude_disq)
 {
 	qfs::QueryBuilder qb;
@@ -815,15 +868,16 @@ qf::core::utils::TreeTable RunsPlugin::addLapsToStageResultsTable(int course_id,
 			int stp = q.value(3).toInt();
 			if(stp <= 0)
 				continue;
-			stp_times[pos][run_id] = RunStp{run_id, stp};
+			stp_times[pos][run_id] = RunStp{.runId=run_id, .time=stp};
 			int lap = q.value(4).toInt();
 			if(lap <= 0)
 				continue;
-			lap_times[pos][run_id] = RunStp{run_id, lap};
+			lap_times[pos][run_id] = RunStp{.runId=run_id, .time=lap};
 		}
 	}
 	auto make_pos = [](QMap<int, RunStpMap> &times) {
-		for(int pos : times.keys()) {
+		const auto control_positions = times.keys();
+		for(int pos : control_positions) {
 			RunStpMap &map = times[pos];
 			QList<RunStp> lst = map.values();
 			std::sort(lst.begin(), lst.end(), [](const RunStp &a, const RunStp &b) { return a.time < b.time; });
@@ -843,10 +897,10 @@ qf::core::utils::TreeTable RunsPlugin::addLapsToStageResultsTable(int course_id,
 			const RunStp &stprun = stps.value(run_id);
 			const RunStpMap &laps = lap_times.value(j+1);
 			const RunStp &laprun = laps.value(run_id);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 0, stprun.time);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 1, stprun.pos);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 2, laprun.time);
-			tt_row.setValue(col_stp_time0_ix + 4*j + 3, laprun.pos);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 0, stprun.time);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 1, stprun.pos);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 2, laprun.time);
+			tt_row.setValue(col_stp_time0_ix + (4 * j) + 3, laprun.pos);
 		}
 		tt.setRow(i, tt_row);
 	}
@@ -1091,9 +1145,9 @@ static QString make_width(const QString &s, int width)
 	return ret;
 }
 
-void RunsPlugin::writeCSOSHeader(QTextStream &ts)
+void RunsPlugin::writeCSOSHeader(QTextStream &ts) const
 {
-	Event::EventPlugin *evp = getPlugin<EventPlugin>();
+	auto *evp = getPlugin<EventPlugin>();
 	int stage_id = selectedStageId();
 	QDateTime start_dt = evp->stageStartDateTime(stage_id);
 	Event::EventConfig *ec = evp->eventConfig();
@@ -2158,7 +2212,6 @@ void RunsPlugin::export_startListClubsHtml()
 	if(QDir().mkpath(file_name)) {
 		QString default_file_name = "startlist-clubs.html";
 		file_name += "/" + default_file_name;
-		QVariantMap options;
 		qf::core::utils::HtmlUtils::FromHtmlListOptions opts;
 		opts.setDocumentTitle(tr("Start list by clubs"));
 		QString str = qf::core::utils::HtmlUtils::fromHtmlList(body, opts);
@@ -2271,7 +2324,6 @@ QString RunsPlugin::export_resultsHtmlStage(bool with_laps)
 	fwk->hideProgress();
 	if(QDir().mkpath(file_dir)) {
 		QString file_name = file_dir + "/results.html";
-		QVariantMap options;
 		qf::core::utils::HtmlUtils::FromHtmlListOptions opts;
 		opts.setDocumentTitle(tr("Stage results"));
 		QString str = qf::core::utils::HtmlUtils::fromHtmlList(body, opts);
@@ -2463,7 +2515,7 @@ void RunsPlugin::exportResultsHtmlStageWithLaps(const QString &laps_file_name, c
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "brb"}}, tr("Loss")},
 				};
 		int i = 1;
-		for(QVariant v : course_codes) {
+		for(const auto &_ : course_codes) {
 			append_list(trr, QVariantList{"th"
 										  , QVariantMap{{"class", "br"}, {"colspan", "2"}}
 										  , (i < course_codes.size())? QVariant(i++): tr("FIN")});
@@ -2478,7 +2530,7 @@ void RunsPlugin::exportResultsHtmlStageWithLaps(const QString &laps_file_name, c
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "brb bbb"}}, "\u00A0"},
 				};
 		int i = 1;
-		for(QVariant v : course_codes) {
+		for(const auto &v : course_codes) {
 			append_list(trr, QVariantList{"th",
 										  QVariantMap{{QStringLiteral("class"), "br bbb"}, {"colspan", "2"}},
 										  (i++ < course_codes.size())? QVariant(quickevent::core::CodeDef{v.toMap()}.code()): QVariant("\u00A0")});

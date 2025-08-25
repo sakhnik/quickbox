@@ -213,6 +213,7 @@ public:
 
 	static QVariant jsonToQVariant(const QString &json);
 	static QString qvariantToJson(const QVariant &v, bool compact = true);
+	static QByteArray qvariantToJsonUtf8(const QVariant &v, bool compact = true);
 };
 
 }}

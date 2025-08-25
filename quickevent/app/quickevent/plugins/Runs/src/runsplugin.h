@@ -78,7 +78,8 @@ public:
 	bool exportStartListCurrentStageCsvSime(const QString &file_name, bool bibs, QString sql_where);
 	bool exportStartListCurrentStageTvGraphics(const QString &file_name);
 
-	QString qxExportRunsCsv(int stage_id);
+	QVariantList qxExportRunsCsvJson(int stage_id);
+	// QString qxExportRunsCsv(int stage_id);
 
 	//bool exportResultsHtmlStage(int stage_id, const QString &file_name);
 	Q_INVOKABLE bool exportResultsIofXml30Stage(int stage_id, const QString &file_name);
@@ -133,7 +134,7 @@ private:
 	int courseForRun_Relays(int run_id);
 	QString getClubAbbrFromName(QString name);
 
-	void writeCSOSHeader(QTextStream &ts);
+	void writeCSOSHeader(QTextStream &ts) const;
 
 	void addStartTimeTextToClass(qf::core::utils::TreeTable &tt2, const qint64 start00_epoch_sec, const quickevent::gui::ReportOptionsDialog::StartTimeFormat start_time_format);
 	void addStartTimeTextToClass(qf::core::utils::TreeTable &tt2, const int stages_count, const QVector<qint64> &start00_epoch_sec, const quickevent::gui::ReportOptionsDialog::StartTimeFormat start_time_format);

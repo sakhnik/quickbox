@@ -23,9 +23,8 @@
 #include <QSettings>
 #include <QTimer>
 #include <QScrollBar>
+#include <QPushButton>
 
-namespace qfs = qf::core::sql;
-namespace qfu = qf::core::utils;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
@@ -259,10 +258,10 @@ QVariant FooterModel::headerData(int section, Qt::Orientation orientation, int r
 		if(role == Qt::DisplayRole) {
 			return m_columnSums.value(section);
 		}
-		else if(role == Qt::TextAlignmentRole) {
+		if(role == Qt::TextAlignmentRole) {
 			return Qt::AlignRight;
 		}
-		else if(role == Qt::BackgroundRole) {
+		if(role == Qt::BackgroundRole) {
 			return QColor("khaki");
 		}
 	}
@@ -357,9 +356,7 @@ FooterView::FooterView(QTableView *table_view, QWidget *parent)
 	}
 }
 
-FooterView::~FooterView()
-{
-}
+FooterView::~FooterView() = default;
 
 void FooterView::resetFooterAttributes()
 {
@@ -407,6 +404,12 @@ EventStatisticsWidget::EventStatisticsWidget(QWidget *parent)
 
 	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::dbEventNotify, this, &EventStatisticsWidget::onDbEventNotify, Qt::QueuedConnection);
 	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::currentStageIdChanged, this, &EventStatisticsWidget::reloadDeferred);
+
+	connect(ui->btReload, &QPushButton::clicked, this, &EventStatisticsWidget::onReloadClicked);
+	connect(ui->btOptions, &QPushButton::clicked, this, &EventStatisticsWidget::onOptionsClicked);
+	connect(ui->btPrintResultsSelected, &QPushButton::clicked, this, &EventStatisticsWidget::onPrintResultsSelectedClicked);
+	connect(ui->btPrintResultsNew, &QPushButton::clicked, this, &EventStatisticsWidget::onPrintResultsNewClicked);
+	connect(ui->btClearNewInSelectedRows, &QPushButton::clicked, this, &EventStatisticsWidget::onClearNewInSelectedRowsClicked);
 
 	initAutoRefreshTimer();
 }
@@ -518,13 +521,13 @@ void EventStatisticsWidget::initAutoRefreshTimer()
 	}
 }
 
-void EventStatisticsWidget::on_btReload_clicked()
+void EventStatisticsWidget::onReloadClicked()
 {
 	qfLogFuncFrame();
 	reload();
 }
 
-void EventStatisticsWidget::on_btPrintResultsSelected_clicked()
+void EventStatisticsWidget::onPrintResultsSelectedClicked()
 {
 	QList<int> rows;
 	for(int i : ui->tableView->selectedRowsIndexes())
@@ -580,7 +583,7 @@ void EventStatisticsWidget::printResultsForRows(const QList<int> &rows)
 	}
 }
 
-void EventStatisticsWidget::on_btClearNewInSelectedRows_clicked()
+void EventStatisticsWidget::onClearNewInSelectedRowsClicked()
 {
 	qfLogFuncFrame();
 	QList<int> classdefs_ids;
@@ -621,7 +624,7 @@ QVariantMap EventStatisticsWidget::options()
 	return m;
 }
 
-void EventStatisticsWidget::on_btOptions_clicked()
+void EventStatisticsWidget::onOptionsClicked()
 {
 	EventStatisticsOptions dlg(this);
 	if(dlg.exec()) {
@@ -629,7 +632,7 @@ void EventStatisticsWidget::on_btOptions_clicked()
 	}
 }
 
-void EventStatisticsWidget::on_btPrintResultsNew_clicked()
+void EventStatisticsWidget::onPrintResultsNewClicked()
 {
 	qfLogFuncFrame();
 	reload();

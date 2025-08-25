@@ -19,7 +19,8 @@ public:
 	explicit QxClientServiceWidget(QWidget *parent = nullptr);
 	~QxClientServiceWidget() override;
 private:
-	void setMessage(const QString &msg = {}, bool is_error = false);
+	enum class MessageType { Ok, Error, Progress };
+	void setMessage(const QString &msg = {}, MessageType msg_type = MessageType::Ok);
 	QxClientService* service();
 	bool saveSettings();
 	void updateOCheckListPostUrl();
