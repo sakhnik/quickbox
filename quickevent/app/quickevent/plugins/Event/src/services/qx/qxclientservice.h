@@ -4,6 +4,7 @@
 
 class QNetworkAccessManager;
 class QNetworkReply;
+class QUrlQuery;
 class QTimer;
 
 namespace Event::services::qx {
@@ -58,15 +59,16 @@ public:
 
 	void postStartListIofXml3(QObject *context, std::function<void (QString)> call_back = nullptr);
 	void postRuns(QObject *context, std::function<void (QString)> call_back = nullptr);
+	void getHttpJson(const QString &path, const QUrlQuery &query, QObject *context, const std::function<void (QVariant json, QString error)> &call_back = nullptr);
 
-	QNetworkReply* loadQxChanges(int from_id);
+	QNetworkReply* getQxChangesReply(int from_id);
 
 	QByteArray apiToken() const;
 	static int currentConnectionId();
 	QUrl exchangeServerUrl() const;
 
-private:
 	int eventId() const;
+private:
 	void loadSettings() override;
 	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
 	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);

@@ -23,6 +23,7 @@ using qf::qmlwidgets::framework::getPlugin;
 namespace Event::services::qx {
 
 constexpr auto COL_ID = "id";
+constexpr auto COL_CHANGE_ID = "change_id";
 constexpr auto COL_DATA_TYPE = "data_type";
 constexpr auto COL_DATA_ID = "data_id";
 constexpr auto COL_DATA = "data";
@@ -69,9 +70,10 @@ QxLateRegistrationsWidget::QxLateRegistrationsWidget(QWidget *parent) :
 	m_model->addColumn(COL_USER_ID, tr("User"));
 	m_model->addColumn(COL_STATUS_MESSAGE, tr("Status message"));
 	m_model->addColumn(COL_CREATED, tr("Created"));
+	m_model->addColumn(COL_CHANGE_ID, tr("Change ID"));
 	m_model->addColumn(COL_LOCK_NUMBER, tr("Lock"));
 	m_model->addColumn(COL_DATA, tr("Data"));//.setToolTip(tr("Locked for drawing"));
-	m_model->addColumn(COL_ORIG_DATA, tr("Data"));//.setToolTip(tr("Locked for drawing"));
+	m_model->addColumn(COL_ORIG_DATA, tr("Orig data"));//.setToolTip(tr("Locked for drawing"));
 	ui->tableView->setTableModel(m_model);
 
 	showMessage({});
@@ -287,7 +289,7 @@ void QxLateRegistrationsWidget::onTableDoubleClicked(const QModelIndex &ix)
 	if (source != SOURCE_WWW) {
 		return;
 	}
-	auto change_id = m_model->value(row, COL_ID).toInt();
+	auto change_id = m_model->value(row, COL_CHANGE_ID).toInt();
 	auto status = m_model->value(row, COL_STATUS).toString();
 	auto lock_number = m_model->value(row, COL_LOCK_NUMBER).toInt();
 	auto data_id = m_model->value(row, COL_DATA_ID).toInt();

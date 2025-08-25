@@ -73,6 +73,35 @@
       </widget>
      </item>
      <item>
+      <widget class="QLabel" name="label_10">
+       <property name="text">
+        <string>Change ID </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QSpinBox" name="edChangeId">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+       </property>
+       <property name="readOnly">
+        <bool>true</bool>
+       </property>
+       <property name="specialValueText">
+        <string>None</string>
+       </property>
+       <property name="maximum">
+        <number>999999999</number>
+       </property>
+      </widget>
+     </item>
+     <item>
       <widget class="QLabel" name="label_2">
        <property name="text">
         <string>Lock number</string>
@@ -354,6 +383,10 @@
   </layout>
  </widget>
  <tabstops>
+  <tabstop>edClassName</tabstop>
+  <tabstop>edRunId</tabstop>
+  <tabstop>edChangeId</tabstop>
+  <tabstop>edLockNumber</tabstop>
   <tabstop>grpFirstName</tabstop>
   <tabstop>edFirstNameOrig</tabstop>
   <tabstop>edFirstName</tabstop>
@@ -368,10 +401,12 @@
   <tabstop>edSiCardRentOrig</tabstop>
   <tabstop>edSiCard</tabstop>
   <tabstop>edSiCardRent</tabstop>
+  <tabstop>edNote</tabstop>
   <tabstop>edStatusMessage</tabstop>
-  <tabstop>btCancel</tabstop>
-  <tabstop>btReject</tabstop>
+  <tabstop>chkForce</tabstop>
   <tabstop>btAccept</tabstop>
+  <tabstop>btReject</tabstop>
+  <tabstop>btCancel</tabstop>
  </tabstops>
  <resources/>
  <connections>

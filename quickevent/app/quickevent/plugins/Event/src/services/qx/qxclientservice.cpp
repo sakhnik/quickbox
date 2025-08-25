@@ -220,12 +220,42 @@ void QxClientService::postRuns(QObject *context, std::function<void (QString)> c
 	}
 }
 
-QNetworkReply* QxClientService::loadQxChanges(int from_id)
+void QxClientService::getHttpJson(const QString &path, const QUrlQuery &query, QObject *context, const std::function<void (QVariant, QString)> &call_back)
+{
+	auto url = exchangeServerUrl();
+	url.setPath(path);
+	url.setQuery(query);
+	// qfInfo() << url.toString();
+	QNetworkRequest request;
+	request.setUrl(url);
+	auto *reply = networkManager()->get(request);
+	// connect(reply, &QNetworkReply::finished, reply, &QNetworkReply::deleteLater);
+	connect(reply, &QNetworkReply::finished, context, [call_back, reply]() {
+		if (reply->error() == QNetworkReply::NetworkError::NoError) {
+			QJsonParseError err;
+			auto data = reply->readAll();
+			auto json = QJsonDocument::fromJson(data, &err).toVariant();
+			if (err.error != QJsonParseError::NoError) {
+				call_back({}, err.errorString());
+			}
+			else {
+				call_back(json, {});
+			}
+		}
+		else {
+			call_back({}, reply->errorString());
+		}
+		reply->deleteLater();
+	});
+}
+
+QNetworkReply* QxClientService::getQxChangesReply(int from_id)
 {
 	auto url = exchangeServerUrl();
 
 	url.setPath(QStringLiteral("/api/event/%1/changes").arg(eventId()));
 	url.setQuery(QStringLiteral("from_id=%1").arg(from_id));
+	qfInfo() << url.toString();
 	QNetworkRequest request;
 	request.setUrl(url);
 	return networkManager()->get(request);
@@ -385,11 +415,11 @@ void QxClientService::pollQxChanges()
 	try {
 		int max_change_id = 0;
 		qf::core::sql::Query q;
-		q.execThrow("SELECT MAX(change_id) FROM qxchanges");
+		q.execThrow("SELECT MAX(change_id) FROM qxchanges WHERE stage_id=" + QString::number(event_plugin->currentStageId()));
 		if (q.next()) {
 			max_change_id = q.value(0).toInt();
 		}
-		auto *reply = loadQxChanges(max_change_id + 1);
+		auto *reply = getQxChangesReply(max_change_id + 1);
 		connect(reply, &QNetworkReply::finished, this, [reply, stage_id]() {
 			QString err;
 			if(reply->error()) {

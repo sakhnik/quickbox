@@ -5,6 +5,8 @@
 
 #include <QDialog>
 
+class QNetworkReply;
+
 namespace Event::services::qx {
 
 namespace Ui {
@@ -24,7 +26,7 @@ public:
 
 private:
 	QxClientService* service();
-	void setMessage(const QString &msg = {}, bool error = false);
+	void setMessage(const QString &msg, bool error);
 
 	void loadOrigValues();
 	void loadClassId();
@@ -33,6 +35,8 @@ private:
 
 	void resolveChanges(bool is_accepted);
 	void applyLocalChanges(bool is_accepted);
+
+	bool checkHttpError(QNetworkReply *reply);
 private:
 	Ui::RunChangeDialog *ui;
 	int m_changeId = 0;

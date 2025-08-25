@@ -45,6 +45,7 @@ RunChangeDialog::RunChangeDialog(int change_id, int run_id, int lock_number, con
 	ui->edNote->setText(run_change.note);
 
 	ui->edRunId->setValue(run_id);
+	ui->edChangeId->setValue(change_id);
 	ui->edLockNumber->setValue(lock_number);
 
 	ui->grpFirstName->setChecked(run_change.first_name.has_value());
@@ -145,6 +146,20 @@ void RunChangeDialog::lockChange()
 {
 	auto *svc = service();
 	auto *nm = svc->networkManager();
+
+	auto path = QStringLiteral("/api/event/%1/changes").arg(svc->eventId());
+	QUrlQuery query;
+	query.addQueryItem("from_id", QString::number(m_changeId));
+	query.addQueryItem("limit", QString::number(1));
+	svc->getHttpJson(path, query, this, [this](auto data, auto error) {
+		if (!error.isEmpty()) {
+			setMessage(error, true);
+			return;
+		}
+		auto rec = data.toList().value(0).toMap();
+	});
+
+
 	QNetworkRequest request;
 	auto url = svc->exchangeServerUrl();
 	// qfInfo() << "url " << url.toString();
@@ -155,7 +170,7 @@ void RunChangeDialog::lockChange()
 	auto connection_id = QxClientService::currentConnectionId();
 	query.addQueryItem("lock_number", QString::number(connection_id));
 	url.setQuery(query);
-	// qfInfo() << "GET " << url.toString();
+	qfInfo() << "GET " << url.toString();
 
 	request.setUrl(url);
 	request.setRawHeader(QxClientService::QX_API_TOKEN, svc->apiToken());
@@ -180,7 +195,7 @@ void RunChangeDialog::lockChange()
 			}
 		}
 		else {
-			setMessage(tr("Lock change error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)));
+			setMessage(tr("Lock change error: %1\n%2").arg(reply->errorString()).arg(QString::fromUtf8(data)), true);
 		}
 		reply->deleteLater();
 	});
@@ -267,6 +282,17 @@ void RunChangeDialog::applyLocalChanges(bool is_accepted)
 		q.bindValue(":id", m_changeId);
 		q.exec(qf::core::Exception::Throw);
 	}
+}
+
+bool RunChangeDialog::checkHttpError(QNetworkReply *reply)
+{
+	if (reply->error() != QNetworkReply::NetworkError::NoError) {
+		setMessage(tr("Http error: %1\n%2")
+				   .arg(reply->request().url().toString())
+				   .arg(reply->errorString()), true);
+		return false;
+	}
+	return true;
 }
 
 } // namespace Event::services::qx
