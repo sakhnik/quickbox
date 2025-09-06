@@ -44,7 +44,7 @@ public:
 	bool isAutoPrintEnabled();
 
 private:
-	Q_SLOT void on_btPrintNew_clicked();
+	void onPrintNewClicked();
 	void onCustomContextMenuRequest(const QPoint &pos);
 	void printSelectedCards();
 

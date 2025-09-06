@@ -13,7 +13,7 @@ class ConnectDbDialogWidget : public qf::qmlwidgets::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	using Super = qf::qmlwidgets::framework::DialogWidget;
 public:
 	explicit ConnectDbDialogWidget(QWidget *parent = nullptr);
 	~ConnectDbDialogWidget();
@@ -29,7 +29,7 @@ public:
 	void loadSettings();
 	void saveSettings();
 private:
-	Q_SLOT void on_btSingleWorkingDirectory_clicked();
+	void onSingleWorkingDirectoryClicked();
 private:
 	Ui::ConnectDbDialogWidget *ui;
 };

@@ -132,7 +132,7 @@ void CodeClassResultsWidget::reset(int class_id, int code, int pin_to_code)
 	if(pin_to_code == ALL_CODES) {
 		ui->lblCode->show();
 		ui->lstCode->show();
-		connect(ui->lstClass, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [this](int ) {
+		connect(ui->lstClass, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int ) {
 			int stage_id = getPlugin<EventPlugin>()->currentStageId();
 			int class_id = this->ui->lstClass->currentData().toInt();
 			ui->lstCode->blockSignals(true);

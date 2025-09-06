@@ -2514,8 +2514,7 @@ void RunsPlugin::exportResultsHtmlStageWithLaps(const QString &laps_file_name, c
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "br"}}, tr("Time")},
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "brb"}}, tr("Loss")},
 				};
-		int i = 1;
-		for(const auto &_ : course_codes) {
+		for(auto i = 0; i < course_codes.size(); ++i) {
 			append_list(trr, QVariantList{"th"
 										  , QVariantMap{{"class", "br"}, {"colspan", "2"}}
 										  , (i < course_codes.size())? QVariant(i++): tr("FIN")});

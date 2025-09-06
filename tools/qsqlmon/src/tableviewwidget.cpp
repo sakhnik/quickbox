@@ -32,7 +32,7 @@ TableViewWidget::TableViewWidget(QWidget *parent) :
 	ui->setupUi(this);
 
 	ui->btMenu->setIcon(QApplication::style()->standardIcon(QStyle::SP_ArrowDown));
-	connect(ui->btMenu, &QToolButton::clicked, [this](bool) {
+	connect(ui->btMenu, &QToolButton::clicked, this, [this](bool) {
 		emit statusBarAction(this->ui->edInfo->text());
 	});
 

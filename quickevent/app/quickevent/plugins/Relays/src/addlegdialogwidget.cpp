@@ -157,7 +157,7 @@ void AddLegDialogWidget::updateLegAddedStatus(const QString &msg)
 		m_updateStatusTimer = new QTimer(this);
 		m_updateStatusTimer->setSingleShot(true);
 		m_updateStatusTimer->setInterval(3000);
-		connect(m_updateStatusTimer, &QTimer::timeout, [this]() {
+		connect(m_updateStatusTimer, &QTimer::timeout, this, [this]() {
 			ui->lblStatus->setText(m_defaultStatusText);
 			ui->lblStatus->setStyleSheet(QString());
 		});

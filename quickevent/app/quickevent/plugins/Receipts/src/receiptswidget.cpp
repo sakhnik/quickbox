@@ -84,6 +84,7 @@ ReceiptsWidget::ReceiptsWidget(QWidget *parent) :
 
 	ui->tblCards->setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(ui->tblCards, &qfw::TableView::customContextMenuRequested, this, &ReceiptsWidget::onCustomContextMenuRequest);
+	connect(ui->btPrintNew, &QAbstractButton::clicked, this, &ReceiptsWidget::onPrintNewClicked);
 
 	QTimer::singleShot(0, this, &ReceiptsWidget::lazyInit);
 }
@@ -196,7 +197,7 @@ void ReceiptsWidget::loadNewCards()
 	m_cardsModel->reloadInserts(QStringLiteral("cards.id"));
 }
 
-void ReceiptsWidget::on_btPrintNew_clicked()
+void ReceiptsWidget::onPrintNewClicked()
 {
 	printNewCards();
 	loadNewCards();

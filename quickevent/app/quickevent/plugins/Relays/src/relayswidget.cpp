@@ -251,7 +251,7 @@ void RelaysWidget::editRelay(const QVariant &id, int mode)
 	dlg.setDefaultButton(QDialogButtonBox::Save);
 	QPushButton *bt_save_and_next = dlg.buttonBox()->addButton(tr("Save and &next"), QDialogButtonBox::AcceptRole);
 	bool save_and_next = false;
-	connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
+	connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, this, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
 		save_and_next = (button == bt_save_and_next);
 	});
 	dlg.setCentralWidget(w);
@@ -269,7 +269,7 @@ void RelaysWidget::editRelay(const QVariant &id, int mode)
 	//else
 	//	transaction.rollback();
 	if(ok && save_and_next) {
-		QTimer::singleShot(0, [this]() {
+		QTimer::singleShot(0, this, [this]() {
 			this->editRelay(QVariant(), qf::qmlwidgets::model::DataDocument::ModeInsert);
 		});
 	}

@@ -194,8 +194,7 @@ void RunsTableWidget::reload(int stage_id, int class_id, bool show_offrace, cons
 						QModelIndex ix = m_runsModel->index(i, sort_col_ix);
 						ix = ui->tblRuns->sortFilterProxyModel()->mapFromSource(ix);
 						ui->tblRuns->setCurrentIndex(ix);
-						//ui->tblRuns->selectionModel()->select(ix, QItemSelectionModel::ClearAndSelect);
-						QTimer::singleShot(0, [this, ix]() {
+						QTimer::singleShot(0, this, [this, ix]() {
 							this->ui->tblRuns->scrollTo(ix);
 						});
 					}

@@ -68,7 +68,7 @@ RunsWidget::RunsWidget(QWidget *parent) :
 
 	ui->frmDrawing->setVisible(false);
 
-	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [this]() {
+	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, this, [this]() {
 		ui->cbxDrawMethod->clear();
 		if(!getPlugin<EventPlugin>()->isEventOpen())
 			return;
@@ -233,7 +233,7 @@ void RunsWidget::settleDownInPartWidget(::PartWidget *part_widget)
 	}
 	{
 		auto *a = new qfw::Action(tr("&Competitors with rented cards"));
-		connect(a, &qfw::Action::triggered, [this]() {
+		connect(a, &qfw::Action::triggered, this, [this]() {
 			qff::MainWindow *fwk = qff::MainWindow::frameWork();
 			quickevent::gui::ReportOptionsDialog dlg(fwk);
 			dlg.setPersistentSettingsId("competitorsWithRentedCards");
@@ -441,7 +441,7 @@ QList< QList<int> > RunsWidget::runnersByClubSortedByCount(int stage_id, int cla
 		runner_id_to_club[id] = club;
 	}
 	{
-		for(auto club : ids_by_clubs.keys()) {
+		for(const auto &club : ids_by_clubs.keys()) {
 			QStringList sl;
 			for(auto id : ids_by_clubs.value(club)) {
 				sl << QString::number(id);
@@ -456,7 +456,7 @@ QList< QList<int> > RunsWidget::runnersByClubSortedByCount(int stage_id, int cla
 		shuffle(ret[i]);
 	}
 	{
-		for(auto lst : ret) {
+		for(const auto &lst : ret) {
 			QStringList sl;
 			for(auto id : lst) {
 				sl << QString::number(id);
@@ -792,8 +792,9 @@ void RunsWidget::onDrawClicked()
 				QList< QList<int> > runners_by_club = runnersByClubSortedByCount(stage_id, class_id, runner_id_to_club);
 				if(runners_by_club.count()) {
 					int runners_cnt = 0;
-					for(auto lst : runners_by_club)
+					for(const auto &lst : runners_by_club) {
 						runners_cnt += lst.count();
+					}
 					runners_draw_ids.reserve(runners_cnt);
 					runners_draw_ids << runners_by_club.first();
 					int club_ix = 1;
@@ -1156,13 +1157,13 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 		dlg.setDefaultButton(QDialogButtonBox::Ok);
 		if(mode == qf::qmlwidgets::model::DataDocument::ModeInsert || mode == qf::qmlwidgets::model::DataDocument::ModeEdit) {
 			QPushButton *bt_save = dlg.buttonBox()->addButton(tr("Save"), QDialogButtonBox::ApplyRole);
-			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [w, bt_save](QAbstractButton *button) {
+			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, &dlg, [w, bt_save](QAbstractButton *button) {
 				if (button == bt_save) {
 					w->save();
 				}
 			});
 			QPushButton *bt_save_and_next = dlg.buttonBox()->addButton(tr("Ok and &next"), QDialogButtonBox::AcceptRole);
-			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
+			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, &dlg, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
 				save_and_next = (button == bt_save_and_next);
 			});
 		}
@@ -1190,7 +1191,7 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 
 	}
 	if(ok && save_and_next) {
-		QTimer::singleShot(0, [this]() {
+		QTimer::singleShot(0, this, [this]() {
 			this->editCompetitor(QVariant(), qf::qmlwidgets::model::DataDocument::ModeInsert);
 		});
 	}

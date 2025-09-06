@@ -339,11 +339,11 @@ FooterView::FooterView(QTableView *table_view, QWidget *parent)
 	if(hh) {
 		//qfWarning() << "header view:" << hh->metaObject()->className();
 		//setMaximumHeight(hh->defaultSectionSize());
-		connect(hh, &QHeaderView::sectionResized, [this](int logical_index, int old_size, int new_size) {
+		connect(hh, &QHeaderView::sectionResized, this, [this](int logical_index, int old_size, int new_size) {
 			Q_UNUSED(old_size)
 			this->resizeSection(logical_index, new_size);
 		});
-		connect(hh, &QHeaderView::sectionMoved, [this](int logical_index, int old_visual_index, int new_visual_index) {
+		connect(hh, &QHeaderView::sectionMoved, this, [this](int logical_index, int old_visual_index, int new_visual_index) {
 			Q_UNUSED(logical_index)
 			this->moveSection(old_visual_index, new_visual_index);
 		});
