@@ -1,11 +1,10 @@
-#ifndef QF_CORE_MODEL_SQLDATADOCUMENT_H
-#define QF_CORE_MODEL_SQLDATADOCUMENT_H
+#pragma once
 
 #include "datadocument.h"
 #include "sqltablemodel.h"
 
 namespace qf {
-namespace core {
+namespace qmlwidgets {
 namespace model {
 
 class QFCORE_DECL_EXPORT SqlDataDocument : public DataDocument
@@ -38,4 +37,3 @@ protected:
 
 }}}
 
-#endif // QF_CORE_MODEL_SQLDATADOCUMENT_H

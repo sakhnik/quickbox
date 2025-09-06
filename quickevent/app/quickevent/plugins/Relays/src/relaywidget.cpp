@@ -8,7 +8,7 @@
 #include <plugins/Event/src/eventplugin.h>
 
 #include <quickevent/gui/og/itemdelegate.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/siid.h>
 
@@ -33,11 +33,11 @@ namespace qfd = qf::qmlwidgets::dialogs;
 
 namespace {
 
-class LegsModel : public quickevent::core::og::SqlTableModel
+class LegsModel : public quickevent::gui::og::SqlTableModel
 {
 	Q_DECLARE_TR_FUNCTIONS(LegsModel)
 private:
-	using Super = quickevent::core::og::SqlTableModel;
+	using Super = quickevent::gui::og::SqlTableModel;
 public:
 	LegsModel(QObject *parent = nullptr);
 

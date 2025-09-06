@@ -7,7 +7,7 @@
 #include <plugins/Competitors/src/competitordocument.h>
 #include <plugins/Event/src/eventplugin.h>
 
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/gui/og/itemdelegate.h>
 #include <quickevent/core/exporters/stageresultscsvexporter.h>
 
@@ -23,7 +23,7 @@
 #include <qf/qmlwidgets/tableview.h>
 #include <qf/qmlwidgets/dialogbuttonbox.h>
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/dbenum.h>
 #include <qf/core/sql/connection.h>
@@ -52,7 +52,7 @@ namespace qfs = qf::core::sql;
 namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
@@ -961,7 +961,7 @@ void RunsWidget::onDrawRemoveClicked()
 		for (int i = 0; i < runs_model->rowCount(); ++i) {
 			runs_model->setValue(i, "startTimeMs", QVariant());
 			// bypass mid-air collision check
-			runs_model->quickevent::core::og::SqlTableModel::postRow(i, qf::core::Exception::Throw);
+			runs_model->quickevent::gui::og::SqlTableModel::postRow(i, qf::core::Exception::Throw);
 		}
 		int stage_id = selectedStageId();
 		saveLockedForDrawing(class_id, stage_id, false, 0);
@@ -1092,7 +1092,7 @@ void RunsWidget::report_competitorsStatistics()
 
 	qfs::QueryBuilder qb;
 	qb.select2("classes", "id, name").from("classes").orderBy("classes.name");
-	qf::core::model::SqlTableModel m;
+	qf::qmlwidgets::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.reload();
 	qfu::TreeTable tt = m.toTreeTable();
@@ -1154,7 +1154,7 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 		w->setWindowTitle(tr("Edit Competitor"));
 		qfd::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 		dlg.setDefaultButton(QDialogButtonBox::Ok);
-		if(mode == qf::core::model::DataDocument::ModeInsert || mode == qf::core::model::DataDocument::ModeEdit) {
+		if(mode == qf::qmlwidgets::model::DataDocument::ModeInsert || mode == qf::qmlwidgets::model::DataDocument::ModeEdit) {
 			QPushButton *bt_save = dlg.buttonBox()->addButton(tr("Save"), QDialogButtonBox::ApplyRole);
 			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [w, bt_save](QAbstractButton *button) {
 				if (button == bt_save) {
@@ -1191,7 +1191,7 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 	}
 	if(ok && save_and_next) {
 		QTimer::singleShot(0, [this]() {
-			this->editCompetitor(QVariant(), qf::core::model::DataDocument::ModeInsert);
+			this->editCompetitor(QVariant(), qf::qmlwidgets::model::DataDocument::ModeInsert);
 		});
 	}
 }

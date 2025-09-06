@@ -7,6 +7,13 @@ add_library(libqfqmlwidgets SHARED
     src/dateedit.cpp
     src/datetimeedit.cpp
     src/dialogbuttonbox.cpp
+
+    src/model/datadocument.cpp
+    src/model/logtablemodel.cpp
+    src/model/sqldatadocument.cpp
+    src/model/sqltablemodel.cpp
+    src/model/tablemodel.cpp
+
     src/dialogs/dialog.cpp
     src/dialogs/filedialog.cpp
     src/dialogs/getiteminputdialog.cpp

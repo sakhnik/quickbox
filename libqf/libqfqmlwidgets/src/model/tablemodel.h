@@ -1,14 +1,14 @@
-#ifndef QF_CORE_MODEL_TABLEMODEL_H
-#define QF_CORE_MODEL_TABLEMODEL_H
+#pragma once
 
-#include "../core/coreglobal.h"
-#include "../utils/table.h"
-#include "../core/utils.h"
+#include "../qmlwidgetsglobal.h"
+
+#include <qf/core/utils/table.h>
+#include <qf/core/utils.h>
 
 #include <QAbstractTableModel>
 
 namespace qf {
-namespace core {
+namespace qmlwidgets {
 
 namespace utils {
 class TreeTable;
@@ -16,7 +16,7 @@ class TreeTable;
 
 namespace model {
 
-class QFCORE_DECL_EXPORT TableModel : public QAbstractTableModel
+class QFQMLWIDGETS_DECL_EXPORT TableModel : public QAbstractTableModel
 {
 	Q_OBJECT
 	Q_PROPERTY(bool nullReportedAsString READ isNullReportedAsString WRITE setNullReportedAsString NOTIFY nullReportedAsStringChanged)
@@ -223,6 +223,5 @@ protected:
 
 }}}
 
-Q_DECLARE_METATYPE(qf::core::model::TableModel::ColumnDefinition)
+Q_DECLARE_METATYPE(qf::qmlwidgets::model::TableModel::ColumnDefinition)
 
-#endif // QF_CORE_MODEL_TABLEMODEL_H

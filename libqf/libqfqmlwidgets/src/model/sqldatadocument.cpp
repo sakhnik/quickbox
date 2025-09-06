@@ -1,7 +1,8 @@
 #include "sqldatadocument.h"
-#include "../core/assert.h"
 
-using namespace qf::core::model;
+#include <qf/core/assert.h>
+
+namespace qf::qmlwidgets::model {
 
 SqlDataDocument::SqlDataDocument(QObject *parent)
 	: Super(parent)
@@ -68,3 +69,4 @@ bool SqlDataDocument::loadData()
 	return ret;
 }
 
+}

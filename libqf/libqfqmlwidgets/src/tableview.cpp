@@ -24,8 +24,8 @@
 #include <qf/core/collator.h>
 #include <qf/core/assert.h>
 #include <qf/core/exception.h>
-#include <qf/core/model/sqltablemodel.h>
-#include <qf/core/model/tablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/tablemodel.h>
 #include <qf/core/utils/treetable.h>
 #include <qf/core/sql/transaction.h>
 
@@ -49,7 +49,7 @@
 
 namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 using namespace qf::qmlwidgets;
 
 TableView::TableView(QWidget *parent) :
@@ -155,19 +155,19 @@ void TableView::setModel(QAbstractItemModel *model)
 	Super::setModel(model);
 }
 
-qf::core::model::TableModel *TableView::tableModel() const
+qf::qmlwidgets::model::TableModel *TableView::tableModel() const
 {
-	auto *ret = qobject_cast<qf::core::model::TableModel *>(lastProxyModel()->sourceModel());
+	auto *ret = qobject_cast<qf::qmlwidgets::model::TableModel *>(lastProxyModel()->sourceModel());
 	return ret;
 }
 
-void TableView::setTableModel(core::model::TableModel *m)
+void TableView::setTableModel(qmlwidgets::model::TableModel *m)
 {
-	qf::core::model::TableModel *old_m = tableModel();
+	qf::qmlwidgets::model::TableModel *old_m = tableModel();
 	if (old_m != m) {
 		QAbstractProxyModel *pxm = lastProxyModel();
 		pxm->setSourceModel(m);
-		m_proxyModel->setSortRole(qf::core::model::TableModel::SortRole);
+		m_proxyModel->setSortRole(qf::qmlwidgets::model::TableModel::SortRole);
 		if(pxm->columnCount() > 0) {
 			qfDebug() << persistentSettingsPath() << "Load persistent settings.";
 			// it does not make sense to load column widths unless we have table columns
@@ -182,7 +182,7 @@ void TableView::refreshActions()
 {
 	qfLogFuncFrame() << "model:" << model();
 	enableAllActions(false);
-	qfc::model::TableModel *m = tableModel();
+	auto *m = tableModel();
 	if(!m)
 		return;
 	action("filter")->setEnabled(true);
@@ -284,7 +284,7 @@ void TableView::reload(bool preserve_sorting)
 		sort_order = horizontalHeader()->sortIndicatorOrder();
 		horizontalHeader()->setSortIndicator(-1, Qt::AscendingOrder);
 	}
-	qf::core::model::TableModel *table_model = tableModel();
+	qf::qmlwidgets::model::TableModel *table_model = tableModel();
 	if(table_model) {
 		QModelIndex ix = currentIndex();
 		int r = ix.row();
@@ -395,7 +395,7 @@ void TableView::cloneRowInline()
 		if(ix.row() < 0)
 			return;
 		int tri1 = toTableModelRowNo(ix.row());
-		core::model::TableModel *tm = tableModel();
+		qmlwidgets::model::TableModel *tm = tableModel();
 		tm->cloneRow(tri1);
 		m_proxyModel->sort();
 		setCurrentIndex(m_proxyModel->index(ix.row() + 1, ix.column()));
@@ -451,7 +451,7 @@ bool TableView::postRowImpl(int row_no)
 	if(row_no < 0)
 		return false;
 	bool ret = false;
-	qfc::model::TableModel *m = tableModel();
+	auto *m = tableModel();
 	if(m) {
 		ret = m->postRow(toTableModelRowNo(row_no), true);
 		if(ret)
@@ -480,7 +480,7 @@ void TableView::revertRow(int row_no)
 		row_no = currentIndex().row();
 	if(row_no < 0)
 		return;
-	qfc::model::TableModel *m = tableModel();
+	auto *m = tableModel();
 	if(m) {
 		m->revertRow(toTableModelRowNo(row_no));
 	}
@@ -494,7 +494,7 @@ int TableView::reloadRow(int row_no)
 		row_no = currentIndex().row();
 	if(row_no < 0)
 		return 0;
-	qfc::model::TableModel *m = tableModel();
+	auto *m = tableModel();
 	if(m) {
 		return m->reloadRow(toTableModelRowNo(row_no));
 	}
@@ -646,7 +646,7 @@ void TableView::setValueInSelection_helper(const QVariant &new_val)
 	}
 	else if(selected_row_indexes.count() > 1) {
 		qfc::sql::Connection conn;
-		auto *sql_m = qobject_cast<qfc::model::SqlTableModel *>(tableModel());
+		auto *sql_m = qobject_cast<qf::qmlwidgets::model::SqlTableModel *>(tableModel());
 		if(sql_m) {
 			try {
 				conn = sql_m->sqlConnection();
@@ -740,7 +740,7 @@ void TableView::editCellContentInEditor()
 
 void TableView::exportCSV()
 {
-	core::model::TableModel *m = tableModel();
+	qmlwidgets::model::TableModel *m = tableModel();
 	if(!m)
 		return;
 
@@ -820,14 +820,14 @@ void TableView::selectCurrentRow()
 		selectRow(ix.row());
 }
 
-qf::core::utils::TreeTable TableView::toTreeTable(const QString &table_name, const QVariantList &_exported_columns, const qf::core::model::TableModel::TreeTableExportOptions &opts) const
+qf::core::utils::TreeTable TableView::toTreeTable(const QString &table_name, const QVariantList &_exported_columns, const qf::qmlwidgets::model::TableModel::TreeTableExportOptions &opts) const
 {
 	qfu::TreeTable ret(table_name);
 	QVariantList exported_columns = _exported_columns;
 	QAbstractItemModel *proxy_model = model();
 	if(!proxy_model)
 		return ret;
-	core::model::TableModel *table_model = tableModel();
+	qmlwidgets::model::TableModel *table_model = tableModel();
 	if(!table_model)
 		return ret;
 	const core::utils::Table &table = table_model->table();
@@ -859,12 +859,12 @@ qf::core::utils::TreeTable TableView::toTreeTable(const QString &table_name, con
 				//qfWarning() << fld.toString();
 			}
 			else {
-				t = proxy_model->headerData(ix, Qt::Horizontal, core::model::TableModel::FieldTypeRole).toInt();
+				t = proxy_model->headerData(ix, Qt::Horizontal, qmlwidgets::model::TableModel::FieldTypeRole).toInt();
 			}
-			cd.setName(proxy_model->headerData(ix, Qt::Horizontal, core::model::TableModel::FieldNameRole).toString());
+			cd.setName(proxy_model->headerData(ix, Qt::Horizontal, qmlwidgets::model::TableModel::FieldNameRole).toString());
 			cd.setType(t);
 			cd.setHeader(cap);
-			//ret.appendColumn(proxy_model->headerData(ix, Qt::Horizontal, core::model::TableModel::FieldNameRole).toString(), t, cap);
+			//ret.appendColumn(proxy_model->headerData(ix, Qt::Horizontal, qmlwidgets::model::TableModel::FieldNameRole).toString(), t, cap);
 		}
 		cd.setWidth(col.value("width"));
 		ret.appendColumn(cd);
@@ -886,7 +886,7 @@ qf::core::utils::TreeTable TableView::toTreeTable(const QString &table_name, con
 				else {
 					QModelIndex mix = proxy_model->index(i, ix);
 					if(raw_values) {
-						val = proxy_model->data(mix, core::model::TableModel::RawValueRole);
+						val = proxy_model->data(mix, qmlwidgets::model::TableModel::RawValueRole);
 						//qfWarning() << col << val.typeName() << "val:" << val.toString();
 					}
 					else {
@@ -912,7 +912,7 @@ void TableView::exportReport_helper(const QVariant& _options)
 		qfu::TreeTable ttable;
 
 		{
-			qfc::model::TableModel::TreeTableExportOptions opts;
+			qf::qmlwidgets::model::TableModel::TreeTableExportOptions opts;
 			//opts.setExportRawValues(true);
 			ttable = toTreeTable("data", exported_columns, opts);
 		}
@@ -1085,7 +1085,7 @@ int TableView::logicalColumnIndex(const QString &field_name) const
 {
 	auto *m = model();
 	if(m) for (int i = 0; i < m->columnCount(); ++i) {
-		QString fldn = m->headerData(i, Qt::Horizontal, qf::core::model::TableModel::FieldNameRole).toString();
+		QString fldn = m->headerData(i, Qt::Horizontal, qf::qmlwidgets::model::TableModel::FieldNameRole).toString();
 		if(qf::core::Utils::fieldNameEndsWith(fldn, field_name))
 			return i;
 	}
@@ -1317,7 +1317,7 @@ void TableView::loadPersistentSettings()
 			qfDebug() << path << "Cannot load persistent settings, horizontal header does not exist or it is empty.";
 			return;
 		}
-		qf::core::model::TableModel *mod = tableModel();
+		qf::qmlwidgets::model::TableModel *mod = tableModel();
 		if(!mod || mod->columnCount() == 0) {
 			qfDebug() << path << "Cannot load persistent settings, table model does not exist or it is empty.";
 			return;
@@ -1973,7 +1973,7 @@ void TableView::copySpecial_helper(const QTableView *table_view, const QString &
 		for (auto col : cols) {
 			QModelIndex ix = m->index(row, col);
 			QString s;
-			if(!ix.data(qf::core::model::TableModel::ValueIsNullRole).toBool()) {
+			if(!ix.data(qf::qmlwidgets::model::TableModel::ValueIsNullRole).toBool()) {
 				s = ix.data(Qt::DisplayRole).toString();
 				if(s.isEmpty()) {
 					QVariant v = ix.data(Qt::CheckStateRole);
@@ -2211,7 +2211,7 @@ bool TableView::edit(const QModelIndex& index, EditTrigger trigger, QEvent* even
 		bool read_only = isReadOnly();
 		/*
 		if(!read_only) {
-			qfc::model::TableModel *m = tableModel();
+			auto *m = tableModel();
 			read_only = (!m || m->isReadOnly());
 		}
 		*/

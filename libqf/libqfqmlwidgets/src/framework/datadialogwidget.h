@@ -5,7 +5,7 @@
 #include "../datacontroller.h"
 #include "dialogwidget.h"
 
-#include <qf/core/model/datadocument.h>
+#include "../model/datadocument.h"
 
 namespace qf {
 namespace qmlwidgets {
@@ -24,9 +24,9 @@ public:
 	qf::qmlwidgets::DataController *dataController();
 	void setDataController(qf::qmlwidgets::DataController *dc);
 
-	core::model::DataDocument* dataDocument(bool throw_exc = qf::core::Exception::Throw);
+	qf::qmlwidgets::model::DataDocument* dataDocument(bool throw_exc = qf::core::Exception::Throw);
 
-	Q_SLOT virtual bool load(const QVariant &id = QVariant(), int mode = qf::core::model::DataDocument::ModeEdit);
+	Q_SLOT virtual bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit);
 
 	bool acceptDialogDone(int result) Q_DECL_OVERRIDE;
 

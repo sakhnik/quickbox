@@ -259,7 +259,7 @@ void DbEnumComboBox::loadItems(bool force)
 				QColor c = dbe.color();
 				if(c.isValid()) {
 					setItemData(count() - 1, c, Qt::BackgroundRole);
-					setItemData(count() - 1, qf::core::model::TableModel::contrastTextColor(c), Qt::ForegroundRole);
+					setItemData(count() - 1, qf::qmlwidgets::model::TableModel::contrastTextColor(c), Qt::ForegroundRole);
 				}
 			}
 		}

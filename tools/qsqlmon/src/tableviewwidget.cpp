@@ -54,7 +54,7 @@ qf::qmlwidgets::TableView *TableViewWidget::tableView()
 
 void TableViewWidget::updateStatus()
 {
-	qf::core::model::TableModel *m = tableView()->tableModel();
+	qf::qmlwidgets::model::TableModel *m = tableView()->tableModel();
 	if(m) {
 		ui->lblRowCnt->setText(QString("%1 rows").arg(m->rowCount()));
 	}

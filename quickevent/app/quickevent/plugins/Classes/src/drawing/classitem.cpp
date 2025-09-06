@@ -23,7 +23,7 @@
 
 namespace qfd = qf::qmlwidgets::dialogs;
 namespace qfc = qf::core;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 
 namespace drawing {
 
@@ -462,7 +462,7 @@ void ClassItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		bool ok = dlg.exec();
 		if(ok) {
 			//qfInfo() << "OK";
-			qf::core::model::DataDocument *doc = w->dataDocument();
+			qf::qmlwidgets::model::DataDocument *doc = w->dataDocument();
 			ClassData dt = data();
 			dt.setStartTimeMin(doc->value("startTimeMin").toInt());
 			dt.setStartIntervalMin(doc->value("startIntervalMin").toInt());

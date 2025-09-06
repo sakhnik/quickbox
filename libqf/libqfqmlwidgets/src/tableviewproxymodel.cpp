@@ -2,18 +2,18 @@
 
 #include <qf/core/log.h>
 #include <qf/core/collator.h>
-#include <qf/core/model/tablemodel.h>
+#include <qf/qmlwidgets/model/tablemodel.h>
 
 #include <QColor>
 #include <QDateTime>
 
-//namespace qfm = qf::core::model;
+//namespace qfm = qf::qmlwidgets::model;
 using namespace qf::qmlwidgets;
 
 TableViewProxyModel::TableViewProxyModel(QObject *parent)
 	: Super(parent)
 {
-	setSortRole(qf::core::model::TableModel::SortRole);
+	setSortRole(qf::qmlwidgets::model::TableModel::SortRole);
 }
 
 TableViewProxyModel::~TableViewProxyModel()

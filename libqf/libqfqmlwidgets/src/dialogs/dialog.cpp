@@ -133,7 +133,7 @@ void Dialog::setRecordEditMode(int mode)
 	if(m_dialogButtonBox) {
 		auto bt_save = m_dialogButtonBox->button(QDialogButtonBox::Save);
 		if(bt_save) {
-			if(mode == qf::core::model::DataDocument::ModeDelete) {
+			if(mode == qf::qmlwidgets::model::DataDocument::ModeDelete) {
 				bt_save->setText(tr("Delete"));
 			}
 			else {

@@ -7,9 +7,7 @@ namespace Ui {
 class EditCoursesWidget;
 }
 
-namespace qf {
-namespace core { namespace model { class SqlTableModel; } }
-}
+namespace qf::qmlwidgets::model { class SqlTableModel; }
 
 class EditCoursesWidget : public qf::qmlwidgets::framework::DialogWidget
 {
@@ -23,7 +21,7 @@ public:
 	void editCourseCodes(const QModelIndex &ix);
 private:
 	Ui::EditCoursesWidget *ui;
-	qf::core::model::SqlTableModel *m_coursesModel;
+	qf::qmlwidgets::model::SqlTableModel *m_coursesModel;
 };
 
 #endif // EDITCOURSESWIDGET_H

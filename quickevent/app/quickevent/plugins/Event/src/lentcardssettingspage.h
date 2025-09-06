@@ -8,9 +8,7 @@ namespace Ui {
 class LentCardsSettingsPage;
 }
 
-namespace qf {
-namespace core { namespace model { class SqlTableModel; } }
-}
+namespace qf::qmlwidgets::model { class SqlTableModel; }
 
 class LentCardsSettingsPage : public Core::SettingsPage
 {
@@ -27,6 +25,6 @@ protected:
 
 private:
 	Ui::LentCardsSettingsPage *ui;
-	qf::core::model::SqlTableModel *m_tableModel;
+	qf::qmlwidgets::model::SqlTableModel *m_tableModel;
 };
 

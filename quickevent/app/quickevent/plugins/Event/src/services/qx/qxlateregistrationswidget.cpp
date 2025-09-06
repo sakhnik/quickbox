@@ -8,14 +8,14 @@
 #include <plugins/Event/src/eventplugin.h>
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/log.h>
 #include <qf/core/sql/query.h>
 
 #include <QMenu>
 #include <QJsonDocument>
 
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;
 namespace qfw = qf::qmlwidgets;
 using qf::qmlwidgets::framework::getPlugin;

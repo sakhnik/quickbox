@@ -10,7 +10,7 @@
 
 #include <quickevent/core/si/punchrecord.h>
 #include <quickevent/core/si/siid.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 
 #include <qf/qmlwidgets/dialogs/dialog.h>
@@ -19,7 +19,7 @@
 #include <qf/qmlwidgets/toolbar.h>
 #include <qf/qmlwidgets/combobox.h>
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/assert.h>
 
@@ -33,7 +33,7 @@ namespace qfs = qf::core::sql;
 namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
@@ -72,7 +72,7 @@ SpeakerWidget::SpeakerWidget(QWidget *parent) :
 	*/
 	//ui->tblPunches->setRowEditorMode(qfw::TableView::EditRowsMixed);
 	//ui->tblPunches->setInlineEditSaveStrategy(qfw::TableView::OnEditedValueCommit);
-	quickevent::core::og::SqlTableModel *m = new quickevent::core::og::SqlTableModel(this);
+	quickevent::gui::og::SqlTableModel *m = new quickevent::gui::og::SqlTableModel(this);
 	m->addColumn("punches.id");//.setReadOnly(true);
 	m->addColumn("punches.code", tr("Code"));
 	m->addColumn("punches.siId", tr("SI")).setReadOnly(true).setCastType(qMetaTypeId<quickevent::core::si::SiId>());

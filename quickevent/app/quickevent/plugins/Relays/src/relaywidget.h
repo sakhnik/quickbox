@@ -3,7 +3,7 @@
 
 #include <qf/qmlwidgets/framework/datadialogwidget.h>
 
-namespace quickevent { namespace core { namespace og { class SqlTableModel; }}}
+namespace quickevent::gui::og { class SqlTableModel; }
 
 namespace Ui { class  RelayWidget; }
 
@@ -16,7 +16,7 @@ public:
 	explicit  RelayWidget(QWidget *parent = nullptr);
 	~RelayWidget() Q_DECL_OVERRIDE;
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::core::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
+	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
 private:
 	Q_SLOT bool loadLegsTable();
 	//Q_SLOT bool saveLegsTable();
@@ -30,7 +30,7 @@ private:
 	void moveLegDown();
 private:
 	Ui:: RelayWidget *ui;
-	quickevent::core::og::SqlTableModel *m_legsModel;
+	quickevent::gui::og::SqlTableModel *m_legsModel;
 };
 
 #endif // RELAYWIDGET_H

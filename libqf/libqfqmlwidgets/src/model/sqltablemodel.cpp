@@ -1,11 +1,12 @@
 #include "sqltablemodel.h"
-#include "../core/assert.h"
-#include "../core/utils.h"
-#include "../core/exception.h"
-#include "../sql/connection.h"
-#include "../sql/dbenum.h"
-#include "../sql/dbenumcache.h"
-#include "../sql/query.h"
+
+#include <qf/core/assert.h>
+#include <qf/core/utils.h>
+#include <qf/core/exception.h>
+#include <qf/core/sql/connection.h>
+#include <qf/core/sql/dbenum.h>
+#include <qf/core/sql/dbenumcache.h>
+#include <qf/core/sql/query.h>
 
 #include <QSqlRecord>
 #include <QSqlIndex>
@@ -18,7 +19,7 @@
 namespace qfs = qf::core::sql;
 namespace qfu = qf::core::utils;
 
-using namespace qf::core::model;
+namespace qf::qmlwidgets::model {
 
 SqlTableModel::SqlTableModel(QObject *parent)
 	: Super(parent)
@@ -38,9 +39,9 @@ QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 			QString group_name = props.groupName();
 			if(!group_name.isEmpty()) {
 				QVariant v = data(index, Qt::EditRole);
-				sql::DbEnumCache& db_enum_cache = qf::core::sql::DbEnumCache::instanceForConnection(connectionName());
+				qf::core::sql::DbEnumCache& db_enum_cache = qf::core::sql::DbEnumCache::instanceForConnection(connectionName());
 				QString group_id = v.toString();
-				sql::DbEnum dbe = db_enum_cache.dbEnum(group_name, group_id);
+				qf::core::sql::DbEnum dbe = db_enum_cache.dbEnum(group_name, group_id);
 				QString caption_format = props.captionFormat();
 				QString caption = dbe.fillInPlaceholders(caption_format);
 				return caption;
@@ -57,8 +58,8 @@ QVariant SqlTableModel::data(const QModelIndex &index, int role) const
 				QVariant v = data(index, Qt::EditRole);
 				QString group_id = v.toString();
 				if(!group_id.isEmpty()) {
-					sql::DbEnumCache& db_enum_cache = qf::core::sql::DbEnumCache::instanceForConnection(connectionName());
-					sql::DbEnum dbe = db_enum_cache.dbEnum(group_name, group_id);
+					qf::core::sql::DbEnumCache& db_enum_cache = qf::core::sql::DbEnumCache::instanceForConnection(connectionName());
+					qf::core::sql::DbEnum dbe = db_enum_cache.dbEnum(group_name, group_id);
 					QColor color = dbe.color();
 					if(color.isValid())
 						return color;
@@ -699,7 +700,7 @@ QString compose_table_id(const QString &table_name, const QString &schema_name)
 }
 }
 
-QStringList SqlTableModel::tableIds(const qf::core::utils::Table::FieldList &table_fields)
+QStringList SqlTableModel::tableIds(const core::utils::Table::FieldList &table_fields)
 {
 	QStringList ret;
 	int fld_cnt = table_fields.count();
@@ -863,3 +864,4 @@ QStringList SqlTableModel::tableIdsSortedAccordingToForeignKeys()
 	return ret;
 }
 
+}

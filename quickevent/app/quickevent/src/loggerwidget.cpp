@@ -3,15 +3,15 @@
 
 #include <qf/qmlwidgets/log.h>
 
-#include <qf/core/model/logtablemodel.h>
+#include <qf/qmlwidgets/model/logtablemodel.h>
 
 LoggerWidget::LoggerWidget(QWidget *parent)
 	: Super(parent)
 {
 	addCategoryActions(tr("<empty>"), QString(), NecroLog::Level::Info);
 
-	m_logModel = new qf::core::model::LogTableModel(this);
-	connect(Application::instance(), &Application::newLogEntry, m_logModel, &qf::core::model::LogTableModel::addLogEntry, Qt::QueuedConnection);
+	m_logModel = new qf::qmlwidgets::model::LogTableModel(this);
+	connect(Application::instance(), &Application::newLogEntry, m_logModel, &qf::qmlwidgets::model::LogTableModel::addLogEntry, Qt::QueuedConnection);
 	setLogTableModel(m_logModel);
 }
 

@@ -6,7 +6,7 @@
 #include <qf/qmlwidgets/tableview.h>
 #include <qf/qmlwidgets/framework/mainwindow.h>
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/log.h>

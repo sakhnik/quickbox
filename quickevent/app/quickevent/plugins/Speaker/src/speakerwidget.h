@@ -8,15 +8,10 @@
 namespace Ui {
 class SpeakerWidget;
 }
-namespace qf {
-//namespace core { namespace model { class SqlTableModel; } }
-namespace qmlwidgets {
-class ForeignKeyComboBox;
-}
-}
 
-namespace quickevent { namespace core { namespace og { class SqlTableModel; }}}
-namespace quickevent { namespace core { namespace si { class PunchRecord; }}}
+namespace qf::qmlwidgets { class ForeignKeyComboBox; }
+namespace quickevent::gui::og { class SqlTableModel; }
+namespace quickevent::core::si { class PunchRecord; }
 
 class ThisPartWidget;
 
@@ -48,7 +43,7 @@ private:
 	void onCodeClassActivated(int class_id, int code);
 private:
 	Ui::SpeakerWidget *ui;
-	quickevent::core::og::SqlTableModel *m_punchesModel = nullptr;
+	quickevent::gui::og::SqlTableModel *m_punchesModel = nullptr;
 	qf::qmlwidgets::framework::PartWidget *m_partWidget = nullptr;
 	bool m_resetRequest = false;
 	bool m_settingsLoaded = false;

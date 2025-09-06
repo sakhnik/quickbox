@@ -2,7 +2,7 @@
 
 #include <QDialog>
 
-namespace quickevent::core::og { class SqlTableModel; }
+namespace quickevent::gui::og { class SqlTableModel; }
 
 namespace Runs {
 
@@ -17,14 +17,14 @@ public:
 	explicit RunFlagsDialog(QWidget *parent = nullptr);
 	~RunFlagsDialog() override;
 
-	void load(quickevent::core::og::SqlTableModel *model, int row);
+	void load(quickevent::gui::og::SqlTableModel *model, int row);
 	void save();
 private:
 	void updateStatus();
 	bool isDisqualified() const;
 private:
 	Ui::RunFlagsDialog *ui;
-	quickevent::core::og::SqlTableModel *m_model;
+	quickevent::gui::og::SqlTableModel *m_model;
 	int m_row;
 	bool m_isDisqualified;
 };

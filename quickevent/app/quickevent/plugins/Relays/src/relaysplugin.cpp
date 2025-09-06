@@ -17,7 +17,7 @@
 #include <qf/core/sql/connection.h>
 #include <qf/core/utils/treetable.h>
 #include <qf/core/utils/htmlutils.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
 #include <plugins/Event/src/eventplugin.h>
@@ -30,7 +30,7 @@
 
 namespace qff = qf::qmlwidgets::framework;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;
 namespace qog = quickevent::core::og;
 using ::PartWidget;
@@ -470,8 +470,8 @@ qf::core::utils::TreeTable RelaysPlugin::nLegsClassResultsTable(int class_id, in
 QVariant RelaysPlugin::startListByClassesTableData(const QString &class_filter, bool with_vacants)
 {
 	qfLogFuncFrame() << class_filter;
-	qf::core::model::SqlTableModel model;
-	qf::core::model::SqlTableModel model2;
+	qf::qmlwidgets::model::SqlTableModel model;
+	qf::qmlwidgets::model::SqlTableModel model2;
 	{
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("classes", "id, name")

@@ -22,7 +22,7 @@
 #include <qf/core/string.h>
 #include <qf/core/utils.h>
 #include <qf/core/collator.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/assert.h>
@@ -42,7 +42,7 @@ static const auto SkipEmptyParts = Qt::SkipEmptyParts;
 namespace qfc = qf::core;
 namespace qfw = qf::qmlwidgets;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;

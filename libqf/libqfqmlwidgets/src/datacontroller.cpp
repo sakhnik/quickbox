@@ -15,20 +15,20 @@ DataController::DataController(QObject *parent)
 DataController::~DataController()
 = default;
 
-qf::core::model::DataDocument *DataController::document(bool throw_exc) const
+qf::qmlwidgets::model::DataDocument *DataController::document(bool throw_exc) const
 {
 	if(!m_document && throw_exc)
 		QF_EXCEPTION("DataDocument is NULL!");
 	return m_document;
 }
 
-void DataController::setDocument(qf::core::model::DataDocument *doc)
+void DataController::setDocument(qf::qmlwidgets::model::DataDocument *doc)
 {
 	if(m_document != doc) {
 		m_document = doc;
-		connect(doc, &qf::core::model::DataDocument::loaded, this, &DataController::documentLoaded);
-		connect(doc, &qf::core::model::DataDocument::valueChanged, this, &DataController::documentValueChanged);
-		connect(doc, &qf::core::model::DataDocument::aboutToSave, this, &DataController::documentAboutToSave);
+		connect(doc, &qf::qmlwidgets::model::DataDocument::loaded, this, &DataController::documentLoaded);
+		connect(doc, &qf::qmlwidgets::model::DataDocument::valueChanged, this, &DataController::documentValueChanged);
+		connect(doc, &qf::qmlwidgets::model::DataDocument::aboutToSave, this, &DataController::documentAboutToSave);
 		emit documentChanged(doc);
 	}
 }

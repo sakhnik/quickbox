@@ -15,8 +15,6 @@
 #include <QJsonDocument>
 #include <QMessageBox>
 
-using namespace  qf::core::model;
-
 namespace Event::services::qx {
 
 RunChangeDialog::RunChangeDialog(int change_id, int run_id, int lock_number, const RunChange &run_change, QWidget *parent)
@@ -112,7 +110,7 @@ void RunChangeDialog::loadOrigValues()
 	}
 
 	Competitors::CompetitorDocument doc;
-	doc.load(m_competitorId, DataDocument::ModeView);
+	doc.load(m_competitorId, qf::qmlwidgets::model::DataDocument::ModeView);
 
 	m_origValues.first_name = doc.value("firstName").toString();
 	m_origValues.last_name = doc.value("lastName").toString();
@@ -239,6 +237,8 @@ void RunChangeDialog::resolveChanges(bool is_accepted)
 
 void RunChangeDialog::applyLocalChanges(bool is_accepted)
 {
+	using namespace qf::qmlwidgets::model;
+
 	bool is_insert = m_runId == 0;
 	Competitors::CompetitorDocument doc;
 	doc.load(m_competitorId, is_insert? DataDocument::ModeInsert: DataDocument::ModeEdit);

@@ -5,11 +5,6 @@ add_library(libqfcore SHARED
     src/core/stacktrace.cpp
     src/core/string.cpp
     src/core/utils.cpp
-    src/model/datadocument.cpp
-    src/model/logtablemodel.cpp
-    src/model/sqldatadocument.cpp
-    src/model/sqltablemodel.cpp
-    src/model/tablemodel.cpp
     src/network/networkaccessmanager.cpp
     src/network/networkreply.cpp
     src/sql/catalog.cpp

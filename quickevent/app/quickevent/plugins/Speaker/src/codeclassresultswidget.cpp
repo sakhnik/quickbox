@@ -4,7 +4,7 @@
 #include <plugins/Event/src/eventplugin.h>
 
 #include <quickevent/core/codedef.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/punchrecord.h>
 
@@ -24,7 +24,7 @@ namespace qfs = qf::core::sql;
 namespace qfw = qf::qmlwidgets;
 namespace qff = qf::qmlwidgets::framework;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
@@ -38,7 +38,7 @@ CodeClassResultsWidget::CodeClassResultsWidget(QWidget *parent)
 	//ui->tblView->setPersistentSettingsId("tblView");
 	//ui->tblPunches->setRowEditorMode(qfw::TableView::EditRowsMixed);
 	//ui->tblPunches->setInlineEditSaveStrategy(qfw::TableView::OnEditedValueCommit);
-	quickevent::core::og::SqlTableModel *m = new quickevent::core::og::SqlTableModel(this);
+	quickevent::gui::og::SqlTableModel *m = new quickevent::gui::og::SqlTableModel(this);
 	m->addColumn("competitorName", tr("Competitor"));
 	m->addColumn("competitors.registration", tr("Reg"));//.setReadOnly(true);
 	m->addColumn("timeMs", tr("Time")).setCastType(qMetaTypeId<quickevent::core::og::TimeMs>());

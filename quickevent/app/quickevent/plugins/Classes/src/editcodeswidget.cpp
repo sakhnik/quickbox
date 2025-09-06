@@ -1,9 +1,9 @@
 #include "editcodeswidget.h"
 #include "ui_editcodeswidget.h"
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;
 
 EditCodesWidget::EditCodesWidget(QWidget *parent)

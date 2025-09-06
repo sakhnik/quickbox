@@ -1,26 +1,28 @@
-#ifndef QF_CORE_MODEL_LOGTABLEMODEL_H
-#define QF_CORE_MODEL_LOGTABLEMODEL_H
+#pragma once
 
-#include "../core/coreglobal.h"
-#include "../core/utils.h"
+#include "../qmlwidgetsglobal.h"
+
+#include <qf/core/utils.h>
+#include <qf/core/logentrymap.h>
 
 #include <necrologlevel.h>
 
 #include <QAbstractTableModel>
 
+namespace qf::core { class LogEntryMap; }
+
 namespace qf {
-namespace core {
-class LogEntryMap;
+namespace qmlwidgets {
 namespace model {
 
-class QFCORE_DECL_EXPORT  LogTableModel : public QAbstractTableModel
+class QFQMLWIDGETS_DECL_EXPORT  LogTableModel : public QAbstractTableModel
 {
 	Q_OBJECT
 private:
 	using Super = QAbstractTableModel;
 public:
 	enum Cols {TimeStamp, Severity, Category, Message, File, Line, Function, UserData, Count};
-	class QFCORE_DECL_EXPORT Row {
+	class QFQMLWIDGETS_DECL_EXPORT Row {
 	public:
 		explicit Row() {}
 		explicit Row(NecroLogLevel severity, const QString& domain, const QString& file, int line, const QString& msg, const QDateTime& time_stamp, const QString& function = QString(), const QVariant &user_data = QVariant());
@@ -45,7 +47,7 @@ public:
 
 	virtual void clear();
 	Row rowAt(int row) const;
-	Q_SLOT void addLogEntry(const qf::core::LogEntryMap &le);
+	Q_SLOT void addLogEntry(const core::LogEntryMap &le);
 	void addLog(NecroLogLevel severity, const QString& category, const QString &file, int line, const QString& msg, const QDateTime& time_stamp, const QString &function = QString(), const QVariant &user_data = QVariant());
 	void addRow(const Row &row);
 	Q_SIGNAL void logEntryInserted(int row_no);
@@ -57,4 +59,3 @@ protected:
 
 }}}
 
-#endif // QF_CORE_MODEL_LOGTABLEMODEL_H

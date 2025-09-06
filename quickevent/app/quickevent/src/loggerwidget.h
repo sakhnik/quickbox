@@ -20,7 +20,7 @@ public:
 private:
 	void registerLogCategories() Q_DECL_OVERRIDE;
 private:
-	qf::core::model::LogTableModel *m_logModel = nullptr;
+	qf::qmlwidgets::model::LogTableModel *m_logModel = nullptr;
 };
 
 #endif // LOGGERWIDGET_H

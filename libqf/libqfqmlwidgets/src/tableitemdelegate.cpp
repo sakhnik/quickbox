@@ -31,7 +31,7 @@ void TableItemDelegate::paintBackground(QPainter *painter, const QStyleOptionVie
 			/// da se to udelat i takhle bez patchovani QT
 			/// pozor, aby to fungovalo musi se jeste v TableView::currentChanged() volat updateRow() na radky u kterych se meni selekce
 			static const auto sel_row_background1 = isDarkTheme()? QColor(0x707010): QColor(245, 245, 184); // khaki
-			static const auto sel_row_background2 = isDarkTheme()? QColor(0x3b6237): QColor(245, 245, 184); // lime
+			static const auto sel_row_background2 = isDarkTheme()? QColor(0x284125): QColor(245, 245, 184); // lime
 			painter->fillRect(option.rect, (v->inlineEditSaveStrategy() == TableView::OnEditedValueCommit)? sel_row_background2: sel_row_background1);
 		}
 		else {
@@ -39,7 +39,7 @@ void TableItemDelegate::paintBackground(QPainter *painter, const QStyleOptionVie
 			Qt::ItemFlags flags = index.flags();
 			//qfInfo() << "col:" << index.column() << "editable:" << f.contains(Qt::ItemIsEditable);
 			if(!(flags & Qt::ItemIsEditable)) {
-				static const auto ro_cell_background = isDarkTheme()? QColor(0x292956):  QColor(0xeeeeff);
+				static const auto ro_cell_background = isDarkTheme()? QColor(0x00264d):  QColor(0xeeeeff);
 				painter->fillRect(option.rect, ro_cell_background);
 			}
 		}

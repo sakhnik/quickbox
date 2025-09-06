@@ -28,7 +28,7 @@
 #include <qf/qmlwidgets/reports/widgets/reportviewwidget.h>
 
 #include <qf/core/sql/query.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/transaction.h>
 #include <qf/core/assert.h>
@@ -49,7 +49,7 @@
 namespace qfs = qf::core::sql;
 namespace qfw = qf::qmlwidgets;
 namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
@@ -270,7 +270,7 @@ void RelaysWidget::editRelay(const QVariant &id, int mode)
 	//	transaction.rollback();
 	if(ok && save_and_next) {
 		QTimer::singleShot(0, [this]() {
-			this->editRelay(QVariant(), qf::core::model::DataDocument::ModeInsert);
+			this->editRelay(QVariant(), qf::qmlwidgets::model::DataDocument::ModeInsert);
 		});
 	}
 }
@@ -354,8 +354,8 @@ void RelaysWidget::relays_assignNumbers()
 QVariant RelaysWidget::startListByClubsTableData(bool with_vacants)
 {
 	qfLogFuncFrame();
-	qf::core::model::SqlTableModel model;
-	qf::core::model::SqlTableModel model2;
+	qf::qmlwidgets::model::SqlTableModel model;
+	qf::qmlwidgets::model::SqlTableModel model2;
 	{
 		qf::core::sql::QueryBuilder qb1;
 		qb1.select("relays.club")

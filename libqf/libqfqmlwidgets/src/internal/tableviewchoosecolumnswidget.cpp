@@ -1,7 +1,7 @@
 #include "tableviewchoosecolumnswidget.h"
 #include "ui_tableviewchoosecolumnswidget.h"
 
-#include <qf/core/model/tablemodel.h>
+#include <qf/qmlwidgets/model/tablemodel.h>
 #include <qf/core/log.h>
 
 #include <QStandardItemModel>
@@ -42,7 +42,7 @@ TableViewChooseColumnsWidget::~TableViewChooseColumnsWidget()
 	delete ui;
 }
 
-void TableViewChooseColumnsWidget::loadColumns(qf::core::model::TableModel *model)
+void TableViewChooseColumnsWidget::loadColumns(qf::qmlwidgets::model::TableModel *model)
 {
 	if(model) {
 		{

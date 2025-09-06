@@ -3,7 +3,7 @@
 #include "ui_editcourseswidget.h"
 
 #include <quickevent/core/codedef.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/connection.h>
 #include <qf/qmlwidgets/dialogs/dialog.h>
 #include <qf/qmlwidgets/dialogbuttonbox.h>
@@ -12,7 +12,7 @@
 
 namespace qfc = qf::core;
 namespace qfw = qf::qmlwidgets;
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;
 
 class CoursesTableModel : public qfm::SqlTableModel
@@ -37,15 +37,15 @@ public:
 	CoursesTableModel(QObject *parent) : Super(parent)
 	{
 		clearColumns(Col_COUNT);
-		setColumn(Col_id, qf::core::model::TableModel::ColumnDefinition("id", tr("Id")).setReadOnly(true));
-		setColumn(Col_name, qf::core::model::TableModel::ColumnDefinition("courses.name", tr("Name")));
-		setColumn(Col_length, qf::core::model::TableModel::ColumnDefinition("courses.length", tr("Length")));
-		setColumn(Col_climb, qf::core::model::TableModel::ColumnDefinition("courses.climb", tr("Climb")));
-		setColumn(Col_mapCount, qf::core::model::TableModel::ColumnDefinition("courses.mapCount", tr("Maps")));
-		setColumn(Col_runCount, qf::core::model::TableModel::ColumnDefinition("run_count", tr("Runners")));
-		setColumn(Col_note, qf::core::model::TableModel::ColumnDefinition("courses.note", tr("Note")));
-		setColumn(Col_codeCount, qf::core::model::TableModel::ColumnDefinition("code_count", tr("Code count")).setReadOnly(true));
-		setColumn(Col_codeList, qf::core::model::TableModel::ColumnDefinition("code_list", tr("Codes")).setReadOnly(true));
+		setColumn(Col_id, qf::qmlwidgets::model::TableModel::ColumnDefinition("id", tr("Id")).setReadOnly(true));
+		setColumn(Col_name, qf::qmlwidgets::model::TableModel::ColumnDefinition("courses.name", tr("Name")));
+		setColumn(Col_length, qf::qmlwidgets::model::TableModel::ColumnDefinition("courses.length", tr("Length")));
+		setColumn(Col_climb, qf::qmlwidgets::model::TableModel::ColumnDefinition("courses.climb", tr("Climb")));
+		setColumn(Col_mapCount, qf::qmlwidgets::model::TableModel::ColumnDefinition("courses.mapCount", tr("Maps")));
+		setColumn(Col_runCount, qf::qmlwidgets::model::TableModel::ColumnDefinition("run_count", tr("Runners")));
+		setColumn(Col_note, qf::qmlwidgets::model::TableModel::ColumnDefinition("courses.note", tr("Note")));
+		setColumn(Col_codeCount, qf::qmlwidgets::model::TableModel::ColumnDefinition("code_count", tr("Code count")).setReadOnly(true));
+		setColumn(Col_codeList, qf::qmlwidgets::model::TableModel::ColumnDefinition("code_list", tr("Codes")).setReadOnly(true));
 	}
 public:
 	QVariant data(const QModelIndex &index, int role) const override
@@ -139,7 +139,7 @@ EditCoursesWidget::~EditCoursesWidget()
 
 void EditCoursesWidget::editCourseCodes(const QModelIndex &ix)
 {
-	qfc::model::TableModel *m = ui->tblCourses->tableModel();
+	auto *m = ui->tblCourses->tableModel();
 	if(!m)
 		return;
 	int row_no = ui->tblCourses->toTableModelRowNo(ix.row());

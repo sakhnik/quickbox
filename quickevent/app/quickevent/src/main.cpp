@@ -11,7 +11,7 @@
 #include <qf/core/log.h>
 #include <qf/core/logentrymap.h>
 #include <qf/core/utils/settings.h>
-#include <qf/core/model/logtablemodel.h>
+#include <qf/qmlwidgets/model/logtablemodel.h>
 
 #include <QtQml>
 #include <QLocale>

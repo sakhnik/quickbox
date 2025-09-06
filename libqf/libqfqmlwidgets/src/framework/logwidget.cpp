@@ -7,7 +7,7 @@
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
 #include <qf/core/logentrymap.h>
-#include <qf/core/model/logtablemodel.h>
+#include <qf/qmlwidgets/model/logtablemodel.h>
 
 #include <QSortFilterProxyModel>
 #include <QActionGroup>
@@ -18,9 +18,7 @@
 #include <QInputDialog>
 #include <QScrollBar>
 
-namespace qfm = qf::core::model;
-
-
+namespace qfm = qf::qmlwidgets::model;
 
 namespace qf::qmlwidgets::framework {
 
@@ -100,7 +98,7 @@ LogWidget::LogWidget(QWidget *parent)
 	{
 		auto *a = new QAction(tr("Maximal log length"), this);
 		connect(a, &QAction::triggered, this, [this]() {
-			qf::core::model::LogTableModel *m = this->logTableModel();
+			qf::qmlwidgets::model::LogTableModel *m = this->logTableModel();
 			int max_rows = m->maximumRowCount();
 			bool ok;
 			max_rows = QInputDialog::getInt(this, tr("Get number"), tr("Maximal log row count:"), max_rows, 0, std::numeric_limits<int>::max(), 100, &ok);
@@ -147,13 +145,13 @@ void LogWidget::clear()
 		m_logTableModel->clear();
 }
 
-void LogWidget::setLogTableModel(core::model::LogTableModel *m)
+void LogWidget::setLogTableModel(qmlwidgets::model::LogTableModel *m)
 {
 	if(m_logTableModel != m) {
 		m_logTableModel = m;
 		m_filterModel->setSourceModel(m_logTableModel);
 		if(m_logTableModel) {
-			connect(m_logTableModel, &core::model::LogTableModel::logEntryInserted, this, &LogWidget::checkScrollToLastEntry, Qt::UniqueConnection);
+			connect(m_logTableModel, &qmlwidgets::model::LogTableModel::logEntryInserted, this, &LogWidget::checkScrollToLastEntry, Qt::UniqueConnection);
 			QScrollBar *sb = ui->tableView->verticalScrollBar();
 			if(sb)
 				connect(sb, &QScrollBar::valueChanged, this, &LogWidget::onVerticalScrollBarValueChanged, Qt::UniqueConnection);
@@ -172,7 +170,7 @@ void LogWidget::addLogEntry(const qf::core::LogEntryMap &le)
 	addLog(le.level(), le.category(), le.file(), le.line(), le.message(), le.timeStamp(), le.function());
 }
 
-qf::core::model::LogTableModel *LogWidget::logTableModel()
+qf::qmlwidgets::model::LogTableModel *LogWidget::logTableModel()
 {
 	if(!m_logTableModel) {
 		auto *m = new qfm::LogTableModel(this);
@@ -223,7 +221,7 @@ bool LogWidget::isAutoScroll()
 {
 	QScrollBar *sb = ui->tableView->verticalScrollBar();
 	if(sb) {
-		if(logTableModel()->direction() == qf::core::model::LogTableModel::Direction::AppendToBottom) {
+		if(logTableModel()->direction() == qf::qmlwidgets::model::LogTableModel::Direction::AppendToBottom) {
 			//fprintf(stderr, "BOTTOM scrollbar min: %d max: %d value: %d\n", sb->minimum(), sb->maximum(), sb->value());
 			return (sb->value() == sb->maximum());
 		}
@@ -355,7 +353,7 @@ void LogWidget::checkScrollToLastEntry()
 			ui->tableView->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 		}
 		if(isAutoScroll()) {
-			if(logTableModel()->direction() == qf::core::model::LogTableModel::Direction::AppendToBottom) {
+			if(logTableModel()->direction() == qf::qmlwidgets::model::LogTableModel::Direction::AppendToBottom) {
 				ui->tableView->scrollToBottom();
 			}
 			else {

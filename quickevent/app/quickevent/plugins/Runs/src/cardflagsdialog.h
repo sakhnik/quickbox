@@ -2,7 +2,7 @@
 
 #include <QDialog>
 
-namespace quickevent::core::og { class SqlTableModel; }
+namespace quickevent::gui::og { class SqlTableModel; }
 
 namespace Runs {
 
@@ -18,13 +18,13 @@ public:
 	explicit CardFlagsDialog(QWidget *parent = nullptr);
 	~CardFlagsDialog() override;
 
-	void load(quickevent::core::og::SqlTableModel *model, int row);
+	void load(quickevent::gui::og::SqlTableModel *model, int row);
 	void save();
 private:
 	void updateStatus();
 private:
 	Ui::CardFlagsDialog *ui;
-	quickevent::core::og::SqlTableModel *m_model;
+	quickevent::gui::og::SqlTableModel *m_model;
 	int m_row;
 };
 

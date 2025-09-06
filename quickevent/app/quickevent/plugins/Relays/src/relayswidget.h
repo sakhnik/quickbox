@@ -9,16 +9,9 @@ class QCheckBox;
 namespace Ui {
 class RelaysWidget;
 }
-namespace qf {
-namespace core {
-namespace model {
-class SqlTableModel;
-}
-}
-namespace qmlwidgets {
-class ForeignKeyComboBox;
-}
-}
+
+namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::qmlwidgets { class ForeignKeyComboBox; }
 
 class RelaysWidget : public QFrame
 {
@@ -59,7 +52,7 @@ private:
 	//void printResults(const QString &settings_id, const QVariantMap &default_options);
 private:
 	Ui::RelaysWidget *ui;
-	qf::core::model::SqlTableModel *m_tblModel;
+	qf::qmlwidgets::model::SqlTableModel *m_tblModel;
 	qf::qmlwidgets::ForeignKeyComboBox *m_cbxClasses = nullptr;
 	void save_xml_file(QString str, QString fn);
 };

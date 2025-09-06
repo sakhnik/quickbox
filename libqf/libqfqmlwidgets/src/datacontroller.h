@@ -2,9 +2,9 @@
 #define QF_QMLWIDGETS_DATACONTROLLER_H
 
 #include "qmlwidgetsglobal.h"
+#include "model/datadocument.h"
 
 #include <qf/core/utils.h>
-#include <qf/core/model/datadocument.h>
 
 #include <QWidget>
 #include <QSqlDatabase>
@@ -17,7 +17,7 @@ class IDataWidget;
 class QFQMLWIDGETS_DECL_EXPORT DataController : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(qf::core::model::DataDocument* document READ document WRITE setDocument NOTIFY documentChanged)
+	Q_PROPERTY(qf::qmlwidgets::model::DataDocument* document READ document WRITE setDocument NOTIFY documentChanged)
 	Q_PROPERTY(QWidget* widget READ widget WRITE setWidget NOTIFY widgetChanged)
 	//Q_PROPERTY(QString dbConnectionName READ dbConnectionName WRITE setDbConnectionName)
 public:
@@ -26,9 +26,9 @@ public:
 
 	//QF_PROPERTY_IMPL2(QString, d, D, bConnectionName, QSqlDatabase::defaultConnection)
 
-	qf::core::model::DataDocument* document(bool throw_exc = qf::core::Exception::Throw) const;
-	void setDocument(qf::core::model::DataDocument *doc);
-	Q_SIGNAL void documentChanged(qf::core::model::DataDocument *doc);
+	qf::qmlwidgets::model::DataDocument* document(bool throw_exc = qf::core::Exception::Throw) const;
+	void setDocument(qf::qmlwidgets::model::DataDocument *doc);
+	Q_SIGNAL void documentChanged(qf::qmlwidgets::model::DataDocument *doc);
 
 	QWidget* widget() const { return m_dataWidgetsParent;}
 	void setWidget(QWidget *w)
@@ -49,7 +49,7 @@ protected:
 	Q_SLOT void documentValueChanged(const QString &data_id, const QVariant &old_val, const QVariant &new_val);
 	Q_SLOT void documentAboutToSave();
 protected:
-	qf::core::model::DataDocument *m_document = nullptr;
+	qf::qmlwidgets::model::DataDocument *m_document = nullptr;
 	QWidget *m_dataWidgetsParent = nullptr;
 	QList<IDataWidget*> m_dataWidgets;
 };

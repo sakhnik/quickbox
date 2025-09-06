@@ -91,7 +91,7 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 		if(col == RunsTableModel::col_runFlags || col == RunsTableModel::col_cardFlags) {
 			return;
 		}
-		if (mode == qf::core::model::DataDocument::ModeInsert) {
+		if (mode == qf::qmlwidgets::model::DataDocument::ModeInsert) {
 			emit editCompetitorRequest(0, mode);
 		}
 		else {

@@ -14,7 +14,7 @@
 #include <qf/core/utils/treetable.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/querybuilder.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/qmlwidgets/dialogs/dialog.h>
@@ -158,7 +158,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 	QMap<int, int> lap_stand; // position->standing in lap
 	QMap<int, int> lap_stand_cummulative;  // position->cummulative standing after lap
 	{
-		qf::core::model::SqlTableModel model;
+		qf::qmlwidgets::model::SqlTableModel model;
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("competitors", "*")
 				.select2("runs", "*")

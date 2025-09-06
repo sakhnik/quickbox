@@ -15,7 +15,6 @@ class QAction;
 class QLabel;
 class QMenu;
 class QTextEdit;
-//class QUdpSocket;
 class QModelIndex;
 class ServerTreeDock;
 class SqlDock;
@@ -24,13 +23,7 @@ class Connection;
 class Database;
 class QSpinBox;
 
-namespace qf {
-namespace core {
-namespace model {
-class SqlTableModel;
-}
-}
-}
+namespace qf::qmlwidgets::model { class SqlTableModel; }
 
 class MainWindow : public QMainWindow, public qf::qmlwidgets::framework::IPersistentSettings
 {
@@ -40,11 +33,8 @@ public:
 	MainWindow(QWidget *parent = nullptr, Qt::WindowFlags flags = Qt::WindowFlags());
 	~MainWindow();
 protected:
-	//bool event(QEvent *event);
 	virtual void closeEvent(QCloseEvent *e);
-	//virtual void showEvent(QShowEvent * e);
 	virtual void changeEvent(QEvent * e);
-	//virtual void focusInEvent(QFocusEvent *e);
 
 	void executeSqlLines(const QString &lines);
 
@@ -108,8 +98,8 @@ private:
 
 	QList<QPointer<QDialog> > tearOffDialogs;
 
-	qf::core::model::SqlTableModel* queryViewModel();
-	void setQueryViewModel(qf::core::model::SqlTableModel *m);
+	qf::qmlwidgets::model::SqlTableModel* queryViewModel();
+	void setQueryViewModel(qf::qmlwidgets::model::SqlTableModel *m);
 	//QList<QWidget*> statusBarWidgets;
 private:
 	QAction* action(const QString& action_name) {

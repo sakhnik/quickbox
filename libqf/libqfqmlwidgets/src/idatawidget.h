@@ -3,6 +3,8 @@
 
 #include "qmlwidgetsglobal.h"
 
+#include "model/datadocument.h"
+
 #include <qf/core/exception.h>
 
 #include <QString>
@@ -41,7 +43,7 @@ public:
 
 	QWidget* dataWidget() {return m_dataWidget;}
 protected:
-	qf::core::model::DataDocument* dataDocument(bool throw_exc = qf::core::Exception::Throw);
+	qf::qmlwidgets::model::DataDocument* dataDocument(bool throw_exc = qf::core::Exception::Throw);
 	bool checkSetDataValueFirstTime();
 protected:
 	QPointer<DataController> m_dataController;
