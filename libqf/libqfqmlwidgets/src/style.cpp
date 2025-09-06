@@ -8,8 +8,21 @@
 #include <QFile>
 #include <QPainter>
 #include <QFileInfo>
+#include <QApplication>
+#include <QPalette>
 
-using namespace qf::qmlwidgets;
+namespace qf::qmlwidgets {
+
+bool isDarkTheme()
+{
+	// MUST be called after QApplication instance is created
+	QColor window_color = QApplication::palette().color(QPalette::Window);
+	QColor text_color = QApplication::palette().color(QPalette::WindowText);
+	// qDebug() << "window:" << window_color << window_color.value() << colorDarknes(window_color);
+	// qDebug() << "text:" << text_color << text_color.value() << colorDarknes(text_color);
+	// Simple heuristic: if background is darker than text, assume dark theme
+	return window_color.value() < text_color.value();
+}
 
 static const char *PROPERTY_STYLE_INSTANCE = "qf::qmlwidget::Style::instance";
 
@@ -140,3 +153,4 @@ QFileInfo Style::findFile(const QString &path, const QString &default_extension)
 	return {};
 }
 
+}

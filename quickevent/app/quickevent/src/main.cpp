@@ -49,8 +49,9 @@ int main(int argc, char *argv[])
 
 	std::vector<std::string> shv_args = NecroLog::setCLIOptions(argc, argv);
 	QStringList args;
-	for(const auto &s : shv_args)
+	for(const auto &s : shv_args) {
 		args << QString::fromStdString(s);
+	}
 
 	QSettings::setDefaultFormat(QSettings::IniFormat);
 

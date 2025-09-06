@@ -13,6 +13,8 @@ class QFileInfo;
 namespace qf {
 namespace qmlwidgets {
 
+QFQMLWIDGETS_DECL_EXPORT bool isDarkTheme();
+
 class QFQMLWIDGETS_DECL_EXPORT Style : public QObject
 {
 	Q_OBJECT

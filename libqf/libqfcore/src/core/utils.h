@@ -156,7 +156,6 @@ namespace core {
 class QFCORE_DECL_EXPORT Utils
 {
 public:
-	static const QString &nullValueString();
 	static void parseFieldName(const QString& full_field_name, QString *pfield_name = nullptr, QString *ptable_name = nullptr, QString *pdb_name = nullptr);
 	static QString composeFieldName(const QString &field_name, const QString &table_name = QString(), const QString &db_name = QString());
 	/// @returns: True if @a field_name1 ends with @a field_name2. Comparision is case insensitive
