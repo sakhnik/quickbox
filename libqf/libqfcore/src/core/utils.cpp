@@ -263,6 +263,9 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 
 QVariant Utils::jsonToQVariant(const QString &json)
 {
+	if (json.isEmpty()) {
+		return {};
+	}
 	QJsonParseError error;
 	auto doc = QJsonDocument::fromJson(json.toUtf8(), &error);
 	if (error.error != QJsonParseError::NoError) {

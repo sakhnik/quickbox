@@ -441,9 +441,9 @@ QList< QList<int> > RunsWidget::runnersByClubSortedByCount(int stage_id, int cla
 		runner_id_to_club[id] = club;
 	}
 	{
-		for(const auto &club : ids_by_clubs.keys()) {
+		for(const auto &[club, val] : ids_by_clubs.asKeyValueRange()) {
 			QStringList sl;
-			for(auto id : ids_by_clubs.value(club)) {
+			for(auto id : val) {
 				sl << QString::number(id);
 			}
 			qfDebug() << "\t" << club << ":" << sl.join(", ");

@@ -706,7 +706,6 @@ void MainWindow::executeSelectedLines()
 {
 	qfLogFuncFrame();
 	SqlTextEdit *ed = sqlDock->ui.txtSql;
-	QString s = ed->toPlainText();
 	QTextCursor c = ed->textCursor();
 	int sel_end = c.selectionEnd();
 	c.setPosition(c.selectionStart());
@@ -1335,7 +1334,7 @@ void MainWindow::checkDrivers()
 	QString msg;
 	QTextStream ts(&msg);
 	{
-		for(QString plugin_dir : QCoreApplication::libraryPaths()) {
+		for(const auto &plugin_dir : QCoreApplication::libraryPaths()) {
 			qfInfo() << "plugin dir:" << plugin_dir;
 			QString path = qf::core::utils::FileUtils::joinPath(plugin_dir, "sqldrivers");
 			ts << tr("Plugins found (looked in %1):").arg(QDir::toNativeSeparators(path)) << '\n';

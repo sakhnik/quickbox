@@ -425,8 +425,8 @@ void ReceiptsPlugin::previewCard(int card_id)
 	w->setWindowTitle(tr("Card"));
 	w->setReport(findReportFile("sicard.qml"));
 	QVariantMap dt = readCardTablesData(card_id);
-	for(const auto &key : dt.keys()) {
-		w->setTableData(key, dt.value(key));
+	for(const auto &[k, v] : dt.asKeyValueRange()) {
+		w->setTableData(k, v);
 	}
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(fwk);
@@ -477,8 +477,8 @@ void ReceiptsPlugin::previewReceipt(int card_id)
 	w->setWindowTitle(tr("Receipt"));
 	w->setReport(findReportFile(settings.receiptPath()));
 	QVariantMap dt = receiptTablesData(card_id);
-	for(const auto &key : dt.keys()) {
-		w->setTableData(key, dt.value(key));
+	for(const auto &[k, v] : dt.asKeyValueRange()) {
+		w->setTableData(k, v);
 	}
 	auto fwk = qff::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(fwk);

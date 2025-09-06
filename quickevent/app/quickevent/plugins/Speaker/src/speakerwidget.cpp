@@ -30,10 +30,6 @@
 #include <QSettings>
 
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::qmlwidgets::model;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
@@ -62,17 +58,8 @@ SpeakerWidget::SpeakerWidget(QWidget *parent) :
 	ui->tblPunches->setPersistentSettingsId("tblPunches");
 
 	connect(ui->tblPunches, &PunchesTableView::codeClassActivated, this, &SpeakerWidget::onCodeClassActivated);
-	/*
-	ui->tblPunches->setDragEnabled(true);
-	//ui->tblView->setDragDropMode(QAbstractItemView::DragOnly);
-	ui->tblPunches->setDragDropMode(QAbstractItemView::InternalMove);
-	ui->tblPunches->setSelectionMode(QAbstractItemView::SingleSelection);
-	ui->tblPunches->viewport()->setAcceptDrops(true);
-	ui->tblPunches->setDropIndicatorShown(true);
-	*/
-	//ui->tblPunches->setRowEditorMode(qfw::TableView::EditRowsMixed);
-	//ui->tblPunches->setInlineEditSaveStrategy(qfw::TableView::OnEditedValueCommit);
-	quickevent::gui::og::SqlTableModel *m = new quickevent::gui::og::SqlTableModel(this);
+
+	auto *m = new quickevent::gui::og::SqlTableModel(this);
 	m->addColumn("punches.id");//.setReadOnly(true);
 	m->addColumn("punches.code", tr("Code"));
 	m->addColumn("punches.siId", tr("SI")).setReadOnly(true).setCastType(qMetaTypeId<quickevent::core::si::SiId>());
@@ -143,7 +130,6 @@ void SpeakerWidget::onDbEventNotify(const QString &domain, int connection_id, co
 
 void SpeakerWidget::reset()
 {
-	qfInfo() << Q_FUNC_INFO;
 	if(!getPlugin<EventPlugin>()->isEventOpen()) {
 		m_punchesModel->clearRows();
 		return;
@@ -212,19 +198,19 @@ bool SpeakerWidget::isPartActive()
 
 void SpeakerWidget::onCodeClassActivated(int class_id, int code)
 {
-	CodeClassResultsWidget *w = new CodeClassResultsWidget(this);
+	auto *w = new CodeClassResultsWidget(this);
 	w->reset(class_id, code);
 	//if(getPlugin<EventPlugin>()->isEventOpen())
 	//	w->loadSetup(QJsonObject());
 	connect(this, &SpeakerWidget::punchReceived, w, &CodeClassResultsWidget::onPunchReceived);
 
-	QDockWidget *dw = new QDockWidget();
+	auto *dw = new QDockWidget();
 	static int dock_widget_no = 0;
 	dw->setObjectName("CodeClassResultsWidgetDockWidget_" + QString::number(++dock_widget_no));
 	dw->setAllowedAreas(Qt::AllDockWidgetAreas);
 	dw->setWidget(w);
 	//dw->show();
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
 	fwk->addDockWidget(Qt::LeftDockWidgetArea, dw);
 	dw->setFloating(true);
 }

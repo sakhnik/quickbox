@@ -26,9 +26,9 @@ protected:
 	QString m_tableName;
 protected slots:
 	void lazyInit();
-	void on_btAll_clicked();
-	void on_btInvert_clicked();
-	void on_btPasteSelectedColumns_clicked();
+	void onAll_clicked();
+	void onInvert_clicked();
+	void onPasteSelectedColumns_clicked();
 signals:
 	void columnNamesCopiedToClipboard(const QString &column_names);
 public:

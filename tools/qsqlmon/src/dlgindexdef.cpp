@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "theapp.h"
 
 #include "ui_dlgindexdef.h"
 #include "dlgindexdef.h"
@@ -16,6 +15,10 @@ DlgIndexDef::DlgIndexDef(QWidget * parent, const QString &table_name, const QStr
 {
 	ui = new Ui::DlgIndexDef;
 	ui->setupUi(this);
+
+	connect(ui->actionAddFieldToIndex, &QAction::triggered, this, &DlgIndexDef::onAddFieldToIndex_triggered);
+	connect(ui->actionRemoveFieldFromIndex, &QAction::triggered, this, &DlgIndexDef::onRemoveFieldFromIndex_triggered);
+
 	ui->btAdd->setDefaultAction(ui->actionAddFieldToIndex);
 	ui->btRemove->setDefaultAction(ui->actionRemoveFieldFromIndex);
 
@@ -42,7 +45,7 @@ QSqlDatabase DlgIndexDef::connection()
 	return w->activeConnection();
 }
 
-void DlgIndexDef::on_actionAddFieldToIndex_triggered()
+void DlgIndexDef::onAddFieldToIndex_triggered()
 {
 	//qfTrash() << QF_FUNC_NAME;
 	QListWidgetItem *it;
@@ -59,7 +62,7 @@ void DlgIndexDef::on_actionAddFieldToIndex_triggered()
 	}
 }
 
-void DlgIndexDef::on_actionRemoveFieldFromIndex_triggered()
+void DlgIndexDef::onRemoveFieldFromIndex_triggered()
 {
 	//qfTrash() << QF_FUNC_NAME;
 	QListWidgetItem *it = ui->lstIndex->currentItem();

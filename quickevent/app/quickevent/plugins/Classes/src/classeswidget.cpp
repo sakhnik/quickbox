@@ -193,11 +193,9 @@ ClassesWidget::ClassesWidget(QWidget *parent) :
 		m->addColumn("courses.length", tr("Length"));
 		m->addColumn("courses.climb", tr("Climb"));
 
-		if (auto is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays(); is_relays) {
-			m->addColumn("relaysCount", tr("Rel. count")).setToolTip(tr("Relays count"));
-			m->addColumn("classdefs.relayStartNumber", tr("Rel. num")).setToolTip(tr("Relay start number"));
-			m->addColumn("classdefs.relayLegCount", tr("Legs")).setToolTip(tr("Relay leg count"));
-		}
+		m->addColumn("relaysCount", tr("Rel. count")).setToolTip(tr("Relays count"));
+		m->addColumn("classdefs.relayStartNumber", tr("Rel. num")).setToolTip(tr("Relay start number"));
+		m->addColumn("classdefs.relayLegCount", tr("Legs")).setToolTip(tr("Relay leg count"));
 
 		ui->tblClasses->setTableModel(m);
 

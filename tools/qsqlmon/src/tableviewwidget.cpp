@@ -3,13 +3,6 @@
 
 #include <qf/core/log.h>
 
-//#include <QtUiTools>
-//#include <QHBoxLayout>
-//#include <QCheckBox>
-//#include <QApplication>
-
-namespace qfq = qf::qmlwidgets;
-
 //======================================================
 //                        TableView
 //======================================================

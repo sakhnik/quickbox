@@ -37,7 +37,7 @@ public:
 	explicit ReceiptsWidget(QWidget *parent = 0);
 	~ReceiptsWidget() Q_DECL_OVERRIDE;
 
-	void settleDownInPartWidget(::PartWidget *part_widget);
+	void settleDownInPartWidget(::PartWidget *part_widget) const;
 
 	Q_SLOT void reset();
 	Q_SLOT void reload();

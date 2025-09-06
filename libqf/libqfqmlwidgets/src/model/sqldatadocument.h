@@ -7,7 +7,7 @@ namespace qf {
 namespace qmlwidgets {
 namespace model {
 
-class QFCORE_DECL_EXPORT SqlDataDocument : public DataDocument
+class QFQMLWIDGETS_DECL_EXPORT SqlDataDocument : public DataDocument
 {
 	Q_OBJECT
 public:

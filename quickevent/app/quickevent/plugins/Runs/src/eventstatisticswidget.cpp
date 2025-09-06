@@ -207,7 +207,7 @@ QVariant EventStatisticsModel::data(const QModelIndex &index, int role) const
 }
 
 //============================================================
-//                FooterModel
+// FooterModel
 //============================================================
 class FooterModel : public QAbstractTableModel
 {
@@ -260,9 +260,6 @@ QVariant FooterModel::headerData(int section, Qt::Orientation orientation, int r
 		}
 		if(role == Qt::TextAlignmentRole) {
 			return Qt::AlignRight;
-		}
-		if(role == Qt::BackgroundRole) {
-			return QColor("khaki");
 		}
 	}
 	return Super::headerData(section, orientation, role);

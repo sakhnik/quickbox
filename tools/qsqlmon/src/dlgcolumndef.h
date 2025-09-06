@@ -46,9 +46,9 @@ public:
 	bool isShowCommand();
 
 	QString toString();
-private slots:
-	void on_lstRefTable_currentIndexChanged(const QString & text);
-	void on_lstCharacterSet_activated(const QString & text);
+private:
+	void onRefTable_currentIndexChanged(const QString & text);
+	void onCharacterSet_activated(const QString & text);
 public:
 	DlgColumnDef(QWidget * parent, const QString& table);
 	virtual ~DlgColumnDef();

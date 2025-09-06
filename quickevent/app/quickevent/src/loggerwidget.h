@@ -18,8 +18,6 @@ public:
 
 	void onDockWidgetVisibleChanged(bool visible) Q_DECL_OVERRIDE;
 private:
-	void registerLogCategories() Q_DECL_OVERRIDE;
-private:
 	qf::qmlwidgets::model::LogTableModel *m_logModel = nullptr;
 };
 

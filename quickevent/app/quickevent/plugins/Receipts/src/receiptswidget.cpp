@@ -36,9 +36,7 @@
 #include <QTimer>
 #include <QDirIterator>
 
-namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;
-namespace qff = qf::qmlwidgets::framework;
 namespace qfw = qf::qmlwidgets;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
@@ -98,7 +96,7 @@ void ReceiptsWidget::lazyInit()
 {
 }
 
-void ReceiptsWidget::settleDownInPartWidget(::PartWidget *part_widget)
+void ReceiptsWidget::settleDownInPartWidget(::PartWidget *part_widget) const
 {
 	connect(part_widget, &::PartWidget::resetPartRequest, this, &ReceiptsWidget::reset);
 	connect(part_widget, &::PartWidget::reloadPartRequest, this, &ReceiptsWidget::reload);

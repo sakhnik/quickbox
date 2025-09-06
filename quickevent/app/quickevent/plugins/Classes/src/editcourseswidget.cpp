@@ -10,7 +10,6 @@
 
 #include <QPushButton>
 
-namespace qfc = qf::core;
 namespace qfw = qf::qmlwidgets;
 namespace qfm = qf::qmlwidgets::model;
 namespace qfs = qf::core::sql;

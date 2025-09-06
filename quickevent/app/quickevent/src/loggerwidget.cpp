@@ -15,10 +15,7 @@ LoggerWidget::LoggerWidget(QWidget *parent)
 	setLogTableModel(m_logModel);
 }
 
-LoggerWidget::~LoggerWidget()
-{
-	//QF_SAFE_DELETE(m_logDevice);
-}
+LoggerWidget::~LoggerWidget() = default;
 
 void LoggerWidget::onDockWidgetVisibleChanged(bool visible)
 {
@@ -27,13 +24,4 @@ void LoggerWidget::onDockWidgetVisibleChanged(bool visible)
 		checkScrollToLastEntry();
 	}
 }
-
-void LoggerWidget::registerLogCategories()
-{
-	Super::registerLogCategories();
-	//qfError() << "LoggerWidget::registerLogCategories" << "IMPL missing";
-	//auto *ld = qobject_cast<TableModelLogDevice*>(qf::core::LogDevice::findDevice(TABLE_MODEL_LOG_DEVICE));
-	//ld->setCategories(selectedLogCategories());
-}
-
 

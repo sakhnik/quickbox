@@ -9,8 +9,6 @@
 #include <qf/core/assert.h>
 #include <plugins/Event/src/eventplugin.h>
 
-namespace qfm = qf::qmlwidgets::model;
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Runs::RunsPlugin;
 using Event::EventPlugin;

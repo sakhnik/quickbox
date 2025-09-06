@@ -36,15 +36,14 @@ public:
 	void accept() Q_DECL_OVERRIDE;
 protected:
 	void refresh();
-private slots:
-	void on_btFieldEdit_clicked();
-	void on_btFieldInsert_clicked(bool append = false);
-	void on_btFieldAppend_clicked();
-	void on_btFieldDelete_clicked();
-
-	void on_btIndexAdd_clicked();
-	void on_btIndexEdit_clicked();
-	void on_btIndexDelete_clicked();
+private:
+	void onFieldEdit_clicked();
+	void onFieldInsert_clicked(bool append = false);
+	void onFieldAppend_clicked();
+	void onFieldDelete_clicked();
+	void onIndexAdd_clicked();
+	void onIndexEdit_clicked();
+	void onIndexDelete_clicked();
 
 protected:
 	MainWindow* mainWindow();
