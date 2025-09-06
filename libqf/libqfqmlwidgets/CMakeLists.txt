@@ -105,8 +105,10 @@ add_library(libqfqmlwidgets SHARED
     src/timeedit.cpp
     src/toolbar.cpp
     style/qf_qmlwidgets_style.qrc
+
     images/qf_qmlwidgets_images.qrc
 	images/flat/qf_qmlwidgets_images_flat.qrc
+	images/dark/qf_qmlwidgets_images_dark.qrc
 	src/reports/widgets/printtableviewwidget/reports/qf_qmlwidgets_printtablewidget_reports.qrc
     )
 

@@ -138,16 +138,19 @@ QFileInfo Style::findFile(const QString &path, const QString &default_extension)
 	}
 	QFileInfo fi(fn);
 	if(fi.isAbsolute()) {
-		if(fi.isReadable())
+		if(fi.isReadable()) {
 			return fi;
+		}
 	}
 	else {
 		for(const auto &prefix : m_iconSearchPaths) {
 			auto fn2 = prefix + '/' + fn;
 			QFileInfo fi2(fn2);
-			//qfInfo() << "checking:" << fn2;
-			if(fi2.isReadable())
+			// qfInfo() << "checking:" << fn2;
+			if(fi2.isReadable()) {
+				// qfInfo() << "\t\tHHIITT" << fn2;
 				return fi2;
+			}
 		}
 	}
 	return {};
