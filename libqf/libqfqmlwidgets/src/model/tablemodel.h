@@ -32,7 +32,7 @@ public:
 					   FirstUnusedRole };
 	//enum RecordEditMode {ModeView, ModeEdit, ModeInsert, ModeCopy, ModeDelete};
 public:
-	class QFCORE_DECL_EXPORT ColumnDefinition
+	class QFQMLWIDGETS_DECL_EXPORT ColumnDefinition
 	{
 	private:
 		class SharedDummyHelper {};
@@ -186,7 +186,7 @@ public:
 	qf::core::utils::TableRow& tableRowRef(int row_no);
 	qf::core::utils::TableRow tableRow(int row_no) const;
 
-	class QFCORE_DECL_EXPORT TreeTableExportOptions : public QVariantMap
+	class QFQMLWIDGETS_DECL_EXPORT TreeTableExportOptions : public QVariantMap
 	{
 		QF_VARIANTMAP_FIELD2(bool, is, set, ExportRawValues, true)
 		public:
