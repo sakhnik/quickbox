@@ -1,7 +1,7 @@
 #include "ganttitem.h"
 #include "ganttscene.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/assert.h>
 
@@ -10,7 +10,7 @@
 #include <plugins/Event/src/eventplugin.h>
 
 using namespace drawing;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 GanttScene::GanttScene(QObject * parent)

@@ -7,7 +7,7 @@
 #include <qf/core/utils.h>
 #include <qf/core/sql/connection.h>
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <QIcon>
 #include <QVariant>
@@ -137,7 +137,7 @@ Database* Connection::open()
 		m->append(olst, ix);
 	}
 	else {
-		//qf::qmlwidgets::dialogs::MessageBox::showError(mainWindow(), d->sqlConnection().lastError().text());
+		//qf::gui::dialogs::MessageBox::showError(mainWindow(), d->sqlConnection().lastError().text());
 		QF_SAFE_DELETE(d);
 	}
 	return d;
@@ -424,7 +424,7 @@ bool Database::open()
 	//qfInfo() << "password:" << password();
 	if(!m_sqlConnection.open()) {
 		m_sqlConnection.setConnectOptions();
-		qf::qmlwidgets::dialogs::MessageBox::showError(mainWindow(),
+		qf::gui::dialogs::MessageBox::showError(mainWindow(),
 													   tr("Error opening database %1").arg(connectionSignature())
 													   + "\n\n"
 													   + m_sqlConnection.lastError().text());

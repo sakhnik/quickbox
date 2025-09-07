@@ -1,7 +1,7 @@
 #ifndef TABLEVIEWWIDGET_H
 #define TABLEVIEWWIDGET_H
 
-#include <qf/qmlwidgets/tableview.h>
+#include <qf/gui/tableview.h>
 
 #include <QWidget>
 
@@ -9,11 +9,11 @@ namespace Ui {
 class TableViewWidget;
 }
 
-class  TableView : public qf::qmlwidgets::TableView
+class  TableView : public qf::gui::TableView
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::TableView Super;
+	typedef qf::gui::TableView Super;
 public:
 	TableView(QWidget *parent = nullptr);
 };
@@ -26,7 +26,7 @@ public:
 	explicit TableViewWidget(QWidget *parent = nullptr);
 	~TableViewWidget();
 public:
-	qf::qmlwidgets::TableView* tableView();
+	qf::gui::TableView* tableView();
 	Q_SLOT void updateStatus();
 	Q_SLOT void setInfo(const QString &info);
 

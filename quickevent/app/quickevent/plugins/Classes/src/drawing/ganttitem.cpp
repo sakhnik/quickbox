@@ -4,7 +4,7 @@
 #include "ganttruler.h"
 #include "ganttscene.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/connection.h>
@@ -15,7 +15,7 @@
 #include <QJsonDocument>
 
 namespace qfs = qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 using namespace drawing;

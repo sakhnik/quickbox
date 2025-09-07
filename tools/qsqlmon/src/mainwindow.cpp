@@ -18,13 +18,13 @@
 #include <qf/core/assert.h>
 #include <qf/core/string.h>
 #include <qf/core/utils/fileutils.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/query.h>
-#include <qf/qmlwidgets/tableview.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/dialogs/previewdialog.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/tableview.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/dialogs/previewdialog.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <QStandardItemModel>
 #include <QTextCursor>
@@ -50,7 +50,7 @@
 
 MainWindow::MainWindow(QWidget *parent, Qt::WindowFlags flags)
 	: QMainWindow(parent, flags)
-	, qf::qmlwidgets::framework::IPersistentSettings(this)
+	, qf::gui::framework::IPersistentSettings(this)
 {
 	//setAttribute(Qt::WA_DeleteOnClose);
 	f_sqlDelimiter = ';';
@@ -125,16 +125,16 @@ void MainWindow::lazyInit()
 	serverDock->ui.treeServers->resizeColumnToContents(0);
 }
 
-qf::qmlwidgets::model::SqlTableModel* MainWindow::queryViewModel()
+qf::gui::model::SqlTableModel* MainWindow::queryViewModel()
 {
 	auto *m1 = ui.queryView->tableView()->tableModel();
-	auto *m = qobject_cast<qf::qmlwidgets::model::SqlTableModel*>(m1);
+	auto *m = qobject_cast<qf::gui::model::SqlTableModel*>(m1);
 	qfDebug() << "model:" << m1 << m;
-	//QF_CHECK(m!=nullptr, "Model is NULL or not a kind of qf::qmlwidgets::model::SqlTableModel.");
+	//QF_CHECK(m!=nullptr, "Model is NULL or not a kind of qf::gui::model::SqlTableModel.");
 	return m;
 }
 
-void MainWindow::setQueryViewModel(qf::qmlwidgets::model::SqlTableModel *m)
+void MainWindow::setQueryViewModel(qf::gui::model::SqlTableModel *m)
 {
 	qfDebug() << "set model:" << m;
 	ui.queryView->tableView()->setTableModel(m);
@@ -209,7 +209,7 @@ qf::core::sql::Connection MainWindow::setActiveConnection1(const qf::core::sql::
 	QObject *old_model = queryViewModel();
 	qfDebug() << "\t deletenig old model:" << old_model;
 	QF_SAFE_DELETE(old_model);
-	auto *m = new qf::qmlwidgets::model::SqlTableModel(this);
+	auto *m = new qf::gui::model::SqlTableModel(this);
 	m->setConnectionName(c.connectionName());
 	qfDebug() << "\t new table model created:" << m;
 	setQueryViewModel(m);
@@ -554,7 +554,7 @@ bool MainWindow::execQuery(const QString& query_str)
 {
 	qfDebug() << QF_FUNC_NAME;
 	if(!activeConnection().isOpen()) {
-		qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("No active connection !"));
+		qf::gui::dialogs::MessageBox::showInfo(this, tr("No active connection !"));
 		return false;
 	}
 
@@ -564,7 +564,7 @@ bool MainWindow::execQuery(const QString& query_str)
 	bool is_select = qs.startsWith(QLatin1String("SELECT"), Qt::CaseInsensitive);
 	do {
 		if(is_select) {
-			qf::qmlwidgets::model::SqlTableModel *m = queryViewModel();
+			qf::gui::model::SqlTableModel *m = queryViewModel();
 			m->clearColumns();
 			m->setQuery(qs);
 			ok = m->reload();
@@ -574,7 +574,7 @@ bool MainWindow::execQuery(const QString& query_str)
 			}
 			else {
 				QString msg = m->recentlyExecutedQueryError().text();
-				qf::qmlwidgets::dialogs::MessageBox::showError(this, msg);
+				qf::gui::dialogs::MessageBox::showError(this, msg);
 				appendInfo(msg);
 			}
 		}
@@ -583,7 +583,7 @@ bool MainWindow::execQuery(const QString& query_str)
 			ok = q.exec(qs);
 			if(!ok) {
 				QString msg = q.lastError().text();
-				qf::qmlwidgets::dialogs::MessageBox::showError(this, msg);
+				qf::gui::dialogs::MessageBox::showError(this, msg);
 				appendInfo(msg);
 			}
 			else {
@@ -612,7 +612,7 @@ bool MainWindow::execCommand(const QString& query_str)
 {
 	qfDebug() << QF_FUNC_NAME << "\n\t" << query_str;
 	if(!activeConnection().isOpen()) {
-		qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("No active connection !"));
+		qf::gui::dialogs::MessageBox::showInfo(this, tr("No active connection !"));
 		return true;
 	}
 	appendInfo(query_str);
@@ -623,7 +623,7 @@ bool MainWindow::execCommand(const QString& query_str)
 	}
 	else {
 		QString msg = q.lastError().text();
-		qf::qmlwidgets::dialogs::MessageBox::showError(this, msg);
+		qf::gui::dialogs::MessageBox::showError(this, msg);
 		appendInfo(msg);
 	}
 	return ok;
@@ -718,7 +718,7 @@ void MainWindow::executeSelectedLines()
 
 void MainWindow::executeSqlScript()
 {
-	QString s = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName(this, "Choose a file", QString(), "SQL script (*.sql);; All files (*)");
+	QString s = qf::gui::dialogs::FileDialog::getOpenFileName(this, "Choose a file", QString(), "SQL script (*.sql);; All files (*)");
 	if(!s.isEmpty()) {
 		QFile f(s);
 		if(f.open(QFile::ReadOnly)) {
@@ -943,8 +943,8 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 					addServer(connection);
 				}
 				else if(a == act_removeConnection) {
-					if(qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Delete connection ?"), false)) {
-						qf::qmlwidgets::dialogs::MessageBox::showError(this, "NIY");
+					if(qf::gui::dialogs::MessageBox::askYesNo(this, tr("Delete connection ?"), false)) {
+						qf::gui::dialogs::MessageBox::showError(this, "NIY");
 						/* old impl
 						QObject *o = model->take(mi);
 						Q_ASSERT(o == connection);
@@ -1021,14 +1021,14 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 				else if(a == actCreateDatabaseScript) {
 					qf::core::sql::Connection dbi(activeConnection());
 					QString s = dbi.createSchemaSqlCommand(current_schema->objectName(), false);
-					qf::qmlwidgets::dialogs::PreviewDialog dlg(this);
+					qf::gui::dialogs::PreviewDialog dlg(this);
 					new QFSqlSyntaxHighlighter(dlg.editor());
 					dlg.exec(s, "create_" + current_schema->objectName() +".sql", "dlgTextView");
 				}
 				else if(a == actDumpDatabaseScript) {
 					QString s = current_schema->createScript(Schema::CreateTableSql | Schema::DumpTableSql | Schema::IncludeViews);
 					qfInfo() << s;
-					qf::qmlwidgets::dialogs::MessageBox::showError(this, "NIY");
+					qf::gui::dialogs::MessageBox::showError(this, "NIY");
 					/*
 					QString fn = QFFileUtils::joinPath(qfApp()->tempDir(), sch->objectName() + ".sql");
 					QUrl url = QFFileUtils::saveText(s, fn);
@@ -1037,7 +1037,7 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 					*/
 				}
 				else if(a == actDropSchema) {
-					if(qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Realy drop schema '%1'").arg(current_schema->objectName()), true)) {
+					if(qf::gui::dialogs::MessageBox::askYesNo(this, tr("Realy drop schema '%1'").arg(current_schema->objectName()), true)) {
 						QString qs = "DROP SCHEMA " + current_schema->objectName();
 						qf::core::sql::Connection c = activeConnection();
 						if(c.driverName().endsWith("PSQL", Qt::CaseInsensitive)) {
@@ -1052,7 +1052,7 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 					}
 				}
 				else if(a == actCheckDatabase) {
-					qf::qmlwidgets::dialogs::MessageBox::showError(this, "NIY");
+					qf::gui::dialogs::MessageBox::showError(this, "NIY");
 					/*
 					sch->open();
 					QList<Table*> lst = sch->findChildren<Table*>();
@@ -1178,13 +1178,13 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 						execQuery(s.arg(full_table_name));
 					}
 					else if(activeConnection().driverName().endsWith("MYSQL")) {
-						qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("Not implemented yet."));
+						qf::gui::dialogs::MessageBox::showInfo(this, tr("Not implemented yet."));
 					}
 				}
 				else if(a == actCreateScript) {
 					qf::core::sql::Connection dbi(activeConnection());
 					QString s = dbi.createTableSqlCommand(full_table_name);
-					qf::qmlwidgets::dialogs::PreviewDialog dlg(this);
+					qf::gui::dialogs::PreviewDialog dlg(this);
 					new QFSqlSyntaxHighlighter(dlg.editor());
 					dlg.exec(s, "create_" + table->objectName()+".sql", "dlgTextView");
 				}
@@ -1193,14 +1193,14 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 					QString s = dbi.createTableSqlCommand(full_table_name);
 					s += "\n\n";
 					s += dbi.dumpTableSqlCommand(full_table_name);
-					qf::qmlwidgets::dialogs::PreviewDialog dlg(this);
+					qf::gui::dialogs::PreviewDialog dlg(this);
 					new QFSqlSyntaxHighlighter(dlg.editor());
 					dlg.exec(s, "dump_" + table->objectName()+".sql", "dlgTextView");
 				}
 				else if(a == actColumnSelector) {
 					qf::core::sql::Connection conn = activeConnection();
 					auto *w = new ColumnSelectorWidget(table->objectName(), conn);
-					qf::qmlwidgets::dialogs::Dialog dlg(this);
+					qf::gui::dialogs::Dialog dlg(this);
 					dlg.setCentralWidget(w);
 					connect(w, SIGNAL(columnNamesCopiedToClipboard(QString)), sqlDock->sqlTextEdit(), SLOT(paste()));
 					if(dlg.exec() == QDialog::Accepted) {}
@@ -1224,7 +1224,7 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 					QString s = table->objectName();
 					QString what = "TABLE";
 					if(table->kind == QSql::Views) what = "VIEW";
-					if(qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Realy drop the table '%1'").arg(s), true)) {
+					if(qf::gui::dialogs::MessageBox::askYesNo(this, tr("Realy drop the table '%1'").arg(s), true)) {
 						s = "DROP " + what + " " + s;
 						execCommand(s);
 						QModelIndex parix = mi.parent();
@@ -1236,7 +1236,7 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 				}
 				else if(a == actTruncateTable) {
 					if(table->kind == QSql::Tables) {
-						if(qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Realy truncate the table '%1'").arg(full_table_name), true)) {
+						if(qf::gui::dialogs::MessageBox::askYesNo(this, tr("Realy truncate the table '%1'").arg(full_table_name), true)) {
 							if(activeConnection().driverName().endsWith("SQLITE")) {
 								QString s = "DELETE FROM " + full_table_name;
 								execCommand(s);
@@ -1275,7 +1275,7 @@ void MainWindow::treeServersContextMenuRequest(const QPoint& point)
 //-------------------------------------------------------------------------
 void MainWindow::addServer(Connection *connection_to_copy)
 {
-	//qf::qmlwidgets::dialogs::MessageBox::showError(this, "NIY");
+	//qf::gui::dialogs::MessageBox::showError(this, "NIY");
 
 	Ui::ServerTreeWidget &ui_srv = serverDock->ui;
 	auto *model = qobject_cast<ServerTreeModel*>(ui_srv.treeServers->model());
@@ -1293,7 +1293,7 @@ void MainWindow::addServer(Connection *connection_to_copy)
 
 void MainWindow::changeLog()
 {
-	qf::qmlwidgets::dialogs::MessageBox::showError(this, "NIY");
+	qf::gui::dialogs::MessageBox::showError(this, "NIY");
 	/*
 	QFile f(":/ChangeLog");
 	QFDlgHtmlView::exec(this, f, "dlgChangeLog");
@@ -1303,13 +1303,13 @@ void MainWindow::changeLog()
 void MainWindow::mysqlSyntax()
 {
 	QUrl url = QUrl::fromLocalFile(":/doc/syntax/mysqlsyntax.html");
-	qf::qmlwidgets::dialogs::PreviewDialog::exec(this, url, "dlgSqlSyntax");
+	qf::gui::dialogs::PreviewDialog::exec(this, url, "dlgSqlSyntax");
 }
 
 void MainWindow::sqliteSyntax()
 {
 	QUrl url = QUrl::fromLocalFile(":/doc/syntax/sqlitesyntax.html");
-	qf::qmlwidgets::dialogs::PreviewDialog::exec(this, url, "dlgSqlSyntax");
+	qf::gui::dialogs::PreviewDialog::exec(this, url, "dlgSqlSyntax");
 }
 
 void MainWindow::availableDrivers()
@@ -1326,7 +1326,7 @@ void MainWindow::availableDrivers()
 			ts << "\t'" << s << "'" << '\n';
 		}
 	}
-	qf::qmlwidgets::dialogs::PreviewDialog::exec(this, s);
+	qf::gui::dialogs::PreviewDialog::exec(this, s);
 }
 
 void MainWindow::checkDrivers()
@@ -1356,7 +1356,7 @@ void MainWindow::checkDrivers()
 			}
 		}
 	}
-	qf::qmlwidgets::dialogs::PreviewDialog::exec(this, msg);
+	qf::gui::dialogs::PreviewDialog::exec(this, msg);
 }
 
 void MainWindow::tearOffTable()
@@ -1378,7 +1378,7 @@ void MainWindow::tearOffTable()
 		//ui.queryView->setContextMenuPolicy();
 		connect(ui.queryView, &TableViewWidget::statusBarAction, this, &MainWindow::onTableStatusBarAction);
 		ly->addWidget(ui.queryView);
-		auto *m = new qf::qmlwidgets::model::SqlTableModel(ui.queryView);
+		auto *m = new qf::gui::model::SqlTableModel(ui.queryView);
 		m->setConnectionName(activeConnection().connectionName());
 		setQueryViewModel(m);
 	}
@@ -1427,7 +1427,7 @@ void MainWindow::setProgressValue(double val, const QString & label_text)
 
 void MainWindow::showSqlJournal()
 {
-	qf::qmlwidgets::dialogs::MessageBox::showError(this, "NIY");
+	qf::gui::dialogs::MessageBox::showError(this, "NIY");
 	/*
 	QString s = theApp()->sqlJournal()->content().join("\n");
 	QFDlgTextView dlg(this);

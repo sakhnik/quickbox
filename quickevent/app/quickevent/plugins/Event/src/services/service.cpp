@@ -2,17 +2,17 @@
 
 #include "../eventplugin.h"
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/dialogwidget.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <qf/core/assert.h>
 
 #include <QSettings>
 
-namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qff = qf::gui::framework;
+namespace qfd = qf::gui::dialogs;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 
@@ -147,7 +147,7 @@ Service *Service::serviceByName(const QString &service_name)
 	return nullptr;
 }
 
-qf::qmlwidgets::framework::DialogWidget *Service::createDetailWidget()
+qf::gui::framework::DialogWidget *Service::createDetailWidget()
 {
 	return nullptr;
 }

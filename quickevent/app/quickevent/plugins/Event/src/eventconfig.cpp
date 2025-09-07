@@ -7,8 +7,8 @@
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/querybuilder.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <QDateTime>
 
@@ -126,8 +126,8 @@ void EventConfig::save(const QString &path_to_save)
 		}
 	}
 	catch(const qf::core::Exception &e) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 
 }

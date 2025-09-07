@@ -35,7 +35,7 @@
       <number>5</number>
      </property>
      <item>
-      <widget class="qf::qmlwidgets::TableViewToolBar" name="tblRunsToolBar" native="true">
+      <widget class="qf::gui::TableViewToolBar" name="tblRunsToolBar" native="true">
        <property name="sizePolicy">
         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
          <horstretch>0</horstretch>
@@ -108,20 +108,20 @@
     </layout>
    </item>
    <item>
-    <widget class="qf::qmlwidgets::TableView" name="tblRuns"/>
+    <widget class="qf::gui::TableView" name="tblRuns"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::TableView</class>
+   <class>qf::gui::TableView</class>
    <extends>QTableView</extends>
-   <header location="global">qf/qmlwidgets/tableview.h</header>
+   <header location="global">qf/gui/tableview.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::TableViewToolBar</class>
+   <class>qf::gui::TableViewToolBar</class>
    <extends>QWidget</extends>
-   <header location="global">qf/qmlwidgets/tableviewtoolbar.h</header>
+   <header location="global">qf/gui/tableviewtoolbar.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

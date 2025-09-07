@@ -4,7 +4,7 @@
 
 class RunsTableModel;
 class RunsTableItemDelegate;
-namespace qf::qmlwidgets { class TableView; }
+namespace qf::gui { class TableView; }
 
 namespace Ui {
 class RunsTableWidget;
@@ -24,7 +24,7 @@ public:
 	void reload();
 
 	RunsTableModel* runsModel() {return m_runsModel;}
-	qf::qmlwidgets::TableView* tableView();
+	qf::gui::TableView* tableView();
 
 	Q_SIGNAL void editCompetitorRequest(int competitor_id, int mode);
 private:

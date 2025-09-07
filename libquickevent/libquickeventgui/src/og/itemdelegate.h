@@ -3,7 +3,7 @@
 
 #include "../quickeventguiglobal.h"
 
-#include <qf/qmlwidgets/sqltableitemdelegate.h>
+#include <qf/gui/sqltableitemdelegate.h>
 
 class QItemEditorCreatorBase;
 
@@ -11,13 +11,13 @@ namespace quickevent {
 namespace gui {
 namespace og {
 
-class QUICKEVENTGUI_DECL_EXPORT ItemDelegate : public qf::qmlwidgets::SqlTableItemDelegate
+class QUICKEVENTGUI_DECL_EXPORT ItemDelegate : public qf::gui::SqlTableItemDelegate
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::SqlTableItemDelegate Super;
+	typedef qf::gui::SqlTableItemDelegate Super;
 public:
-	ItemDelegate(qf::qmlwidgets::TableView * parent = nullptr);
+	ItemDelegate(qf::gui::TableView * parent = nullptr);
 	~ItemDelegate() Q_DECL_OVERRIDE;
 private:
 	QItemEditorFactory *m_factory = nullptr;

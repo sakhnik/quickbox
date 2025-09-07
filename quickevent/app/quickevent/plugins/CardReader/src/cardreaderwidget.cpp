@@ -20,26 +20,26 @@
 #include <siut/sicard.h>
 #include <siut/sitask.h>
 
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/framework/application.h>
-#include <qf/qmlwidgets/framework/partwidget.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/combobox.h>
-#include <qf/qmlwidgets/dialogbuttonbox.h>
-#include <qf/qmlwidgets/htmlviewwidget.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/log.h>
+#include <qf/gui/action.h>
+#include <qf/gui/framework/application.h>
+#include <qf/gui/framework/partwidget.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/combobox.h>
+#include <qf/gui/dialogbuttonbox.h>
+#include <qf/gui/htmlviewwidget.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/log.h>
 
 #include <qf/core/assert.h>
 #include <qf/core/exception.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/dbenum.h>
 #include <qf/core/sql/transaction.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/utils/settings.h>
 #include <qf/core/utils/csvreader.h>
 #include <qf/core/utils/htmlutils.h>
@@ -63,9 +63,9 @@
 
 namespace qfc = qf::core;
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qfw = qf::gui;
+namespace qfd = qf::gui::dialogs;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using CardReader::CardReaderPlugin;
 using Receipts::ReceiptsPlugin;
@@ -345,7 +345,7 @@ void CardReaderWidget::onCustomContextMenuRequest(const QPoint & pos)
 		getPlugin<ReceiptsPlugin>()->printCard(card_id);
 	}
 	else if(a == &a_recalculate_times) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		int curr_ix = 0;
 		QList<int> sel_ixs = ui->tblCards->selectedRowsIndexes();
 		for(int ix : sel_ixs) {
@@ -386,7 +386,7 @@ void CardReaderWidget::settleDownInPartWidget(::PartWidget *part_widget)
 					if(ok) {
 						siut::SiStationConfig cfg(result.toMap());
 						QString msg = cfg.toString();
-						qf::qmlwidgets::dialogs::MessageBox::showInfo(this, msg);
+						qf::gui::dialogs::MessageBox::showInfo(this, msg);
 					}
 				}, Qt::QueuedConnection);
 				this->siDriver()->setSiTask(cmd);
@@ -426,19 +426,19 @@ void CardReaderWidget::settleDownInPartWidget(::PartWidget *part_widget)
 			auto *m_import_cards = a_tools->addMenuInto("importCards", tr("Import cards"));
 			{
 				auto *a = new qfw::Action(tr("Laps only CSV"));
-				connect(a, &qf::qmlwidgets::Action::triggered, this, &CardReaderWidget::importCards_lapsOnlyCsv);
+				connect(a, &qf::gui::Action::triggered, this, &CardReaderWidget::importCards_lapsOnlyCsv);
 				m_import_cards->addActionInto(a);
 			}
 			{
 				auto *a = new qfw::Action(tr("SI reader backup memory CSV"));
-				connect(a, &qf::qmlwidgets::Action::triggered, this, &CardReaderWidget::importCards_SIReaderBackupMemoryCsv);
+				connect(a, &qf::gui::Action::triggered, this, &CardReaderWidget::importCards_SIReaderBackupMemoryCsv);
 				m_import_cards->addActionInto(a);
 				m_import_cards->addActionInto(a);
 			}
 		}
 		{
 			auto *a = new qfw::Action(tr("Test audio"));
-			connect(a, &qf::qmlwidgets::Action::triggered, this, &CardReaderWidget::operatorAudioNotify);
+			connect(a, &qf::gui::Action::triggered, this, &CardReaderWidget::operatorAudioNotify);
 			a_tools->addActionInto(a);
 		}
 	}
@@ -499,7 +499,7 @@ void CardReaderWidget::onDbEventNotify(const QString &domain, int connection_id,
 void CardReaderWidget::createActions()
 {
 	{
-		auto *a = new qf::qmlwidgets::Action(tr("Assign card to runner\tCtrl + Enter"), this);
+		auto *a = new qf::gui::Action(tr("Assign card to runner\tCtrl + Enter"), this);
 		a->setShortcut(Qt::CTRL | Qt::Key_Return); // Qt::Key_Return is the main enter key, Qt::Key_Enter is on the numeric keyboard
 		addAction(a);
 		connect(a, &QAction::triggered, this, &CardReaderWidget::assignRunnerToSelectedCard);
@@ -563,7 +563,7 @@ void CardReaderWidget::onOpenCommTriggered(bool checked)
 		QString parity = settings.parity();
 		if(!commPort()->openComm(device, baud_rate, data_bits, parity, stop_bits > 1)) {
 			QString error_msg = commPort()->errorToUserHint();
-			qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Error open device %1 - %2").arg(device).arg(error_msg));
+			qf::gui::dialogs::MessageBox::showError(this, tr("Error open device %1 - %2").arg(device).arg(error_msg));
 		}
 		//theApp()->scriptDriver()->callExtensionFunction("onCommConnect", QVariantList() << device);
 	}
@@ -874,16 +874,16 @@ void CardReaderWidget::importCards_lapsOnlyCsv()
 	// 7203463,"2,28","3,34","2,42","3,29","3,12","1,38","1,13","3,18","1,17","0,15"
 	// CSV rows can be commented by #
 	qfLogFuncFrame();
-	qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("<p>CSV record must have format:</p>"
+	qf::gui::dialogs::MessageBox::showInfo(this, tr("<p>CSV record must have format:</p>"
 														   "<p>7203463,\"2,28\",\"3,34\",\"2,42\",\"3,29\",\"3,12\",\"1,38\",\"1,13\",\"3,18\",\"1,17\",\"0,15\"</p>"
 														   "<p>Any row can be commented by leading #</p>"
 														   "<p>Decimal point is also supported, the quotes can be omited than.</p>"));
-	QString fn = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName(this, tr("Import CSV"));
+	QString fn = qf::gui::dialogs::FileDialog::getOpenFileName(this, tr("Import CSV"));
 	if(fn.isEmpty())
 		return;
 	QFile f(fn);
 	if(!f.open(QFile::ReadOnly)) {
-		qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Cannot open file '%1' for reading.").arg(f.fileName()));
+		qf::gui::dialogs::MessageBox::showError(this, tr("Cannot open file '%1' for reading.").arg(f.fileName()));
 		return;
 	}
 	QTextStream ts(&f);
@@ -959,7 +959,7 @@ void CardReaderWidget::importCards_lapsOnlyCsv()
 		transaction.commit();
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 }
 
@@ -1060,16 +1060,16 @@ void CardReaderWidget::importCards_SIReaderBackupMemoryCsv()
 		col_Record_1_DOW,
 		col_Record_1_time,
 	};
-	//qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("<p>CSV record must have format:</p>"
+	//qf::gui::dialogs::MessageBox::showInfo(this, tr("<p>CSV record must have format:</p>"
 	//													   "<p>7203463,\"2,28\",\"3,34\",\"2,42\",\"3,29\",\"3,12\",\"1,38\",\"1,13\",\"3,18\",\"1,17\",\"0,15\"</p>"
 	//													   "<p>Any row can be commented by leading #</p>"
 	//													   "<p>Decimal point is also supported, the quotes can be omited than.</p>"));
-	QString fn = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName(this, tr("Import TXT"));
+	QString fn = qf::gui::dialogs::FileDialog::getOpenFileName(this, tr("Import TXT"));
 	if(fn.isEmpty())
 		return;
 	QFile f(fn);
 	if(!f.open(QFile::ReadOnly)) {
-		qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Cannot open file '%1' for reading.").arg(f.fileName()));
+		qf::gui::dialogs::MessageBox::showError(this, tr("Cannot open file '%1' for reading.").arg(f.fileName()));
 		return;
 	}
 	int stage_id = getPlugin<EventPlugin>()->currentStageId();
@@ -1143,7 +1143,7 @@ void CardReaderWidget::importCards_SIReaderBackupMemoryCsv()
 		transaction.commit();
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 }
 
@@ -1166,7 +1166,7 @@ void CardReaderWidget::readStationBackupMemory()
 	});
 	connect(si_task, &siut::SiTaskStationConfig::finished, this, [this](bool ok, QVariant result) {
 		if(ok) {
-			//qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "memory read");
+			//qf::gui::dialogs::MessageBox::showInfo(this, "memory read");
 			QVariantMap m = result.toMap();
 			int station_number = m.value("stationNumber").toInt();
 			QVariantList punches = m.value("punches").toList();
@@ -1193,9 +1193,9 @@ void CardReaderWidget::readStationBackupMemory()
 			opts.setDocumentTitle(tr("Station backup memory"));
 			QString html = qf::core::utils::HtmlUtils::fromHtmlList(html_body, opts);
 
-			qf::qmlwidgets::dialogs::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, this);
+			qf::gui::dialogs::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, this);
 			/*
-			qf::qmlwidgets::DialogButtonBox *bbx = dlg.buttonBox();
+			qf::gui::DialogButtonBox *bbx = dlg.buttonBox();
 			QPushButton *bt_set_off_race = new QPushButton(tr("Set off-race"));
 			bt_set_off_race->setToolTip(tr("All runners without CHECK will be marked as off-race."));
 			bool set_off_race = false;
@@ -1204,7 +1204,7 @@ void CardReaderWidget::readStationBackupMemory()
 			});
 			bbx->addButton(bt_set_off_race, QDialogButtonBox::AcceptRole);
 			*/
-			auto *w = new qf::qmlwidgets::HtmlViewWidget();
+			auto *w = new qf::gui::HtmlViewWidget();
 			dlg.setCentralWidget(w);
 			w->setHtmlText(html);
 			if(dlg.exec()) {

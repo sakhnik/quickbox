@@ -1,8 +1,8 @@
 #include "dbschema.h"
 #include "eventplugin.h"
 
-//#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/application.h>
+//#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/application.h>
 
 #include <qf/core/assert.h>
 #include <qf/core/log.h>
@@ -27,7 +27,7 @@ QObject *DbSchema::dbSchemaRoot()
 	qfLogFuncFrame();
 	if(m_dbschemaComponent == nullptr) {
 		auto *qml_engine = qmlEngine();
-		//auto *app = qf::qmlwidgets::framework::Application::instance();
+		//auto *app = qf::gui::framework::Application::instance();
 		QString dbschema_file = m_eventPlugin->qmlDir() + "/DbSchema.qml";
 		m_dbschemaComponent = new QQmlComponent(qml_engine, qml_engine);
 		QUrl dbschema_url = QUrl::fromLocalFile(dbschema_file);

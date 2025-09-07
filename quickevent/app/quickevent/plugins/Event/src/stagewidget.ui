@@ -25,7 +25,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="qf::qmlwidgets::DateEdit" name="dateEdit">
+    <widget class="qf::gui::DateEdit" name="dateEdit">
      <property name="displayFormat">
       <string>dd.MM. yyyy</string>
      </property>
@@ -45,7 +45,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="qf::qmlwidgets::TimeEdit" name="timeEdit">
+    <widget class="qf::gui::TimeEdit" name="timeEdit">
      <property name="displayFormat">
       <string>H:mm:ss</string>
      </property>
@@ -55,14 +55,14 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::TimeEdit</class>
+   <class>qf::gui::TimeEdit</class>
    <extends>QTimeEdit</extends>
-   <header location="global">qf/qmlwidgets/timeedit.h</header>
+   <header location="global">qf/gui/timeedit.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::DateEdit</class>
+   <class>qf::gui::DateEdit</class>
    <extends>QDateEdit</extends>
-   <header location="global">qf/qmlwidgets/dateedit.h</header>
+   <header location="global">qf/gui/dateedit.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

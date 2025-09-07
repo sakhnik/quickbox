@@ -10,19 +10,19 @@
 #include <quickevent/core/si/punchrecord.h>
 #include <quickevent/core/codedef.h>
 
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/action.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/string.h>
 #include <qf/core/utils.h>
 #include <qf/core/collator.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/assert.h>
@@ -40,11 +40,11 @@ static const auto SkipEmptyParts = Qt::SkipEmptyParts;
 #endif
 
 namespace qfc = qf::core;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::qmlwidgets::model;
+namespace qfw = qf::gui;
+namespace qfd = qf::gui::dialogs;
+namespace qfm = qf::gui::model;
 namespace qfs = qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Classes::ClassesPlugin;
 
@@ -215,7 +215,7 @@ ClassesWidget::ClassesWidget(QWidget *parent) :
 		ui->tblCourseCodes->setTableModel(m);
 		m_courseCodesModel = m;
 	}
-	connect(ui->tblClasses, &qf::qmlwidgets::TableView::currentRowChanged, this, &ClassesWidget::reloadCourseCodes);
+	connect(ui->tblClasses, &qf::gui::TableView::currentRowChanged, this, &ClassesWidget::reloadCourseCodes);
 	connect(ui->chkUseAllMaps, &QCheckBox::toggled, this, [this](bool checked) {
 		auto evplugin = getPlugin<EventPlugin>();
 		auto data = evplugin->stageData(selectedStageId());
@@ -296,7 +296,7 @@ void ClassesWidget::settleDownInPartWidget(::PartWidget *part_widget)
 
 void ClassesWidget::edit_courses()
 {
-	qf::qmlwidgets::dialogs::Dialog dlg(QDialogButtonBox::Close, this);
+	qf::gui::dialogs::Dialog dlg(QDialogButtonBox::Close, this);
 	auto *w = new EditCoursesWidget();
 	dlg.setCentralWidget(w);
 	dlg.exec();
@@ -305,7 +305,7 @@ void ClassesWidget::edit_courses()
 
 void ClassesWidget::edit_codes()
 {
-	qf::qmlwidgets::dialogs::Dialog dlg(QDialogButtonBox::Close, this);
+	qf::gui::dialogs::Dialog dlg(QDialogButtonBox::Close, this);
 	auto *w = new EditCodesWidget();
 	dlg.setCentralWidget(w);
 	//auto *bt_apply = dlg.buttonBox()->button(QDialogButtonBox::Apply);
@@ -325,7 +325,7 @@ void ClassesWidget::edit_classes_layout()
 			   "Consider setting \"Interval\" column for all classes before continuing."));
 	}
 	auto *w = new drawing::DrawingGanttWidget;
-	qf::qmlwidgets::dialogs::Dialog dlg(this);
+	qf::gui::dialogs::Dialog dlg(this);
 	//dlg.setButtons(QDialogButtonBox::Save);
 	dlg.setCentralWidget(w);
 	w->load(selectedStageId());
@@ -444,7 +444,7 @@ void ClassesWidget::reloadCourseCodes()
 
 void ClassesWidget::importCourses(const QList<ImportCourseDef> &course_defs, const QList<quickevent::core::CodeDef> &code_defs)
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	QString msg = tr("Delete all courses definitions for stage %1?").arg(selectedStageId());
 	bool delete_current = qfd::MessageBox::askYesNo(fwk, msg, false);
 	getPlugin<ClassesPlugin>()->createCourses(selectedStageId(), course_defs, code_defs, delete_current);
@@ -531,8 +531,8 @@ void ClassesWidget::import_ocad_txt()
 			importCourses(defined_courses_map.values(), QList<quickevent::core::CodeDef>());
 		}
 		catch (const qf::core::Exception &e) {
-			qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	}
 }
@@ -621,8 +621,8 @@ void ClassesWidget::import_ocad_v8()
 			importCourses(defined_courses_map.values(), QList<quickevent::core::CodeDef>());
 		}
 		catch (const qf::core::Exception &e) {
-			qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	}
 }
@@ -712,8 +712,8 @@ void ClassesWidget::import_ocad_iofxml_2()
 		}
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
@@ -824,7 +824,7 @@ void ClassesWidget::import_ocad_iofxml_3()
 						//qfInfo() << cd.name() << ":" << class_name << normalized_class_name;
 						if(class_name != normalized_class_name || class_name.contains('+')) {
 							if(!split_class_names_prompted) {
-								split_class_names_enabled = qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Class name '%1' seems to be combined, separate it to more classes?").arg(class_name));
+								split_class_names_enabled = qf::gui::dialogs::MessageBox::askYesNo(this, tr("Class name '%1' seems to be combined, separate it to more classes?").arg(class_name));
 								split_class_names_prompted = true;
 							}
 						}
@@ -842,8 +842,8 @@ void ClassesWidget::import_ocad_iofxml_3()
 		}
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 

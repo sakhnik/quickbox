@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 
 		for(const auto &file_name : {
 			QStringLiteral("libqfcore"),
-			QStringLiteral("libqfqmlwidgets"),
+			QStringLiteral("libqfgui"),
 			QStringLiteral("quickshow"),
 		}) {
 			QTranslator *translator = new QTranslator(&app);

@@ -2,7 +2,7 @@
 
 #include "quickeventguiglobal.h"
 
-#include <qf/qmlwidgets/framework/ipersistentsettings.h>
+#include <qf/gui/framework/ipersistentsettings.h>
 
 #include <qf/core/utils.h>
 
@@ -16,7 +16,7 @@ namespace Ui {
 class ReportOptionsDialog;
 }
 
-class QUICKEVENTGUI_DECL_EXPORT ReportOptionsDialog : public QDialog, public qf::qmlwidgets::framework::IPersistentSettings
+class QUICKEVENTGUI_DECL_EXPORT ReportOptionsDialog : public QDialog, public qf::gui::framework::IPersistentSettings
 {
 	Q_OBJECT
 

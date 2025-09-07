@@ -2,8 +2,8 @@
 #include "ui_connectdbdialogwidget.h"
 #include "connectionsettings.h"
 
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-//#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/dialogs/filedialog.h>
+//#include <qf/gui/framework/mainwindow.h>
 
 ConnectDbDialogWidget::ConnectDbDialogWidget(QWidget *parent) :
 	Super(parent),
@@ -106,8 +106,8 @@ void ConnectDbDialogWidget::saveSettings()
 
 void ConnectDbDialogWidget::onSingleWorkingDirectoryClicked()
 {
-	//qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	QString wd = qf::qmlwidgets::dialogs::FileDialog::getExistingDirectory(this, tr("Event files directory"), ui->edSingleWorkingDir->text());
+	//qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	QString wd = qf::gui::dialogs::FileDialog::getExistingDirectory(this, tr("Event files directory"), ui->edSingleWorkingDir->text());
 	if(!wd.isEmpty())
 		ui->edSingleWorkingDir->setText(wd);
 }

@@ -1,7 +1,7 @@
 #include "dlgeditconnection.h"
 
 #include <qf/core/log.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
+#include <qf/gui/dialogs/filedialog.h>
 
 #include <QVariant>
 
@@ -120,7 +120,7 @@ void DlgEditConnection::onDriverCurrentIndexChanged(const QString &s)
 void DlgEditConnection::onFindDatabaseFileClicked()
 {
 	QString s = edDatabase->text();
-	s = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName(this, tr("Open database file"), s);
+	s = qf::gui::dialogs::FileDialog::getOpenFileName(this, tr("Open database file"), s);
 	if(!s.isEmpty())
 		edDatabase->setText(s);
 }

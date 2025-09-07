@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 #include <plugins/Core/src/widgets/settingspage.h>
 
@@ -8,7 +8,7 @@ namespace Ui {
 class LentCardsSettingsPage;
 }
 
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui::model { class SqlTableModel; }
 
 class LentCardsSettingsPage : public Core::SettingsPage
 {
@@ -25,6 +25,6 @@ protected:
 
 private:
 	Ui::LentCardsSettingsPage *ui;
-	qf::qmlwidgets::model::SqlTableModel *m_tableModel;
+	qf::gui::model::SqlTableModel *m_tableModel;
 };
 

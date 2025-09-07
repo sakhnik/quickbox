@@ -1,8 +1,8 @@
 #include "xmlimporter.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Classes/src/classesplugin.h>
@@ -14,9 +14,9 @@
 #include <qf/core/sql/transaction.h>
 #include <QInputDialog>
 
-// namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-using qf::qmlwidgets::framework::getPlugin;
+// namespace qfw = qf::gui;
+namespace qfd = qf::gui::dialogs;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 XmlImporter::XmlImporter(QObject *parent)
@@ -407,7 +407,7 @@ bool XmlImporter::importEntries(QXmlStreamReader &reader, const XmlCreators crea
 						it++;
 					}
 					bool ok;
-					QString item = QInputDialog::getItem(qf::qmlwidgets::framework::MainWindow::frameWork(), tr("Select which race import"),
+					QString item = QInputDialog::getItem(qf::gui::framework::MainWindow::frameWork(), tr("Select which race import"),
 														 tr("Races:"), items, 0, false, &ok);
 					if (ok && !item.isEmpty())
 						selected_race = races[item];
@@ -729,7 +729,7 @@ bool XmlImporter::importRegistration(QXmlStreamReader &reader, const XmlCreators
 bool XmlImporter::importEvent(QXmlStreamReader &reader, const XmlCreators creator)
 {
 	if (creator == XmlCreators::Oris) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		qfd::MessageBox::showWarning(fwk, QString(tr("EventList from ORIS is not yet supported. It requires a different type of handling.")));
 		return false; // ORIS has only list with all races - need to select/find current race
 	}
@@ -779,7 +779,7 @@ bool XmlImporter::importEvent(QXmlStreamReader &reader, const XmlCreators creato
 				it++;
 			}
 			bool ok;
-			QString item = QInputDialog::getItem(qf::qmlwidgets::framework::MainWindow::frameWork(), tr("Select which race import"),
+			QString item = QInputDialog::getItem(qf::gui::framework::MainWindow::frameWork(), tr("Select which race import"),
 												 tr("Races:"), items, 0, false, &ok);
 			if (ok && !item.isEmpty())
 				event_race = races[item];
@@ -814,7 +814,7 @@ bool XmlImporter::importEvent(QXmlStreamReader &reader, const XmlCreators creato
 
 bool XmlImporter::importXML30()
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	QString fn = qfd::FileDialog::getOpenFileName(fwk, tr("Open IOF XML 3.0 file"), QString(), tr("IOF XML v3 files (*.xml)"));
 	if(fn.isEmpty())
 		return false;

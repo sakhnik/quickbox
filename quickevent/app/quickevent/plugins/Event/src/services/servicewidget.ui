@@ -94,16 +94,16 @@
       <item>
        <widget class="QPushButton" name="btPlay">
         <property name="icon">
-         <iconset resource="../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/media-play.svg</normaloff>:/qf/qmlwidgets/images/flat/media-play.svg</iconset>
+         <iconset resource="../../../../../../../libqf/libqfgui/images/flat/qf_gui_images_flat.qrc">
+          <normaloff>:/qf/gui/images/flat/media-play.svg</normaloff>:/qf/gui/images/flat/media-play.svg</iconset>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QPushButton" name="btShowDetail">
         <property name="icon">
-         <iconset resource="../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/settings.svg</normaloff>:/qf/qmlwidgets/images/flat/settings.svg</iconset>
+         <iconset resource="../../../../../../../libqf/libqfgui/images/flat/qf_gui_images_flat.qrc">
+          <normaloff>:/qf/gui/images/flat/settings.svg</normaloff>:/qf/gui/images/flat/settings.svg</iconset>
         </property>
        </widget>
       </item>
@@ -113,7 +113,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc"/>
+  <include location="../../../../../../../libqf/libqfgui/images/flat/qf_gui_images_flat.qrc"/>
  </resources>
  <connections/>
 </ui>

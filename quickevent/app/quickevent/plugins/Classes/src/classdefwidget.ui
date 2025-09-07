@@ -36,7 +36,7 @@
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="qf::qmlwidgets::SpinBox" name="edStartTime">
+    <widget class="qf::gui::SpinBox" name="edStartTime">
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -52,7 +52,7 @@
     </widget>
    </item>
    <item row="1" column="1">
-    <widget class="qf::qmlwidgets::SpinBox" name="spinBox_2">
+    <widget class="qf::gui::SpinBox" name="spinBox_2">
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -68,7 +68,7 @@
     </widget>
    </item>
    <item row="2" column="1">
-    <widget class="qf::qmlwidgets::SpinBox" name="spinBox_3">
+    <widget class="qf::gui::SpinBox" name="spinBox_3">
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -95,7 +95,7 @@
     </widget>
    </item>
    <item row="3" column="1">
-    <widget class="qf::qmlwidgets::SpinBox" name="spinBox_4">
+    <widget class="qf::gui::SpinBox" name="spinBox_4">
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -108,7 +108,7 @@
     </widget>
    </item>
    <item row="4" column="1">
-    <widget class="qf::qmlwidgets::SpinBox" name="spinBox_5">
+    <widget class="qf::gui::SpinBox" name="spinBox_5">
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -128,7 +128,7 @@
     </widget>
    </item>
    <item row="5" column="1">
-    <widget class="qf::qmlwidgets::SpinBox" name="spinBox_6">
+    <widget class="qf::gui::SpinBox" name="spinBox_6">
      <property name="alignment">
       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
      </property>
@@ -147,9 +147,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::SpinBox</class>
+   <class>qf::gui::SpinBox</class>
    <extends>QSpinBox</extends>
-   <header location="global">qf/qmlwidgets/spinbox.h</header>
+   <header location="global">qf/gui/spinbox.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

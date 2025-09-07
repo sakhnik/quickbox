@@ -8,7 +8,7 @@
 #include "theapp.h"
 #include "driver/qfhttpmysql/qfhttpmysql.h"
 
-#include <qf/qmlwidgets/style.h>
+#include <qf/gui/style.h>
 
 #include <qf/core/log.h>
 
@@ -46,9 +46,9 @@ SqlJournal TheApp::f_sqlJournal;
 TheApp::TheApp(int & argc, char ** argv)
 	: QApplication(argc, argv)
 {
-	auto *style = qf::qmlwidgets::Style::instance();
-	//style->addIconSearchPath(":/qf/qmlwidgets/images/flat");
-	style->addIconSearchPath(":/qf/qmlwidgets/images");
+	auto *style = qf::gui::Style::instance();
+	//style->addIconSearchPath(":/qf/gui/images/flat");
+	style->addIconSearchPath(":/qf/gui/images");
 
 	QSqlDatabase::registerSqlDriver("QFHTTPMYSQL", new QFHttpMySqlDriverCreator());
 

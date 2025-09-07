@@ -1,12 +1,12 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/partwidget.h>
+#include <qf/gui/framework/partwidget.h>
 
-class PartWidget : public qf::qmlwidgets::framework::PartWidget
+class PartWidget : public qf::gui::framework::PartWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::PartWidget Super;
+	typedef qf::gui::framework::PartWidget Super;
 public:
 	explicit PartWidget(const QString &title, const QString &feature_id, QWidget *parent = nullptr);
 

@@ -3,22 +3,22 @@
 #include "txtimporter.h"
 #include "xmlimporter.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/action.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/action.h>
 #include <plugins/Event/src/eventplugin.h>
 
 #include <qf/core/log.h>
 
-namespace qff = qf::qmlwidgets::framework;
-namespace qfw = qf::qmlwidgets;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qff = qf::gui::framework;
+namespace qfw = qf::gui;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 namespace Oris {
 
 OrisPlugin::OrisPlugin(QObject *parent)
-	: Super("Oris", parent)//, qf::qmlwidgets::framework::IPersistentSettings(this)
+	: Super("Oris", parent)//, qf::gui::framework::IPersistentSettings(this)
 {
 	//setPersistentSettingsId("Oris");
 	m_orisImporter = new OrisImporter(this);
@@ -35,7 +35,7 @@ void OrisPlugin::onInstalled()
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
 	//console.warn("Oris installed");
 	qfw::Action *act_import = fwk->menuBar()->actionForPath("file/import");
-	qf::qmlwidgets::Action *act_import_oris = act_import->addMenuInto("oris", tr("&ORIS"));
+	qf::gui::Action *act_import_oris = act_import->addMenuInto("oris", tr("&ORIS"));
 	{
 		qfw::Action *a = act_import_oris->addActionInto("event", tr("&Event"));
 		connect(a, &qfw::Action::triggered, m_orisImporter, &OrisImporter::chooseAndImport);
@@ -86,7 +86,7 @@ void OrisPlugin::onInstalled()
 			a->setEnabled(is_event_open);
 		});
 	}
-	qf::qmlwidgets::Action *act_import_txt = act_import->addMenuInto("text", tr("&Text file"));
+	qf::gui::Action *act_import_txt = act_import->addMenuInto("text", tr("&Text file"));
 	act_import_txt->setEnabled(false);
 	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [act_import_txt](bool is_event_open) {
 		act_import_txt->setEnabled(is_event_open);

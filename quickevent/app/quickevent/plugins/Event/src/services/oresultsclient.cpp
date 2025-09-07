@@ -3,8 +3,8 @@
 
 #include "../eventplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <qf/core/log.h>
 #include <plugins/Runs/src/runsplugin.h>
@@ -24,7 +24,7 @@
 #include <QTextStream>
 #include <QTimer>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
 using Runs::RunsPlugin;
@@ -81,7 +81,7 @@ void OResultsClient::exportStartListIofXml3(std::function<void()> on_success)
 	sendFile("start list upload", "/start-lists", str, on_success);
 }
 
-qf::qmlwidgets::framework::DialogWidget *OResultsClient::createDetailWidget()
+qf::gui::framework::DialogWidget *OResultsClient::createDetailWidget()
 {
 	auto *w = new OResultsClientWidget();
 	return w;

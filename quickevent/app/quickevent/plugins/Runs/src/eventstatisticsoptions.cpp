@@ -7,7 +7,7 @@
 
 EventStatisticsOptions::EventStatisticsOptions(QWidget *parent)
 	: QDialog(parent)
-	, qf::qmlwidgets::framework::IPersistentSettings(this)
+	, qf::gui::framework::IPersistentSettings(this)
 	, ui(new Ui::EventStatisticsOptions)
 {
 	ui->setupUi(this);

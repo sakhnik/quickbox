@@ -2,8 +2,8 @@
 #include "ui_ofeedclientwidget.h"
 #include "ofeedclient.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/assert.h>
 #include <qf/core/log.h>

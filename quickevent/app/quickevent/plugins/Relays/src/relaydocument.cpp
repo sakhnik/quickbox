@@ -2,8 +2,8 @@
 
 #include <plugins/Event/src/eventplugin.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/query.h>
@@ -11,7 +11,7 @@
 #include <qf/core/assert.h>
 
 using namespace Relays;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
  RelayDocument:: RelayDocument(QObject *parent)

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/utils.h>
 
@@ -9,7 +9,7 @@ namespace qf {
 namespace core {  namespace model { class SqlTableModel; }}
 namespace core {  namespace utils { class TreeTable; }}
 
-namespace qmlwidgets {
+namespace gui {
 class Action;
 namespace framework {
 class PartWidget;
@@ -22,17 +22,17 @@ namespace quickevent {  namespace core {  namespace si { class CheckedCard; }}}
 
 namespace Relays {
 
-class RelaysPlugin : public qf::qmlwidgets::framework::Plugin
+class RelaysPlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
-	Q_PROPERTY(qf::qmlwidgets::framework::PartWidget* partWidget READ partWidget FINAL)
+	Q_PROPERTY(qf::gui::framework::PartWidget* partWidget READ partWidget FINAL)
 private:
-	using Super = qf::qmlwidgets::framework::Plugin;
+	using Super = qf::gui::framework::Plugin;
 public:
 	RelaysPlugin(QObject *parent = nullptr);
 	~RelaysPlugin() override = default;
 
-	qf::qmlwidgets::framework::PartWidget *partWidget() {return m_partWidget;}
+	qf::gui::framework::PartWidget *partWidget() {return m_partWidget;}
 
 	Q_INVOKABLE QObject* createRelayDocument(QObject *parent);
 	Q_INVOKABLE int editRelay(int id, int mode);
@@ -52,7 +52,7 @@ private:
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
 	void processRunnerFinished(const quickevent::core::si::CheckedCard &checked_card);
 private:
-	qf::qmlwidgets::framework::PartWidget *m_partWidget = nullptr;
+	qf::gui::framework::PartWidget *m_partWidget = nullptr;
 };
 
 }

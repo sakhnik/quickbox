@@ -22,21 +22,21 @@ ServiceWidget::~ServiceWidget()
 void ServiceWidget::setStatus(Service::Status st)
 {
 	m_isRunning = (st == Service::Status::Running);
-	static QIcon ico_play(":/qf/qmlwidgets/images/flat/media-play");
-	static QIcon ico_stop(":/qf/qmlwidgets/images/flat/media-stop");
+	static QIcon ico_play(":/qf/gui/images/flat/media-play");
+	static QIcon ico_stop(":/qf/gui/images/flat/media-stop");
 	ui->btPlay->setIcon(m_isRunning? ico_stop: ico_play);
 	switch (st) {
 	case Service::Status::Running:
-		ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-green"));
+		ui->lblStatus->setPixmap(QPixmap(":/qf/gui/images/light-green"));
 		break;
 	case Service::Status::Stopped:
-		ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-red"));
+		ui->lblStatus->setPixmap(QPixmap(":/qf/gui/images/light-red"));
 		break;
 	//case Service::Status::Failed:
-	//	ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-red"));
+	//	ui->lblStatus->setPixmap(QPixmap(":/qf/gui/images/light-red"));
 	//	break;
 	case Service::Status::Unknown:
-		ui->lblStatus->setPixmap(QPixmap(":/qf/qmlwidgets/images/light-blind"));
+		ui->lblStatus->setPixmap(QPixmap(":/qf/gui/images/light-blind"));
 		break;
 	}
 }

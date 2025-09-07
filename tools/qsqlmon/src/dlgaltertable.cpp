@@ -6,8 +6,8 @@
 #include <qf/core/log.h>
 #include <qf/core/utils.h>
 #include <qf/core/sql/query.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/dialogs/previewdialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/dialogs/previewdialog.h>
 
 #include <QDialog>
 #include <QErrorMessage>
@@ -75,7 +75,7 @@ void DlgAlterTable::onFieldInsert_clicked(bool append)
 			QStringList sql_commands;
 			if(connection().driverName().endsWith("SQLITE")) {
 				if(!append) {
-					qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Not supported in SQLite version <= 3.2.2");
+					qf::gui::dialogs::MessageBox::showInfo(this, "Not supported in SQLite version <= 3.2.2");
 				}
 				QString fld_name = dlg.edName->text();
 				QString qs = "ALTER TABLE %1 ADD COLUMN %2 ";
@@ -88,7 +88,7 @@ void DlgAlterTable::onFieldInsert_clicked(bool append)
 			}
 			else if(connection().driverName().endsWith("PSQL")) {
 				if(!append) {
-					qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Columns insertion is not supported in PSQL");
+					qf::gui::dialogs::MessageBox::showInfo(this, "Columns insertion is not supported in PSQL");
 				}
 				QString fld_name = dlg.edName->text();
 				QString qs = "ALTER TABLE %1.%2 ADD COLUMN %3 ";
@@ -118,7 +118,7 @@ void DlgAlterTable::onFieldInsert_clicked(bool append)
 				//refresh();
 			}
 			else {
-				qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Not supported yet.");
+				qf::gui::dialogs::MessageBox::showInfo(this, "Not supported yet.");
 				continue;
 			}
 			bool sql_ok = true;
@@ -126,7 +126,7 @@ void DlgAlterTable::onFieldInsert_clicked(bool append)
 				if(!sql_commands.isEmpty()) {
 					bool do_exec = true;
 					if(dlg.isShowCommand()) {
-						do_exec = qf::qmlwidgets::dialogs::PreviewDialog::exec(this, sql_cmd, QString(), "dlgShowCommand");
+						do_exec = qf::gui::dialogs::PreviewDialog::exec(this, sql_cmd, QString(), "dlgShowCommand");
 					}
 					if(do_exec) {
 						sql_ok = execCommand(sql_cmd);
@@ -210,14 +210,14 @@ void DlgAlterTable::onFieldEdit_clicked()
 				sql_commands << s;
 			}
 			else {
-				qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Not supported yet.");
+				qf::gui::dialogs::MessageBox::showInfo(this, "Not supported yet.");
 				continue;
 			}
 			if(!sql_commands.isEmpty()) {
 				QString s = sql_commands.join(";\n");
 				bool ok = true;
 				if(dlg.isShowCommand()) {
-					ok = qf::qmlwidgets::dialogs::PreviewDialog::exec(this, s, QString(), "dlgShowCommand");
+					ok = qf::gui::dialogs::PreviewDialog::exec(this, s, QString(), "dlgShowCommand");
 				}
 				if(ok)
 					if(!execCommand(s))
@@ -235,7 +235,7 @@ void DlgAlterTable::onFieldDelete_clicked()
 	if(lstFields->currentRow() < 0) return;
 
 	QString fld_name = lstFields->currentItem()->text();
-	if(qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Realy drop column '%1'").arg(fld_name))) {
+	if(qf::gui::dialogs::MessageBox::askYesNo(this, tr("Realy drop column '%1'").arg(fld_name))) {
 		QString s = "ALTER TABLE %1 DROP COLUMN \"%2\"";
 		s = s.arg(m_tableName).arg(fld_name);
 		execCommand(s);
@@ -288,14 +288,14 @@ void DlgAlterTable::onIndexEdit_clicked()
 		execCommand(dlg.createIndexCommand());
 		refresh();
 	}
-	//qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("If you want to edit index, drop it and create again."));
+	//qf::gui::dialogs::MessageBox::showInfo(this, tr("If you want to edit index, drop it and create again."));
 }
 
 void DlgAlterTable::onIndexDelete_clicked()
 {
 	if(lstIndexes->currentRow() < 0) return;
 	QString indexname = lstIndexes->currentItem()->text();
-	if(qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Do you realy want to drop index %1?").arg(indexname), true)) {
+	if(qf::gui::dialogs::MessageBox::askYesNo(this, tr("Do you realy want to drop index %1?").arg(indexname), true)) {
 		execCommand(dropIndexCommand(indexname));
 		refresh();
 	}

@@ -1,8 +1,8 @@
 #include "reportoptionsdialog.h"
 #include "ui_reportoptionsdialog.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/string.h>
 #include <qf/core/assert.h>
@@ -25,7 +25,7 @@ auto default_persistent_settings_id =  QStringLiteral("reportOptionsDialog");
 
 ReportOptionsDialog::ReportOptionsDialog(QWidget *parent)
 	: QDialog(parent)
-	, qf::qmlwidgets::framework::IPersistentSettings(this)
+	, qf::gui::framework::IPersistentSettings(this)
 	, ui(new Ui::ReportOptionsDialog)
 {
 	ui->setupUi(this);
@@ -90,7 +90,7 @@ QString ReportOptionsDialog::persistentSettingsPath()
 
 bool ReportOptionsDialog::setPersistentSettingsId(const QString &id)
 {
-	bool ret = qf::qmlwidgets::framework::IPersistentSettings::setPersistentSettingsId(id);
+	bool ret = qf::gui::framework::IPersistentSettings::setPersistentSettingsId(id);
 	if(ret)
 		emit persistentSettingsIdChanged(id);
 	return ret;

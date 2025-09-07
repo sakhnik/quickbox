@@ -7,9 +7,9 @@
 #include <quickevent/core/codedef.h>
 #include <quickevent/core/si/punchrecord.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/action.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/action.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -22,8 +22,8 @@
 
 #include <QQmlEngine>
 
-namespace qff = qf::qmlwidgets::framework;
-//namespace qfd = qf::qmlwidgets::dialogs;
+namespace qff = qf::gui::framework;
+//namespace qfd = qf::gui::dialogs;
 namespace qfs = qf::core::sql;
 using ::PartWidget;
 using qff::getPlugin;
@@ -293,8 +293,8 @@ void ClassesPlugin::createCourses(int stage_id, const QList<ImportCourseDef> &co
 		transaction.commit();
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 

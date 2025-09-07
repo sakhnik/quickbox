@@ -6,8 +6,8 @@
 #include <quickevent/core/exporters/stageresultshtmlexporter.h>
 #include <quickevent/core/exporters/stageresultscsvexporter.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Relays/src/relaysplugin.h>
 
@@ -21,7 +21,7 @@
 #include <QStandardPaths>
 #include <QTimer>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 using Relays::RelaysPlugin;
@@ -157,7 +157,7 @@ void ResultsExporter::onExportTimerTimeOut()
 		stop();
 }
 
-qf::qmlwidgets::framework::DialogWidget *ResultsExporter::createDetailWidget()
+qf::gui::framework::DialogWidget *ResultsExporter::createDetailWidget()
 {
 	auto *w = new ResultsExporterWidget();
 	return w;

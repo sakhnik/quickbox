@@ -1,22 +1,22 @@
 #ifndef RELAYWIDGET_H
 #define RELAYWIDGET_H
 
-#include <qf/qmlwidgets/framework/datadialogwidget.h>
+#include <qf/gui/framework/datadialogwidget.h>
 
 namespace quickevent::gui::og { class SqlTableModel; }
 
 namespace Ui { class  RelayWidget; }
 
-class  RelayWidget : public qf::qmlwidgets::framework::DataDialogWidget
+class  RelayWidget : public qf::gui::framework::DataDialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DataDialogWidget Super;
+	typedef qf::gui::framework::DataDialogWidget Super;
 public:
 	explicit  RelayWidget(QWidget *parent = nullptr);
 	~RelayWidget() Q_DECL_OVERRIDE;
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
+	bool load(const QVariant &id = QVariant(), int mode = qf::gui::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
 private:
 	Q_SLOT bool loadLegsTable();
 	//Q_SLOT bool saveLegsTable();

@@ -4,9 +4,9 @@
 
 #include <qf/core/collator.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/reports/processor/reportpainter.h>
-#include <qf/qmlwidgets/reports/processor/reportprocessor.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/reports/processor/reportpainter.h>
+#include <qf/gui/reports/processor/reportprocessor.h>
 
 #include <QCryptographicHash>
 #include <QDomDocument>
@@ -26,8 +26,8 @@
 #include <qf/core/utils/timescope.h>
 
 namespace qfu = qf::core::utils;
-namespace qff = qf::qmlwidgets::framework;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qff = qf::gui::framework;
+using qf::gui::framework::getPlugin;
 using Receipts::ReceiptsPlugin;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
@@ -77,10 +77,10 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		qff::MainWindow *fwk = qff::MainWindow::frameWork();
 		paint_device = fwk;
 	}
-	qf::qmlwidgets::reports::ReportProcessor rp(paint_device);
+	qf::gui::reports::ReportProcessor rp(paint_device);
 	{
 		QF_TIME_SCOPE("setting report and data");
-		auto *plugin = qf::qmlwidgets::framework::getPlugin<Receipts::ReceiptsPlugin>();
+		auto *plugin = qf::gui::framework::getPlugin<Receipts::ReceiptsPlugin>();
 		if(!rp.setReport(plugin->findReportFile(report_file_name)))
 			return false;
 		for(auto key : report_data.keys()) {
@@ -93,15 +93,15 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 			QF_TIME_SCOPE("process report");
 			rp.process();
 		}
-		qf::qmlwidgets::reports::ReportItemMetaPaintReport *doc;
+		qf::gui::reports::ReportItemMetaPaintReport *doc;
 		{
 			QF_TIME_SCOPE("getting processor output");
 			doc = rp.processorOutput();
 		}
-		qf::qmlwidgets::reports::ReportItemMetaPaint *it = doc->child(0);
+		qf::gui::reports::ReportItemMetaPaint *it = doc->child(0);
 		if(it) {
 			QF_TIME_SCOPE("draw meta-paint");
-			qf::qmlwidgets::reports::ReportPainter painter(paint_device);
+			qf::gui::reports::ReportPainter painter(paint_device);
 			painter.drawMetaPaint(it);
 		}
 		QF_SAFE_DELETE(printer);
@@ -111,7 +111,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		QDomDocument doc;
 		doc.setContent(QLatin1String("<?xml version=\"1.0\"?><report><body/></report>"));
 		QDomElement el_body = doc.documentElement().firstChildElement("body");
-		qf::qmlwidgets::reports::ReportProcessor::HtmlExportOptions opts;
+		qf::gui::reports::ReportProcessor::HtmlExportOptions opts;
 		opts.setConvertBandsToTables(false);
 		rp.processHtml(el_body, opts);
 		//qfInfo() << doc.toString();
@@ -289,7 +289,7 @@ void ReceiptsPrinter::createPrinterData_helper(const QDomElement &el, DirectPrin
 	PrintLine post_commands;
 	int text_width = 0;
 	bool is_halign = el.tagName() == QLatin1String("div")
-			&& el.attribute(qf::qmlwidgets::reports::ReportProcessor::HTML_ATTRIBUTE_LAYOUT) == QLatin1String("horizontal");
+			&& el.attribute(qf::gui::reports::ReportProcessor::HTML_ATTRIBUTE_LAYOUT) == QLatin1String("horizontal");
 	if(is_halign)
 		print_context->horizontalLayoutNestCount++;
 	QDomNamedNodeMap attrs = el.attributes();

@@ -11,9 +11,9 @@
 #include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/reports/widgets/reportviewwidget.h>
-#include <qf/qmlwidgets/log.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/reports/widgets/reportviewwidget.h>
+#include <qf/gui/log.h>
 
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/assert.h>
@@ -25,7 +25,7 @@
 #include <QScrollBar>
 #include <QPushButton>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 
@@ -220,12 +220,12 @@ public:
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
-	qf::qmlwidgets::model::TableModel* masterModel() const;
-	void setMasterModel(qf::qmlwidgets::model::TableModel *masterModel);
+	qf::gui::model::TableModel* masterModel() const;
+	void setMasterModel(qf::gui::model::TableModel *masterModel);
 
 	void reload();
 private:
-	qf::qmlwidgets::model::TableModel *m_masterModel = nullptr;
+	qf::gui::model::TableModel *m_masterModel = nullptr;
 	QVector<QVariant> m_columnSums;
 };
 
@@ -265,16 +265,16 @@ QVariant FooterModel::headerData(int section, Qt::Orientation orientation, int r
 	return Super::headerData(section, orientation, role);
 }
 
-qf::qmlwidgets::model::TableModel *FooterModel::masterModel() const
+qf::gui::model::TableModel *FooterModel::masterModel() const
 {
 	QF_ASSERT_EX(m_masterModel != nullptr, "Master model is NULL");
 	return m_masterModel;
 }
 
-void FooterModel::setMasterModel(qf::qmlwidgets::model::TableModel *masterModel)
+void FooterModel::setMasterModel(qf::gui::model::TableModel *masterModel)
 {
 	m_masterModel = masterModel;
-	connect(m_masterModel, &qf::qmlwidgets::model::SqlTableModel::reloaded, this, &FooterModel::reload);
+	connect(m_masterModel, &qf::gui::model::SqlTableModel::reloaded, this, &FooterModel::reload);
 }
 
 void FooterModel::reload()
@@ -567,7 +567,7 @@ void EventStatisticsWidget::printResultsForRows(const QList<int> &rows)
 	props["isBreakAfterEachClass"] = (opts.breakType() != (int)quickevent::gui::ReportOptionsDialog::BreakType::None);
 	props["isColumnBreak"] = (opts.breakType() == (int)quickevent::gui::ReportOptionsDialog::BreakType::Column);
 	props["options"] = opts;
-	report_printed = qf::qmlwidgets::reports::ReportViewWidget::showReport(this
+	report_printed = qf::gui::reports::ReportViewWidget::showReport(this
 								, getPlugin<RunsPlugin>()->findReportFile("results_stage.qml")
 								, td
 								, tr("Results by classes")

@@ -1,18 +1,18 @@
 #ifndef ADDLEGDIALOGWIDGET_H
 #define ADDLEGDIALOGWIDGET_H
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 #include <qf/core/utils.h>
 
 namespace Ui {
 class AddLegDialogWidget;
 }
 
-class AddLegDialogWidget : public qf::qmlwidgets::framework::DialogWidget
+class AddLegDialogWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 
-	using Super = qf::qmlwidgets::framework::DialogWidget;
+	using Super = qf::gui::framework::DialogWidget;
 
 	QF_FIELD_IMPL2(int, r, R, elayId, 0)
 	QF_FIELD_IMPL2(int, c, C, lassId, 0)

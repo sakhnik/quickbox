@@ -6,8 +6,8 @@
 #include <quickevent/core/si/checkedcard.h>
 #include <quickevent/core/runstatus.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -25,7 +25,7 @@
 #include <QTimer>
 
 namespace qfs = qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
 using Runs::RunsPlugin;
@@ -285,7 +285,7 @@ void EmmaClient::onCardChecked(const QVariantMap &data)
 	out << s << "\n";*/
 }
 
-qf::qmlwidgets::framework::DialogWidget *EmmaClient::createDetailWidget()
+qf::gui::framework::DialogWidget *EmmaClient::createDetailWidget()
 {
 	auto *w = new EmmaClientWidget();
 	return w;

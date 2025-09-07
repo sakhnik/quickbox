@@ -1,22 +1,22 @@
 #ifndef CLASSDEFWIDGET_H
 #define CLASSDEFWIDGET_H
 
-#include <qf/qmlwidgets/framework/datadialogwidget.h>
+#include <qf/gui/framework/datadialogwidget.h>
 
 namespace Ui {
 class ClassDefWidget;
 }
 
-class ClassDefWidget : public qf::qmlwidgets::framework::DataDialogWidget
+class ClassDefWidget : public qf::gui::framework::DataDialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DataDialogWidget Super;
+	typedef qf::gui::framework::DataDialogWidget Super;
 public:
 	ClassDefWidget(QWidget *parent = nullptr);
 	~ClassDefWidget() Q_DECL_OVERRIDE;
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
+	bool load(const QVariant &id = QVariant(), int mode = qf::gui::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
 private:
 	Ui::ClassDefWidget *ui;
 };

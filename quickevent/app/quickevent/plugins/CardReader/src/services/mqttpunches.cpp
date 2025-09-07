@@ -7,8 +7,8 @@
 //#include <siut/simessagedata.h>
 #include <siut/sidevicedriver.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -28,8 +28,8 @@
 #include <QNetworkDatagram>
 #endif
 
-//namespace qfm = qf::qmlwidgets::model;
-using qf::qmlwidgets::framework::getPlugin;
+//namespace qfm = qf::gui::model;
+using qf::gui::framework::getPlugin;
 using CardReader::CardReaderPlugin;
 
 
@@ -92,7 +92,7 @@ void MqttPunches::onRawSIDataUdpSocketReadyRead()
 #endif
 }
 
-qf::qmlwidgets::framework::DialogWidget *MqttPunches::createDetailWidget()
+qf::gui::framework::DialogWidget *MqttPunches::createDetailWidget()
 {
 	auto *w = new MqttPunchesWidget();
 	return w;

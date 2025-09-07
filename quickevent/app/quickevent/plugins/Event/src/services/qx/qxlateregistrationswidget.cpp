@@ -7,18 +7,18 @@
 
 #include <plugins/Event/src/eventplugin.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/log.h>
 #include <qf/core/sql/query.h>
 
 #include <QMenu>
 #include <QJsonDocument>
 
-namespace qfm = qf::qmlwidgets::model;
+namespace qfm = qf::gui::model;
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qfw = qf::gui;
+using qf::gui::framework::getPlugin;
 
 namespace Event::services::qx {
 

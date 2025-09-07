@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace Event {
 namespace services {
@@ -11,11 +11,11 @@ class OResultsClientWidget;
 
 class OResultsClient;
 
-class OResultsClientWidget : public qf::qmlwidgets::framework::DialogWidget
+class OResultsClientWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 
-	using Super = qf::qmlwidgets::framework::DialogWidget;
+	using Super = qf::gui::framework::DialogWidget;
 public:
 	explicit OResultsClientWidget(QWidget *parent = nullptr);
 	~OResultsClientWidget();

@@ -11,7 +11,7 @@
 #include <qf/core/log.h>
 #include <qf/core/logentrymap.h>
 #include <qf/core/utils/settings.h>
-#include <qf/qmlwidgets/model/logtablemodel.h>
+#include <qf/gui/model/logtablemodel.h>
 
 #include <QtQml>
 #include <QLocale>
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 
 		for(const auto &file_name : {
 				QStringLiteral("libqfcore"),
-				QStringLiteral("libqfqmlwidgets"),
+				QStringLiteral("libqfgui"),
 				QStringLiteral("libquickeventcore"),
 				QStringLiteral("libquickeventgui"),
 				QStringLiteral("libsiut"),

@@ -1,7 +1,7 @@
 #ifndef TABLEMODELCOLUMN_H
 #define TABLEMODELCOLUMN_H
 
-#include <qf/qmlwidgets/model/tablemodel.h>
+#include <qf/gui/model/tablemodel.h>
 
 #include <QObject>
 
@@ -20,7 +20,7 @@ public:
 	explicit TableModelColumn(QObject *parent = nullptr);
 	~TableModelColumn() Q_DECL_OVERRIDE;
 
-	const qf::qmlwidgets::model::TableModel::ColumnDefinition& columnDefinition() {return m_columnDefinition; }
+	const qf::gui::model::TableModel::ColumnDefinition& columnDefinition() {return m_columnDefinition; }
 
 	QString fieldName() const { return m_columnDefinition.fieldName(); }
 	void setFieldName(QString arg);
@@ -38,7 +38,7 @@ public:
 signals:
 	void updated(int column_index);
 private:
-	qf::qmlwidgets::model::TableModel::ColumnDefinition m_columnDefinition;
+	qf::gui::model::TableModel::ColumnDefinition m_columnDefinition;
 	int m_columnIndex = -1;
 };
 

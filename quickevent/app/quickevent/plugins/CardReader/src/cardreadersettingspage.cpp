@@ -15,7 +15,7 @@
 #include <siut/commport.h>
 #include <siut/sidevicedriver.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/log.h>
 
@@ -38,7 +38,7 @@ CardReaderSettingsPage::CardReaderSettingsPage(QWidget *parent)
 	m_caption = tr("Card reader");
 	{
 		auto *cbx = ui->cbxCardCheckType;
-		for(auto *checker : qf::qmlwidgets::framework::getPlugin<CardReaderPlugin>()->cardCheckers()) {
+		for(auto *checker : qf::gui::framework::getPlugin<CardReaderPlugin>()->cardCheckers()) {
 			cbx->addItem(checker->caption(), checker->nameId());
 		}
 	}

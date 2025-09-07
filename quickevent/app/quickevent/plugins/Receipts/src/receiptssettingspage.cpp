@@ -4,7 +4,7 @@
 #include "receiptssettings.h"
 #include "receiptsprinteroptionsdialog.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 #include <qf/core/log.h>
 
 #include <QTimer>
@@ -80,7 +80,7 @@ void ReceiptsSettingsPage::loadReceptList()
 {
 	qfLogFuncFrame();
 	ui->cbxReceipt->clear();
-	auto *receipts_plugin = qf::qmlwidgets::framework::getPlugin<ReceiptsPlugin>();
+	auto *receipts_plugin = qf::gui::framework::getPlugin<ReceiptsPlugin>();
 	for(const auto &i : receipts_plugin->listReportFiles("receipts")) {
 		qfDebug() << i.reportName << i.reportFilePath;
 		ui->cbxReceipt->addItem(i.reportName, i.reportFilePath);

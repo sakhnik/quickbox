@@ -2,11 +2,11 @@
 
 //#include <Competitors/competitorsplugin.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/log.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/log.h>
 
 #include <qf/core/utils/table.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/assert.h>
 
 #include <QCompleter>

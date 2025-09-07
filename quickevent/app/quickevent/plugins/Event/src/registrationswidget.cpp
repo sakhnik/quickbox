@@ -2,14 +2,14 @@
 #include "ui_registrationswidget.h"
 #include "eventplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/assert.h>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 RegistrationsWidget::RegistrationsWidget(QWidget *parent) :
@@ -37,15 +37,15 @@ void RegistrationsWidget::checkModel()
 		return;
 
 	if(!ui->tblRegistrations->tableModel()) {
-		qf::qmlwidgets::model::SqlTableModel *reg_model = getPlugin<EventPlugin>()->registrationsModel();
+		qf::gui::model::SqlTableModel *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 		ui->tblRegistrations->setTableModel(reg_model);
-		connect(reg_model, &qf::qmlwidgets::model::SqlTableModel::reloaded, this, [this]() {
+		connect(reg_model, &qf::gui::model::SqlTableModel::reloaded, this, [this]() {
 			ui->tblRegistrations->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 		});
 	}
 }
 
-qf::qmlwidgets::TableView *RegistrationsWidget::tableView()
+qf::gui::TableView *RegistrationsWidget::tableView()
 {
 	return ui->tblRegistrations;
 }

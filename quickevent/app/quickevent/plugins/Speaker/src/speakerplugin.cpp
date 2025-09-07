@@ -1,22 +1,22 @@
 #include "speakerplugin.h"
 #include "speakerwidget.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/menubar.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/action.h>
+#include <qf/gui/menubar.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/log.h>
 
-namespace qff = qf::qmlwidgets::framework;
-namespace qfw = qf::qmlwidgets;
+namespace qff = qf::gui::framework;
+namespace qfw = qf::gui;
 using ::PartWidget;
 
 namespace Speaker {
 
 SpeakerPlugin::SpeakerPlugin(QObject *parent)
-	: Super("Speaker", parent), qf::qmlwidgets::framework::IPersistentSettings(this)
+	: Super("Speaker", parent), qf::gui::framework::IPersistentSettings(this)
 {
 	setPersistentSettingsId("SpeakerPlugin");
 	connect(this, &SpeakerPlugin::installed, this, &SpeakerPlugin::onInstalled, Qt::QueuedConnection);

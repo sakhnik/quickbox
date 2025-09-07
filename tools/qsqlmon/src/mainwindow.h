@@ -5,7 +5,7 @@
 
 #include <qf/core/assert.h>
 #include <qf/core/sql/connection.h>
-#include <qf/qmlwidgets/framework/ipersistentsettings.h>
+#include <qf/gui/framework/ipersistentsettings.h>
 
 #include <QMap>
 #include <QMainWindow>
@@ -23,9 +23,9 @@ class Connection;
 class Database;
 class QSpinBox;
 
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui::model { class SqlTableModel; }
 
-class MainWindow : public QMainWindow, public qf::qmlwidgets::framework::IPersistentSettings
+class MainWindow : public QMainWindow, public qf::gui::framework::IPersistentSettings
 {
 	Q_OBJECT
 	Q_PROPERTY(QString persistentSettingsId READ persistentSettingsId WRITE setPersistentSettingsId)
@@ -98,8 +98,8 @@ private:
 
 	QList<QPointer<QDialog> > tearOffDialogs;
 
-	qf::qmlwidgets::model::SqlTableModel* queryViewModel();
-	void setQueryViewModel(qf::qmlwidgets::model::SqlTableModel *m);
+	qf::gui::model::SqlTableModel* queryViewModel();
+	void setQueryViewModel(qf::gui::model::SqlTableModel *m);
 	//QList<QWidget*> statusBarWidgets;
 private:
 	QAction* action(const QString& action_name) {

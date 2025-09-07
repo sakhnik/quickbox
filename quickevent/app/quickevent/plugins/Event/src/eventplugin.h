@@ -4,7 +4,7 @@
 #include "eventconfig.h"
 #include "stage.h"
 
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/utils.h>
 #include <qf/core/utils/table.h>
@@ -13,9 +13,9 @@
 #include <QSqlDriver>
 
 namespace qf::core::sql { class Query; class Connection; }
-namespace qf::qmlwidgets { class Action; }
-namespace qf::qmlwidgets::framework { class DockWidget; }
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui { class Action; }
+namespace qf::gui::framework { class DockWidget; }
+namespace qf::gui::model { class SqlTableModel; }
 
 class QComboBox;
 class DbSchema;
@@ -26,7 +26,7 @@ namespace Event {
 static constexpr auto START_LIST_IOFXML3_FILE = "startlist-iof3.xml";
 static constexpr auto RESULTS_IOFXML3_FILE = "results-iof3.xml";
 
-class EventPlugin : public qf::qmlwidgets::framework::Plugin
+class EventPlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
 	Q_PROPERTY(QObject* eventConfig READ eventConfig)
@@ -36,7 +36,7 @@ class EventPlugin : public qf::qmlwidgets::framework::Plugin
 	Q_PROPERTY(bool eventOpen READ isEventOpen WRITE setEventOpen NOTIFY eventOpenChanged)
 	Q_PROPERTY(bool sqlServerConnected READ isSqlServerConnected NOTIFY sqlServerConnectedChanged)
 private:
-	using Super = qf::qmlwidgets::framework::Plugin;
+	using Super = qf::gui::framework::Plugin;
 public:
 	enum class ConnectionType : int {SqlServer = 0, SingleFile};
 public:
@@ -111,7 +111,7 @@ public:
 
 	Q_SLOT void onInstalled();
 
-	qf::qmlwidgets::model::SqlTableModel* registrationsModel();
+	qf::gui::model::SqlTableModel* registrationsModel();
 	const qf::core::utils::Table& registrationsTable();
 
 public:
@@ -142,16 +142,16 @@ private:
 
 	void onServiceDockVisibleChanged(bool on = true);
 private:
-	qf::qmlwidgets::Action *m_actConnectDb = nullptr;
-	qf::qmlwidgets::Action *m_actEvent = nullptr;
-	qf::qmlwidgets::Action *m_actImport = nullptr;
-	qf::qmlwidgets::Action *m_actExport = nullptr;
-	qf::qmlwidgets::Action *m_actCreateEvent = nullptr;
-	qf::qmlwidgets::Action *m_actOpenEvent = nullptr;
-	qf::qmlwidgets::Action *m_actEditEvent = nullptr;
-	qf::qmlwidgets::Action *m_actExportEvent_qbe = nullptr;
-	qf::qmlwidgets::Action *m_actImportEvent_qbe = nullptr;
-	qf::qmlwidgets::Action *m_actEditStage = nullptr;
+	qf::gui::Action *m_actConnectDb = nullptr;
+	qf::gui::Action *m_actEvent = nullptr;
+	qf::gui::Action *m_actImport = nullptr;
+	qf::gui::Action *m_actExport = nullptr;
+	qf::gui::Action *m_actCreateEvent = nullptr;
+	qf::gui::Action *m_actOpenEvent = nullptr;
+	qf::gui::Action *m_actEditEvent = nullptr;
+	qf::gui::Action *m_actExportEvent_qbe = nullptr;
+	qf::gui::Action *m_actImportEvent_qbe = nullptr;
+	qf::gui::Action *m_actEditStage = nullptr;
 	Event::EventConfig *m_eventConfig = nullptr;
 	bool m_sqlServerConnected = false;
 	QComboBox *m_cbxStage = nullptr;
@@ -159,10 +159,10 @@ private:
 	QMap<int, StageData> m_stageCache;
 	QMap<int, QString> m_classNameCache;
 
-	qf::qmlwidgets::framework::DockWidget *m_servicesDockWidget = nullptr;
-	qf::qmlwidgets::framework::DockWidget *m_registrationsDockWidget = nullptr;
+	qf::gui::framework::DockWidget *m_servicesDockWidget = nullptr;
+	qf::gui::framework::DockWidget *m_registrationsDockWidget = nullptr;
 
-	qf::qmlwidgets::model::SqlTableModel *m_registrationsModel = nullptr;
+	qf::gui::model::SqlTableModel *m_registrationsModel = nullptr;
 	qf::core::utils::Table m_registrationsTable;
 };
 

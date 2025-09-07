@@ -1,14 +1,14 @@
 #include "runstabledialogwidget.h"
 #include "ui_runstabledialogwidget.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/utils.h>
 #include <qf/core/assert.h>
 
 #include <plugins/Event/src/eventplugin.h>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 RunsTableDialogWidget::RunsTableDialogWidget(QWidget *parent) :

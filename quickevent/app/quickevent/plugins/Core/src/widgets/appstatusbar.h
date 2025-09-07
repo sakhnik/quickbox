@@ -2,21 +2,21 @@
 
 #include <qf/core/utils.h>
 
-#include <qf/qmlwidgets/statusbar.h>
+#include <qf/gui/statusbar.h>
 
 class QLabel;
 class QProgressBar;
 
 namespace Core {
 
-class AppStatusBar : public qf::qmlwidgets::StatusBar
+class AppStatusBar : public qf::gui::StatusBar
 {
 	Q_OBJECT
 
 	Q_PROPERTY(QString eventName READ eventName WRITE setEventName NOTIFY eventNameChanged)
 	Q_PROPERTY(int stageNo READ stageNo WRITE setStageNo NOTIFY stageNoChanged)
 private:
-	typedef qf::qmlwidgets::StatusBar Super;
+	typedef qf::gui::StatusBar Super;
 public:
 	AppStatusBar(QWidget *parent = nullptr);
 	~AppStatusBar() Q_DECL_OVERRIDE;

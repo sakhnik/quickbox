@@ -3,17 +3,17 @@
 
 #include "../quickeventguiglobal.h"
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 
 namespace quickevent {
 namespace gui {
 namespace og {
 
-class QUICKEVENTGUI_DECL_EXPORT SqlTableModel : public qf::qmlwidgets::model::SqlTableModel
+class QUICKEVENTGUI_DECL_EXPORT SqlTableModel : public qf::gui::model::SqlTableModel
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::model::SqlTableModel Super;
+	typedef qf::gui::model::SqlTableModel Super;
 public:
 	SqlTableModel(QObject *parent = nullptr);
 	~SqlTableModel();

@@ -40,14 +40,14 @@ TableViewWidget::~TableViewWidget()
 	delete ui;
 }
 
-qf::qmlwidgets::TableView *TableViewWidget::tableView()
+qf::gui::TableView *TableViewWidget::tableView()
 {
 	return ui->tableView;
 }
 
 void TableViewWidget::updateStatus()
 {
-	qf::qmlwidgets::model::TableModel *m = tableView()->tableModel();
+	qf::gui::model::TableModel *m = tableView()->tableModel();
 	if(m) {
 		ui->lblRowCnt->setText(QString("%1 rows").arg(m->rowCount()));
 	}

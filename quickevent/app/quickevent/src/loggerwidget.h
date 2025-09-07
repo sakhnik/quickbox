@@ -1,24 +1,24 @@
 #ifndef LOGGERWIDGET_H
 #define LOGGERWIDGET_H
 
-#include <qf/qmlwidgets/framework/logwidget.h>
+#include <qf/gui/framework/logwidget.h>
 
 namespace qf { namespace core { class LogEntryMap; }}
 
 class LoggerLogDevice;
 
-class LoggerWidget : public qf::qmlwidgets::framework::LogWidget
+class LoggerWidget : public qf::gui::framework::LogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::LogWidget Super;
+	typedef qf::gui::framework::LogWidget Super;
 public:
 	explicit LoggerWidget(QWidget *parent = 0);
 	~LoggerWidget() Q_DECL_OVERRIDE;
 
 	void onDockWidgetVisibleChanged(bool visible) Q_DECL_OVERRIDE;
 private:
-	qf::qmlwidgets::model::LogTableModel *m_logModel = nullptr;
+	qf::gui::model::LogTableModel *m_logModel = nullptr;
 };
 
 #endif // LOGGERWIDGET_H

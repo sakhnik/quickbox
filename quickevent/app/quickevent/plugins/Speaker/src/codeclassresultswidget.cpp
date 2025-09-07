@@ -8,7 +8,7 @@
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/punchrecord.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/querybuilder.h>
@@ -20,7 +20,7 @@
 #include <QJsonObject>
 #include <QTimer>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 CodeClassResultsWidget::CodeClassResultsWidget(QWidget *parent)

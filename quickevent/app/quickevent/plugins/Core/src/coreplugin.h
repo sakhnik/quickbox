@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 class QSettings;
 
@@ -8,10 +8,10 @@ namespace Core {
 
 class SettingsDialog;
 
-class CorePlugin : public qf::qmlwidgets::framework::Plugin
+class CorePlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
-	using Super = qf::qmlwidgets::framework::Plugin;
+	using Super = qf::gui::framework::Plugin;
 public:
 	CorePlugin(QObject *parent = nullptr);
 

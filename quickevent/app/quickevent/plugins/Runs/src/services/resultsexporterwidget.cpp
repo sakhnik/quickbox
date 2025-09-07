@@ -2,7 +2,7 @@
 #include "ui_resultsexporterwidget.h"
 #include "resultsexporter.h"
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/assert.h>
 
@@ -104,7 +104,7 @@ bool ResultsExporterWidget::acceptDialogDone(int result)
 {
 	if(result == QDialog::Accepted) {
 		if(!saveSettings()) {
-			qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Cannot create directory '%1'.").arg(ui->edExportDir->text().trimmed()));
+			qf::gui::dialogs::MessageBox::showError(this, tr("Cannot create directory '%1'.").arg(ui->edExportDir->text().trimmed()));
 			return false;
 		}
 	}

@@ -2,7 +2,7 @@
 #include "ui_racomclientwidget.h"
 #include "racomclient.h"
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/assert.h>
 
@@ -46,7 +46,7 @@ bool RacomClientWidget::acceptDialogDone(int result)
 		if(!fn.isEmpty()) {
 			QFile file(fn);
 			if(!file.open(QIODevice::WriteOnly | QIODevice::Append)) {
-				qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("File '%1' cannot be open for writing.").arg(fn));
+				qf::gui::dialogs::MessageBox::showError(this, tr("File '%1' cannot be open for writing.").arg(fn));
 				return false;
 			}
 		}

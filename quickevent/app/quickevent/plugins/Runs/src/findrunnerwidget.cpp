@@ -2,14 +2,14 @@
 #include "ui_findrunnerwidget.h"
 #include "runsplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/assert.h>
 #include <plugins/Event/src/eventplugin.h>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Runs::RunsPlugin;
 using Event::EventPlugin;
 

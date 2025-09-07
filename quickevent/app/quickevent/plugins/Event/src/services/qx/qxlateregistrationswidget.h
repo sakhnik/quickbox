@@ -2,7 +2,7 @@
 
 #include <QWidget>
 
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui::model { class SqlTableModel; }
 
 namespace Event::services::qx {
 
@@ -36,7 +36,7 @@ private:
 
 private:
 	Ui::QxLateRegistrationsWidget *ui;
-	qf::qmlwidgets::model::SqlTableModel *m_model;
+	qf::gui::model::SqlTableModel *m_model;
 };
 
 }

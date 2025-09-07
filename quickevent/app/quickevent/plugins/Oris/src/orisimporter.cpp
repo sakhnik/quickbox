@@ -5,14 +5,14 @@
 #include <plugins/Classes/src/classdocument.h>
 #include <plugins/Competitors/src/competitordocument.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/getiteminputdialog.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/framework/plugin.h>
-#include <qf/qmlwidgets/dialogbuttonbox.h>
-#include <qf/qmlwidgets/htmlviewwidget.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/getiteminputdialog.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/framework/plugin.h>
+#include <qf/gui/dialogbuttonbox.h>
+#include <qf/gui/htmlviewwidget.h>
 
 #include <qf/core/network/networkaccessmanager.h>
 #include <qf/core/network/networkreply.h>
@@ -69,7 +69,7 @@ QByteArray convertCp1250ToUtf8(const QByteArray &input) {
 }
 #endif
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 void OrisImporter::saveJsonBackup(const QString &fn, const QJsonDocument &jsd)
@@ -114,18 +114,18 @@ void OrisImporter::getJsonAndProcess(const QUrl &url, QObject *context, std::fun
 {
 	auto *manager = networkAccessManager();
 	auto *reply = manager->get(url);
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater); // NOLINT(readability-suspicious-call-argument)
-	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::qmlwidgets::framework::MainWindow::showProgress);
+	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::gui::framework::MainWindow::showProgress);
 	connect(reply, &qf::core::network::NetworkReply::finished, context, [reply, process_call_back](bool get_ok) {
 		qfInfo() << "Get:" << reply->url().toString() << "OK:" << get_ok;
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		if(get_ok) {
 			QJsonParseError err;
 			QJsonDocument jsd = QJsonDocument::fromJson(reply->data(), &err);
 			if(err.error != QJsonParseError::NoError) {
 				qfError() << reply->data();
-				qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("JSON document parse error: %1 at: %2 near: %3")
+				qf::gui::dialogs::MessageBox::showError(fwk, tr("JSON document parse error: %1 at: %2 near: %3")
 															   .arg(err.errorString())
 															   .arg(err.offset)
 															   .arg(reply->data().mid(err.offset, 50).constData()));
@@ -134,7 +134,7 @@ void OrisImporter::getJsonAndProcess(const QUrl &url, QObject *context, std::fun
 			process_call_back(jsd);
 		}
 		else {
-			qf::qmlwidgets::dialogs::MessageBox::showError(fwk, "http get error on: " + reply->url().toString() + ", " + reply->errorString());
+			qf::gui::dialogs::MessageBox::showError(fwk, "http get error on: " + reply->url().toString() + ", " + reply->errorString());
 		}
 		reply->deleteLater();
 	});
@@ -144,17 +144,17 @@ void OrisImporter::getTextAndProcess(const QUrl &url, QObject *context, std::fun
 {
 	auto *manager = networkAccessManager();
 	qf::core::network::NetworkReply *reply = manager->get(url);
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	connect(context, &QObject::destroyed, reply, &qf::core::network::NetworkReply::deleteLater); // NOLINT(readability-suspicious-call-argument)
-	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::qmlwidgets::framework::MainWindow::showProgress);
+	connect(reply, &qf::core::network::NetworkReply::downloadProgress, fwk, &qf::gui::framework::MainWindow::showProgress);
 	connect(reply, &qf::core::network::NetworkReply::finished, context, [reply, process_call_back](bool get_ok) {
 		qfInfo() << "Get:" << reply->url().toString() << "OK:" << get_ok;
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		if(get_ok) {
 			process_call_back(reply->data());
 		}
 		else {
-			qf::qmlwidgets::dialogs::MessageBox::showError(fwk, "http get error on: " + reply->url().toString() + ", " + reply->errorString());
+			qf::gui::dialogs::MessageBox::showError(fwk, "http get error on: " + reply->url().toString() + ", " + reply->errorString());
 		}
 		reply->deleteLater();
 	});
@@ -162,11 +162,11 @@ void OrisImporter::getTextAndProcess(const QUrl &url, QObject *context, std::fun
 
 void OrisImporter::syncCurrentEventEntries(std::function<void ()> success_callback)
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	//if(!qf::qmlwidgets::dialogs::MessageBox::askYesNo(fwk, tr("All runners entries imported from Oris will be synchronized, manual changes will be lost!")))
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	//if(!qf::gui::dialogs::MessageBox::askYesNo(fwk, tr("All runners entries imported from Oris will be synchronized, manual changes will be lost!")))
 	int oris_id = getPlugin<EventPlugin>()->eventConfig()->importId();
 	if(oris_id == 0) {
-		qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("Cannot find Oris import ID."));
+		qf::gui::dialogs::MessageBox::showError(fwk, tr("Cannot find Oris import ID."));
 		return;
 	}
 	syncEventEntries(oris_id, success_callback);
@@ -175,20 +175,20 @@ void OrisImporter::syncCurrentEventEntries(std::function<void ()> success_callba
 void OrisImporter::syncRelaysEntries(int event_id, std::function<void ()> success_callback)
 {
 	/*
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	if(!getPlugin<EventPlugin>()->eventConfig()->isRelays()) {
-		qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("Not relays event."));
+		qf::gui::dialogs::MessageBox::showError(fwk, tr("Not relays event."));
 		return;
 	}
 	int oris_id = getPlugin<EventPlugin>()->eventConfig()->importId();
 	if(oris_id == 0) {
-		qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("Cannot find Oris import ID."));
+		qf::gui::dialogs::MessageBox::showError(fwk, tr("Cannot find Oris import ID."));
 		return;
 	}
 	*/
 	QUrl url(QString("https://oris.orientacnisporty.cz/ExportPrihlasek?id=%1").arg(event_id));
 	getTextAndProcess(url, this, [=](const QByteArray &data) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		try {
 			qfLogScope("syncRelaysEntries");
 			qf::core::sql::Transaction transaction;
@@ -339,12 +339,12 @@ void OrisImporter::syncRelaysEntries(int event_id, std::function<void ()> succes
 			q.execThrow("DELETE FROM competitors WHERE importId=1");
 			q.execThrow("DELETE FROM relays WHERE importId=1");
 			transaction.commit();
-			qf::qmlwidgets::dialogs::MessageBox::showInfo(fwk, tr("Import finished successfully."));
+			qf::gui::dialogs::MessageBox::showInfo(fwk, tr("Import finished successfully."));
 			if(success_callback)
 				success_callback();
 		}
 		catch (qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	});
 }
@@ -352,7 +352,7 @@ void OrisImporter::syncRelaysEntries(int event_id, std::function<void ()> succes
 void OrisImporter::chooseAndImport()
 {
 	qfLogFuncFrame();
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	ChooseOrisEventDialog dlg(this, fwk);
 	if(!dlg.exec())
 		return;
@@ -380,7 +380,7 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 {
 	QUrl url(QString("https://oris.orientacnisporty.cz/API/?format=json&method=getEvent&id=%1").arg(event_id));
 	getJsonAndProcess(url, this, [this, event_id, success_callback](const QJsonDocument &jsd) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		try {
 			saveJsonBackup("Event", jsd);
 			QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
@@ -446,7 +446,7 @@ void OrisImporter::importEvent(int event_id, std::function<void ()> success_call
 			fwk->hideProgress();
 		}
 		catch (qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 		syncEventEntries(event_id, success_callback);
 	});
@@ -518,7 +518,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 	getJsonAndProcess(url, this, [=](const QJsonDocument &jsd) {
 		static const QString json_fn = "EventEntries";
 		saveJsonBackup(json_fn, jsd);
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		try {
 			int stage_cnt = getPlugin<EventPlugin>()->stageCount();
 			qf::core::sql::Query q;
@@ -741,8 +741,8 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 				f.write(html.toUtf8());
 			}
 #endif
-			qf::qmlwidgets::dialogs::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, fwk);
-			qf::qmlwidgets::DialogButtonBox *bbx = dlg.buttonBox();
+			qf::gui::dialogs::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, fwk);
+			qf::gui::DialogButtonBox *bbx = dlg.buttonBox();
 			auto *bt_no_drops = new QPushButton(tr("Save without drops"));
 			bool no_drops = false;
 			connect(bt_no_drops, &QPushButton::clicked, [&no_drops]() {
@@ -752,21 +752,21 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 
 			auto *bt_export = new QPushButton(tr("Export"));
 			connect(bt_export, &QPushButton::clicked, [fwk, html]() {
-				QString fn = qf::qmlwidgets::dialogs::FileDialog::getSaveFileName(fwk, tr("Export as ..."), "changes.html", tr("HTML files *.html (*.html)"));
+				QString fn = qf::gui::dialogs::FileDialog::getSaveFileName(fwk, tr("Export as ..."), "changes.html", tr("HTML files *.html (*.html)"));
 				if(fn.isEmpty())
 					return;
 				if(!fn.endsWith(".html", Qt::CaseInsensitive))
 					fn = fn + ".html";
 				QFile f(fn);
 				if(!f.open(QFile::WriteOnly)) {
-					qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("Cannot open file '%1' for writing.").arg(f.fileName()));
+					qf::gui::dialogs::MessageBox::showError(fwk, tr("Cannot open file '%1' for writing.").arg(f.fileName()));
 					return;
 				}
 				f.write(html.toUtf8());
 			});
 			bbx->addButton(bt_export, QDialogButtonBox::ActionRole);
 
-			auto *w = new qf::qmlwidgets::HtmlViewWidget();
+			auto *w = new qf::gui::HtmlViewWidget();
 			dlg.setCentralWidget(w);
 			w->setHtmlText(html);
 			if(dlg.exec()) {
@@ -808,7 +808,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 				success_callback();
 		}
 		catch (qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	});
 }
@@ -825,7 +825,7 @@ void OrisImporter::importRegistrations(std::function<void ()> success_callback)
 	QUrl url(QString("https://oris.orientacnisporty.cz/API/?format=json&method=getRegistration&sport=%1&year=%2").arg(sport_id).arg(year));
 	getJsonAndProcess(url, this, [=](const QJsonDocument &jsd) {
 		saveJsonBackup("Registrations", jsd);
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
 		// import clubs
 		int items_processed = 0;
@@ -872,7 +872,7 @@ void OrisImporter::importRegistrations(std::function<void ()> success_callback)
 				success_callback();
 		}
 		catch (qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	});
 }
@@ -882,7 +882,7 @@ void OrisImporter::importClubs(std::function<void ()> success_callback)
 	QUrl url("https://oris.orientacnisporty.cz/API/?format=json&method=getCSOSClubList");
 	getJsonAndProcess(url, this, [=](const QJsonDocument &jsd) {
 		saveJsonBackup("Clubs", jsd);
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
 		// import clubs
 		int items_processed = 0;
@@ -913,7 +913,7 @@ void OrisImporter::importClubs(std::function<void ()> success_callback)
 				success_callback();
 		}
 		catch (qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	});
 }
@@ -924,7 +924,7 @@ void OrisImporter::getAndImportClub(const QString &club, const QString &key)
 	getJsonAndProcess(url, this, [club](const QJsonDocument &jsd) {
 		saveJsonBackup(QString("Club_%1").arg(club), jsd);
 		QJsonObject data = jsd.object().value(QStringLiteral("Data")).toObject();
-		auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		auto *fwk = qf::gui::framework::MainWindow::frameWork();
 		try {
 			qf::core::sql::Query q;
 			q.prepare("INSERT INTO clubs (name, abbr, importId) VALUES (:name, :abbr, :importId)", qf::core::Exception::Throw);
@@ -936,14 +936,14 @@ void OrisImporter::getAndImportClub(const QString &club, const QString &key)
 			q.exec(qf::core::Exception::Throw);
 		}
 		catch (qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+			qf::gui::dialogs::MessageBox::showException(fwk, e);
 		}
 	});
 }
 
 void OrisImporter::importMissingOneTimeClubs()
 {
-	auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	auto *fwk = qf::gui::framework::MainWindow::frameWork();
 	auto event_key = getPlugin<EventPlugin>()->eventConfig()->orisEventKey();
 	if (event_key.isEmpty()) {
 		QMessageBox::warning(fwk,tr("Warning"),tr("For import one-time clubs, you need to fill ORIS Event Key in File->Event->Edit event"));
@@ -1002,7 +1002,7 @@ void OrisImporter::importMissingOneTimeClubs()
 		qfInfo() << "Import of"<< items_processed << "new one-time clubs started...";
 	}
 	catch (qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 

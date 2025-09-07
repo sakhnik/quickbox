@@ -12,10 +12,10 @@
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/siid.h>
 
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogbuttonbox.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogbuttonbox.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/dbenum.h>
@@ -29,7 +29,7 @@
 #include <QDate>
 #include <QPushButton>
 
-namespace qfd = qf::qmlwidgets::dialogs;
+namespace qfd = qf::gui::dialogs;
 
 namespace {
 
@@ -96,7 +96,7 @@ RelayWidget:: RelayWidget(QWidget *parent) :
 	setTitle(tr("Relay"));
 
 	{
-		qf::qmlwidgets::ForeignKeyComboBox *cbx = ui->cbxClass;
+		qf::gui::ForeignKeyComboBox *cbx = ui->cbxClass;
 		cbx->setReferencedTable("classes");
 		cbx->setReferencedField("id");
 		cbx->setReferencedCaptionField("name");
@@ -107,7 +107,7 @@ RelayWidget:: RelayWidget(QWidget *parent) :
 	ui->tblLegs->setTableModel(m_legsModel);
 	ui->tblLegs->setPersistentSettingsId(ui->tblLegs->objectName());
 	ui->tblLegs->setDirtyRowsMenuSectionEnabled(false);
-	ui->tblLegs->setInlineEditSaveStrategy(qf::qmlwidgets::TableView::OnEditedValueCommit);
+	ui->tblLegs->setInlineEditSaveStrategy(qf::gui::TableView::OnEditedValueCommit);
 	ui->tblLegs->setItemDelegate(new quickevent::gui::og::ItemDelegate(ui->tblLegs));
 	//ui->tblLegs->setContextMenuPolicy(Qt::CustomContextMenu);
 	//connect(ui->tblLegs, &qfw::TableView::customContextMenuRequested, this, & RelayWidget::onRunsTableCustomContextMenuRequest);
@@ -152,11 +152,11 @@ bool  RelayWidget::saveData()
 {
 	auto doc = qobject_cast<Relays:: RelayDocument*>(dataController()->document());
 	if(doc->value(QStringLiteral("classId")).toInt() == 0) {
-		qf::qmlwidgets::dialogs::MessageBox::showWarning(this, tr("Class should be entered."));
+		qf::gui::dialogs::MessageBox::showWarning(this, tr("Class should be entered."));
 		return false;
 	}
 	if(doc->dataId() == 0) {
-		qf::qmlwidgets::dialogs::MessageBox::showWarning(this, tr("Relay ID invalid."));
+		qf::gui::dialogs::MessageBox::showWarning(this, tr("Relay ID invalid."));
 		return false;
 	}
 	bool ret = false;
@@ -166,7 +166,7 @@ bool  RelayWidget::saveData()
 			checkLegsStartTimes();
 	}
 	catch (qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 	return ret;
 }
@@ -206,7 +206,7 @@ void RelayWidget::addLeg()
 	//dlg.setDefaultButton(QDialogButtonBox::Ok);
 	QPushButton *bt_add_current = dlg.buttonBox()->addButton(tr("Add current"), QDialogButtonBox::AcceptRole);
 	bool add_current = false;
-	connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, [&add_current, bt_add_current](QAbstractButton *button) {
+	connect(dlg.buttonBox(), &qf::gui::DialogButtonBox::clicked, [&add_current, bt_add_current](QAbstractButton *button) {
 		add_current = (button == bt_add_current);
 	});
 	*/

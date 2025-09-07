@@ -54,7 +54,7 @@ private:
 	bool createExportDir() const;
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
 	void onCardChecked(const QVariantMap &data);
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 private:
 	void onExportTimerTimeOut();
 	void init();

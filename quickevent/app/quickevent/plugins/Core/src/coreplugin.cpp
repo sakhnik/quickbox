@@ -5,9 +5,9 @@
 
 #include <plugins/Event/src/eventplugin.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/menubar.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/action.h>
+#include <qf/gui/menubar.h>
 
 #include <qf/core/sql/connection.h>
 #include <qf/core/log.h>
@@ -20,8 +20,8 @@
 #include <QSslSocket>
 #include <QActionGroup>
 
-namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
+namespace qfw = qf::gui;
+namespace qff = qf::gui::framework;
 
 namespace Core {
 

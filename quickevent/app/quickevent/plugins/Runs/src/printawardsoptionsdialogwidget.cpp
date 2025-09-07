@@ -2,7 +2,7 @@
 #include "ui_printawardsoptionsdialogwidget.h"
 #include "runsplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/log.h>
 
@@ -16,7 +16,7 @@ PrintAwardsOptionsDialogWidget::PrintAwardsOptionsDialogWidget(QWidget *parent)
 	ui->setupUi(this);
 	ui->edNumPlaces->setValue(3);
 
-	auto *runs_plugin = qf::qmlwidgets::framework::getPlugin<Runs::RunsPlugin>();
+	auto *runs_plugin = qf::gui::framework::getPlugin<Runs::RunsPlugin>();
 	for(const auto &i : runs_plugin->listReportFiles("awards")) {
 		qfDebug() << i.reportName << i.reportFilePath;
 		ui->edReportPath->addItem(i.reportName, i.reportFilePath);

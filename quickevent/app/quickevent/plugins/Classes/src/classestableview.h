@@ -1,13 +1,13 @@
 #ifndef CLASSESTABLEVIEW_H
 #define CLASSESTABLEVIEW_H
 
-#include <qf/qmlwidgets/tableview.h>
+#include <qf/gui/tableview.h>
 
-class ClassesTableView : public qf::qmlwidgets::TableView
+class ClassesTableView : public qf::gui::TableView
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::TableView Super;
+	typedef qf::gui::TableView Super;
 public:
 	ClassesTableView(QWidget *parent = nullptr);
 

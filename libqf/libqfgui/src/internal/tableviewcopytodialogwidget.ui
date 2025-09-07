@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>qf::gui::internal::TableViewCopyToDialogWidget</class>
+ <widget class="QWidget" name="qf::gui::internal::TableViewCopyToDialogWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>411</width>
+    <height>300</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="qf::gui::TableView" name="tableView" native="true">
+     <property name="statusLineVisible" stdset="0">
+      <bool>false</bool>
+     </property>
+     <property name="toolBarVisible" stdset="0">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="chkInsertRows">
+     <property name="text">
+      <string>Insert rows</string>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>qf::gui::TableView</class>
+   <extends>QWidget</extends>
+   <header>src/tableview.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

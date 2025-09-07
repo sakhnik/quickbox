@@ -3,17 +3,17 @@
 
 #include "eventplugin.h"
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace Ui {
 class ConnectDbDialogWidget;
 }
 
-class ConnectDbDialogWidget : public qf::qmlwidgets::framework::DialogWidget
+class ConnectDbDialogWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	using Super = qf::qmlwidgets::framework::DialogWidget;
+	using Super = qf::gui::framework::DialogWidget;
 public:
 	explicit ConnectDbDialogWidget(QWidget *parent = nullptr);
 	~ConnectDbDialogWidget();

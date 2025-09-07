@@ -1,7 +1,7 @@
 #ifndef RECEIPTS_RECEIPTSPLUGIN_H
 #define RECEIPTS_RECEIPTSPLUGIN_H
 
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <QQmlListProperty>
 
@@ -20,11 +20,11 @@ class ReceiptsSettings;
 
 namespace Receipts {
 
-class ReceiptsPlugin : public qf::qmlwidgets::framework::Plugin
+class ReceiptsPlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::Plugin Super;
+	typedef qf::gui::framework::Plugin Super;
 public:
 	ReceiptsPlugin(QObject *parent = nullptr);
 
