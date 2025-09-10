@@ -7,10 +7,7 @@ Font::Font(QObject *parent) :
 {
 }
 
-Font::~Font()
-{
-	//qfLogFuncFrame();
-}
+Font::~Font() = default;
 
 QFont Font::font()
 {

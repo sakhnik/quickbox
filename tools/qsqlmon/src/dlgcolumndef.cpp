@@ -96,14 +96,11 @@ DlgColumnDef::DlgColumnDef(QWidget * parent, const QString& table)
 	connect(lstCharacterSet, SIGNAL(activated(QString)), this, SLOT(on_lstCharacterSet_activated(QString)));
 }
 
-DlgColumnDef::~DlgColumnDef()
-{
-}
+DlgColumnDef::~DlgColumnDef() = default;
 
 QSqlDatabase DlgColumnDef::connection()
 {
-	//qfLogFuncFrame();
-	MainWindow *w = qf::core::Utils::findParent<MainWindow*>(this);
+	auto *w = qf::core::Utils::findParent<MainWindow*>(this);
 	return w->activeConnection();
 }
 

@@ -41,8 +41,8 @@ public:
 
 	static QString serviceName();
 
-	bool exportResults();
-	void whenFinishedRunCmd();
+	bool exportResults() const;
+	void whenFinishedRunCmd() const;
 private:
 	void loadSettings() override;
 	void onExportTimerTimeOut();

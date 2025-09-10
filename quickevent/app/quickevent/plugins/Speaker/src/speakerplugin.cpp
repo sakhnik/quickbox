@@ -10,7 +10,6 @@
 #include <qf/core/log.h>
 
 namespace qff = qf::gui::framework;
-namespace qfw = qf::gui;
 using ::PartWidget;
 
 namespace Speaker {

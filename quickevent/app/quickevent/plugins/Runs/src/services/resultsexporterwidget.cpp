@@ -9,8 +9,7 @@
 #include <QFileDialog>
 #include <QSettings>
 
-namespace Runs {
-namespace services {
+namespace Runs::services {
 
 ResultsExporterWidget::ResultsExporterWidget(QWidget *parent)
 	: Super(parent)
@@ -113,9 +112,9 @@ bool ResultsExporterWidget::acceptDialogDone(int result)
 
 ResultsExporter *ResultsExporterWidget::service()
 {
-	ResultsExporter *svc = qobject_cast<ResultsExporter*>(Event::services::Service::serviceByName(ResultsExporter::serviceName()));
+	auto *svc = qobject_cast<ResultsExporter*>(Event::services::Service::serviceByName(ResultsExporter::serviceName()));
 	QF_ASSERT(svc, ResultsExporter::serviceName() + " doesn't exist", return nullptr);
 	return svc;
 }
 
-}}
+}

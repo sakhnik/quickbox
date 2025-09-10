@@ -25,9 +25,7 @@
 #include <qf/core/utils/fileutils.h>
 #include <qf/core/utils/timescope.h>
 
-namespace qfu = qf::core::utils;
 namespace qff = qf::gui::framework;
-using qf::gui::framework::getPlugin;
 using Receipts::ReceiptsPlugin;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
@@ -183,12 +181,10 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 							}
 							return true;
 						}
-						else {
-							qfError() << "Cannot open tcp connection to address "
-									<< host << " on port " << port
-									<< " reason: " << socket.error();
-							return false;
-						}
+						qfError() << "Cannot open tcp connection to address "
+								<< host << " on port " << port
+								<< " reason: " << socket.error();
+						return false;
 					}
 				}
 				return false;
@@ -243,7 +239,7 @@ struct PrintData
 	{}
 	bool isCommand() const {return command != Command::Text;}
 	int textLength() const {return isCommand()? 0: data.length();}
-	const QByteArray toByteArray() const
+	QByteArray toByteArray() const
 	{
 		QByteArray ret;
 		switch(command) {
@@ -277,12 +273,10 @@ class DirectPrintContext
 public:
 	PrintLine line;
 	int horizontalLayoutNestCount = 0;
-	//int printerLineWidth = 42;
 };
 
 void ReceiptsPrinter::createPrinterData_helper(const QDomElement &el, DirectPrintContext *print_context, const QString &text_encoding)
 {
-	//QByteArray text;
 	PrintLine pre_commands;
 	PrintLine post_commands;
 	int text_width = 0;
@@ -380,9 +374,7 @@ QByteArray ReceiptsPrinter::encodeText(const QString text, const QString &text_e
 		auto from_utf16 = QStringEncoder(enc.value());
 		return from_utf16(text);
 	}
-	else {
-		return qf::core::Collator::toAscii7(QLocale::Czech, text, false);
-	}
+	return qf::core::Collator::toAscii7(QLocale::Czech, text, false);
 #else
 	QByteArray ret;
 	QTextCodec *tc = nullptr;
@@ -398,7 +390,8 @@ QByteArray ReceiptsPrinter::encodeText(const QString text, const QString &text_e
 #endif
 }
 
-static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, const ReceiptsSettings &receipts_settings)
+namespace {
+QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, const ReceiptsSettings &receipts_settings)
 {
 	QList<PrintLine> ret;
 	int line_length = receipts_settings.characterPrinterLineLength();
@@ -417,8 +410,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 		if(is_eol) {
 			int fixed_text_len = 0;
 			int spring_cnt = 0;
-			for (int j = 0; j < line.length(); ++j) {
-				const PrintData &pd2 = line[j];
+			for (const auto &pd2 : line) {
 				if(pd2.width < 0)
 					spring_cnt++;
 				else if(pd2.width > 0)
@@ -426,8 +418,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 				else
 					fixed_text_len += pd2.textLength();
 			}
-			for (int j = 0; j < line.length(); ++j) {
-				PrintData &pd2 = line[j];
+			for (auto &pd2 : line) {
 				if(pd2.isCommand())
 					continue;
 				int w = pd2.width;
@@ -441,7 +432,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 						else if(pd2.alignment == Qt::AlignRight)
 							pd2.data = QByteArray(w_rest, ' ') + pd2.data;
 						else if(pd2.alignment == Qt::AlignHCenter)
-							pd2.data = QByteArray(w_rest/2+1, ' ') + pd2.data + QByteArray(w_rest/2+1, ' ');
+							pd2.data = QByteArray((w_rest/2) + 1, ' ') + pd2.data + QByteArray(w_rest/2 + 1, ' ');
 					}
 					pd2.data = pd2.data.mid(0, w);
 					pd2.width = 0;
@@ -459,7 +450,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 	return ret;
 }
 
-static QList<QByteArray> interpretControlCodes(const QList<PrintLine> &lines, const ReceiptsSettings &receipts_settings)
+QList<QByteArray> interpretControlCodes(const QList<PrintLine> &lines, const ReceiptsSettings &receipts_settings)
 {
 	QList<QByteArray> ret;
 	int line_length = receipts_settings.characterPrinterLineLength();
@@ -493,6 +484,7 @@ static QList<QByteArray> interpretControlCodes(const QList<PrintLine> &lines, co
 		ret.insert(ret.length(), ba);
 	}
 	return ret;
+}
 }
 
 QList<QByteArray> ReceiptsPrinter::createPrinterData(const QDomElement &body, const ReceiptsSettings &receipts_settings)
