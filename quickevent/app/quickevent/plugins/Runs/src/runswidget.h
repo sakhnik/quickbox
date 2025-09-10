@@ -16,7 +16,7 @@ namespace model {
 class SqlTableModel;
 }
 }
-namespace qmlwidgets {
+namespace gui {
 class ForeignKeyComboBox;
 }
 }
@@ -91,7 +91,7 @@ private:
 		KeepOrder, RelaysFirstLeg, GroupedC, GroupedCB, GroupedRanking};
 
 	Ui::RunsWidget *ui;
-	qf::qmlwidgets::ForeignKeyComboBox *m_cbxClasses = nullptr;
+	qf::gui::ForeignKeyComboBox *m_cbxClasses = nullptr;
 	QComboBox *m_cbxStage = nullptr;
 	QComboBox *m_cbxLeg = nullptr;
 	QAction *m_toolbarActionLabelLeg = nullptr;

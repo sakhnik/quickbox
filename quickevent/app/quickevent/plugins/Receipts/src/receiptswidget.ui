@@ -35,7 +35,7 @@
       <number>7</number>
      </property>
      <item>
-      <widget class="qf::qmlwidgets::TableViewToolBar" name="tblPrintJobsTB" native="true">
+      <widget class="qf::gui::TableViewToolBar" name="tblPrintJobsTB" native="true">
        <property name="enabled">
         <bool>true</bool>
        </property>
@@ -70,20 +70,20 @@
     </layout>
    </item>
    <item>
-    <widget class="qf::qmlwidgets::TableView" name="tblCards"/>
+    <widget class="qf::gui::TableView" name="tblCards"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::TableView</class>
+   <class>qf::gui::TableView</class>
    <extends>QTableView</extends>
-   <header location="global">qf/qmlwidgets/tableview.h</header>
+   <header location="global">qf/gui/tableview.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::TableViewToolBar</class>
+   <class>qf::gui::TableViewToolBar</class>
    <extends>QWidget</extends>
-   <header location="global">qf/qmlwidgets/tableviewtoolbar.h</header>
+   <header location="global">qf/gui/tableviewtoolbar.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

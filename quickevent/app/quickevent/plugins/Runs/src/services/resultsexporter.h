@@ -37,12 +37,12 @@ public:
 	void stop() override;
 	ResultsExporterSettings settings() const {return ResultsExporterSettings(m_settings);}
 
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 
 	static QString serviceName();
 
-	bool exportResults();
-	void whenFinishedRunCmd();
+	bool exportResults() const;
+	void whenFinishedRunCmd() const;
 private:
 	void loadSettings() override;
 	void onExportTimerTimeOut();

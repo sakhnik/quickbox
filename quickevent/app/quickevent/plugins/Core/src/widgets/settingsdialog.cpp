@@ -4,8 +4,8 @@
 #include "settingspage.h"
 
 #include <qf/core/log.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <QButtonGroup>
 #include <QFile>

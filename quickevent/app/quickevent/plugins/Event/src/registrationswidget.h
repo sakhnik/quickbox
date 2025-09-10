@@ -8,7 +8,7 @@ class RegistrationsWidget;
 }
 
 namespace qf {
-namespace qmlwidgets {
+namespace gui {
 class TableView;
 }}
 
@@ -26,7 +26,7 @@ public:
 	void checkModel();
 
 	//void setFocusToWidget(FocusWidget fw);
-	qf::qmlwidgets::TableView* tableView();
+	qf::gui::TableView* tableView();
 private:
 	Ui::RegistrationsWidget *ui;
 	//QSortFilterProxyModel *m_tableModel = nullptr;

@@ -3,14 +3,14 @@
 
 #include <qf/core/assert.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
 
 
 PartWidget::PartWidget(const QString& title, const QString &feature_id, QWidget *parent)
 	: Super(feature_id, parent)
 {
-	using namespace qf::qmlwidgets::framework;
+	using namespace qf::gui::framework;
 
 	setPersistentSettingsId(featureId());
 	setTitle(title);
@@ -25,9 +25,9 @@ PartWidget::PartWidget(const QString& title, const QString &feature_id, QWidget 
 void PartWidget::onActiveChanged()
 {
 	if(isActive()) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		QF_ASSERT(fwk != nullptr, "Invalid FrameWork", return);
-		qf::qmlwidgets::framework::Plugin *event_plugin = fwk->plugin("Event", qf::core::Exception::Throw);
+		qf::gui::framework::Plugin *event_plugin = fwk->plugin("Event", qf::core::Exception::Throw);
 		bool sql_connected = event_plugin->property("sqlServerConnected").toBool();
 		QString event_name = event_plugin->property("eventName").toString();
 		if(sql_connected && !event_name.isEmpty()) {

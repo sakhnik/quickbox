@@ -4,7 +4,7 @@
 #include "../../eventplugin.h"
 #include "../../../../Runs/src/runsplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 #include <qf/core/log.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/connection.h>
@@ -25,10 +25,10 @@
 #include <QSqlField>
 
 using namespace qf::core;
-using namespace qf::qmlwidgets;
-using namespace qf::qmlwidgets::dialogs;
+using namespace qf::gui;
+using namespace qf::gui::dialogs;
 using namespace qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 
@@ -99,7 +99,7 @@ void QxClientService::stop()
 	Super::stop();
 }
 
-qf::qmlwidgets::framework::DialogWidget *QxClientService::createDetailWidget()
+qf::gui::framework::DialogWidget *QxClientService::createDetailWidget()
 {
 	auto *w = new QxClientServiceWidget();
 	return w;

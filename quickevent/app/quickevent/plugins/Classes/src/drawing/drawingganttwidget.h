@@ -1,7 +1,7 @@
 #ifndef DRAWING_DRAWINGGANTTWIDGET_H
 #define DRAWING_DRAWINGGANTTWIDGET_H
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 class QLineEdit;
 class QCheckBox;
@@ -14,16 +14,16 @@ class DrawingGanttWidget;
 
 class GanttScene;
 
-class DrawingGanttWidget : public qf::qmlwidgets::framework::DialogWidget
+class DrawingGanttWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	typedef qf::gui::framework::DialogWidget Super;
 public:
 	explicit DrawingGanttWidget(QWidget *parent = nullptr);
 	~DrawingGanttWidget() override;
 
-	void settleDownInDialog(qf::qmlwidgets::dialogs::Dialog *dlg) Q_DECL_OVERRIDE;
+	void settleDownInDialog(qf::gui::dialogs::Dialog *dlg) Q_DECL_OVERRIDE;
 
 	void load(int stage_id);
 private slots:

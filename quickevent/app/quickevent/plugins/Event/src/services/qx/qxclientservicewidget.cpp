@@ -4,8 +4,8 @@
 
 #include <plugins/Event/src/eventplugin.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
 #include <qf/core/assert.h>
 
 #include <QFileDialog>
@@ -15,7 +15,7 @@
 #include <QNetworkReply>
 #include <QJsonDocument>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 
 namespace Event::services::qx {
 

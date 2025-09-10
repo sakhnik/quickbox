@@ -4,9 +4,9 @@
 
 #include <qf/core/collator.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/reports/processor/reportpainter.h>
-#include <qf/qmlwidgets/reports/processor/reportprocessor.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/reports/processor/reportpainter.h>
+#include <qf/gui/reports/processor/reportprocessor.h>
 
 #include <QCryptographicHash>
 #include <QDomDocument>
@@ -25,9 +25,7 @@
 #include <qf/core/utils/fileutils.h>
 #include <qf/core/utils/timescope.h>
 
-namespace qfu = qf::core::utils;
-namespace qff = qf::qmlwidgets::framework;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qff = qf::gui::framework;
 using Receipts::ReceiptsPlugin;
 
 #if QT_VERSION < QT_VERSION_CHECK(5, 14, 0)
@@ -56,7 +54,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		QF_TIME_SCOPE("init graphics printer");
 		QPrinterInfo pi = QPrinterInfo::printerInfo(settings.graphicsPrinterName());
 		if(pi.isNull()) {
-			for(auto s : QPrinterInfo::availablePrinterNames()) {
+			for(const auto &s : QPrinterInfo::availablePrinterNames()) {
 				qfInfo() << "available printer:" << s;
 			}
 			pi = QPrinterInfo::defaultPrinter();
@@ -77,14 +75,14 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		qff::MainWindow *fwk = qff::MainWindow::frameWork();
 		paint_device = fwk;
 	}
-	qf::qmlwidgets::reports::ReportProcessor rp(paint_device);
+	qf::gui::reports::ReportProcessor rp(paint_device);
 	{
 		QF_TIME_SCOPE("setting report and data");
-		auto *plugin = qf::qmlwidgets::framework::getPlugin<Receipts::ReceiptsPlugin>();
+		auto *plugin = qf::gui::framework::getPlugin<Receipts::ReceiptsPlugin>();
 		if(!rp.setReport(plugin->findReportFile(report_file_name)))
 			return false;
-		for(auto key : report_data.keys()) {
-			rp.setTableData(key, report_data.value(key));
+		for(const auto &[key, val] : report_data.asKeyValueRange()) {
+			rp.setTableData(key, val);
 		}
 	}
 	if(settings.printerTypeEnum() == ReceiptsSettings::PrinterType::GraphicPrinter) {
@@ -93,25 +91,25 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 			QF_TIME_SCOPE("process report");
 			rp.process();
 		}
-		qf::qmlwidgets::reports::ReportItemMetaPaintReport *doc;
+		qf::gui::reports::ReportItemMetaPaintReport *doc;
 		{
 			QF_TIME_SCOPE("getting processor output");
 			doc = rp.processorOutput();
 		}
-		qf::qmlwidgets::reports::ReportItemMetaPaint *it = doc->child(0);
+		qf::gui::reports::ReportItemMetaPaint *it = doc->child(0);
 		if(it) {
 			QF_TIME_SCOPE("draw meta-paint");
-			qf::qmlwidgets::reports::ReportPainter painter(paint_device);
+			qf::gui::reports::ReportPainter painter(paint_device);
 			painter.drawMetaPaint(it);
 		}
 		QF_SAFE_DELETE(printer);
 		return true;
 	}
-	else if(settings.printerTypeEnum() == ReceiptsSettings::PrinterType::CharacterPrinter) {
+	if(settings.printerTypeEnum() == ReceiptsSettings::PrinterType::CharacterPrinter) {
 		QDomDocument doc;
 		doc.setContent(QLatin1String("<?xml version=\"1.0\"?><report><body/></report>"));
 		QDomElement el_body = doc.documentElement().firstChildElement("body");
-		qf::qmlwidgets::reports::ReportProcessor::HtmlExportOptions opts;
+		qf::gui::reports::ReportProcessor::HtmlExportOptions opts;
 		opts.setConvertBandsToTables(false);
 		rp.processHtml(el_body, opts);
 		//qfInfo() << doc.toString();
@@ -120,16 +118,14 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 			QFile f(fn);
 			if(f.open(QFile::WriteOnly)) {
 				//qfInfo() << "writing receipt data to:" << fn;
-				for(QByteArray ba : data_lines) {
+				for(const auto &ba : data_lines) {
 					f.write(ba);
 					f.write("\n");
 				}
 				return true;
 			}
-			else {
-				qfError() << "Cannot open file" << f.fileName() << "for writing!";
-				return false;
-			}
+			qfError() << "Cannot open file" << f.fileName() << "for writing!";
+			return false;
 		};
 		switch(settings.characterPrinterTypeEnum()) {
 			case ReceiptsSettings::CharacterPrinteType::Directory: {
@@ -137,7 +133,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 					QString fn = settings.characterPrinterDirectory();
 					qf::core::utils::FileUtils::ensurePath(fn);
 					QCryptographicHash ch(QCryptographicHash::Sha1);
-					for(QByteArray ba : data_lines)
+					for(const auto &ba : data_lines)
 						ch.addData(ba);
 					fn += '/' + QString::number(card_id) + '-'
 							+ QString::fromLatin1(ch.result().toHex().mid(0, 8)) + ".txt";
@@ -169,7 +165,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 						socket.writeDatagram(dgram, host_addr, port);
 						return true;
 					}
-					else {
+					{
 						QTcpSocket socket;
 						socket.connectToHost(host_addr, port, QIODevice::WriteOnly);
 						if (socket.waitForConnected(1000)) {
@@ -185,12 +181,10 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 							}
 							return true;
 						}
-						else {
-							qfError() << "Cannot open tcp connection to address "
-									<< host << " on port " << port
-									<< " reason: " << socket.error();
-							return false;
-						}
+						qfError() << "Cannot open tcp connection to address "
+								<< host << " on port " << port
+								<< " reason: " << socket.error();
+						return false;
 					}
 				}
 				return false;
@@ -245,7 +239,7 @@ struct PrintData
 	{}
 	bool isCommand() const {return command != Command::Text;}
 	int textLength() const {return isCommand()? 0: data.length();}
-	const QByteArray toByteArray() const
+	QByteArray toByteArray() const
 	{
 		QByteArray ret;
 		switch(command) {
@@ -279,17 +273,15 @@ class DirectPrintContext
 public:
 	PrintLine line;
 	int horizontalLayoutNestCount = 0;
-	//int printerLineWidth = 42;
 };
 
 void ReceiptsPrinter::createPrinterData_helper(const QDomElement &el, DirectPrintContext *print_context, const QString &text_encoding)
 {
-	//QByteArray text;
 	PrintLine pre_commands;
 	PrintLine post_commands;
 	int text_width = 0;
 	bool is_halign = el.tagName() == QLatin1String("div")
-			&& el.attribute(qf::qmlwidgets::reports::ReportProcessor::HTML_ATTRIBUTE_LAYOUT) == QLatin1String("horizontal");
+			&& el.attribute(qf::gui::reports::ReportProcessor::HTML_ATTRIBUTE_LAYOUT) == QLatin1String("horizontal");
 	if(is_halign)
 		print_context->horizontalLayoutNestCount++;
 	QDomNamedNodeMap attrs = el.attributes();
@@ -382,9 +374,7 @@ QByteArray ReceiptsPrinter::encodeText(const QString text, const QString &text_e
 		auto from_utf16 = QStringEncoder(enc.value());
 		return from_utf16(text);
 	}
-	else {
-		return qf::core::Collator::toAscii7(QLocale::Czech, text, false);
-	}
+	return qf::core::Collator::toAscii7(QLocale::Czech, text, false);
 #else
 	QByteArray ret;
 	QTextCodec *tc = nullptr;
@@ -400,7 +390,8 @@ QByteArray ReceiptsPrinter::encodeText(const QString text, const QString &text_e
 #endif
 }
 
-static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, const ReceiptsSettings &receipts_settings)
+namespace {
+QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, const ReceiptsSettings &receipts_settings)
 {
 	QList<PrintLine> ret;
 	int line_length = receipts_settings.characterPrinterLineLength();
@@ -419,8 +410,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 		if(is_eol) {
 			int fixed_text_len = 0;
 			int spring_cnt = 0;
-			for (int j = 0; j < line.length(); ++j) {
-				const PrintData &pd2 = line[j];
+			for (const auto &pd2 : line) {
 				if(pd2.width < 0)
 					spring_cnt++;
 				else if(pd2.width > 0)
@@ -428,8 +418,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 				else
 					fixed_text_len += pd2.textLength();
 			}
-			for (int j = 0; j < line.length(); ++j) {
-				PrintData &pd2 = line[j];
+			for (auto &pd2 : line) {
 				if(pd2.isCommand())
 					continue;
 				int w = pd2.width;
@@ -443,7 +432,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 						else if(pd2.alignment == Qt::AlignRight)
 							pd2.data = QByteArray(w_rest, ' ') + pd2.data;
 						else if(pd2.alignment == Qt::AlignHCenter)
-							pd2.data = QByteArray(w_rest/2+1, ' ') + pd2.data + QByteArray(w_rest/2+1, ' ');
+							pd2.data = QByteArray((w_rest/2) + 1, ' ') + pd2.data + QByteArray(w_rest/2 + 1, ' ');
 					}
 					pd2.data = pd2.data.mid(0, w);
 					pd2.width = 0;
@@ -461,7 +450,7 @@ static QList<PrintLine> alignPrinterData(DirectPrintContext *print_context, cons
 	return ret;
 }
 
-static QList<QByteArray> interpretControlCodes(const QList<PrintLine> &lines, const ReceiptsSettings &receipts_settings)
+QList<QByteArray> interpretControlCodes(const QList<PrintLine> &lines, const ReceiptsSettings &receipts_settings)
 {
 	QList<QByteArray> ret;
 	int line_length = receipts_settings.characterPrinterLineLength();
@@ -495,6 +484,7 @@ static QList<QByteArray> interpretControlCodes(const QList<PrintLine> &lines, co
 		ret.insert(ret.length(), ba);
 	}
 	return ret;
+}
 }
 
 QList<QByteArray> ReceiptsPrinter::createPrinterData(const QDomElement &body, const ReceiptsSettings &receipts_settings)

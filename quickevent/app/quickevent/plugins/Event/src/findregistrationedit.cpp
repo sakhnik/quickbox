@@ -2,10 +2,10 @@
 
 #include "eventplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/log.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/log.h>
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/assert.h>
 
 #include <QCompleter>
@@ -13,7 +13,7 @@
 #include <QAbstractProxyModel>
 #include <QKeyEvent>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 class FindRegistrationsModel : public QAbstractTableModel

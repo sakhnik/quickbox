@@ -76,21 +76,21 @@
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="qf::qmlwidgets::ForeignKeyComboBox" name="cbxClass">
+       <widget class="qf::gui::ForeignKeyComboBox" name="cbxClass">
         <property name="dataId" stdset="0">
          <string notr="true">relays.classId</string>
         </property>
        </widget>
       </item>
       <item row="1" column="3">
-       <widget class="qf::qmlwidgets::LineEdit" name="lineEdit_6">
+       <widget class="qf::gui::LineEdit" name="lineEdit_6">
         <property name="dataId" stdset="0">
          <string notr="true">relays.name</string>
         </property>
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="qf::qmlwidgets::LineEdit" name="lineEdit_7">
+       <widget class="qf::gui::LineEdit" name="lineEdit_7">
         <property name="dataId" stdset="0">
          <string notr="true">relays.club</string>
         </property>
@@ -107,7 +107,7 @@
        </widget>
       </item>
       <item row="0" column="3">
-       <widget class="qf::qmlwidgets::SpinBox" name="spinBox">
+       <widget class="qf::gui::SpinBox" name="spinBox">
         <property name="alignment">
          <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
         </property>
@@ -120,7 +120,7 @@
        </widget>
       </item>
       <item row="3" column="1" colspan="3">
-       <widget class="qf::qmlwidgets::LineEdit" name="lineEdit_8">
+       <widget class="qf::gui::LineEdit" name="lineEdit_8">
         <property name="dataId" stdset="0">
          <string notr="true">relays.note</string>
         </property>
@@ -179,8 +179,8 @@
          <string>Add leg Ctrl+Ins</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/insert-row.svg</normaloff>:/qf/qmlwidgets/images/flat/insert-row.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/flat/flat.qrc">
+          <normaloff>:/qf/gui/images/flat/insert-row.svg</normaloff>:/qf/gui/images/flat/insert-row.svg</iconset>
         </property>
         <property name="shortcut">
          <string>Ctrl+Ins</string>
@@ -193,8 +193,8 @@
          <string>Remove leg Ctrl+Del</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/delete-row.svg</normaloff>:/qf/qmlwidgets/images/flat/delete-row.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/flat/flat.qrc">
+          <normaloff>:/qf/gui/images/flat/delete-row.svg</normaloff>:/qf/gui/images/flat/delete-row.svg</iconset>
         </property>
         <property name="shortcut">
          <string>Ctrl+Del</string>
@@ -207,8 +207,8 @@
          <string>Move leg down Ctrl+D</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/down.svg</normaloff>:/qf/qmlwidgets/images/flat/down.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/flat/flat.qrc">
+          <normaloff>:/qf/gui/images/flat/down.svg</normaloff>:/qf/gui/images/flat/down.svg</iconset>
         </property>
         <property name="shortcut">
          <string>Ctrl+D</string>
@@ -221,8 +221,8 @@
          <string>Move leg up Ctrl+U</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/up.svg</normaloff>:/qf/qmlwidgets/images/flat/up.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/flat/flat.qrc">
+          <normaloff>:/qf/gui/images/flat/up.svg</normaloff>:/qf/gui/images/flat/up.svg</iconset>
         </property>
         <property name="shortcut">
          <string>Ctrl+U</string>
@@ -235,8 +235,8 @@
          <string>Reload Ctrl+R</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
-          <normaloff>:/qf/qmlwidgets/images/flat/reload.svg</normaloff>:/qf/qmlwidgets/images/flat/reload.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/flat/flat.qrc">
+          <normaloff>:/qf/gui/images/flat/reload.svg</normaloff>:/qf/gui/images/flat/reload.svg</iconset>
         </property>
         <property name="shortcut">
          <string>Ctrl+R</string>
@@ -247,30 +247,30 @@
     </widget>
    </item>
    <item>
-    <widget class="qf::qmlwidgets::TableView" name="tblLegs"/>
+    <widget class="qf::gui::TableView" name="tblLegs"/>
    </item>
   </layout>
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::TableView</class>
+   <class>qf::gui::TableView</class>
    <extends>QTableView</extends>
-   <header location="global">qf/qmlwidgets/tableview.h</header>
+   <header location="global">qf/gui/tableview.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::LineEdit</class>
+   <class>qf::gui::LineEdit</class>
    <extends>QLineEdit</extends>
-   <header location="global">qf/qmlwidgets/lineedit.h</header>
+   <header location="global">qf/gui/lineedit.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::ForeignKeyComboBox</class>
+   <class>qf::gui::ForeignKeyComboBox</class>
    <extends>QComboBox</extends>
-   <header location="global">qf/qmlwidgets/combobox.h</header>
+   <header location="global">qf/gui/combobox.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::SpinBox</class>
+   <class>qf::gui::SpinBox</class>
    <extends>QSpinBox</extends>
-   <header location="global">qf/qmlwidgets/spinbox.h</header>
+   <header location="global">qf/gui/spinbox.h</header>
   </customwidget>
  </customwidgets>
  <tabstops>
@@ -287,7 +287,7 @@
   <tabstop>tblLegs</tabstop>
  </tabstops>
  <resources>
-  <include location="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc"/>
+  <include location="../../../../../../libqf/libqfgui/images/flat/flat.qrc"/>
  </resources>
  <connections/>
 </ui>

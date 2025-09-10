@@ -1,8 +1,8 @@
 #include "txtimporter.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <plugins/Competitors/src/competitordocument.h>
 #include <plugins/Event/src/eventplugin.h>
@@ -14,8 +14,8 @@
 
 #include <QTextStream>
 
-namespace qfd = qf::qmlwidgets::dialogs;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qfd = qf::gui::dialogs;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 TxtImporter::TxtImporter(QObject *parent)
@@ -25,8 +25,8 @@ TxtImporter::TxtImporter(QObject *parent)
 
 void TxtImporter::importCompetitorsCSOS()
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::MessageBox mbx(fwk);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	qf::gui::dialogs::MessageBox mbx(fwk);
 	mbx.setIcon(QMessageBox::Information);
 	mbx.setText(tr("Import windows-1250 coded fixed column size text files in CSOS format."));
 	mbx.setInformativeText(tr("Each row should have following columns: "
@@ -84,14 +84,14 @@ void TxtImporter::importCompetitorsCSOS()
 		emit getPlugin<EventPlugin>()->reloadDataRequest();
 	}
 	catch (qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
 void TxtImporter::importCompetitorsCSV()
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::MessageBox mbx(fwk);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	qf::gui::dialogs::MessageBox mbx(fwk);
 	mbx.setIcon(QMessageBox::Information);
 	mbx.setText(tr("Import UTF8 text file with comma separated values with first row as header.<br/>Separator is comma(,)"));
 	mbx.setInformativeText(tr("Each row should have following columns: "
@@ -144,14 +144,14 @@ void TxtImporter::importCompetitorsCSV()
 		emit getPlugin<EventPlugin>()->reloadDataRequest();
 	}
 	catch (qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
 void TxtImporter::importRankingCsv()
 {
 	qfLogFuncFrame();
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	QString fn = qfd::FileDialog::getOpenFileName(fwk, tr("Open file"), QString(), tr("Oris ranking CSV files (*.txt *.csv)"));
 	if(fn.isEmpty())
 		return;
@@ -191,7 +191,7 @@ void TxtImporter::importRankingCsv()
 		qfInfo() << fn << n << "lines imported";
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
@@ -261,8 +261,8 @@ int TxtImporter::getStartTimeMSec(QString str, int start00_msec)
 
 void TxtImporter::importRunsCzeCSV()
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::MessageBox mbx(fwk);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	qf::gui::dialogs::MessageBox mbx(fwk);
 	mbx.setIcon(QMessageBox::Information);
 	mbx.setText(tr("Import UTF8 text file with comma separated values with first row as header.<br/>Separator is semicolon(;).<br/>Updates only existing runners (key is Czech registration)."));
 	mbx.setInformativeText(tr("Each row should have following columns: "
@@ -369,14 +369,14 @@ void TxtImporter::importRunsCzeCSV()
 		qfInfo() << fn << n << "lines imported";
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
 void TxtImporter::importRunsIdCSV()
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::MessageBox mbx(fwk);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	qf::gui::dialogs::MessageBox mbx(fwk);
 	mbx.setIcon(QMessageBox::Information);
 	mbx.setText(tr("Import UTF8 text file with comma separated values with first row as header.<br/>Separator is semicolon(;).<br/>Updates only existing runners (key is <b>id</b> in module(table) <b>runs</b>)."));
 	mbx.setInformativeText(tr("Each row should have following columns: "
@@ -483,14 +483,14 @@ void TxtImporter::importRunsIdCSV()
 		qfInfo() << fn << n << "lines imported";
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
 void TxtImporter::importRunsIofCSV()
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::MessageBox mbx(fwk);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	qf::gui::dialogs::MessageBox mbx(fwk);
 	mbx.setIcon(QMessageBox::Information);
 	mbx.setText(tr("Import UTF8 text file with comma separated values with first row as header.<br/>Separator is semicolon(;).<br/>Updates only existing runners (key is IOF ID)."));
 	mbx.setInformativeText(tr("Each row should have following columns: "
@@ -597,6 +597,6 @@ void TxtImporter::importRunsIofCSV()
 		qfInfo() << fn << n << "lines imported";
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }

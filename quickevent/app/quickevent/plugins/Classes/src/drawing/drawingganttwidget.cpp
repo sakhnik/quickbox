@@ -5,11 +5,11 @@
 #include "ganttitem.h"
 #include "ganttscene.h"
 
-#include <qf/qmlwidgets/style.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/style.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/action.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <QLineEdit>
 #include <QMessageBox>
@@ -28,8 +28,8 @@ DrawingGanttWidget::DrawingGanttWidget(QWidget *parent) :
 	connect(ui->actSave, &QAction::triggered, this, &DrawingGanttWidget::onActSaveTriggered);
 	connect(ui->actFind, &QAction::triggered, this, &DrawingGanttWidget::onActFindTriggered);
 
-	ui->actSave->setIcon(qf::qmlwidgets::Style::instance()->icon("save"));
-	ui->actFind->setIcon(qf::qmlwidgets::Style::instance()->icon("find"));
+	ui->actSave->setIcon(qf::gui::Style::instance()->icon("save"));
+	ui->actFind->setIcon(qf::gui::Style::instance()->icon("find"));
 
 	m_ganttScene = new GanttScene(this);
 	ui->ganttView->setScene(m_ganttScene);
@@ -40,9 +40,9 @@ DrawingGanttWidget::~DrawingGanttWidget()
 	delete ui;
 }
 
-void DrawingGanttWidget::settleDownInDialog(qf::qmlwidgets::dialogs::Dialog *dlg)
+void DrawingGanttWidget::settleDownInDialog(qf::gui::dialogs::Dialog *dlg)
 {
-	qf::qmlwidgets::ToolBar *tb = dlg->toolBar("main", true);
+	qf::gui::ToolBar *tb = dlg->toolBar("main", true);
 	tb->addAction(ui->actSave);
 	m_edFind = new QLineEdit();
 	m_edFind->setMaximumWidth(QFontMetrics(font()).horizontalAdvance('X') * 8);

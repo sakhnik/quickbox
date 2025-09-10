@@ -1,7 +1,7 @@
 #ifndef EDITCOURSECODESWIDGET_H
 #define EDITCOURSECODESWIDGET_H
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 class QStandardItemModel;
 
@@ -13,11 +13,11 @@ namespace qf {
 namespace core { namespace model { class SqlTableModel; } }
 }
 
-class EditCourseCodesWidget : public qf::qmlwidgets::framework::DialogWidget
+class EditCourseCodesWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	typedef qf::gui::framework::DialogWidget Super;
 public:
 	explicit EditCourseCodesWidget(QWidget *parent = 0);
 	~EditCourseCodesWidget() Q_DECL_OVERRIDE;

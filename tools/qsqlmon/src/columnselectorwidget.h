@@ -9,18 +9,18 @@
 #define COLUMNSELECTORWIDGET_H
 
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 class QSqlDatabase;
 namespace Ui {class ColumnSelectorWidget;}
 
 
-class  ColumnSelectorWidget : public qf::qmlwidgets::framework::DialogWidget
+class  ColumnSelectorWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 	Q_PROPERTY(QString persistentSettingsId READ persistentSettingsId WRITE setPersistentSettingsId)
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	typedef qf::gui::framework::DialogWidget Super;
 	Ui::ColumnSelectorWidget *ui;
 protected:
 	QString m_tableName;

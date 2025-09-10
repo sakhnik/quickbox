@@ -36,7 +36,7 @@
     <number>5</number>
    </property>
    <item>
-    <widget class="qf::qmlwidgets::Splitter" name="splitter">
+    <widget class="qf::gui::Splitter" name="splitter">
      <property name="orientation">
       <enum>Qt::Horizontal</enum>
      </property>
@@ -72,7 +72,7 @@
           <number>0</number>
          </property>
          <item>
-          <widget class="qf::qmlwidgets::TableViewToolBar" name="tblClassesTB" native="true">
+          <widget class="qf::gui::TableViewToolBar" name="tblClassesTB" native="true">
            <property name="sizePolicy">
             <sizepolicy hsizetype="MinimumExpanding" vsizetype="Preferred">
              <horstretch>0</horstretch>
@@ -138,10 +138,10 @@
         </widget>
        </item>
        <item>
-        <widget class="qf::qmlwidgets::TableViewToolBar" name="tblCourseCodesTB" native="true"/>
+        <widget class="qf::gui::TableViewToolBar" name="tblCourseCodesTB" native="true"/>
        </item>
        <item>
-        <widget class="qf::qmlwidgets::TableView" name="tblCourseCodes"/>
+        <widget class="qf::gui::TableView" name="tblCourseCodes"/>
        </item>
       </layout>
      </widget>
@@ -151,20 +151,20 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::TableView</class>
+   <class>qf::gui::TableView</class>
    <extends>QTableView</extends>
-   <header location="global">qf/qmlwidgets/tableview.h</header>
+   <header location="global">qf/gui/tableview.h</header>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::TableViewToolBar</class>
+   <class>qf::gui::TableViewToolBar</class>
    <extends>QWidget</extends>
-   <header location="global">qf/qmlwidgets/tableviewtoolbar.h</header>
+   <header location="global">qf/gui/tableviewtoolbar.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
-   <class>qf::qmlwidgets::Splitter</class>
+   <class>qf::gui::Splitter</class>
    <extends>QSplitter</extends>
-   <header location="global">qf/qmlwidgets/splitter.h</header>
+   <header location="global">qf/gui/splitter.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>

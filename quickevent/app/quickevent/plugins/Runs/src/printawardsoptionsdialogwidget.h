@@ -1,7 +1,7 @@
 #ifndef PRINTAWARDSOPTIONSDIALOGWIDGET_H
 #define PRINTAWARDSOPTIONSDIALOGWIDGET_H
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 #include <QDialog>
 
@@ -9,11 +9,11 @@ namespace Ui {
 class PrintAwardsOptionsDialogWidget;
 }
 
-class PrintAwardsOptionsDialogWidget : public qf::qmlwidgets::framework::DialogWidget
+class PrintAwardsOptionsDialogWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	using Super = qf::qmlwidgets::framework::DialogWidget;
+	using Super = qf::gui::framework::DialogWidget;
 public:
 	explicit PrintAwardsOptionsDialogWidget(QWidget *parent = 0);
 	~PrintAwardsOptionsDialogWidget();

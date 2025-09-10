@@ -8,7 +8,7 @@
 #include "theapp.h"
 #include "driver/qfhttpmysql/qfhttpmysql.h"
 
-#include <qf/qmlwidgets/style.h>
+#include <qf/gui/style.h>
 
 #include <qf/core/log.h>
 
@@ -35,7 +35,7 @@ void SqlJournal::log(const QString& msg)
 class QFHttpMySqlDriverCreator : public QSqlDriverCreatorBase
 {
 	public:
-		virtual QSqlDriver * createObject () const {return new QFHttpMySqlDriver();}
+		QSqlDriver* createObject() const override {return new QFHttpMySqlDriver();}
 };
 
 //======================================================
@@ -46,9 +46,9 @@ SqlJournal TheApp::f_sqlJournal;
 TheApp::TheApp(int & argc, char ** argv)
 	: QApplication(argc, argv)
 {
-	auto *style = qf::qmlwidgets::Style::instance();
-	//style->addIconSearchPath(":/qf/qmlwidgets/images/flat");
-	style->addIconSearchPath(":/qf/qmlwidgets/images");
+	auto *style = qf::gui::Style::instance();
+	//style->addIconSearchPath(":/qf/gui/images/flat");
+	style->addIconSearchPath(":/qf/gui/images");
 
 	QSqlDatabase::registerSqlDriver("QFHTTPMYSQL", new QFHttpMySqlDriverCreator());
 
@@ -58,15 +58,11 @@ TheApp::TheApp(int & argc, char ** argv)
 		setOneTimeConnectionSettings(args.value(ix + 1));
 }
 
-TheApp::~TheApp()
-{
-	//qfDebug() << QF_FUNC_NAME << "config()->dataDocument().isEmpty():" << config()->dataDocument().isEmpty();
-	//if(!config()->dataDocument().isEmpty()) config()->save();
-}
+TheApp::~TheApp() = default;
 
 TheApp* TheApp::instance()
 {
-	TheApp *a = qobject_cast<TheApp*>(QApplication::instance());
+	auto *a = qobject_cast<TheApp*>(QApplication::instance());
 	QF_ASSERT_EX(a!=nullptr, "Application is not initialized yet");
 	return a;
 }
@@ -75,29 +71,7 @@ qf::core::utils::Crypt TheApp::crypt()
 {
 	return qf::core::utils::Crypt();
 }
-/*
-QFXmlConfig* TheApp::config(bool throw_exc)
-{
-	Q_UNUSED(throw_exc);
-	QFXmlConfig *ret = f_config;
-	return ret;
-}
 
-void TheApp::redirectLog()
-{
-	bool log_to_file = config()->value("/log", "0").toBool();
-	bool redirected = false;
-	if(log_to_file) {
-		QString fn = config()->value("/log/file", "err.log").toString();
-		FILE *f = fopen(qPrintable(fn), "wb");
-		if(f) {
-			redirected = true;
-			QFLog::redirectDefaultLogFile(f);
-		}
-	}
-	if(!redirected) QFLog::redirectDefaultLogFile();
-}
-*/
 QString TheApp::versionString() const
 {
 	return QCoreApplication::applicationVersion();
@@ -107,12 +81,4 @@ SqlJournal * TheApp::sqlJournal()
 {
 	return &f_sqlJournal;
 }
-/*
-QFSearchDirs* TheApp::reportProcessorSearchDirs()
-{
-	if(!f_reportProcessorSearchDirs) {
-		f_reportProcessorSearchDirs = new QFSearchDirs();
-	}
-	return f_reportProcessorSearchDirs;
-}
-*/
+

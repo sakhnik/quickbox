@@ -11,8 +11,8 @@ namespace Ui {
 	class ClassesWidget;
 }
 
-namespace qf::qmlwidgets { class ForeignKeyComboBox; }
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui { class ForeignKeyComboBox; }
+namespace qf::gui::model { class SqlTableModel; }
 
 namespace quickevent { namespace core { class CodeDef; }}
 
@@ -48,8 +48,8 @@ private:
 	void importCourses(const QList<ImportCourseDef> &course_defs, const QList<quickevent::core::CodeDef> &code_defs);
 private:
 	Ui::ClassesWidget *ui;
-	qf::qmlwidgets::model::SqlTableModel *m_classesModel;
-	qf::qmlwidgets::model::SqlTableModel *m_courseCodesModel;
+	qf::gui::model::SqlTableModel *m_classesModel;
+	qf::gui::model::SqlTableModel *m_courseCodesModel;
 	QComboBox *m_cbxStage = nullptr;
 	CourseItemDelegate *m_courseItemDelegate = nullptr;
 };

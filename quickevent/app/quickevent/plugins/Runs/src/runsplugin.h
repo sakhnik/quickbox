@@ -5,7 +5,7 @@
 #include <quickevent/core/coursedef.h>
 #include <quickevent/gui/reportoptionsdialog.h>
 
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/utils.h>
 #include <qf/core/utils/table.h>
@@ -17,7 +17,7 @@ namespace qf {
 			class TreeTable;
 		}
 	}
-	namespace qmlwidgets {
+	namespace gui {
 		class Action;
 		namespace framework {
 			class PartWidget;
@@ -30,13 +30,13 @@ namespace qf::core::sql { class QueryBuilder; }
 
 namespace Runs {
 
-class RunsPlugin : public qf::qmlwidgets::framework::Plugin
+class RunsPlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
-	//Q_PROPERTY(qf::qmlwidgets::framework::PartWidget* partWidget READ partWidget FINAL)
+	//Q_PROPERTY(qf::gui::framework::PartWidget* partWidget READ partWidget FINAL)
 	Q_PROPERTY(int selectedStageId READ selectedStageId WRITE setSelectedStageId NOTIFY selectedStageIdChanged)
 private:
-	typedef qf::qmlwidgets::framework::Plugin Super;
+	typedef qf::gui::framework::Plugin Super;
 public:
 	static constexpr int UNREAL_TIME_MSEC = quickevent::core::og::TimeMs::UNREAL_TIME_MSEC;
 public:
@@ -45,7 +45,7 @@ public:
 
 	QF_PROPERTY_IMPL2(int, s, S, electedStageId, 1)
 
-	//qf::qmlwidgets::framework::PartWidget *partWidget() {return m_partWidget;}
+	//qf::gui::framework::PartWidget *partWidget() {return m_partWidget;}
 
 	const qf::core::utils::Table& runnersTable(int stage_id);
 	Q_SLOT void clearRunnersTableCache();
@@ -139,11 +139,11 @@ private:
 	void addStartTimeTextToClass(qf::core::utils::TreeTable &tt2, const qint64 start00_epoch_sec, const quickevent::gui::ReportOptionsDialog::StartTimeFormat start_time_format);
 	void addStartTimeTextToClass(qf::core::utils::TreeTable &tt2, const int stages_count, const QVector<qint64> &start00_epoch_sec, const quickevent::gui::ReportOptionsDialog::StartTimeFormat start_time_format);
 private:
-	qf::qmlwidgets::framework::PartWidget *m_partWidget = nullptr;
+	qf::gui::framework::PartWidget *m_partWidget = nullptr;
 	qf::core::utils::Table m_runnersTableCache;
 	int m_runnersTableCacheStageId = 0;
-	qf::qmlwidgets::framework::DockWidget *m_eventStatisticsDockWidget = nullptr;
-	qf::qmlwidgets::framework::DockWidget *m_qxLateRegistrationsDockWidget = nullptr;
+	qf::gui::framework::DockWidget *m_eventStatisticsDockWidget = nullptr;
+	qf::gui::framework::DockWidget *m_qxLateRegistrationsDockWidget = nullptr;
 };
 
 }

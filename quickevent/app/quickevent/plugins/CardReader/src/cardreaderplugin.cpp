@@ -14,7 +14,7 @@
 #include <quickevent/core/si/checkedcard.h>
 #include <quickevent/core/si/readcard.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -32,7 +32,7 @@
 //#define QF_TIMESCOPE_ENABLED
 #include <qf/core/utils/timescope.h>
 
-namespace qff = qf::qmlwidgets::framework;
+namespace qff = qf::gui::framework;
 namespace qfs = qf::core::sql;
 using ::PartWidget;
 using qff::getPlugin;

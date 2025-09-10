@@ -1,9 +1,9 @@
 #include "oresultsclientwidget.h"
 #include "ui_oresultsclientwidget.h"
 #include "oresultsclient.h"
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/assert.h>
 

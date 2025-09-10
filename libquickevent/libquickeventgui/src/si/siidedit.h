@@ -5,19 +5,19 @@
 
 #include <quickevent/core/si/siid.h>
 
-#include <qf/qmlwidgets/spinbox.h>
+#include <qf/gui/spinbox.h>
 
 namespace quickevent {
 namespace gui {
 namespace si {
 
-class QUICKEVENTGUI_DECL_EXPORT SiIdEdit : public qf::qmlwidgets::SpinBox
+class QUICKEVENTGUI_DECL_EXPORT SiIdEdit : public qf::gui::SpinBox
 {
 	Q_OBJECT
 
 	Q_PROPERTY(quickevent::core::si::SiId siid READ siid WRITE setSiid USER true)
 private:
-	typedef qf::qmlwidgets::SpinBox Super;
+	typedef qf::gui::SpinBox Super;
 protected:
 	void fixup(QString &input) const override;
 	int valueFromText(const QString &text) const override;

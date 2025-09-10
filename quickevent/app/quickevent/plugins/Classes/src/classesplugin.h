@@ -5,12 +5,12 @@
 
 #include <quickevent/core/codedef.h>
 
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/utils.h>
 
 namespace qf {
-namespace qmlwidgets {
+namespace gui {
 class Action;
 namespace framework { class PartWidget; }
 }
@@ -31,16 +31,16 @@ struct ClassDef
 	void load(int class_id, int stage_id, bool is_relays);
 };
 
-class ClassesPlugin : public qf::qmlwidgets::framework::Plugin
+class ClassesPlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
-	Q_PROPERTY(qf::qmlwidgets::framework::PartWidget* partWidget READ partWidget FINAL)
+	Q_PROPERTY(qf::gui::framework::PartWidget* partWidget READ partWidget FINAL)
 private:
-	typedef qf::qmlwidgets::framework::Plugin Super;
+	typedef qf::gui::framework::Plugin Super;
 public:
 	ClassesPlugin(QObject *parent = nullptr);
 
-	qf::qmlwidgets::framework::PartWidget *partWidget() {return m_partWidget;}
+	qf::gui::framework::PartWidget *partWidget() {return m_partWidget;}
 
 	QObject* createClassDocument(QObject *parent);
 	void createClass(const QString &class_name);
@@ -52,7 +52,7 @@ public:
 	Q_SLOT void onInstalled();
 	Q_SIGNAL void nativeInstalled();
 private:
-	qf::qmlwidgets::framework::PartWidget *m_partWidget = nullptr;
+	qf::gui::framework::PartWidget *m_partWidget = nullptr;
 };
 
 }

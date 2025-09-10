@@ -3,7 +3,7 @@
 
 #include "../sql/sqlquerybuilder.h"
 
-#include <qf/qmlwidgets/model/sqldatadocument.h>
+#include <qf/gui/model/sqldatadocument.h>
 
 namespace qf {
 namespace core {
@@ -11,12 +11,12 @@ namespace qml {
 
 //class SqlQueryBuilder;
 
-class SqlDataDocument : public qf::qmlwidgets::model::SqlDataDocument
+class SqlDataDocument : public qf::gui::model::SqlDataDocument
 {
 	Q_OBJECT
 	Q_PROPERTY(qf::core::qml::SqlQueryBuilder* queryBuilder READ qmlSqlQueryBuilder)
 private:
-	typedef qf::qmlwidgets::model::SqlDataDocument Super;
+	typedef qf::gui::model::SqlDataDocument Super;
 public:
 	SqlDataDocument(QObject *parent = nullptr);
 	~SqlDataDocument() Q_DECL_OVERRIDE;

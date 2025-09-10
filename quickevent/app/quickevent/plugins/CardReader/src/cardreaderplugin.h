@@ -2,7 +2,7 @@
 #define CARDREADER_CARDREADERPLUGIN_H
 
 #include <qf/core/utils.h>
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <QQmlListProperty>
 
@@ -17,13 +17,13 @@ class ReadCard;
 class PunchRecord;
 class CheckedCard;
 
-class CardReaderPlugin : public qf::qmlwidgets::framework::Plugin
+class CardReaderPlugin : public qf::gui::framework::Plugin
 {
 	Q_OBJECT
 	//Q_PROPERTY(QQmlListProperty<CardReader::CardChecker> cardCheckers READ cardCheckersListProperty)
 	//Q_PROPERTY(int currentCardCheckerIndex READ currentCardCheckerIndex WRITE setCurrentCardCheckerIndex NOTIFY currentCardCheckerIndexChanged)
 private:
-	typedef qf::qmlwidgets::framework::Plugin Super;
+	typedef qf::gui::framework::Plugin Super;
 public:
 	CardReaderPlugin(QObject *parent = nullptr);
 

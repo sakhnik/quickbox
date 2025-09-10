@@ -38,7 +38,7 @@ public:
 private:
 	void onDbEventNotify(const QString &domain, int connection_id, const QVariant &data);
 	void onRawSIDataUdpSocketReadyRead();
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 	QUdpSocket *rawDataUdpSocket();
 	void init();
 private:

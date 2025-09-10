@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace Event::services::qx {
 
@@ -10,11 +10,11 @@ class QxClientServiceWidget;
 
 class QxClientService;
 
-class QxClientServiceWidget : public qf::qmlwidgets::framework::DialogWidget
+class QxClientServiceWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 
-	using Super = qf::qmlwidgets::framework::DialogWidget;
+	using Super = qf::gui::framework::DialogWidget;
 public:
 	explicit QxClientServiceWidget(QWidget *parent = nullptr);
 	~QxClientServiceWidget() override;

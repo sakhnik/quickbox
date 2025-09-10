@@ -10,10 +10,10 @@
 #include <quickevent/core/si/siid.h>
 #include <quickevent/core/og/timems.h>
 
-#include <qf/qmlwidgets/dialogs/getiteminputdialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
+#include <qf/gui/dialogs/getiteminputdialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/transaction.h>
@@ -30,8 +30,8 @@
 
 namespace qfc = qf::core;
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qfw = qf::gui;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 using Receipts::ReceiptsPlugin;
@@ -45,7 +45,7 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 	ui->tblRunsToolBar->setTableView(ui->tblRuns);
 
 	ui->tblRuns->setShowExceptionDialog(false);
-	connect(ui->tblRuns, &qf::qmlwidgets::TableView::sqlException, this, &RunsTableWidget::onTableViewSqlException, Qt::QueuedConnection);
+	connect(ui->tblRuns, &qf::gui::TableView::sqlException, this, &RunsTableWidget::onTableViewSqlException, Qt::QueuedConnection);
 	// ui->tblRuns->setEditRowsMenuSectionEnabled(false);
 	ui->tblRuns->setCloneRowEnabled(false);
 	ui->tblRuns->setDirtyRowsMenuSectionEnabled(false);
@@ -76,7 +76,7 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 		Q_UNUSED(id1)
 		Q_UNUSED(id2)
 		if(!err_msg.isEmpty()) {
-			qf::qmlwidgets::dialogs::MessageBox::showError(this, err_msg);
+			qf::gui::dialogs::MessageBox::showError(this, err_msg);
 		}
 		//ui->tblRuns->reload(true);
 		m_runsModel->reload();
@@ -91,7 +91,7 @@ RunsTableWidget::RunsTableWidget(QWidget *parent) :
 		if(col == RunsTableModel::col_runFlags || col == RunsTableModel::col_cardFlags) {
 			return;
 		}
-		if (mode == qf::qmlwidgets::model::DataDocument::ModeInsert) {
+		if (mode == qf::gui::model::DataDocument::ModeInsert) {
 			emit editCompetitorRequest(0, mode);
 		}
 		else {
@@ -211,7 +211,7 @@ void RunsTableWidget::reload()
 	updateStartTimeHighlight();
 }
 
-qf::qmlwidgets::TableView *RunsTableWidget::tableView()
+qf::gui::TableView *RunsTableWidget::tableView()
 {
 	return ui->tblRuns;
 }
@@ -234,7 +234,7 @@ void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)
 		<< &a_change_class;
 	QAction *a = QMenu::exec(lst, ui->tblRuns->viewport()->mapToGlobal(pos));
 	if(a == &a_load_card) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		int curr_ix = 0;
 		QList<int> sel_ixs = ui->tblRuns->selectedRowsIndexes();
 		QList<int> runid_to_reload;
@@ -301,7 +301,7 @@ void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)
 			}
 		}
 		catch (const qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+			qf::gui::dialogs::MessageBox::showException(this, e);
 		}
 	}
 	else if(a == &a_clear_start_times) {
@@ -321,7 +321,7 @@ void RunsTableWidget::onCustomContextMenuRequest(const QPoint &pos)
 			runsModel()->reload();
 		}
 		catch (const qf::core::Exception &e) {
-			qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+			qf::gui::dialogs::MessageBox::showException(this, e);
 		}
 	}
 	else if(a == &a_change_class) {
@@ -362,15 +362,15 @@ void RunsTableWidget::onTableViewSqlException(const QString &what, const QString
 	if(what.contains(QLatin1String("runs.stageId")) && what.contains(QLatin1String("runs.siId"))) {
 		// "UNIQUE constraint failed: runs.stageId, runs.siId Unable to fetch row"
 		// duplicate SI insertion attempt
-		qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Duplicate SI inserted."));
+		qf::gui::dialogs::MessageBox::showError(this, tr("Duplicate SI inserted."));
 		return;
 	}
-	qf::qmlwidgets::dialogs::MessageBox::showException(this, what, where, stack_trace);
+	qf::gui::dialogs::MessageBox::showException(this, what, where, stack_trace);
 }
 
 void RunsTableWidget::onBadTableDataInput(const QString &message)
 {
-	qf::qmlwidgets::dialogs::MessageBox::showError(this, message);
+	qf::gui::dialogs::MessageBox::showError(this, message);
 }
 
 

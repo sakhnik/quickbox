@@ -3,10 +3,10 @@
 
 #include <quickevent/core/og/timems.h>
 
-#include <qf/qmlwidgets/tableview.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/tableview.h>
+#include <qf/gui/framework/mainwindow.h>
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/log.h>
@@ -15,10 +15,10 @@
 
 #include <QPainter>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
-RunsTableItemDelegate::RunsTableItemDelegate(qf::qmlwidgets::TableView * parent)
+RunsTableItemDelegate::RunsTableItemDelegate(qf::gui::TableView * parent)
 	: Super(parent)
 {
 }
@@ -42,7 +42,7 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 {
 	Super::paintBackground(painter, option, index);
 
-	qf::qmlwidgets::TableView *v = view();
+	qf::gui::TableView *v = view();
 	if(!v)
 		return;
 

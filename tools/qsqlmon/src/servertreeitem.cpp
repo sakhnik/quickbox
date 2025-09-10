@@ -7,7 +7,7 @@
 #include <qf/core/utils.h>
 #include <qf/core/sql/connection.h>
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <QIcon>
 #include <QVariant>
@@ -29,14 +29,11 @@ ServerTreeItem::ServerTreeItem(QObject *parent, const QString& name)
 	setObjectName(name);
 }
 
-ServerTreeItem::~ServerTreeItem()
-{
-	//qfDebug() <<  QF_FUNC_NAME << this << objectName();
-}
+ServerTreeItem::~ServerTreeItem() = default;
 
 MainWindow * ServerTreeItem::mainWindow()
 {
-	MainWindow *ret = qf::core::Utils::findParent<MainWindow*>(model());
+	auto *ret = qf::core::Utils::findParent<MainWindow*>(model());
 	return ret;
 }
 
@@ -45,7 +42,7 @@ QFObjectItemModel* ServerTreeItem::model()
 	//qfDebug() << QF_FUNC_NAME;
 	QObject *o = this;
 	while(o) {
-		QFObjectItemModelRoot *r = qobject_cast<QFObjectItemModelRoot*>(o);
+		auto *r = qobject_cast<QFObjectItemModelRoot*>(o);
 		if(r) {
 			//qfDebug() << "\tmodel:" << r->model();
 			//r->model()->dumpObjectInfo();
@@ -78,10 +75,7 @@ void ServerTreeItem::driverDestroyed(QObject *o)
 //===================================================
 //                 Connection
 //===================================================
-Connection::~Connection()
-{
-	//qDebug() <<  "destructor:" << this;
-}
+Connection::~Connection() = default;
 
 Connection::Connection(const Params &_params, QObject *parent)
 	: ServerTreeItem(parent, QString())
@@ -137,7 +131,7 @@ Database* Connection::open()
 		m->append(olst, ix);
 	}
 	else {
-		//qf::qmlwidgets::dialogs::MessageBox::showError(mainWindow(), d->sqlConnection().lastError().text());
+		//qf::gui::dialogs::MessageBox::showError(mainWindow(), d->sqlConnection().lastError().text());
 		QF_SAFE_DELETE(d);
 	}
 	return d;
@@ -246,12 +240,7 @@ Database::Database(QObject *parent, const QString& name)
 		connect(this, SIGNAL(connectionInfo(const QString&)), o, SLOT(appendInfo(const QString&)));
 }
 
-Database::~Database()
-{
-	//qfDebug() << QF_FUNC_NAME << "############";
-	//close();
-	//qDebug() <<  "destructor:" << this;
-}
+Database::~Database() = default;
 
 QVariant Database::icon(int col)
 {
@@ -280,7 +269,7 @@ QVariant Database::text(int col)
 QString Database::connectionSignature()
 {
 	QString s;
-	Connection *c = qobject_cast<Connection*>(parent());
+	auto *c = qobject_cast<Connection*>(parent());
 	if(c) {
 		s = objectName() + "[" + c->params().param("driver").toString() + "]"
 				+ c->params().param("user").toString() + "@" + c->params().param("host").toString()
@@ -293,7 +282,7 @@ QStringList Database::databases()
 {
 	qfLogFuncFrame();
 	QStringList sl;
-	QSqlDriver *driver = sqlConnection().driver();
+	auto *driver = sqlConnection().driver();
 	QF_ASSERT(driver != nullptr,
 			  "driver is NULL",
 			  return QStringList());
@@ -322,9 +311,9 @@ int defaultPort(const QString &driver_name)
 {
 	if(driver_name.endsWith("PSQL"))
 		return 5432;
-	else if(driver_name.endsWith("MYSQL"))
+	if(driver_name.endsWith("MYSQL"))
 		return 3306;
-	else if(driver_name.endsWith("IBASE"))
+	if(driver_name.endsWith("IBASE"))
 		return 3050;
 	return 0;
 }
@@ -380,7 +369,7 @@ QStringList Database::schemas() const
 bool Database::open()
 {
 	qfLogFuncFrame();
-	Connection *c = qobject_cast<Connection*>(parent());
+	auto *c = qobject_cast<Connection*>(parent());
 	QF_ASSERT(c!=nullptr,
 			  "Parent is not a kind of Connection",
 			  return false);
@@ -424,7 +413,7 @@ bool Database::open()
 	//qfInfo() << "password:" << password();
 	if(!m_sqlConnection.open()) {
 		m_sqlConnection.setConnectOptions();
-		qf::qmlwidgets::dialogs::MessageBox::showError(mainWindow(),
+		qf::gui::dialogs::MessageBox::showError(mainWindow(),
 													   tr("Error opening database %1").arg(connectionSignature())
 													   + "\n\n"
 													   + m_sqlConnection.lastError().text());
@@ -470,9 +459,9 @@ bool Database::open()
 	}
 	else {
 		foreach(QString s, schemas()) {
-			Schema *sch = new Schema(nullptr, s);
+			auto *sch = new Schema(nullptr, s);
 			olst << sch;
-			connect(sch, SIGNAL(progressValue(double, const QString&)), mainWindow(), SLOT(setProgressValue(double, const QString&)));
+			connect(sch, &Schema::progressValue, mainWindow(), &MainWindow::setProgressValue);
 		}
 	}
 	m->append(olst, ix);
@@ -676,17 +665,14 @@ void Schema::close()
 //===================================================
 //                 Table
 //===================================================
-Table::~Table()
-{
-	//qDebug() <<  "destructor:" << this;
-}
+Table::~Table() = default;
 
 QVariant Table::icon(int col)
 {
 	if(col == 0) {
 		if(kind == QSql::Tables)
 			return QVariant::fromValue(QIcon(":/images/table.png"));
-		else if(kind == QSql::Views)
+		if(kind == QSql::Views)
 			return QVariant::fromValue(QIcon(":/images/view.png"));
 	}
 	return QVariant();
@@ -695,7 +681,8 @@ QVariant Table::icon(int col)
 QVariant Table::text(int col)
 {
 	QVariant ret;
-	if(col == 0) ret = objectName();
+	if(col == 0)
+		ret = objectName();
 	return ret;
 }
 
@@ -705,7 +692,8 @@ QString Table::schema() const
 	const Schema *d = nullptr;
 	while(o) {
 		d = qobject_cast<const Schema*>(o);
-		if(d) return d->objectName();
+		if(d)
+			return d->objectName();
 		o = o->parent();
 	}
 	return "";

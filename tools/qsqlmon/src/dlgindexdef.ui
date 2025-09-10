@@ -242,8 +242,8 @@
   </layout>
   <action name="actionRemoveFieldFromIndex">
    <property name="icon">
-    <iconset resource="../../../libqf/libqfqmlwidgets/images/images.qrc">
-     <normaloff>:/qf/qmlwidgets/images/right.svg</normaloff>:/qf/qmlwidgets/images/right.svg</iconset>
+    <iconset resource="../../../libqf/libqfgui/images/images.qrc">
+     <normaloff>:/qf/gui/images/right.svg</normaloff>:/qf/gui/images/right.svg</iconset>
    </property>
    <property name="text">
     <string>RemoveFieldFromIndex</string>
@@ -254,8 +254,8 @@
   </action>
   <action name="actionAddFieldToIndex">
    <property name="icon">
-    <iconset resource="../../../libqf/libqfqmlwidgets/images/images.qrc">
-     <normaloff>:/qf/qmlwidgets/images/left.svg</normaloff>:/qf/qmlwidgets/images/left.svg</iconset>
+    <iconset resource="../../../libqf/libqfgui/images/images.qrc">
+     <normaloff>:/qf/gui/images/left.svg</normaloff>:/qf/gui/images/left.svg</iconset>
    </property>
    <property name="text">
     <string>AddFieldToIndex</string>
@@ -266,7 +266,7 @@
   </action>
  </widget>
  <resources>
-  <include location="../../../libqf/libqfqmlwidgets/images/images.qrc"/>
+  <include location="../../../libqf/libqfgui/images/images.qrc"/>
  </resources>
  <connections>
   <connection>

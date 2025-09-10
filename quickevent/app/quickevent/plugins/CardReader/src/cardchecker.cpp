@@ -7,7 +7,7 @@
 #include <quickevent/core/codedef.h>
 #include <quickevent/core/si/punchrecord.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/assert.h>
 #include <qf/core/log.h>
@@ -17,7 +17,7 @@
 #include <QTime>
 
 namespace qfs = qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 

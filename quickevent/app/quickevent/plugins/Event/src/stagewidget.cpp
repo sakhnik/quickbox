@@ -29,7 +29,7 @@ bool StageWidget::load(const QVariant &id, int mode)
 	bool ok  = Super::load(id, mode);
 	if(ok) {
 		QDateTime dt;
-		qf::qmlwidgets::model::DataDocument *doc = dataDocument();
+		qf::gui::model::DataDocument *doc = dataDocument();
 		const auto START_DATE_TIME = QStringLiteral("startDateTime");
 		dt = doc->value(START_DATE_TIME).toDateTime().toLocalTime();
 		/*
@@ -51,7 +51,7 @@ bool StageWidget::saveData()
 	QDate d = ui->dateEdit->date();
 	QTime t = ui->timeEdit->time();
 	QDateTime dt(d, t, QTimeZone::systemTimeZone());
-	qf::qmlwidgets::model::DataDocument *doc = dataDocument();
+	qf::gui::model::DataDocument *doc = dataDocument();
 	const auto START_DATE_TIME = QStringLiteral("startDateTime");
 	doc->setValue(START_DATE_TIME, dt);
 	/*

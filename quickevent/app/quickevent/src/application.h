@@ -1,18 +1,18 @@
 #ifndef APPLICATION_H
 #define APPLICATION_H
 
-#include <qf/qmlwidgets/framework/application.h>
+#include <qf/gui/framework/application.h>
 
 class AppCliOptions;
 class TableModelLogDevice;
 
 namespace qf { namespace core { class LogEntryMap; }}
 
-class Application : public qf::qmlwidgets::framework::Application
+class Application : public qf::gui::framework::Application
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::Application Super;
+	typedef qf::gui::framework::Application Super;
 public:
 	Application(int & argc, char ** argv, AppCliOptions *cli_opts);
 	~Application() override = default;

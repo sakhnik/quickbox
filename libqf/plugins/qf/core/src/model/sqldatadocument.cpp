@@ -2,11 +2,11 @@
 
 #include "../sql/sqlquerybuilder.h"
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 
 #include <QQmlEngine>
 
-namespace qfm = qf::qmlwidgets::model;
+namespace qfm = qf::gui::model;
 using namespace qf::core::qml;
 
 SqlDataDocument::SqlDataDocument(QObject *parent)

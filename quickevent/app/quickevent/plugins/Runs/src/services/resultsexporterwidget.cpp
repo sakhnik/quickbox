@@ -2,15 +2,14 @@
 #include "ui_resultsexporterwidget.h"
 #include "resultsexporter.h"
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/assert.h>
 
 #include <QFileDialog>
 #include <QSettings>
 
-namespace Runs {
-namespace services {
+namespace Runs::services {
 
 ResultsExporterWidget::ResultsExporterWidget(QWidget *parent)
 	: Super(parent)
@@ -104,7 +103,7 @@ bool ResultsExporterWidget::acceptDialogDone(int result)
 {
 	if(result == QDialog::Accepted) {
 		if(!saveSettings()) {
-			qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Cannot create directory '%1'.").arg(ui->edExportDir->text().trimmed()));
+			qf::gui::dialogs::MessageBox::showError(this, tr("Cannot create directory '%1'.").arg(ui->edExportDir->text().trimmed()));
 			return false;
 		}
 	}
@@ -113,9 +112,9 @@ bool ResultsExporterWidget::acceptDialogDone(int result)
 
 ResultsExporter *ResultsExporterWidget::service()
 {
-	ResultsExporter *svc = qobject_cast<ResultsExporter*>(Event::services::Service::serviceByName(ResultsExporter::serviceName()));
+	auto *svc = qobject_cast<ResultsExporter*>(Event::services::Service::serviceByName(ResultsExporter::serviceName()));
 	QF_ASSERT(svc, ResultsExporter::serviceName() + " doesn't exist", return nullptr);
 	return svc;
 }
 
-}}
+}

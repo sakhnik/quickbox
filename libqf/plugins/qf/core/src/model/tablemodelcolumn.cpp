@@ -38,7 +38,7 @@ void TableModelColumn::setReadOnly(bool arg)
 
 void TableModelColumn::setCastType(int arg)
 {
-	//qf::qmlwidgets::model::TableModel *m = qobject_cast<qf::qmlwidgets::model::TableModel*>(parent());
+	//qf::gui::model::TableModel *m = qobject_cast<qf::gui::model::TableModel*>(parent());
 	//qfWarning() << arg << m;
 	m_columnDefinition.setCastType(arg);
 	if(m_columnIndex >= 0)

@@ -21,7 +21,7 @@ target_link_libraries(qfqmlreportsplugin PUBLIC
     Qt::Core
     Qt::Gui
     Qt::Qml
-	libqfqmlwidgets
+	libqfgui
 )
 
 set(PLUGIN_DEST_DIR ${CMAKE_INSTALL_BINDIR}/qml/qf/qmlreports)

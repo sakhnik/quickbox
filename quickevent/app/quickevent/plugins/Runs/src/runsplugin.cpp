@@ -18,13 +18,13 @@
 #include <quickevent/core/si/punchrecord.h>
 #include <quickevent/core/runstatus.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/dockwidget.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/reports/widgets/reportviewwidget.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/dockwidget.h>
+#include <qf/gui/action.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/reports/widgets/reportviewwidget.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -33,7 +33,7 @@
 #include <qf/core/utils/htmlutils.h>
 #include <qf/core/utils/table.h>
 #include <qf/core/utils/treetable.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 
 #include <QDesktopServices>
 #include <QFile>
@@ -43,7 +43,7 @@
 #include <QTextStream>
 #include <QSqlField>
 
-namespace qff = qf::qmlwidgets::framework;
+namespace qff = qf::gui::framework;
 namespace qfu = qf::core::utils;
 namespace qfs = qf::core::sql;
 using ::PartWidget;
@@ -80,7 +80,7 @@ const qf::core::utils::Table &RunsPlugin::runnersTable(int stage_id)
 				.join("competitors.classId", "classes.id")
 				.joinRestricted("competitors.id", "runs.competitorId", "runs.stageId=" QF_IARG(stage_id), "JOIN")
 				.orderBy("classes.name, lastName, firstName");
-		qf::qmlwidgets::model::SqlTableModel m;
+		qf::gui::model::SqlTableModel m;
 		m.setQueryBuilder(qb, false);
 		m.reload();
 		m_runnersTableCache = m.table();
@@ -347,7 +347,7 @@ void RunsPlugin::showRunsTable(int stage_id, int class_id, bool show_offrace, co
 {
 	auto *w = new RunsTableDialogWidget();
 	w->reload(stage_id, class_id, show_offrace, sort_column, select_competitor_id);
-	qf::qmlwidgets::dialogs::Dialog dlg(this->m_partWidget);
+	qf::gui::dialogs::Dialog dlg(this->m_partWidget);
 	//dlg.setButtons(QDialogButtonBox::Cancel);
 	dlg.setCentralWidget(w);
 	dlg.exec();
@@ -356,7 +356,7 @@ void RunsPlugin::showRunsTable(int stage_id, int class_id, bool show_offrace, co
 QWidget* RunsPlugin::createReportOptionsDialog(QWidget *parent)
 {
 	if(!parent) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		parent = fwk;
 	}
 	auto *ret = new quickevent::gui::ReportOptionsDialog(parent);
@@ -367,7 +367,7 @@ QWidget* RunsPlugin::createReportOptionsDialog(QWidget *parent)
 QWidget *RunsPlugin::createNStagesReportOptionsDialog(QWidget *parent)
 {
 	if(!parent) {
-		qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+		qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 		parent = fwk;
 	}
 	return new Runs::NStagesReportOptionsDialog(parent);
@@ -560,7 +560,7 @@ qf::core::utils::Table RunsPlugin::nstagesClassResultsTable(int stages_count, in
 	qb.select(QF_IARG(UNREAL_TIME_MSEC) " AS timeMs");
 	qb.select(QF_IARG(UNREAL_TIME_MSEC) " AS timeLossMs");
 	qb.select("'' AS pos");
-	qf::qmlwidgets::model::SqlTableModel mod;
+	qf::gui::model::SqlTableModel mod;
 	mod.setQueryBuilder(qb, false);
 	mod.reload();
 	QMap<int, int> competitor_id_to_row;
@@ -649,7 +649,7 @@ qf::core::utils::TreeTable RunsPlugin::nstagesResultsTable(const QString &class_
 	qfLogFuncFrame();
 	//qf::core::utils::Table::FieldList cols;
 	//cols << qf::core::utils::Table::Field("")
-	qf::qmlwidgets::model::SqlTableModel mod;
+	qf::gui::model::SqlTableModel mod;
 	{
 		qfs::QueryBuilder qb;
 		qb.select2("classes", "id, name")
@@ -695,7 +695,7 @@ qf::core::utils::TreeTable RunsPlugin::currentStageResultsTable(const QString &c
 qf::core::utils::TreeTable RunsPlugin::stageResultsTable(int stage_id, const QString &class_filter, int max_competitors_in_class, bool exclude_disq, bool add_laps)
 {
 	qfLogFuncFrame();
-	qf::qmlwidgets::model::SqlTableModel model;
+	qf::gui::model::SqlTableModel model;
 	{
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("classes", "id, name")
@@ -919,7 +919,7 @@ QVariantMap RunsPlugin::printAwardsOptionsWithDialog(const QVariantMap &opts)
 	QVariantMap ret;
 	auto *w = new PrintAwardsOptionsDialogWidget();
 	w->setPrintOptions(opts);
-	qf::qmlwidgets::dialogs::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, m_partWidget);
+	qf::gui::dialogs::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, m_partWidget);
 	dlg.setCentralWidget(w);
 	if(dlg.exec()) {
 		ret = w->printOptions();
@@ -1394,7 +1394,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesTable(const QString &wher
 		qb.where(where_expr);
 	QVariantMap qpm;
 	qpm["stage_id"] = stage_id;
-	qf::qmlwidgets::model::SqlTableModel m;
+	qf::gui::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.setQueryParameters(qpm);
 	m.reload();
@@ -1453,7 +1453,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesTable(const QString &wher
 		int class_id = tt_row.value(QStringLiteral("classes.id")).toInt();
 		//console.debug("class id:", class_id);
 		qpm["class_id"] = class_id;
-		qf::qmlwidgets::model::SqlTableModel m2;
+		qf::gui::model::SqlTableModel m2;
 		m2.setQueryBuilder(qb2);
 		m2.setQueryParameters(qpm);
 		m2.reload();
@@ -1513,7 +1513,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsTable(const quickevent::gui
 	QString qs = "SELECT t2.clubAbbr, clubs.name FROM ( " + qs1 + " ) AS t2"
 			+ " LEFT JOIN clubs ON t2.clubAbbr=clubs.abbr"
 			+ " ORDER BY t2.clubAbbr";
-	qf::qmlwidgets::model::SqlTableModel m;
+	qf::gui::model::SqlTableModel m;
 	m.setQuery(qs);
 	m.reload();
 	auto tt = m.toTreeTable();
@@ -1560,7 +1560,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsTable(const quickevent::gui
 		.orderBy(order_sql_part);
 	QVariantMap qpm;
 	qpm["stage_id"] = stage_id;
-	qf::qmlwidgets::model::SqlTableModel m2;
+	qf::gui::model::SqlTableModel m2;
 	m2.setQueryBuilder(qb);
 	m2.setQueryParameters(qpm);
 	for(int i=0; i<tt.rowCount(); i++) {
@@ -1597,7 +1597,7 @@ qf::core::utils::TreeTable RunsPlugin::startListStartersTable(const QString &whe
 		qb.where(where_expr);
 	QVariantMap qpm;
 	qpm["stage_id"] = stage_id;
-	qf::qmlwidgets::model::SqlTableModel m;
+	qf::gui::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.setQueryParameters(qpm);
 	m.reload();
@@ -1619,7 +1619,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesNStagesTable(const int st
 			.orderBy("classes.name");
 	if(!where_expr.isEmpty())
 		qb.where(where_expr);
-	qf::qmlwidgets::model::SqlTableModel m;
+	qf::gui::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.reload();
 	auto tt = m.toTreeTable();
@@ -1647,7 +1647,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesNStagesTable(const int st
 		}
 		QVariantMap qpm;
 		qpm["class_id"] = class_id;
-		qf::qmlwidgets::model::SqlTableModel m2;
+		qf::gui::model::SqlTableModel m2;
 		m2.setQueryBuilder(qb2);
 		m2.setQueryParameters(qpm);
 		//qfInfo() << m2.effectiveQuery();
@@ -1667,7 +1667,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsNStagesTable(const int stag
 	QString qs = "SELECT t2.clubAbbr, clubs.name FROM ( " + qs1 + " ) AS t2"
 			+ " LEFT JOIN clubs ON t2.clubAbbr=clubs.abbr"
 			+ " ORDER BY t2.clubAbbr";
-	qf::qmlwidgets::model::SqlTableModel m;
+	qf::gui::model::SqlTableModel m;
 	m.setQuery(qs);
 	m.reload();
 	auto tt = m.toTreeTable();
@@ -1707,7 +1707,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsNStagesTable(const int stag
 		}
 		QVariantMap qpm;
 		qpm["club_abbr"] = club_abbr;
-		qf::qmlwidgets::model::SqlTableModel m2;
+		qf::gui::model::SqlTableModel m2;
 		m2.setQueryBuilder(qb2);
 		m2.setQueryParameters(qpm);
 		//qfInfo() << m2.effectiveQuery();
@@ -1745,7 +1745,7 @@ void RunsPlugin::report_startListClasses()
 		auto opts = dlg.optionsMap();
 		QVariantMap props;
 		props["options"] = opts;
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("startList_classes.qml")
 									, tt.toVariant()
 									, tr("Start list by classes")
@@ -1773,7 +1773,7 @@ void RunsPlugin::report_startListClubs()
 		auto opts = dlg.optionsMap();
 		QVariantMap props;
 		props["options"] = opts;
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("startList_clubs.qml")
 									, tt.toVariant()
 									, tr("Start list by clubs")
@@ -1798,7 +1798,7 @@ void RunsPlugin::report_startListStarters()
 		auto opts = dlg.optionsMap();
 		QVariantMap props;
 		props["options"] = opts;
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("startList_starters.qml")
 									, tt.toVariant()
 									, tr("Start list for starters")
@@ -1831,7 +1831,7 @@ void RunsPlugin::report_startListClassesNStages()
 		//props["reportTitle"] = "report_title";
 		//qfDebug() << props;
 		//qfDebug() << "dlg.stagesCount():" << dlg.stagesCount() << opts.stagesCount();
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("startList_classes_nstages.qml")
 									, tt.toVariant()
 									, tr("Start list by classes for %n stage(s)", "", dlg.stagesCount())
@@ -1863,7 +1863,7 @@ void RunsPlugin::report_startListClubsNStages()
 		props["options"] = opts;
 		//props["reportTitle"] = "report_title";
 		//qfInfo() << props;
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("startList_clubs_nstages.qml")
 									, tt.toVariant()
 									, tr("Start list by clubs for %n stage(s)", "", dlg.stagesCount())
@@ -1887,7 +1887,7 @@ void RunsPlugin::report_resultsClasses()
 		auto opts = dlg.optionsMap();
 		QVariantMap props;
 		props["options"] = opts;
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("results_stage.qml")
 									, tt.toVariant()
 									, tr("Results by classes")
@@ -1913,7 +1913,7 @@ void RunsPlugin::report_resultsForSpeaker()
 		props["options"] = opts;
 		//props["stageCount"] = getPlugin<EventPlugin>()->eventConfig()->stageCount();
 		//props["stageNumber"] = selectedStageId();
-		qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+		qf::gui::reports::ReportViewWidget::showReport(fwk
 									, findReportFile("results_stageSpeaker.qml")
 									, tt.toVariant()
 									, tr("Results by classes")
@@ -1936,7 +1936,7 @@ void RunsPlugin::report_resultsAwards()
 	QVariantMap props;
 	props["eventConfig"] = QVariant::fromValue(getPlugin<EventPlugin>()->eventConfig());
 	auto tt = stageResultsTable(opts.value("stageId").toInt(), QString(), opts.value("numPlaces").toInt());
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+	qf::gui::reports::ReportViewWidget::showReport(fwk
 								, findReportFile(rep_path)
 								, tt.toVariant()
 								, tr("Stage awards")
@@ -1963,7 +1963,7 @@ void RunsPlugin::report_resultsNStages()
 	QVariantMap props;
 	props["stagesCount"] = dlg.stagesCount();
 	props["options"] = opts;
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+	qf::gui::reports::ReportViewWidget::showReport(fwk
 								, findReportFile("results_nstages.qml")
 								, tt.toVariant()
 								, tr("Results after %n stage(s)", "", dlg.stagesCount())
@@ -1990,7 +1990,7 @@ void RunsPlugin::report_resultsNStagesSpeaker()
 	QVariantMap props;
 	props["stagesCount"] = dlg.stagesCount();
 	props["options"] = opts;
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+	qf::gui::reports::ReportViewWidget::showReport(fwk
 								, findReportFile("results_nstagesSpeaker.qml")
 								, tt.toVariant()
 								, tr("Results after %n stage(s)", "", dlg.stagesCount())
@@ -2012,7 +2012,7 @@ void RunsPlugin::report_nStagesAwards()
 	QVariantMap props;
 	props["eventConfig"] = QVariant::fromValue(getPlugin<EventPlugin>()->eventConfig());
 	auto tt = nstagesResultsTable(QString(), opts.value("stageId").toInt(), opts.value("numPlaces").toInt());
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+	qf::gui::reports::ReportViewWidget::showReport(fwk
 								, findReportFile(rep_path)
 								, tt.toVariant()
 								, tr("Awards after %1 stages").arg(opts.value("stageId").toInt())
@@ -2227,7 +2227,7 @@ void RunsPlugin::export_startListClubsHtml()
 
 QString RunsPlugin::export_resultsHtmlStage(bool with_laps)
 {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	fwk->showProgress(tr("Preparing data"), 1, 2);
 	int stage_id = selectedStageId();
 	QString file_dir = QDir::tempPath() + "/quickevent/e" + QString::number(stage_id);
@@ -2342,7 +2342,7 @@ QString RunsPlugin::export_resultsHtmlStage(bool with_laps)
 void RunsPlugin::export_resultsHtmlStageWithLaps()
 {
 	QString fn = export_resultsHtmlStage(true);
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
 	if(fn.isEmpty())
 		QMessageBox::warning(fwk, tr("Warning"), tr("Export error"));
 	else

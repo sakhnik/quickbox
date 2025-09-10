@@ -19,17 +19,17 @@
 
 #include <quickevent/core/og/timems.h>
 
-#include <qf/qmlwidgets/framework/dockwidget.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/application.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/statusbar.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/style.h>
+#include <qf/gui/framework/dockwidget.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/application.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/action.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/statusbar.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/style.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -60,9 +60,9 @@
 
 #include <regex>
 
-namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
+namespace qfw = qf::gui;
+namespace qff = qf::gui::framework;
+namespace qfd = qf::gui::dialogs;
 namespace qfs = qf::core::sql;
 
 using qff::getPlugin;
@@ -358,7 +358,7 @@ void EventPlugin::onInstalled()
 		act_stage->setVisible(false);
 
 
-		auto *style = qf::qmlwidgets::Style::instance();
+		auto *style = qf::gui::Style::instance();
 		QIcon ico(style->icon("settings"));
 		m_actEditStage = new qfw::Action(ico, "Stage settings");
 		m_actEditStage->setVisible(false);
@@ -414,7 +414,7 @@ void EventPlugin::onInstalled()
 			a->setShortcut(QKeySequence("ctrl+shift+R"));
 			fwk->menuBar()->actionForPath("view")->addActionInto(a);
 		}
-		auto core_plugin = qf::qmlwidgets::framework::getPlugin<Core::CorePlugin>();
+		auto core_plugin = qf::gui::framework::getPlugin<Core::CorePlugin>();
 		core_plugin->settingsDialog()->addPage(new LentCardsSettingsPage());
 	}
 }
@@ -448,7 +448,7 @@ void EventPlugin::editStage()
 	//qfLogFuncFrame();// << "id:" << id << "mode:" << mode;
 	int stage_id = currentStageId();
 	auto *w = new Event::StageWidget();
-	auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	auto *fwk = qf::gui::framework::MainWindow::frameWork();
 	qfd::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, fwk);
 	dlg.setDefaultButton(QDialogButtonBox::Save);
 	dlg.setCentralWidget(w);
@@ -836,11 +836,11 @@ bool EventPlugin::createEvent(const QString &event_name, const QVariantMap &even
 		event_id = event_w->eventId();
 		new_params = event_w->saveParams();
 		if(event_id.isEmpty()) {
-			qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("Event ID cannot be empty."));
+			qf::gui::dialogs::MessageBox::showError(fwk, tr("Event ID cannot be empty."));
 			continue;
 		}
 		if(existing_event_ids.contains(event_id)) {
-			qf::qmlwidgets::dialogs::MessageBox::showError(fwk, tr("Event ID %1 exists already.").arg(event_id));
+			qf::gui::dialogs::MessageBox::showError(fwk, tr("Event ID %1 exists already.").arg(event_id));
 			continue;
 		}
 		break;
@@ -1168,7 +1168,7 @@ void EventPlugin::exportEvent_qbe()
 	qfLogFuncFrame();
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
 	QString ext = ".qbe";
-	QString ex_fn = qf::qmlwidgets::dialogs::FileDialog::getSaveFileName (fwk, tr("Export as Quick Event"), singleFileStorageDir(), tr("Quick Event files *%1 (*%1)").arg(ext));
+	QString ex_fn = qf::gui::dialogs::FileDialog::getSaveFileName (fwk, tr("Export as Quick Event"), singleFileStorageDir(), tr("Quick Event files *%1 (*%1)").arg(ext));
 	if(ex_fn.isEmpty())
 		return;
 	if(!ex_fn.endsWith(ext, Qt::CaseInsensitive))
@@ -1238,7 +1238,7 @@ void EventPlugin::importEvent_qbe()
 	qfLogFuncFrame();
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
 	QString ext = ".qbe";
-	QString fn = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName (fwk, tr("Import as Quick Event"), QString(), tr("Quick Event files *%1 (*%1)").arg(ext));
+	QString fn = qf::gui::dialogs::FileDialog::getOpenFileName (fwk, tr("Import as Quick Event"), QString(), tr("Quick Event files *%1 (*%1)").arg(ext));
 	if(fn.isEmpty())
 		return;
 	QString event_name = qf::core::utils::FileUtils::baseName(fn) + "_2";
@@ -1367,10 +1367,10 @@ void EventPlugin::reloadRegistrationsModel()
 	m_registrationsTable = qf::core::utils::Table();
 }
 
-qf::qmlwidgets::model::SqlTableModel* EventPlugin::registrationsModel()
+qf::gui::model::SqlTableModel* EventPlugin::registrationsModel()
 {
 	if(!m_registrationsModel) {
-		m_registrationsModel = new qf::qmlwidgets::model::SqlTableModel(this);
+		m_registrationsModel = new qf::gui::model::SqlTableModel(this);
 		m_registrationsModel->addColumn("competitorName", tr("Name"));
 		m_registrationsModel->addColumn("registration", tr("Reg"));
 		m_registrationsModel->addColumn("licence", tr("Lic"));
@@ -1389,7 +1389,7 @@ qf::qmlwidgets::model::SqlTableModel* EventPlugin::registrationsModel()
 
 const qf::core::utils::Table &EventPlugin::registrationsTable()
 {
-	qf::qmlwidgets::model::SqlTableModel *m = registrationsModel();
+	qf::gui::model::SqlTableModel *m = registrationsModel();
 	if(m_registrationsTable.isNull() && !m->table().isNull()) {
 		m_registrationsTable = m->table();
 		auto c_nsk = QStringLiteral("competitorNameAscii7");

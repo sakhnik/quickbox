@@ -1,0 +1,59 @@
+#ifndef QF_GUI_DATACONTROLLER_H
+#define QF_GUI_DATACONTROLLER_H
+
+#include "guiglobal.h"
+#include "model/datadocument.h"
+
+#include <qf/core/utils.h>
+
+#include <QWidget>
+#include <QSqlDatabase>
+
+namespace qf {
+namespace gui {
+
+class IDataWidget;
+
+class QFGUI_DECL_EXPORT DataController : public QObject
+{
+	Q_OBJECT
+	Q_PROPERTY(qf::gui::model::DataDocument* document READ document WRITE setDocument NOTIFY documentChanged)
+	Q_PROPERTY(QWidget* widget READ widget WRITE setWidget NOTIFY widgetChanged)
+	//Q_PROPERTY(QString dbConnectionName READ dbConnectionName WRITE setDbConnectionName)
+public:
+	explicit DataController(QObject *parent = nullptr);
+	~DataController() Q_DECL_OVERRIDE;
+
+	//QF_PROPERTY_IMPL2(QString, d, D, bConnectionName, QSqlDatabase::defaultConnection)
+
+	qf::gui::model::DataDocument* document(bool throw_exc = qf::core::Exception::Throw) const;
+	void setDocument(qf::gui::model::DataDocument *doc);
+	Q_SIGNAL void documentChanged(qf::gui::model::DataDocument *doc);
+
+	QWidget* widget() const { return m_dataWidgetsParent;}
+	void setWidget(QWidget *w)
+	{
+		if(m_dataWidgetsParent != w) {
+			m_dataWidgetsParent = w;
+			emit widgetChanged(w);
+		}
+	}
+	Q_SIGNAL void widgetChanged(QWidget *doc);
+
+protected:
+	QList<IDataWidget*> dataWidgets();
+	IDataWidget* dataWidget(const QString &data_id);
+	Q_SLOT void clearDataWidgetsCache();
+
+	Q_SLOT void documentLoaded();
+	Q_SLOT void documentValueChanged(const QString &data_id, const QVariant &old_val, const QVariant &new_val);
+	Q_SLOT void documentAboutToSave();
+protected:
+	qf::gui::model::DataDocument *m_document = nullptr;
+	QWidget *m_dataWidgetsParent = nullptr;
+	QList<IDataWidget*> m_dataWidgets;
+};
+
+}}
+
+#endif // QF_GUI_DATACONTROLLER_H

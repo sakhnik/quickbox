@@ -38,7 +38,7 @@ public:
 
 	static QString serviceName();
 private:
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 	void init();
 	void onTcpReadoutReceived(const QVariant &data);
 	void onNewConnection();

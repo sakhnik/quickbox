@@ -11,7 +11,7 @@
 
 namespace quickevent::gui::og {
 
-ItemDelegate::ItemDelegate(qf::qmlwidgets::TableView *parent)
+ItemDelegate::ItemDelegate(qf::gui::TableView *parent)
 	: Super(parent)
 {
 	QItemEditorFactory *fact = itemEditorFactory();

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/datadialogwidget.h>
+#include <qf/gui/framework/datadialogwidget.h>
 
 #include <plugins/Runs/src/runstablemodel.h>
 
@@ -10,16 +10,16 @@ namespace Ui {
 class CompetitorWidget;
 }
 
-class CompetitorWidget : public qf::qmlwidgets::framework::DataDialogWidget
+class CompetitorWidget : public qf::gui::framework::DataDialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DataDialogWidget Super;
+	typedef qf::gui::framework::DataDialogWidget Super;
 public:
 	explicit CompetitorWidget(QWidget *parent = nullptr);
 	~CompetitorWidget() override;
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) override;
+	bool load(const QVariant &id = QVariant(), int mode = qf::gui::model::DataDocument::ModeEdit) override;
 	void loadFromRegistrations(int siid);
 	void save();
 private slots:

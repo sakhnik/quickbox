@@ -1,6 +1,6 @@
 #pragma once
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace CardReader {
 namespace services {
@@ -11,11 +11,11 @@ namespace Ui {
 
 class QrOPunch;
 
-class QrOPunchWidget : public qf::qmlwidgets::framework::DialogWidget
+class QrOPunchWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 
-	using Super = qf::qmlwidgets::framework::DialogWidget;
+	using Super = qf::gui::framework::DialogWidget;
 public:
 	explicit QrOPunchWidget(QWidget *parent = nullptr);
 	~QrOPunchWidget() override;

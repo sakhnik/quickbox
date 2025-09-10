@@ -11,19 +11,19 @@
 #include <quickevent/gui/og/itemdelegate.h>
 #include <quickevent/core/exporters/stageresultscsvexporter.h>
 
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/reports/widgets/reportviewwidget.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/combobox.h>
-#include <qf/qmlwidgets/tableview.h>
-#include <qf/qmlwidgets/dialogbuttonbox.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/reports/widgets/reportviewwidget.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/action.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/combobox.h>
+#include <qf/gui/tableview.h>
+#include <qf/gui/dialogbuttonbox.h>
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/dbenum.h>
 #include <qf/core/sql/connection.h>
@@ -49,12 +49,12 @@ static const auto SkipEmptyParts = Qt::SkipEmptyParts;
 namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::qmlwidgets::model;
+namespace qfw = qf::gui;
+namespace qff = qf::gui::framework;
+namespace qfd = qf::gui::dialogs;
+namespace qfm = qf::gui::model;
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 
@@ -130,7 +130,7 @@ void RunsWidget::reset(int class_id)
 			m_cbxClasses->setCurrentIndex(0);
 		else
 			m_cbxClasses->setCurrentData(class_id);
-		connect(m_cbxClasses, &qf::qmlwidgets::ForeignKeyComboBox::currentDataChanged, this, &RunsWidget::reload, Qt::UniqueConnection);
+		connect(m_cbxClasses, &qf::gui::ForeignKeyComboBox::currentDataChanged, this, &RunsWidget::reload, Qt::UniqueConnection);
 		m_cbxClasses->blockSignals(false);
 	}
 	reload();
@@ -250,7 +250,7 @@ void RunsWidget::settleDownInPartWidget(::PartWidget *part_widget)
 			QVariantMap props;
 			props["stageId"] = selectedStageId();
 			props["options"] = opts;
-			qf::qmlwidgets::reports::ReportViewWidget::showReport(fwk
+			qf::gui::reports::ReportViewWidget::showReport(fwk
 										, getPlugin<RunsPlugin>()->findReportFile("competitorsWithCardRent.qml")
 										, QVariant()
 										, tr("Competitors with rented cards")
@@ -506,7 +506,7 @@ QList<RunsWidget::CompetitorForClass> RunsWidget::competitorsForClass(int stage_
 void RunsWidget::import_start_times_ob2000()
 {
 	qfLogFuncFrame();
-	QString fn = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName(this, tr("Import"));
+	QString fn = qf::gui::dialogs::FileDialog::getOpenFileName(this, tr("Import"));
 	if(!fn.isEmpty()) {
 		QFile f(fn);
 		if(f.open(QFile::ReadOnly)) {
@@ -577,7 +577,7 @@ void RunsWidget::import_start_times_ob2000()
 				transaction.commit();
 			}
 			catch (const qf::core::Exception &e) {
-				qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+				qf::gui::dialogs::MessageBox::showException(this, e);
 			}
 			ui->wRunsTableWidget->runsModel()->reload();
 		}
@@ -672,7 +672,7 @@ void RunsWidget::onDrawClicked()
 	QList<int> class_ids;
 	int class_id = m_cbxClasses->currentData().toInt();
 	if(class_id == 0) {
-		if(!qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Draw all classes without draw lock?"), false))
+		if(!qf::gui::dialogs::MessageBox::askYesNo(this, tr("Draw all classes without draw lock?"), false))
 			return;
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("classdefs", "classId")
@@ -688,7 +688,7 @@ void RunsWidget::onDrawClicked()
 	else {
 		bool is_locked = isLockedForDrawing(class_id, stage_id);
 		if(is_locked) {
-			qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("Class is locked for drawing."));
+			qf::gui::dialogs::MessageBox::showInfo(this, tr("Class is locked for drawing."));
 			return;
 		}
 		class_ids << class_id;
@@ -874,7 +874,7 @@ void RunsWidget::onDrawClicked()
 				// save drawing to SQL
 				int interval = q_classdefs.value("startIntervalMin").toInt() * 60 * 1000;
 				if(interval == 0 && !is_relays) {
-					if(!qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Start interval is zero, proceed anyway?"), false))
+					if(!qf::gui::dialogs::MessageBox::askYesNo(this, tr("Start interval is zero, proceed anyway?"), false))
 						continue;
 				}
 				int start0 = q_classdefs.value("startTimeMin").toInt() * 60 * 1000;
@@ -944,7 +944,7 @@ void RunsWidget::onDrawClicked()
 		transaction.commit();
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 	ui->wRunsTableWidget->reload();
 }
@@ -954,7 +954,7 @@ void RunsWidget::onDrawRemoveClicked()
 	int class_id = m_cbxClasses->currentData().toInt();
 	if(class_id == 0)
 		return;
-	if(!qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Reset all start times and unlock drawing for this class?"), false))
+	if(!qf::gui::dialogs::MessageBox::askYesNo(this, tr("Reset all start times and unlock drawing for this class?"), false))
 		return;
 	try {
 		auto *runs_model = ui->wRunsTableWidget->runsModel();
@@ -970,7 +970,7 @@ void RunsWidget::onDrawRemoveClicked()
 		runs_model->reload();
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 }
 
@@ -1093,7 +1093,7 @@ void RunsWidget::report_competitorsStatistics()
 
 	qfs::QueryBuilder qb;
 	qb.select2("classes", "id, name").from("classes").orderBy("classes.name");
-	qf::qmlwidgets::model::SqlTableModel m;
+	qf::gui::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.reload();
 	qfu::TreeTable tt = m.toTreeTable();
@@ -1135,7 +1135,7 @@ void RunsWidget::report_competitorsStatistics()
 	//props["isColumnBreak"] = (opts.breakType() == (int)quickevent::gui::ReportOptionsDialog::BreakType::Column);
 	props["stageCount"] = stage_cnt;
 	QString rep_fn = getPlugin<RunsPlugin>()->findReportFile("competitorsStatistics.qml");
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(this
+	qf::gui::reports::ReportViewWidget::showReport(this
 								, rep_fn
 								, tt.toVariant()
 								, tr("Competitors statistics")
@@ -1155,15 +1155,15 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 		w->setWindowTitle(tr("Edit Competitor"));
 		qfd::Dialog dlg(QDialogButtonBox::Ok | QDialogButtonBox::Cancel, this);
 		dlg.setDefaultButton(QDialogButtonBox::Ok);
-		if(mode == qf::qmlwidgets::model::DataDocument::ModeInsert || mode == qf::qmlwidgets::model::DataDocument::ModeEdit) {
+		if(mode == qf::gui::model::DataDocument::ModeInsert || mode == qf::gui::model::DataDocument::ModeEdit) {
 			QPushButton *bt_save = dlg.buttonBox()->addButton(tr("Save"), QDialogButtonBox::ApplyRole);
-			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, &dlg, [w, bt_save](QAbstractButton *button) {
+			connect(dlg.buttonBox(), &qf::gui::DialogButtonBox::clicked, &dlg, [w, bt_save](QAbstractButton *button) {
 				if (button == bt_save) {
 					w->save();
 				}
 			});
 			QPushButton *bt_save_and_next = dlg.buttonBox()->addButton(tr("Ok and &next"), QDialogButtonBox::AcceptRole);
-			connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, &dlg, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
+			connect(dlg.buttonBox(), &qf::gui::DialogButtonBox::clicked, &dlg, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
 				save_and_next = (button == bt_save_and_next);
 			});
 		}
@@ -1186,13 +1186,13 @@ void RunsWidget::editCompetitor_helper(const QVariant &id, int mode, int siid)
 				w->loadFromRegistrations(siid);
 			}
 		}
-		connect(doc, &Competitors::CompetitorDocument::saved, ui->wRunsTableWidget->tableView(), &qf::qmlwidgets::TableView::rowExternallySaved, Qt::QueuedConnection);
+		connect(doc, &Competitors::CompetitorDocument::saved, ui->wRunsTableWidget->tableView(), &qf::gui::TableView::rowExternallySaved, Qt::QueuedConnection);
 		ok = dlg.exec();
 
 	}
 	if(ok && save_and_next) {
 		QTimer::singleShot(0, this, [this]() {
-			this->editCompetitor(QVariant(), qf::qmlwidgets::model::DataDocument::ModeInsert);
+			this->editCompetitor(QVariant(), qf::gui::model::DataDocument::ModeInsert);
 		});
 	}
 }

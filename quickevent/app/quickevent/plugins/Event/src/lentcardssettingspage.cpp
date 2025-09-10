@@ -1,9 +1,9 @@
 #include "lentcardssettingspage.h"
 #include "ui_lentcardssettingspage.h"
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 
-namespace qfm = qf::qmlwidgets::model;
+namespace qfm = qf::gui::model;
 namespace qfs = qf::core::sql;
 
 LentCardsSettingsPage::LentCardsSettingsPage(QWidget *parent)

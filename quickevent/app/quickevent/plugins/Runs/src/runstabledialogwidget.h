@@ -3,7 +3,7 @@
 
 #include <QWidget>
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace Ui {
 class RunsTableDialogWidget;
@@ -11,11 +11,11 @@ class RunsTableDialogWidget;
 
 class RunsTableWidget;
 
-class RunsTableDialogWidget : public qf::qmlwidgets::framework::DialogWidget
+class RunsTableDialogWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	typedef qf::gui::framework::DialogWidget Super;
 public:
 	explicit RunsTableDialogWidget(QWidget *parent = 0);
 	~RunsTableDialogWidget();

@@ -1,12 +1,12 @@
 #pragma once
 
-#include <qf/qmlwidgets/tableview.h>
+#include <qf/gui/tableview.h>
 
-class PunchesTableView : public qf::qmlwidgets::TableView
+class PunchesTableView : public qf::gui::TableView
 {
 	Q_OBJECT
 private:
-	using Super = qf::qmlwidgets::TableView;
+	using Super = qf::gui::TableView;
 public:
 	PunchesTableView(QWidget *parent);
 

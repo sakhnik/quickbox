@@ -42,7 +42,7 @@ private:
 	const QString API_URL = "https://api.oresults.eu";
 private:
 	void loadSettings() override;
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 	void onExportTimerTimeOut();
 	void init();
 	void sendFile(QString name, QString request_path, QString file, std::function<void()> on_success = nullptr);

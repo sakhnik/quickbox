@@ -3,22 +3,22 @@
 #include "txtimporter.h"
 #include "xmlimporter.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/action.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/action.h>
 #include <plugins/Event/src/eventplugin.h>
 
 #include <qf/core/log.h>
 
-namespace qff = qf::qmlwidgets::framework;
-namespace qfw = qf::qmlwidgets;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qff = qf::gui::framework;
+namespace qfw = qf::gui;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 namespace Oris {
 
 OrisPlugin::OrisPlugin(QObject *parent)
-	: Super("Oris", parent)//, qf::qmlwidgets::framework::IPersistentSettings(this)
+	: Super("Oris", parent)//, qf::gui::framework::IPersistentSettings(this)
 {
 	//setPersistentSettingsId("Oris");
 	m_orisImporter = new OrisImporter(this);
@@ -35,7 +35,7 @@ void OrisPlugin::onInstalled()
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
 	//console.warn("Oris installed");
 	qfw::Action *act_import = fwk->menuBar()->actionForPath("file/import");
-	qf::qmlwidgets::Action *act_import_oris = act_import->addMenuInto("oris", tr("&ORIS"));
+	qf::gui::Action *act_import_oris = act_import->addMenuInto("oris", tr("&ORIS"));
 	{
 		qfw::Action *a = act_import_oris->addActionInto("event", tr("&Event"));
 		connect(a, &qfw::Action::triggered, m_orisImporter, &OrisImporter::chooseAndImport);
@@ -44,25 +44,10 @@ void OrisPlugin::onInstalled()
 		qfw::Action *a = act_import_oris->addActionInto("syncEntries", tr("&Sync current event entries"));
 		connect(a, &qfw::Action::triggered, m_orisImporter, [this]() { m_orisImporter->syncCurrentEventEntries(); });
 		a->setEnabled(false);
-		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, a, [a](bool is_event_open) {
 			a->setEnabled(is_event_open);
 		});
 	}
-	/*
-	//act_import_oris->addSeparatorInto();
-	{
-		qfw::Action *a = act_import_oris->addActionInto("syncRelaysEntries", tr("Sync &relays entries"));
-		connect(a, &qfw::Action::triggered, m_orisImporter, &OrisImporter::syncRelaysEntries);
-		a->setVisible(false);
-		connect(event_plugin, &Event::EventPlugin::eventOpenChanged, [a](bool is_db_open) {
-			bool is_relays = false;
-			if(is_db_open) {
-				is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
-			}
-			a->setVisible(is_relays);
-		});
-	}
-	*/
 	act_import_oris->addSeparatorInto();
 	{
 		auto a = act_import_oris->addActionInto("clubs", tr("&Clubs and registrations"));
@@ -72,23 +57,23 @@ void OrisPlugin::onInstalled()
 			});
 		});
 		a->setEnabled(false);
-		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, a, [a](bool is_event_open) {
 			a->setEnabled(is_event_open);
 		});
 	}
 	{
 		auto a = act_import_oris->addActionInto("onet-time-clubs", tr("&Update one-time clubs"));
-		connect(a, &qfw::Action::triggered, m_orisImporter, [this]() {
+		connect(a, &qfw::Action::triggered, this, [this]() {
 				m_orisImporter->importMissingOneTimeClubs();
 		});
 		a->setEnabled(false);
-		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, a, [a](bool is_event_open) {
 			a->setEnabled(is_event_open);
 		});
 	}
-	qf::qmlwidgets::Action *act_import_txt = act_import->addMenuInto("text", tr("&Text file"));
+	qf::gui::Action *act_import_txt = act_import->addMenuInto("text", tr("&Text file"));
 	act_import_txt->setEnabled(false);
-	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [act_import_txt](bool is_event_open) {
+	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, act_import_txt, [act_import_txt](bool is_event_open) {
 		act_import_txt->setEnabled(is_event_open);
 	});
 	{

@@ -70,7 +70,7 @@ public:
 	int eventId() const;
 private:
 	void loadSettings() override;
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 	void postFileCompressed(std::optional<QString> path, std::optional<QString> name, QByteArray data, QObject *context, std::function<void(QString error)> call_back = nullptr);
 	enum class SpecFile {StartListIofXml3, RunsCsvJson};
 	void uploadSpecFile(SpecFile file, QByteArray data, QObject *context, const std::function<void(QString error)> &call_back = nullptr);

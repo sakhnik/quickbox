@@ -4,8 +4,8 @@
 #include <quickevent/core/si/siid.h>
 #include "../../Event/src/eventplugin.h"
 
-#include <qf/qmlwidgets/log.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/log.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/connection.h>
@@ -14,7 +14,7 @@
 
 #include <QMimeData>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 RunsTableModel::RunsTableModel(QObject *parent)

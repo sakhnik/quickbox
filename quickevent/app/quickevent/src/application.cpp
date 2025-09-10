@@ -1,8 +1,8 @@
 #include "application.h"
 #include "appclioptions.h"
 
-#include <qf/qmlwidgets/reports/processor/reportprocessor.h>
-#include <qf/qmlwidgets/style.h>
+#include <qf/gui/reports/processor/reportprocessor.h>
+#include <qf/gui/style.h>
 
 #include <qf/core/log.h>
 
@@ -23,13 +23,13 @@ Application::Application(int &argc, char **argv, AppCliOptions *cli_opts)
 		setFont(app_font);
 	}
 
-	auto *style = qf::qmlwidgets::Style::instance();
-	if (qf::qmlwidgets::isDarkTheme()) {
-		style->addIconSearchPath(":/qf/qmlwidgets/images/dark");
+	auto *style = qf::gui::Style::instance();
+	if (qf::gui::isDarkTheme()) {
+		style->addIconSearchPath(":/qf/gui/images/dark");
 	} else {
-		style->addIconSearchPath(":/qf/qmlwidgets/images/flat");
+		style->addIconSearchPath(":/qf/gui/images/flat");
 	}
-	style->addIconSearchPath(":/qf/qmlwidgets/images");
+	style->addIconSearchPath(":/qf/gui/images");
 
 	loadStyleSheet();
 
@@ -60,7 +60,7 @@ Application::Application(int &argc, char **argv, AppCliOptions *cli_opts)
 	SetDllDirectory(reinterpret_cast<LPCWSTR>(plugin_path.utf16()));
 #endif
 #endif
-	//qf::qmlwidgets::reports::ReportProcessor::qmlEngineImportPaths().append(plugin_path);
+	//qf::gui::reports::ReportProcessor::qmlEngineImportPaths().append(plugin_path);
 }
 
 Application *Application::instance(bool must_exist)

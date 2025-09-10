@@ -14,14 +14,14 @@
 #include <qf/core/utils/treetable.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/querybuilder.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/reports/widgets/reportviewwidget.h>
-#include <qf/qmlwidgets/reports/processor/reportprocessor.h>
-#include <qf/qmlwidgets/reports/processor/reportitem.h>
-#include <qf/qmlwidgets/reports/processor/reportpainter.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/reports/widgets/reportviewwidget.h>
+#include <qf/gui/reports/processor/reportprocessor.h>
+#include <qf/gui/reports/processor/reportitem.h>
+#include <qf/gui/reports/processor/reportpainter.h>
 #include <plugins/CardReader/src/cardreaderplugin.h>
 #include <plugins/Event/src/eventplugin.h>
 #include "partwidget.h"
@@ -35,7 +35,7 @@
 #include <qf/core/utils/timescope.h>
 
 namespace qfu = qf::core::utils;
-namespace qff = qf::qmlwidgets::framework;
+namespace qff = qf::gui::framework;
 using ::PartWidget;
 using qff::getPlugin;
 using Event::EventPlugin;
@@ -52,7 +52,7 @@ ReceiptsPlugin::ReceiptsPlugin(QObject *parent)
 void ReceiptsPlugin::onInstalled()
 {
 	qff::initPluginWidget<ReceiptsWidget, PartWidget>(tr("Receipts"), featureId());
-	auto core_plugin = qf::qmlwidgets::framework::getPlugin<Core::CorePlugin>();
+	auto core_plugin = qf::gui::framework::getPlugin<Core::CorePlugin>();
 	core_plugin->settingsDialog()->addPage(new ReceiptsSettingsPage());
 }
 
@@ -158,7 +158,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 	QMap<int, int> lap_stand; // position->standing in lap
 	QMap<int, int> lap_stand_cummulative;  // position->cummulative standing after lap
 	{
-		qf::qmlwidgets::model::SqlTableModel model;
+		qf::gui::model::SqlTableModel model;
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("competitors", "*")
 				.select2("runs", "*")
@@ -420,7 +420,7 @@ void ReceiptsPlugin::previewCard(int card_id)
 {
 	qfLogFuncFrame() << "card id:" << card_id;
 	//qfInfo() << "previewReceipe_classic, card id:" << card_id;
-	auto *w = new qf::qmlwidgets::reports::ReportViewWidget();
+	auto *w = new qf::gui::reports::ReportViewWidget();
 	w->setPersistentSettingsId("cardPreview");
 	w->setWindowTitle(tr("Card"));
 	w->setReport(findReportFile("sicard.qml"));
@@ -429,7 +429,7 @@ void ReceiptsPlugin::previewCard(int card_id)
 		w->setTableData(k, v);
 	}
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::Dialog dlg(fwk);
+	qf::gui::dialogs::Dialog dlg(fwk);
 	dlg.setCentralWidget(w);
 	dlg.exec();
 }
@@ -467,7 +467,7 @@ void ReceiptsPlugin::previewReceipt(int card_id)
 	qfLogFuncFrame() << "card id:" << card_id;
 	//qfInfo() << "previewReceipe_classic, card id:" << card_id;
 	ReceiptsSettings settings;
-	auto *w = new qf::qmlwidgets::reports::ReportViewWidget();
+	auto *w = new qf::gui::reports::ReportViewWidget();
 	if (settings.receiptPath().isEmpty()) {
 		auto fwk = qff::MainWindow::frameWork();
 		QMessageBox::warning(fwk,tr("Warning"),tr("Receipt report type is not defined.\nPlease go to Settings->Receipts and set receipt type."));
@@ -481,7 +481,7 @@ void ReceiptsPlugin::previewReceipt(int card_id)
 		w->setTableData(k, v);
 	}
 	auto fwk = qff::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::Dialog dlg(fwk);
+	qf::gui::dialogs::Dialog dlg(fwk);
 	dlg.setCentralWidget(w);
 	dlg.exec();
 }

@@ -22,7 +22,7 @@ public:
 	int exec() Q_DECL_OVERRIDE;
 	int eventId();
 private slots:
-	void on_cbxOrisEvent_currentIndexChanged(int ix);
+	void onOrisEvent_currentIndexChanged(int ix);
 
 private:
 	void load();

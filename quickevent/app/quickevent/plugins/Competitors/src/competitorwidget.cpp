@@ -14,9 +14,9 @@
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/siid.h>
 
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/sql/dbenum.h>
 #include <qf/core/sql/transaction.h>
@@ -32,10 +32,10 @@
 
 #include <algorithm>
 
-namespace qfw = qf::qmlwidgets;
+namespace qfw = qf::gui;
 namespace qfc = qf::core;
 namespace qfs = qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 namespace {
@@ -163,7 +163,7 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 	setTitle(tr("Competitor"));
 
 	{
-		qf::qmlwidgets::ForeignKeyComboBox *cbx = ui->cbxClass;
+		qf::gui::ForeignKeyComboBox *cbx = ui->cbxClass;
 		if(is_relays) {
 			cbx->setEnabled(false);
 		}
@@ -181,7 +181,7 @@ CompetitorWidget::CompetitorWidget(QWidget *parent) :
 	m_runsModel = new CompetitorRunsModel(this);
 	ui->tblRuns->setTableModel(m_runsModel);
 	ui->tblRuns->setPersistentSettingsId(ui->tblRuns->objectName());
-	ui->tblRuns->setInlineEditSaveStrategy(qf::qmlwidgets::TableView::OnManualSubmit);
+	ui->tblRuns->setInlineEditSaveStrategy(qf::gui::TableView::OnManualSubmit);
 	ui->tblRuns->setItemDelegate(new quickevent::gui::og::ItemDelegate(ui->tblRuns));
 
 	ui->tblRuns->horizontalHeader()->setSectionHidden(CompetitorRunsModel::col_relays_name, !is_relays);
@@ -256,7 +256,7 @@ CompetitorWidget::~CompetitorWidget()
 bool CompetitorWidget::loadRunsTable()
 {
 	//bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
-	qf::qmlwidgets::model::DataDocument *doc = dataController()->document();
+	qf::gui::model::DataDocument *doc = dataController()->document();
 	qf::core::sql::QueryBuilder qb;
 	qb.select2("runs", "*")
 			.select2("classes", "name")
@@ -311,11 +311,11 @@ void CompetitorWidget::onRunsTableCustomContextMenuRequest(const QPoint &pos)
 */
 bool CompetitorWidget::load(const QVariant &id, int mode)
 {
-	ui->chkFind->setChecked(mode == qf::qmlwidgets::model::DataDocument::ModeInsert);
-	if(mode == qf::qmlwidgets::model::DataDocument::ModeInsert) {
+	ui->chkFind->setChecked(mode == qf::gui::model::DataDocument::ModeInsert);
+	if(mode == qf::gui::model::DataDocument::ModeInsert) {
 		ui->edFind->setFocus();
 	}
-	else if(mode == qf::qmlwidgets::model::DataDocument::ModeView || mode == qf::qmlwidgets::model::DataDocument::ModeDelete) {
+	else if(mode == qf::gui::model::DataDocument::ModeView || mode == qf::gui::model::DataDocument::ModeDelete) {
 		ui->frmFind->hide();
 	}
 	if(Super::load(id, mode))
@@ -469,7 +469,7 @@ QList<int> CompetitorWidget::possibleStartTimesMs(int run_id)
 // 	if(!saveData())
 // 		return;
 
-// 	qf::qmlwidgets::model::DataDocument*doc = dataController()->document();
+// 	qf::gui::model::DataDocument*doc = dataController()->document();
 // 	int competitor_id = doc->value("competitors.id").toInt();
 // 	int class_id = ui->cbxClass->currentData().toInt();
 // 	QString sort_col = QStringLiteral("runs.startTimeMs");
@@ -528,7 +528,7 @@ bool CompetitorWidget::saveData()
 		bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
 		auto *doc = qobject_cast<Competitors::CompetitorDocument*>(dataController()->document());
 		if(!is_relays && doc->value(QStringLiteral("classId")).toInt() == 0) {
-			qf::qmlwidgets::dialogs::MessageBox::showWarning(this, tr("Class should be entered."));
+			qf::gui::dialogs::MessageBox::showWarning(this, tr("Class should be entered."));
 			return false;
 		}
 		if(Super::saveData())

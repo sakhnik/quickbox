@@ -9,10 +9,10 @@ namespace Ui {
 	class ReceiptsWidget;
 }
 
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui::model { class SqlTableModel; }
 
 namespace qf {
-namespace qmlwidgets {
+namespace gui {
 class Action;
 namespace framework {
 class PartWidget;
@@ -64,7 +64,7 @@ private:
 	bool thisReaderOnly();
 private:
 	Ui::ReceiptsWidget *ui;
-	qf::qmlwidgets::model::SqlTableModel *m_cardsModel = nullptr;
+	qf::gui::model::SqlTableModel *m_cardsModel = nullptr;
 };
 
 #endif // RECEIPTSWIDGET_H

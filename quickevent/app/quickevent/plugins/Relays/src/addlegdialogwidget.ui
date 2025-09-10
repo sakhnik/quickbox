@@ -70,7 +70,7 @@
       </widget>
      </item>
      <item>
-      <widget class="qf::qmlwidgets::TableView" name="tblRegistrations"/>
+      <widget class="qf::gui::TableView" name="tblRegistrations"/>
      </item>
     </layout>
    </item>
@@ -87,7 +87,7 @@
       </widget>
      </item>
      <item>
-      <widget class="qf::qmlwidgets::TableView" name="tblCompetitors"/>
+      <widget class="qf::gui::TableView" name="tblCompetitors"/>
      </item>
     </layout>
    </item>
@@ -186,9 +186,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>qf::qmlwidgets::TableView</class>
+   <class>qf::gui::TableView</class>
    <extends>QTableView</extends>
-   <header location="global">qf/qmlwidgets/tableview.h</header>
+   <header location="global">qf/gui/tableview.h</header>
   </customwidget>
   <customwidget>
    <class>quickevent::gui::si::SiIdEdit</class>

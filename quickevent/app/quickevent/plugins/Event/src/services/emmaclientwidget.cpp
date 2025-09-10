@@ -2,14 +2,14 @@
 #include "ui_emmaclientwidget.h"
 #include "emmaclient.h"
 #include "../eventplugin.h"
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/assert.h>
 
 #include <QFileDialog>
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 
 
 namespace Event::services {
@@ -74,7 +74,7 @@ bool EmmaClientWidget::acceptDialogDone(int result)
 {
 	if(result == QDialog::Accepted) {
 		if(!saveSettings()) {
-			qf::qmlwidgets::dialogs::MessageBox::showError(this, tr("Cannot create directory '%1'.").arg(ui->edExportDir->text().trimmed()));
+			qf::gui::dialogs::MessageBox::showError(this, tr("Cannot create directory '%1'.").arg(ui->edExportDir->text().trimmed()));
 			return false;
 		}
 	}

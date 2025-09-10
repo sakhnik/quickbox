@@ -9,7 +9,7 @@ namespace core {
 namespace model {
 class SqlTableModel;
 }}
-namespace qmlwidgets {
+namespace gui {
 class TableView;
 }
 }

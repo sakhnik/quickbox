@@ -265,7 +265,7 @@ qt6_add_lupdate(quickevent TS_FILES
 
 target_sources(quickevent PRIVATE ${QM_FILES})
 target_include_directories(quickevent PRIVATE ${CMAKE_CURRENT_SOURCE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/src)
-target_link_libraries(quickevent PUBLIC libquickeventcore libquickeventgui libqfqmlwidgets libsiut)
+target_link_libraries(quickevent PUBLIC libquickeventcore libquickeventgui libqfgui libsiut)
 
 install(TARGETS quickevent)
 install(FILES ${QM_FILES} DESTINATION ${CMAKE_INSTALL_BINDIR}/translations)

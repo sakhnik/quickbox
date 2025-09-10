@@ -1,19 +1,19 @@
 #ifndef EDITCOURSESWIDGET_H
 #define EDITCOURSESWIDGET_H
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace Ui {
 class EditCoursesWidget;
 }
 
-namespace qf::qmlwidgets::model { class SqlTableModel; }
+namespace qf::gui::model { class SqlTableModel; }
 
-class EditCoursesWidget : public qf::qmlwidgets::framework::DialogWidget
+class EditCoursesWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	typedef qf::gui::framework::DialogWidget Super;
 public:
 	explicit EditCoursesWidget(QWidget *parent = 0);
 	~EditCoursesWidget() Q_DECL_OVERRIDE;
@@ -21,7 +21,7 @@ public:
 	void editCourseCodes(const QModelIndex &ix);
 private:
 	Ui::EditCoursesWidget *ui;
-	qf::qmlwidgets::model::SqlTableModel *m_coursesModel;
+	qf::gui::model::SqlTableModel *m_coursesModel;
 };
 
 #endif // EDITCOURSESWIDGET_H

@@ -3,12 +3,12 @@
 
 #include <qf/core/assert.h>
 #include <qf/core/sql/transaction.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <QInputDialog>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Classes::ClassesPlugin;
 
 ClassesTableView::ClassesTableView(QWidget *parent)
@@ -29,13 +29,13 @@ void ClassesTableView::insertRow()
 		reload();
 	}
 	catch (qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 }
 
 void ClassesTableView::removeSelectedRows()
 {
-	if(!qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Really delete all selected classes? This action cannot be undone!"), false))
+	if(!qf::gui::dialogs::MessageBox::askYesNo(this, tr("Really delete all selected classes? This action cannot be undone!"), false))
 		return;
 	try {
 		qf::core::sql::Transaction transaction;
@@ -47,6 +47,6 @@ void ClassesTableView::removeSelectedRows()
 		reload();
 	}
 	catch (qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(this, e);
+		qf::gui::dialogs::MessageBox::showException(this, e);
 	}
 }

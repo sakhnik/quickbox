@@ -9,12 +9,12 @@
 #include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/si/siid.h>
 
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/framework/application.h>
-#include <qf/qmlwidgets/framework/partwidget.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/toolbar.h>
+#include <qf/gui/action.h>
+#include <qf/gui/framework/application.h>
+#include <qf/gui/framework/partwidget.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/toolbar.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -22,7 +22,7 @@
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/dbenum.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <plugins/Event/src/eventplugin.h>
 
 #include <QSettings>
@@ -37,8 +37,8 @@
 #include <QDirIterator>
 
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qfw = qf::gui;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Receipts::ReceiptsPlugin;
 

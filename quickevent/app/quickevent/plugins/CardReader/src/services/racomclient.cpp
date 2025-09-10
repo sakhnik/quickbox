@@ -9,8 +9,8 @@
 //#include <siut/simessagedata.h>
 #include <siut/sidevicedriver.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <qf/core/log.h>
 #include <qf/core/assert.h>
@@ -31,8 +31,8 @@
 #include <QNetworkDatagram>
 #endif
 
-//namespace qfm = qf::qmlwidgets::model;
-using qf::qmlwidgets::framework::getPlugin;
+//namespace qfm = qf::gui::model;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using CardReader::CardReaderPlugin;
 
@@ -267,7 +267,7 @@ void RacomClient::onRawSIDataUdpSocketReadyRead()
 #endif
 }
 
-qf::qmlwidgets::framework::DialogWidget *RacomClient::createDetailWidget()
+qf::gui::framework::DialogWidget *RacomClient::createDetailWidget()
 {
 	auto *w = new RacomClientWidget();
 	return w;

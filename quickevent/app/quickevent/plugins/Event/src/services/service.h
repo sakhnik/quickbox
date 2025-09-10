@@ -4,7 +4,7 @@
 
 #include <QObject>
 
-namespace qf { namespace qmlwidgets { namespace framework { class DialogWidget; }}}
+namespace qf { namespace gui { namespace framework { class DialogWidget; }}}
 namespace Event { class EventPlugin; }
 
 namespace Event {
@@ -73,7 +73,7 @@ protected:
 		emit statusChanged(st);
 	}
 
-	virtual qf::qmlwidgets::framework::DialogWidget *createDetailWidget();
+	virtual qf::gui::framework::DialogWidget *createDetailWidget();
 protected:
 	QVariantMap m_settings;
 private:

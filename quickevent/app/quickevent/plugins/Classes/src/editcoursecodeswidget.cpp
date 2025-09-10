@@ -1,19 +1,19 @@
 #include "editcoursecodeswidget.h"
 #include "ui_editcoursecodeswidget.h"
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 
 #include <QStandardItemModel>
 #include <QDialogButtonBox>
 
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/transaction.h>
 #include <qf/core/assert.h>
 
 namespace qfc = qf::core;
-namespace qfd = qf::qmlwidgets::dialogs;
+namespace qfd = qf::gui::dialogs;
 namespace qfs = qf::core::sql;
 
 EditCourseCodesWidget::EditCourseCodesWidget(QWidget *parent)
@@ -94,7 +94,7 @@ void EditCourseCodesWidget::save()
 bool EditCourseCodesWidget::acceptDialogDone(int result)
 {
 	qfLogFuncFrame() << "result:" << result;
-	if(result && m_edited && qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Save changes?"))) {
+	if(result && m_edited && qf::gui::dialogs::MessageBox::askYesNo(this, tr("Save changes?"))) {
 		save();
 	}
 	return true;

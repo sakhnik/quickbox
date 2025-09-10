@@ -13,13 +13,13 @@
 #include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/combobox.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/combobox.h>
 
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/assert.h>
 
@@ -30,7 +30,7 @@
 #include <QSettings>
 
 namespace qfs = qf::core::sql;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 
 SpeakerWidget::SpeakerWidget(QWidget *parent) :
@@ -71,8 +71,8 @@ SpeakerWidget::SpeakerWidget(QWidget *parent) :
 	ui->tblPunches->setTableModel(m);
 	m_punchesModel = m;
 
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	connect(fwk, &qf::qmlwidgets::framework::MainWindow::aboutToClose, this, &SpeakerWidget::saveSettings);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	connect(fwk, &qf::gui::framework::MainWindow::aboutToClose, this, &SpeakerWidget::saveSettings);
 }
 
 SpeakerWidget::~SpeakerWidget()
@@ -210,7 +210,7 @@ void SpeakerWidget::onCodeClassActivated(int class_id, int code)
 	dw->setAllowedAreas(Qt::AllDockWidgetAreas);
 	dw->setWidget(w);
 	//dw->show();
-	auto *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	auto *fwk = qf::gui::framework::MainWindow::frameWork();
 	fwk->addDockWidget(Qt::LeftDockWidgetArea, dw);
 	dw->setFloating(true);
 }

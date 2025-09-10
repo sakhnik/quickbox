@@ -14,21 +14,21 @@
 #include <quickevent/core/si/siid.h>
 #include <quickevent/core/si/punchrecord.h>
 
-#include <qf/qmlwidgets/dialogs/dialog.h>
-#include <qf/qmlwidgets/dialogs/getiteminputdialog.h>
-#include <qf/qmlwidgets/dialogs/filedialog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/framework/plugin.h>
-#include <qf/qmlwidgets/toolbar.h>
-#include <qf/qmlwidgets/combobox.h>
-#include <qf/qmlwidgets/action.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/dialogbuttonbox.h>
-#include <qf/qmlwidgets/reports/widgets/reportviewwidget.h>
+#include <qf/gui/dialogs/dialog.h>
+#include <qf/gui/dialogs/getiteminputdialog.h>
+#include <qf/gui/dialogs/filedialog.h>
+#include <qf/gui/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/framework/plugin.h>
+#include <qf/gui/toolbar.h>
+#include <qf/gui/combobox.h>
+#include <qf/gui/action.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/dialogbuttonbox.h>
+#include <qf/gui/reports/widgets/reportviewwidget.h>
 
 #include <qf/core/sql/query.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/transaction.h>
 #include <qf/core/assert.h>
@@ -47,10 +47,10 @@
 #include <qf/core/utils/timescope.h>
 
 namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::qmlwidgets::model;
-using qf::qmlwidgets::framework::getPlugin;
+namespace qfw = qf::gui;
+namespace qfd = qf::gui::dialogs;
+namespace qfm = qf::gui::model;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Relays::RelaysPlugin;
 
@@ -219,7 +219,7 @@ void RelaysWidget::reset()
 		m_cbxClasses->loadItems(true);
 		m_cbxClasses->insertItem(0, tr("--- all ---"), 0);
 		m_cbxClasses->setCurrentIndex(0);
-		connect(m_cbxClasses, &qf::qmlwidgets::ForeignKeyComboBox::currentDataChanged, this, &RelaysWidget::reload, Qt::UniqueConnection);
+		connect(m_cbxClasses, &qf::gui::ForeignKeyComboBox::currentDataChanged, this, &RelaysWidget::reload, Qt::UniqueConnection);
 		m_cbxClasses->blockSignals(false);
 	}
 	reload();
@@ -251,7 +251,7 @@ void RelaysWidget::editRelay(const QVariant &id, int mode)
 	dlg.setDefaultButton(QDialogButtonBox::Save);
 	QPushButton *bt_save_and_next = dlg.buttonBox()->addButton(tr("Save and &next"), QDialogButtonBox::AcceptRole);
 	bool save_and_next = false;
-	connect(dlg.buttonBox(), &qf::qmlwidgets::DialogButtonBox::clicked, this, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
+	connect(dlg.buttonBox(), &qf::gui::DialogButtonBox::clicked, this, [&save_and_next, bt_save_and_next](QAbstractButton *button) {
 		save_and_next = (button == bt_save_and_next);
 	});
 	dlg.setCentralWidget(w);
@@ -262,7 +262,7 @@ void RelaysWidget::editRelay(const QVariant &id, int mode)
 		int class_id = m_cbxClasses->currentData().toInt();
 		doc->setValue("relays.classId", class_id);
 	}
-	connect(doc, &Relays:: RelayDocument::saved, ui->tblRelays, &qf::qmlwidgets::TableView::rowExternallySaved, Qt::QueuedConnection);
+	connect(doc, &Relays:: RelayDocument::saved, ui->tblRelays, &qf::gui::TableView::rowExternallySaved, Qt::QueuedConnection);
 	bool ok = dlg.exec();
 	//if(ok)
 	//	transaction.commit();
@@ -270,7 +270,7 @@ void RelaysWidget::editRelay(const QVariant &id, int mode)
 	//	transaction.rollback();
 	if(ok && save_and_next) {
 		QTimer::singleShot(0, this, [this]() {
-			this->editRelay(QVariant(), qf::qmlwidgets::model::DataDocument::ModeInsert);
+			this->editRelay(QVariant(), qf::gui::model::DataDocument::ModeInsert);
 		});
 	}
 }
@@ -354,8 +354,8 @@ void RelaysWidget::relays_assignNumbers()
 QVariant RelaysWidget::startListByClubsTableData(bool with_vacants)
 {
 	qfLogFuncFrame();
-	qf::qmlwidgets::model::SqlTableModel model;
-	qf::qmlwidgets::model::SqlTableModel model2;
+	qf::gui::model::SqlTableModel model;
+	qf::gui::model::SqlTableModel model2;
 	{
 		qf::core::sql::QueryBuilder qb1;
 		qb1.select("relays.club")
@@ -441,7 +441,7 @@ void RelaysWidget::print_start_list_classes()
 	bool vacants =  dlg.isStartListPrintVacants();
 	QVariant td = getPlugin<RelaysPlugin>()->startListByClassesTableData(dlg.sqlWhereExpression(), vacants);
 	auto report_name = (dlg.options().isRelayShowLegsDetails()) ? "startList_classes.qml" : "startList_classes_condensed.qml";
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(this
+	qf::gui::reports::ReportViewWidget::showReport(this
 														  , getPlugin<RelaysPlugin>()->findReportFile(report_name)
 														  , td
 														  , tr("Start list by classes")
@@ -464,7 +464,7 @@ void RelaysWidget::print_start_list_clubs()
 	bool vacants =  dlg.isStartListPrintVacants();
 	QVariant td = startListByClubsTableData(vacants);
 	auto report_name = (dlg.options().isRelayShowLegsDetails()) ? "startList_clubs.qml" : "startList_clubs_condensed.qml";
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(this,
+	qf::gui::reports::ReportViewWidget::showReport(this,
 														  getPlugin<RelaysPlugin>()->findReportFile(report_name)
 														  , td
 														  , tr("Start list by clubs")
@@ -492,7 +492,7 @@ void RelaysWidget::print_results_nlegs()
 	//qfDebug() << opts;
 	qfDebug() << "opts.resultNumPlaces:" << opts.resultNumPlaces();
 	auto td = getPlugin<RelaysPlugin>()->nLegsResultsTable(dlg.sqlWhereExpression(), opts.legsCount(), opts.resultNumPlaces(), opts.isResultExcludeDisq());
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(this,
+	qf::gui::reports::ReportViewWidget::showReport(this,
 														  getPlugin<RelaysPlugin>()->findReportFile("results.qml")
 														  , td.toVariant()
 														  , tr("Results")
@@ -516,7 +516,7 @@ void RelaysWidget::print_results_overal()
 	//qfDebug() << opts;
 	qfDebug() << "opts.resultNumPlaces:" << opts.resultNumPlaces();
 	auto td = getPlugin<RelaysPlugin>()->nLegsResultsTable(dlg.sqlWhereExpression(), 999, opts.resultNumPlaces(), opts.isResultExcludeDisq());
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(this,
+	qf::gui::reports::ReportViewWidget::showReport(this,
 														  getPlugin<RelaysPlugin>()->findReportFile("results.qml")
 														  , td.toVariant()
 														  , tr("Results")
@@ -540,7 +540,7 @@ void RelaysWidget::print_results_overal_condensed()
 	//qfDebug() << opts;
 	qfDebug() << "opts.resultNumPlaces:" << opts.resultNumPlaces();
 	auto td = getPlugin<RelaysPlugin>()->nLegsResultsTable(dlg.sqlWhereExpression(), 999, opts.resultNumPlaces(), opts.isResultExcludeDisq());
-	qf::qmlwidgets::reports::ReportViewWidget::showReport(this,
+	qf::gui::reports::ReportViewWidget::showReport(this,
 														  getPlugin<RelaysPlugin>()->findReportFile("results_condensed.qml")
 														  , td.toVariant()
 														  , tr("Results")
@@ -553,7 +553,7 @@ void RelaysWidget::print_results_overal_condensed()
 void RelaysWidget::save_xml_file(QString str, QString fn) {
 	qfLogFuncFrame();
 	QString ext = ".xml";
-	fn = qf::qmlwidgets::dialogs::FileDialog::getSaveFileName(this, tr("Save as %1").arg(ext.mid(1).toUpper()), fn, '*' + ext);
+	fn = qf::gui::dialogs::FileDialog::getSaveFileName(this, tr("Save as %1").arg(ext.mid(1).toUpper()), fn, '*' + ext);
 	if(!fn.isEmpty()) {
 		if(!fn.endsWith(ext, Qt::CaseInsensitive))
 			fn += ext;
@@ -583,8 +583,8 @@ void RelaysWidget::export_results_iofxml3() {
 }
 
 void RelaysWidget::relays_importBibs() {
-	qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
-	qf::qmlwidgets::dialogs::MessageBox mbx(fwk);
+	qf::gui::framework::MainWindow *fwk = qf::gui::framework::MainWindow::frameWork();
+	qf::gui::dialogs::MessageBox mbx(fwk);
 	mbx.setIcon(QMessageBox::Information);
 	mbx.setText(tr("Import UTF8 text file with comma separated values with first row as header.<br/>Separator is semicolon(;).<br/>Updates only existing relays (key is Club, Relay Name & Class)."));
 	mbx.setInformativeText(tr("Each row should have following columns: "
@@ -700,13 +700,13 @@ void RelaysWidget::relays_importBibs() {
 		QMessageBox::information(this, tr("Information"), QString(tr("Import file finished. Imported %1 of %2 lines\n\nPress refresh button to show imported data.").arg(i).arg(n-1)));
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }
 
 void RelaysWidget::relays_addVacants()
 {
-	auto fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
+	auto fwk = qf::gui::framework::MainWindow::frameWork();
 	QMap<QString, int> rel_classes;
 	qf::core::sql::Query q;
 	q.exec("SELECT id, name FROM classes");
@@ -737,6 +737,6 @@ void RelaysWidget::relays_addVacants()
 		}
 	}
 	catch (const qf::core::Exception &e) {
-		qf::qmlwidgets::dialogs::MessageBox::showException(fwk, e);
+		qf::gui::dialogs::MessageBox::showException(fwk, e);
 	}
 }

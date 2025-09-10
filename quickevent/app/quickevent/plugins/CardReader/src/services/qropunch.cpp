@@ -6,7 +6,7 @@
 #include <quickevent/core/si/checkedcard.h>
 #include <quickevent/core/codedef.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
+#include <qf/gui/framework/mainwindow.h>
 
 #include <qf/core/log.h>
 
@@ -17,7 +17,7 @@
 #include <memory>
 #include <regex>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 
 
 namespace CardReader::services {
@@ -51,7 +51,7 @@ QString QrOPunch::serviceName()
 	return QStringLiteral("QrOPunch");
 }
 
-qf::qmlwidgets::framework::DialogWidget *QrOPunch::createDetailWidget()
+qf::gui::framework::DialogWidget *QrOPunch::createDetailWidget()
 {
 	auto *w = new QrOPunchWidget();
 	return w;

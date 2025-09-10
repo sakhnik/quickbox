@@ -8,7 +8,7 @@
 
 #include <qf/core/sql/query.h>
 #include <qf/core/assert.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/dialogs/dialog.h>
 
 #include <QDrag>
 #include <QJsonDocument>
@@ -21,9 +21,9 @@
 #include <QMenu>
 #include <QDialogButtonBox>
 
-namespace qfd = qf::qmlwidgets::dialogs;
+namespace qfd = qf::gui::dialogs;
 namespace qfc = qf::core;
-namespace qfm = qf::qmlwidgets::model;
+namespace qfm = qf::gui::model;
 
 namespace drawing {
 
@@ -462,7 +462,7 @@ void ClassItem::contextMenuEvent(QGraphicsSceneContextMenuEvent *event)
 		bool ok = dlg.exec();
 		if(ok) {
 			//qfInfo() << "OK";
-			qf::qmlwidgets::model::DataDocument *doc = w->dataDocument();
+			qf::gui::model::DataDocument *doc = w->dataDocument();
 			ClassData dt = data();
 			dt.setStartTimeMin(doc->value("startTimeMin").toInt());
 			dt.setStartIntervalMin(doc->value("startIntervalMin").toInt());

@@ -1,21 +1,21 @@
 #include "addlegdialogwidget.h"
 #include "ui_addlegdialogwidget.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <qf/core/log.h>
 #include <qf/core/exception.h>
 #include <qf/core/assert.h>
 #include <qf/core/sql/query.h>
-#include <qf/qmlwidgets/model/sqltablemodel.h>
+#include <qf/gui/model/sqltablemodel.h>
 #include <plugins/Event/src/eventplugin.h>
 // #include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/Competitors/src/competitordocument.h>
 
 #include <QTimer>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 // using Competitors::CompetitorsPlugin;
 using Event::EventPlugin;
 
@@ -31,7 +31,7 @@ AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 
 	m_defaultStatusText = ui->lblStatus->text();
 
-	auto *competitors_model = new qf::qmlwidgets::model::SqlTableModel(this);
+	auto *competitors_model = new qf::gui::model::SqlTableModel(this);
 	//competitors_model->addColumn("relays.club", tr("Club"));
 	competitors_model->addColumn("relayName", tr("Name"));
 	competitors_model->addColumn("runs.leg", tr("Leg"));
@@ -60,13 +60,13 @@ AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 	auto *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 	ui->tblRegistrations->setTableModel(reg_model);
 	ui->tblRegistrations->setReadOnly(true);
-	connect(reg_model, &qf::qmlwidgets::model::SqlTableModel::reloaded, this, [this]() {
+	connect(reg_model, &qf::gui::model::SqlTableModel::reloaded, this, [this]() {
 			ui->tblRegistrations->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 		});
 
 	connect(ui->edFilter, &QLineEdit::textChanged, this, &AddLegDialogWidget::onFilterTextChanged);
-	connect(ui->tblCompetitors, &qf::qmlwidgets::TableView::doubleClicked, this, &AddLegDialogWidget::onCompetitorSelected);
-	connect(ui->tblRegistrations, &qf::qmlwidgets::TableView::doubleClicked, this, &AddLegDialogWidget::onRegistrationSelected);
+	connect(ui->tblCompetitors, &qf::gui::TableView::doubleClicked, this, &AddLegDialogWidget::onCompetitorSelected);
+	connect(ui->tblRegistrations, &qf::gui::TableView::doubleClicked, this, &AddLegDialogWidget::onRegistrationSelected);
 	connect(ui->btUseUnregRunner, &QPushButton::clicked, this, &AddLegDialogWidget::onUnregistredRunnerAdded);
 }
 
@@ -94,7 +94,7 @@ void AddLegDialogWidget::onCompetitorSelected()
 	int curr_run_id = row.value("runs.id").toInt();
 	int curr_relay_id = row.value("relayId").toInt();
 	if(curr_relay_id > 0 && curr_relay_id != relayId()) {
-		if(false == qf::qmlwidgets::dialogs::MessageBox::askYesNo(this, tr("Competitor has different relay assigned already. Move it to current one?")))
+		if(false == qf::gui::dialogs::MessageBox::askYesNo(this, tr("Competitor has different relay assigned already. Move it to current one?")))
 			return;
 		if(row.value("relays.classId").toInt() != classId()) {
 			qf::core::sql::Query q;

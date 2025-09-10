@@ -1,7 +1,7 @@
 #ifndef EVENTSTATISTICSOPTIONS_H
 #define EVENTSTATISTICSOPTIONS_H
 
-#include <qf/qmlwidgets/framework/ipersistentsettings.h>
+#include <qf/gui/framework/ipersistentsettings.h>
 
 #include <qf/core/utils.h>
 
@@ -11,7 +11,7 @@ namespace Ui {
 class EventStatisticsOptions;
 }
 
-class EventStatisticsOptions : public QDialog, public qf::qmlwidgets::framework::IPersistentSettings
+class EventStatisticsOptions : public QDialog, public qf::gui::framework::IPersistentSettings
 {
 	Q_OBJECT
 private:

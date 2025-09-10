@@ -9,7 +9,7 @@
 #include <qf/core/utils.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/catalog.h>
-#include <qf/qmlwidgets/dialogs/messagebox.h>
+#include <qf/gui/dialogs/messagebox.h>
 
 #include <QSqlQuery>
 
@@ -96,14 +96,11 @@ DlgColumnDef::DlgColumnDef(QWidget * parent, const QString& table)
 	connect(lstCharacterSet, SIGNAL(activated(QString)), this, SLOT(on_lstCharacterSet_activated(QString)));
 }
 
-DlgColumnDef::~DlgColumnDef()
-{
-}
+DlgColumnDef::~DlgColumnDef() = default;
 
 QSqlDatabase DlgColumnDef::connection()
 {
-	//qfLogFuncFrame();
-	MainWindow *w = qf::core::Utils::findParent<MainWindow*>(this);
+	auto *w = qf::core::Utils::findParent<MainWindow*>(this);
 	return w->activeConnection();
 }
 
@@ -186,11 +183,11 @@ void DlgColumnDef::loadColumnDefinition(const qf::core::sql::FieldInfo &fi)
 	chkPrimaryKey->setChecked(fi.isPriKey());
 	txtComment->setPlainText(fi.comment());
 	if(connection().driverName().endsWith("SQLITE")) {
-		qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "SQLite ver 3.2.2 can only rename already created fields");
+		qf::gui::dialogs::MessageBox::showInfo(this, "SQLite ver 3.2.2 can only rename already created fields");
 		edName->setEnabled(true);
 	}
 	else if(connection().driverName().endsWith("PSQL")) {
-		//qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Altering columns is not fully supported yet.");
+		//qf::gui::dialogs::MessageBox::showInfo(this, "Altering columns is not fully supported yet.");
 		edName->setEnabled(true);
 		lstType->setEnabled(true);
 		edDefaultValue->setEnabled(true);

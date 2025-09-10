@@ -48,7 +48,7 @@ private:
 	QTimer *m_exportTimer = nullptr;
 	QNetworkAccessManager *m_networkManager = nullptr;
 private:
-	qf::qmlwidgets::framework::DialogWidget *createDetailWidget() override;
+	qf::gui::framework::DialogWidget *createDetailWidget() override;
 	void onExportTimerTimeOut();
 	void init();
 	void sendFile(QString name, QString request_path, QString file, std::function<void()> on_success = nullptr);

@@ -12,7 +12,7 @@ class RunsTableItemDelegate : public quickevent::gui::og::ItemDelegate
 private:
 	typedef quickevent::gui::og::ItemDelegate Super;
 public:
-	RunsTableItemDelegate(qf::qmlwidgets::TableView * parent = nullptr);
+	RunsTableItemDelegate(qf::gui::TableView * parent = nullptr);
 
 	QF_PROPERTY_BOOL_IMPL2(s, S, tartTimeHighlightVisible, false)
 

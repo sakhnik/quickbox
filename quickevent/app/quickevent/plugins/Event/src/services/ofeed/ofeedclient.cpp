@@ -3,8 +3,8 @@
 
 #include "../../eventplugin.h"
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 #include <qf/core/log.h>
 #include <qf/core/utils/htmlutils.h>
 
@@ -38,7 +38,7 @@
 #include <QSet>
 
 using Event::EventPlugin;
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Relays::RelaysPlugin;
 using Runs::RunsPlugin;
 
@@ -97,7 +97,7 @@ void OFeedClient::exportStartListIofXml3(std::function<void()> on_success)
 	sendFile("start list upload", "/rest/v1/upload/iof", str, on_success);
 }
 
-qf::qmlwidgets::framework::DialogWidget *OFeedClient::createDetailWidget()
+qf::gui::framework::DialogWidget *OFeedClient::createDetailWidget()
 {
 	auto *w = new OFeedClientWidget();
 	return w;

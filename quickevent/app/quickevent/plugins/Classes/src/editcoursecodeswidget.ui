@@ -78,8 +78,8 @@
             <string>Move selected codes up</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/images.qrc">
-             <normaloff>:/qf/qmlwidgets/images/up.svg</normaloff>:/qf/qmlwidgets/images/up.svg</iconset>
+            <iconset resource="../../../../../../libqf/libqfgui/images/images.qrc">
+             <normaloff>:/qf/gui/images/up.svg</normaloff>:/qf/gui/images/up.svg</iconset>
            </property>
           </widget>
          </item>
@@ -89,8 +89,8 @@
             <string>Move selected codes down</string>
            </property>
            <property name="icon">
-            <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/images.qrc">
-             <normaloff>:/qf/qmlwidgets/images/down.svg</normaloff>:/qf/qmlwidgets/images/down.svg</iconset>
+            <iconset resource="../../../../../../libqf/libqfgui/images/images.qrc">
+             <normaloff>:/qf/gui/images/down.svg</normaloff>:/qf/gui/images/down.svg</iconset>
            </property>
           </widget>
          </item>
@@ -150,8 +150,8 @@
          <string>Add selected codes</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/images.qrc">
-          <normaloff>:/qf/qmlwidgets/images/left.svg</normaloff>:/qf/qmlwidgets/images/left.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/images.qrc">
+          <normaloff>:/qf/gui/images/left.svg</normaloff>:/qf/gui/images/left.svg</iconset>
         </property>
        </widget>
       </item>
@@ -161,8 +161,8 @@
          <string>Remove selected codes</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/images.qrc">
-          <normaloff>:/qf/qmlwidgets/images/right.svg</normaloff>:/qf/qmlwidgets/images/right.svg</iconset>
+         <iconset resource="../../../../../../libqf/libqfgui/images/images.qrc">
+          <normaloff>:/qf/gui/images/right.svg</normaloff>:/qf/gui/images/right.svg</iconset>
         </property>
        </widget>
       </item>
@@ -219,7 +219,7 @@
   </layout>
  </widget>
  <resources>
-  <include location="../../../../../../libqf/libqfqmlwidgets/images/images.qrc"/>
+  <include location="../../../../../../libqf/libqfgui/images/images.qrc"/>
  </resources>
  <connections/>
 </ui>

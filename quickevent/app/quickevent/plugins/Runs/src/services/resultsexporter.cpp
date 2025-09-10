@@ -6,8 +6,8 @@
 #include <quickevent/core/exporters/stageresultshtmlexporter.h>
 #include <quickevent/core/exporters/stageresultscsvexporter.h>
 
-#include <qf/qmlwidgets/framework/mainwindow.h>
-#include <qf/qmlwidgets/dialogs/dialog.h>
+#include <qf/gui/framework/mainwindow.h>
+#include <qf/gui/dialogs/dialog.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Relays/src/relaysplugin.h>
 
@@ -21,13 +21,12 @@
 #include <QStandardPaths>
 #include <QTimer>
 
-using qf::qmlwidgets::framework::getPlugin;
+using qf::gui::framework::getPlugin;
 using Event::EventPlugin;
 using Runs::RunsPlugin;
 using Relays::RelaysPlugin;
 
-namespace Runs {
-namespace services {
+namespace Runs::services {
 
 ResultsExporter::ResultsExporter(QObject *parent)
 	: Super(ResultsExporter::serviceName(), parent)
@@ -57,7 +56,7 @@ void ResultsExporter::stop() {
 	m_exportTimer->stop();
 }
 
-bool ResultsExporter::exportResults()
+bool ResultsExporter::exportResults() const
 {
 	ResultsExporterSettings ss = settings();
 	if(!QDir().mkpath(ss.exportDir())) {
@@ -86,7 +85,7 @@ bool ResultsExporter::exportResults()
 		}
 		return true;
 	}
-	else if(ss.outputFormat() == static_cast<int>(ResultsExporterSettings::OutputFormat::HtmlMulti)) {
+	if(ss.outputFormat() == static_cast<int>(ResultsExporterSettings::OutputFormat::HtmlMulti)) {
 		quickevent::core::exporters::StageResultsHtmlExporter exp;
 		exp.setOutDir(ss.exportDir());
 		exp.generateHtml();
@@ -94,7 +93,7 @@ bool ResultsExporter::exportResults()
 		whenFinishedRunCmd();
 		return true;
 	}
-	else if(ss.outputFormat() == static_cast<int>(ResultsExporterSettings::OutputFormat::CSVMulti)) {
+	if(ss.outputFormat() == static_cast<int>(ResultsExporterSettings::OutputFormat::CSVMulti)) {
 		bool is_iof_race = getPlugin<EventPlugin>()->eventConfig()->isIofRace();
 		quickevent::core::exporters::StageResultsCsvExporter exp(is_iof_race);
 		exp.setOutDir(ss.exportDir());
@@ -106,7 +105,7 @@ bool ResultsExporter::exportResults()
 		whenFinishedRunCmd();
 		return true;
 	}
-	else if(ss.outputFormat() == static_cast<int>(ResultsExporterSettings::OutputFormat::CSV)) {
+	if(ss.outputFormat() == static_cast<int>(ResultsExporterSettings::OutputFormat::CSV)) {
 		bool is_iof_race = getPlugin<EventPlugin>()->eventConfig()->isIofRace();
 		quickevent::core::exporters::StageResultsCsvExporter exp(is_iof_race);
 		exp.setOutDir(ss.exportDir());
@@ -122,13 +121,13 @@ bool ResultsExporter::exportResults()
 	return false;
 }
 
-void ResultsExporter::whenFinishedRunCmd()
+void ResultsExporter::whenFinishedRunCmd() const
 {
 	ResultsExporterSettings ss = settings();
 	QString cmd = ss.whenFinishedRunCmd();
 	if(!cmd.isEmpty()) {
 		qfInfo() << "Starting process:" << cmd;
-		QProcess *proc = new QProcess();
+		auto *proc = new QProcess();
 		connect(proc, &QProcess::readyReadStandardOutput, [proc]() {
 			QByteArray ba = proc->readAllStandardOutput();
 			qfInfo() << "PROC stdout:" << ba;
@@ -157,7 +156,7 @@ void ResultsExporter::onExportTimerTimeOut()
 		stop();
 }
 
-qf::qmlwidgets::framework::DialogWidget *ResultsExporter::createDetailWidget()
+qf::gui::framework::DialogWidget *ResultsExporter::createDetailWidget()
 {
 	auto *w = new ResultsExporterWidget();
 	return w;
@@ -187,4 +186,4 @@ void ResultsExporter::init()
 	}
 }
 
-}}
+}

@@ -1,17 +1,17 @@
 #ifndef EVENTDIALOGWIDGET_H
 #define EVENTDIALOGWIDGET_H
 
-#include <qf/qmlwidgets/framework/dialogwidget.h>
+#include <qf/gui/framework/dialogwidget.h>
 
 namespace Ui {
 class EventDialogWidget;
 }
 
-class EventDialogWidget : public qf::qmlwidgets::framework::DialogWidget
+class EventDialogWidget : public qf::gui::framework::DialogWidget
 {
 	Q_OBJECT
 private:
-	typedef qf::qmlwidgets::framework::DialogWidget Super;
+	typedef qf::gui::framework::DialogWidget Super;
 public:
 	explicit EventDialogWidget(QWidget *parent = nullptr);
 	~EventDialogWidget() Q_DECL_OVERRIDE;

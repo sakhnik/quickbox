@@ -19,6 +19,8 @@ ChooseOrisEventDialog::ChooseOrisEventDialog(OrisImporter *importer, QWidget *pa
 	, m_importer(importer)
 {
 	ui->setupUi(this);
+
+	connect(ui->cbxOrisEvent, &QComboBox::currentIndexChanged, this, &ChooseOrisEventDialog::onOrisEvent_currentIndexChanged);
 }
 
 ChooseOrisEventDialog::~ChooseOrisEventDialog()
@@ -87,7 +89,7 @@ void ChooseOrisEventDialog::load()
 	});
 }
 
-void ChooseOrisEventDialog::on_cbxOrisEvent_currentIndexChanged(int ix)
+void ChooseOrisEventDialog::onOrisEvent_currentIndexChanged(int ix)
 {
 	int event_id = ui->cbxOrisEvent->itemData(ix).toInt();
 	ui->edEventId->setValue(event_id);

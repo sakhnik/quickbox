@@ -1,11 +1,11 @@
 #include "mainwindow.h"
 #include "loggerwidget.h"
 
-#include <qf/qmlwidgets/framework/stackedcentralwidget.h>
-#include <qf/qmlwidgets/framework/partswitch.h>
-#include <qf/qmlwidgets/framework/dockwidget.h>
-#include <qf/qmlwidgets/menubar.h>
-#include <qf/qmlwidgets/action.h>
+#include <qf/gui/framework/stackedcentralwidget.h>
+#include <qf/gui/framework/partswitch.h>
+#include <qf/gui/framework/dockwidget.h>
+#include <qf/gui/menubar.h>
+#include <qf/gui/action.h>
 #include <plugins/Core/src/coreplugin.h>
 #include <plugins/Event/src/eventplugin.h>
 #include <plugins/Classes/src/classesplugin.h>
@@ -30,12 +30,12 @@ MainWindow::~MainWindow() = default;
 void MainWindow::onPluginsLoaded()
 {
 	{
-		auto *dw = new qf::qmlwidgets::framework::DockWidget(nullptr);
+		auto *dw = new qf::gui::framework::DockWidget(nullptr);
 		dw->setObjectName("loggingDockWidget");
 		dw->setWindowTitle(tr("Application log"));
 		addDockWidget(Qt::BottomDockWidgetArea, dw);
 		auto *w = new LoggerWidget();
-		connect(dw, &qf::qmlwidgets::framework::DockWidget::visibilityChanged, w, &LoggerWidget::onDockWidgetVisibleChanged);
+		connect(dw, &qf::gui::framework::DockWidget::visibilityChanged, w, &LoggerWidget::onDockWidgetVisibleChanged);
 		dw->setWidget(w);
 		dw->hide();
 		auto *a = dw->toggleViewAction();
@@ -44,7 +44,7 @@ void MainWindow::onPluginsLoaded()
 		menuBar()->actionForPath("view")->addActionInto(a);
 	}
 
-	auto *w = qobject_cast<qf::qmlwidgets::framework::StackedCentralWidget*>(centralWidget());
+	auto *w = qobject_cast<qf::gui::framework::StackedCentralWidget*>(centralWidget());
 	menuBar()->actionForPath("view/toolbar")->addActionInto(w->partSwitch()->toggleViewAction());
 
 	centralWidget()->setActivePart("Runs", true);
