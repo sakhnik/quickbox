@@ -3,13 +3,6 @@
 
 #include <qf/core/log.h>
 
-//#include <QtUiTools>
-//#include <QHBoxLayout>
-//#include <QCheckBox>
-//#include <QApplication>
-
-namespace qfq = qf::qmlwidgets;
-
 //======================================================
 //                        TableView
 //======================================================
@@ -32,7 +25,7 @@ TableViewWidget::TableViewWidget(QWidget *parent) :
 	ui->setupUi(this);
 
 	ui->btMenu->setIcon(QApplication::style()->standardIcon(QStyle::SP_ArrowDown));
-	connect(ui->btMenu, &QToolButton::clicked, [this](bool) {
+	connect(ui->btMenu, &QToolButton::clicked, this, [this](bool) {
 		emit statusBarAction(this->ui->edInfo->text());
 	});
 
@@ -54,7 +47,7 @@ qf::qmlwidgets::TableView *TableViewWidget::tableView()
 
 void TableViewWidget::updateStatus()
 {
-	qf::core::model::TableModel *m = tableView()->tableModel();
+	qf::qmlwidgets::model::TableModel *m = tableView()->tableModel();
 	if(m) {
 		ui->lblRowCnt->setText(QString("%1 rows").arg(m->rowCount()));
 	}

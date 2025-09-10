@@ -4,13 +4,11 @@
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/assert.h>
 #include <plugins/Event/src/eventplugin.h>
 
-namespace qfm = qf::core::model;
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Runs::RunsPlugin;
 using Event::EventPlugin;

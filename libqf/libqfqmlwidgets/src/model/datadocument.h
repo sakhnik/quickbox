@@ -1,21 +1,19 @@
-#ifndef QF_CORE_MODEL_DATADOCUMENT_H
-#define QF_CORE_MODEL_DATADOCUMENT_H
+#pragma once
 
-#include "../core/coreglobal.h"
 #include "tablemodel.h"
 
 #include <QObject>
 #include <QVariantMap>
 
 namespace qf {
-namespace core {
+namespace qmlwidgets {
 namespace model {
 
-class QFCORE_DECL_EXPORT DataDocument : public QObject
+class QFQMLWIDGETS_DECL_EXPORT DataDocument : public QObject
 {
 	Q_OBJECT
-	Q_PROPERTY(qf::core::model::DataDocument::RecordEditMode mode READ mode WRITE setMode NOTIFY modeChanged)
-	Q_PROPERTY(qf::core::model::TableModel* model READ model WRITE setModel NOTIFY modelChanged)
+	Q_PROPERTY(qf::qmlwidgets::model::DataDocument::RecordEditMode mode READ mode WRITE setMode NOTIFY modeChanged)
+	Q_PROPERTY(qf::qmlwidgets::model::TableModel* model READ model WRITE setModel NOTIFY modelChanged)
 	Q_PROPERTY(QVariant dataId READ dataId WRITE setDataId NOTIFY dataIdChanged)
 	Q_PROPERTY(QString idFieldName READ idFieldName WRITE setIdFieldName NOTIFY idFieldNameChanged)
 public:
@@ -94,4 +92,3 @@ protected:
 
 }}}
 
-#endif // QF_CORE_MODEL_DATADOCUMENT_H

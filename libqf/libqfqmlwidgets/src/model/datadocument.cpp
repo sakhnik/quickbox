@@ -1,10 +1,11 @@
 #include "datadocument.h"
 
-#include "../core/log.h"
-#include "../core/assert.h"
-#include "../utils/table.h"
+#include <qf/core/utils/table.h>
 
-using namespace qf::core::model;
+#include <qf/core/log.h>
+#include <qf/core/assert.h>
+
+namespace qf::qmlwidgets::model {
 
 DataDocument::DataDocument(QObject *parent)
 	: QObject(parent)
@@ -311,3 +312,4 @@ bool DataDocument::copyData()
 	return model()->prepareForCopyRow(ix);
 }
 
+}

@@ -3,7 +3,7 @@
 
 #include "tablemodelcolumn.h"
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 
 #include <QQmlListProperty>
 
@@ -14,14 +14,14 @@ namespace qml {
 class SqlQueryBuilder;
 class TableModelColumn;
 
-class SqlTableModel : public qf::core::model::SqlTableModel
+class SqlTableModel : public qf::qmlwidgets::model::SqlTableModel
 {
 	Q_OBJECT
 	Q_PROPERTY(qf::core::qml::SqlQueryBuilder* queryBuilder READ sqlQueryBuilder /*NOTIFY queryBuilderChanged*/)
 	Q_PROPERTY(QQmlListProperty<qf::core::qml::TableModelColumn> columns READ columns /*NOTIFY columnsChanged*/)
 	Q_CLASSINFO("DefaultProperty", "columns")
 private:
-	typedef qf::core::model::SqlTableModel Super;
+	typedef qf::qmlwidgets::model::SqlTableModel Super;
 public:
 	explicit SqlTableModel(QObject *parent = nullptr);
 	~SqlTableModel() Q_DECL_OVERRIDE;

@@ -1,15 +1,15 @@
 #ifndef RELAYS_RELAYDOCUMENT_H
 #define RELAYS_RELAYDOCUMENT_H
 
-#include <qf/core/model/sqldatadocument.h>
+#include <qf/qmlwidgets/model/sqldatadocument.h>
 
 namespace Relays {
 
-class RelayDocument : public qf::core::model::SqlDataDocument
+class RelayDocument : public qf::qmlwidgets::model::SqlDataDocument
 {
 	Q_OBJECT
 private:
-	typedef qf::core::model::SqlDataDocument Super;
+	typedef qf::qmlwidgets::model::SqlDataDocument Super;
 public:
 	 RelayDocument(QObject *parent = nullptr);
 protected:

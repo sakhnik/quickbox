@@ -1,14 +1,14 @@
 #include "logtablemodel.h"
 
-#include "../core/logentrymap.h"
-#include "../core/log.h"
+#include <qf/core/logentrymap.h>
+#include <qf/core/log.h>
 
 #include <QColor>
 #include <QDateTime>
 
 Q_DECLARE_METATYPE(NecroLog::Level)
 
-namespace qf::core::model {
+namespace qf::qmlwidgets::model {
 
 LogTableModel::Row::Row(NecroLog::Level severity, const QString &domain, const QString &file, int line, const QString &msg, const QDateTime &time_stamp, const QString &function, const QVariant &user_data)
 {
@@ -135,7 +135,7 @@ LogTableModel::Row LogTableModel::rowAt(int row) const
 	return m_rows.value(row);
 }
 
-void LogTableModel::addLogEntry(const LogEntryMap &le)
+void LogTableModel::addLogEntry(const qf::core::LogEntryMap &le)
 {
 	addLog(le.level(), le.category(), le.file(), le.line(), le.message(), le.timeStamp(), le.function());
 }

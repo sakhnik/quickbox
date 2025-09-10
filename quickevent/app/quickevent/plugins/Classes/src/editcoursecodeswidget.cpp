@@ -1,7 +1,7 @@
 #include "editcoursecodeswidget.h"
 #include "ui_editcoursecodeswidget.h"
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 
 #include <QStandardItemModel>
 #include <QDialogButtonBox>

@@ -19,7 +19,7 @@ public:
 	explicit CompetitorWidget(QWidget *parent = nullptr);
 	~CompetitorWidget() override;
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::core::model::DataDocument::ModeEdit) override;
+	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) override;
 	void loadFromRegistrations(int siid);
 	void save();
 private slots:
@@ -36,6 +36,6 @@ private:
 	static QList<int> possibleStartTimesMs(int run_id);
 private:
 	Ui::CompetitorWidget *ui;
-	quickevent::core::og::SqlTableModel *m_runsModel;
+	quickevent::gui::og::SqlTableModel *m_runsModel;
 };
 

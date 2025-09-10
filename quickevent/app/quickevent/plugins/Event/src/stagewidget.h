@@ -20,7 +20,7 @@ public:
 	explicit StageWidget(QWidget *parent = 0);
 	~StageWidget();
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::core::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
+	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
 protected:
 	bool saveData() Q_DECL_OVERRIDE;
 private:

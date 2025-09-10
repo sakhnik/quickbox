@@ -2,20 +2,13 @@
 #define QF_QMLWIDGETS_INTERNAL_TABLEVIEWCHOOSECOLUMNSWIDGET_H
 
 #include <QWidget>
-//#include <QVariantList>
 
 class QStandardItemModel;
 
-namespace qf {
 
-namespace core {
-namespace model {
-class TableModel;
-}
-}
+namespace qf::qmlwidgets::model { class TableModel; }
 
-namespace qmlwidgets {
-namespace internal {
+namespace qf::qmlwidgets::internal {
 
 namespace Ui {
 class TableViewChooseColumnsWidget;
@@ -30,7 +23,7 @@ public:
 protected:
 	QStandardItemModel *f_exportedColumnsModel;
 public:
-	void loadColumns(qf::core::model::TableModel *model);
+	void loadColumns(qf::qmlwidgets::model::TableModel *model);
 protected slots:
 	void onColumnsAllClicked();
 	void onColumnsNoneClicked();
@@ -47,7 +40,7 @@ private:
 	Ui::TableViewChooseColumnsWidget *ui;
 };
 
-}}}
+}
 
 #endif // QF_QMLWIDGETS_INTERNAL_TABLEVIEWCHOOSECOLUMNSWIDGET_H
 

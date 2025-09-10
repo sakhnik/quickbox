@@ -4,7 +4,7 @@
 #include "../../style.h"
 
 #include <qf/core/log.h>
-#include <qf/core/model/datadocument.h>
+#include <qf/qmlwidgets/model/datadocument.h>
 
 #include <QBoxLayout>
 #include <QLabel>
@@ -95,7 +95,7 @@ QIcon CaptionFrame::createIcon()
 
 void CaptionFrame::setRecordEditMode(int mode)
 {
-	qfLogFuncFrame() << "mode:" << qf::core::model::DataDocument::recordEditModeToString(qf::core::model::DataDocument::RecordEditMode(mode));
+	qfLogFuncFrame() << "mode:" << qf::qmlwidgets::model::DataDocument::recordEditModeToString(qf::qmlwidgets::model::DataDocument::RecordEditMode(mode));
 	m_recordEditMode = mode;
 	update();
 }
@@ -105,12 +105,12 @@ void CaptionFrame::update()
 	qfLogFuncFrame() << "text:" << text();
 	QString label_text = text();
 	if(m_recordEditMode >= 0) {
-		auto mode = qf::core::model::DataDocument::RecordEditMode(m_recordEditMode);
-		if(mode == qf::core::model::DataDocument::ModeDelete) {
+		auto mode = qf::qmlwidgets::model::DataDocument::RecordEditMode(m_recordEditMode);
+		if(mode == qf::qmlwidgets::model::DataDocument::ModeDelete) {
 			label_text = tr("Delete ") + label_text;
 			setAlert(true);
 		}
-		else if(mode == qf::core::model::DataDocument::ModeEdit) {
+		else if(mode == qf::qmlwidgets::model::DataDocument::ModeEdit) {
 			label_text = tr("Edit ") + label_text;
 		}
 	}

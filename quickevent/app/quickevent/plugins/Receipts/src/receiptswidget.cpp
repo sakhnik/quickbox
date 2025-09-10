@@ -6,7 +6,7 @@
 #include <quickevent/gui/og/itemdelegate.h>
 
 #include <quickevent/core/og/timems.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/si/siid.h>
 
 #include <qf/qmlwidgets/action.h>
@@ -22,7 +22,7 @@
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/dbenum.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <plugins/Event/src/eventplugin.h>
 
 #include <QSettings>
@@ -36,9 +36,7 @@
 #include <QTimer>
 #include <QDirIterator>
 
-namespace qfm = qf::core::model;
 namespace qfs = qf::core::sql;
-namespace qff = qf::qmlwidgets::framework;
 namespace qfw = qf::qmlwidgets;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
@@ -61,7 +59,7 @@ ReceiptsWidget::ReceiptsWidget(QWidget *parent) :
 		//ui->tblPrintJobs->setRowEditorMode(qfw::TableView::EditRowsMixed);
 		ui->tblCards->setInlineEditSaveStrategy(qfw::TableView::OnEditedValueCommit);
 		ui->tblCards->setItemDelegate(new quickevent::gui::og::ItemDelegate(ui->tblCards));
-		auto m = new quickevent::core::og::SqlTableModel(this);
+		auto m = new quickevent::gui::og::SqlTableModel(this);
 
 		m->addColumn("cards.id", "id").setReadOnly(true);
 		m->addColumn("cards.siId", tr("SI")).setReadOnly(true).setCastType(qMetaTypeId<quickevent::core::si::SiId>());
@@ -84,6 +82,7 @@ ReceiptsWidget::ReceiptsWidget(QWidget *parent) :
 
 	ui->tblCards->setContextMenuPolicy(Qt::CustomContextMenu);
 	connect(ui->tblCards, &qfw::TableView::customContextMenuRequested, this, &ReceiptsWidget::onCustomContextMenuRequest);
+	connect(ui->btPrintNew, &QAbstractButton::clicked, this, &ReceiptsWidget::onPrintNewClicked);
 
 	QTimer::singleShot(0, this, &ReceiptsWidget::lazyInit);
 }
@@ -97,7 +96,7 @@ void ReceiptsWidget::lazyInit()
 {
 }
 
-void ReceiptsWidget::settleDownInPartWidget(::PartWidget *part_widget)
+void ReceiptsWidget::settleDownInPartWidget(::PartWidget *part_widget) const
 {
 	connect(part_widget, &::PartWidget::resetPartRequest, this, &ReceiptsWidget::reset);
 	connect(part_widget, &::PartWidget::reloadPartRequest, this, &ReceiptsWidget::reload);
@@ -196,7 +195,7 @@ void ReceiptsWidget::loadNewCards()
 	m_cardsModel->reloadInserts(QStringLiteral("cards.id"));
 }
 
-void ReceiptsWidget::on_btPrintNew_clicked()
+void ReceiptsWidget::onPrintNewClicked()
 {
 	printNewCards();
 	loadNewCards();

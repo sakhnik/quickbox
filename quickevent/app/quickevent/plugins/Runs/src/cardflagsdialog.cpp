@@ -21,11 +21,11 @@ CardFlagsDialog::~CardFlagsDialog()
 	delete ui;
 }
 
-void CardFlagsDialog::load(quickevent::core::og::SqlTableModel *model, int row)
+void CardFlagsDialog::load(quickevent::gui::og::SqlTableModel *model, int row)
 {
 	m_model = model;
 	m_row = row;
-	qf::core::utils::TableRow table_row = m_model->tableRow(m_row);
+	auto table_row = m_model->tableRow(m_row);
 	ui->cbxCardLent->setChecked(table_row.value(QStringLiteral("runs.cardLent")).toBool());
 	ui->cbxCardInLentTable->setChecked(table_row.value(QStringLiteral("cardInLentTable")).toBool());
 	ui->cbxCardReturned->setChecked(table_row.value(QStringLiteral("runs.cardReturned")).toBool());
@@ -34,7 +34,7 @@ void CardFlagsDialog::load(quickevent::core::og::SqlTableModel *model, int row)
 
 void CardFlagsDialog::save()
 {
-	qf::core::utils::TableRow &table_row = m_model->tableRowRef(m_row);
+	auto &table_row = m_model->tableRowRef(m_row);
 	table_row.setValue(QStringLiteral("runs.cardLent"), ui->cbxCardLent->isChecked());
 	//table_row.setValue(QStringLiteral("cardInLentTable"), ui->cbxCardInLentTable->isChecked());
 	table_row.setValue(QStringLiteral("runs.cardReturned"), ui->cbxCardReturned->isChecked());

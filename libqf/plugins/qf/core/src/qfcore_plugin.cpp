@@ -18,8 +18,8 @@
 //#include <qf/core/network/networkaccessmanager.h>
 //#include <qf/core/network/networkreply.h>
 
-//#include <qf/core/model/sqltablemodel.h>
-//#include <qf/core/model/datadocument.h>
+//#include <qf/qmlwidgets/model/sqltablemodel.h>
+//#include <qf/qmlwidgets/model/datadocument.h>
 
 //#include <qf/core/log.h>
 
@@ -44,10 +44,10 @@ void QFCorePlugin::registerTypes(const char *uri)
 	qmlRegisterType<qf::core::qml::SqlRecord>(uri, 1, 0, "SqlRecord");
 	qmlRegisterType<qf::core::qml::SqlQueryBuilder>(uri, 1, 0, "SqlQueryBuilder");
 	qmlRegisterType<qf::core::qml::SqlTableModel>(uri, 1, 0, "SqlTableModel");
-	qmlRegisterType<qf::core::model::TableModel>(uri, 1, 0, "TableModel");
+	qmlRegisterType<qf::qmlwidgets::model::TableModel>(uri, 1, 0, "TableModel");
 	qmlRegisterType<qf::core::qml::TableModelColumn>(uri, 1, 0, "ModelColumn");
 
-	qmlRegisterType<qf::core::model::DataDocument>(uri, 1, 0, "DataDocument");
+	qmlRegisterType<qf::qmlwidgets::model::DataDocument>(uri, 1, 0, "DataDocument");
 	qmlRegisterType<qf::core::qml::SqlDataDocument>(uri, 1, 0, "SqlDataDocument");
 
 	qmlRegisterType<qf::core::qml::Settings>(uri, 1, 0, "Settings");

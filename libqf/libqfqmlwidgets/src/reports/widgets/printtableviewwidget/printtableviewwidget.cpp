@@ -7,7 +7,6 @@
 
 #include <QFileDialog>
 
-namespace qfc = qf::core;
 namespace qfu = qf::core::utils;
 
 using namespace qf::qmlwidgets::reports;
@@ -27,7 +26,7 @@ PrintTableViewWidget::PrintTableViewWidget(TableView *table_view, QWidget *paren
 		connect(cbx, &QComboBox::activated, this, &PrintTableViewWidget::onLstQrcReportsActivated);
 	}
 
-	qfc::model::TableModel *model = table_view->tableModel();
+	auto *model = table_view->tableModel();
 	ui->columnsChooser->setVisible(model);
 	ui->columnsChooser->loadColumns(model);
 

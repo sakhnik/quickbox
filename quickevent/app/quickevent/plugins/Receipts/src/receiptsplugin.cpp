@@ -14,7 +14,7 @@
 #include <qf/core/utils/treetable.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/querybuilder.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 #include <qf/qmlwidgets/dialogs/dialog.h>
@@ -88,7 +88,7 @@ QVariantMap ReceiptsPlugin::readCardTablesData(int card_id)
 			start_time_ms = read_card.checkTime();
 		start_time_ms *= 1000;
 		int prev_stp_time_ms = 0;
-		for(auto v : read_card.punches()) {
+		for(const auto &v : read_card.punches()) {
 			quickevent::core::si::ReadPunch punch(v.toMap());
 			int punch_time_ms = punch.time() * 1000 + punch.msec();
 			int stp_time_ms = quickevent::core::og::TimeMs::msecIntervalAM(start_time_ms, punch_time_ms);
@@ -158,7 +158,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 	QMap<int, int> lap_stand; // position->standing in lap
 	QMap<int, int> lap_stand_cummulative;  // position->cummulative standing after lap
 	{
-		qf::core::model::SqlTableModel model;
+		qf::qmlwidgets::model::SqlTableModel model;
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("competitors", "*")
 				.select2("runs", "*")
@@ -365,7 +365,7 @@ QVariantMap ReceiptsPlugin::receiptTablesData(int card_id)
 		}
 		tt.setValue("isOk", checked_card.isOk());
 		int position = 0;
-		for(auto v : checked_card.punches()) {
+		for(const auto &v : checked_card.punches()) {
 			quickevent::core::si::CheckedPunch punch(v.toMap());
 			int ix = tt.appendRow();
 			qf::core::utils::TreeTableRow tt_row = tt.row(ix);
@@ -425,8 +425,9 @@ void ReceiptsPlugin::previewCard(int card_id)
 	w->setWindowTitle(tr("Card"));
 	w->setReport(findReportFile("sicard.qml"));
 	QVariantMap dt = readCardTablesData(card_id);
-	for(auto key : dt.keys())
-		w->setTableData(key, dt.value(key));
+	for(const auto &[k, v] : dt.asKeyValueRange()) {
+		w->setTableData(k, v);
+	}
 	qff::MainWindow *fwk = qff::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(fwk);
 	dlg.setCentralWidget(w);
@@ -476,8 +477,9 @@ void ReceiptsPlugin::previewReceipt(int card_id)
 	w->setWindowTitle(tr("Receipt"));
 	w->setReport(findReportFile(settings.receiptPath()));
 	QVariantMap dt = receiptTablesData(card_id);
-	for(auto key : dt.keys())
-		w->setTableData(key, dt.value(key));
+	for(const auto &[k, v] : dt.asKeyValueRange()) {
+		w->setTableData(k, v);
+	}
 	auto fwk = qff::MainWindow::frameWork();
 	qf::qmlwidgets::dialogs::Dialog dlg(fwk);
 	dlg.setCentralWidget(w);

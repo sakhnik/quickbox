@@ -4,7 +4,7 @@
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/querybuilder.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/assert.h>
@@ -37,9 +37,9 @@ void RegistrationsWidget::checkModel()
 		return;
 
 	if(!ui->tblRegistrations->tableModel()) {
-		qf::core::model::SqlTableModel *reg_model = getPlugin<EventPlugin>()->registrationsModel();
+		qf::qmlwidgets::model::SqlTableModel *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 		ui->tblRegistrations->setTableModel(reg_model);
-		connect(reg_model, &qf::core::model::SqlTableModel::reloaded, this, [this]() {
+		connect(reg_model, &qf::qmlwidgets::model::SqlTableModel::reloaded, this, [this]() {
 			ui->tblRegistrations->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 		});
 	}

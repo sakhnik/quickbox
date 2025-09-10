@@ -1,13 +1,13 @@
 #ifndef RUNSTABLEMODEL_H
 #define RUNSTABLEMODEL_H
 
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 
-class RunsTableModel : public quickevent::core::og::SqlTableModel
+class RunsTableModel : public quickevent::gui::og::SqlTableModel
 {
 	Q_OBJECT
 private:
-	typedef quickevent::core::og::SqlTableModel Super;
+	using Super = quickevent::gui::og::SqlTableModel;
 public:
 	enum Columns {
 		col_runs_isRunning = 0,

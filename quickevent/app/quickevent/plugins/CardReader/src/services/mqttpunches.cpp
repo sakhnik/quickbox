@@ -28,7 +28,7 @@
 #include <QNetworkDatagram>
 #endif
 
-//namespace qfm = qf::core::model;
+//namespace qfm = qf::qmlwidgets::model;
 using qf::qmlwidgets::framework::getPlugin;
 using CardReader::CardReaderPlugin;
 

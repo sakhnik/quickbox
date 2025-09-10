@@ -1,8 +1,7 @@
 #include "exportcsvtableviewwidget.h"
 #include "ui_exporttableviewwidget.h"
 
-#include <qf/core/model/tablemodel.h>
-
+#include <qf/qmlwidgets/model/tablemodel.h>
 
 namespace qf::qmlwidgets {
 

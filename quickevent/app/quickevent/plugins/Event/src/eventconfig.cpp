@@ -64,17 +64,19 @@ void EventConfig::load()
 	Query q(conn);
 	QueryBuilder qb;
 	qb.select("ckey, cvalue, ctype").from("config").orderBy("ckey");
-	if(q.exec(qb.toString())) while(q.next()) {
-		QString key = q.value(0).toString();
-		/*
-		if(!knownKeys().contains(key)) {
-			qfWarning() << "Config key" << key << "is not known to the QuickEvent config system";
+	if(q.exec(qb.toString(), qf::core::Exception::Throw)) {
+		while(q.next()) {
+			QString key = q.value(0).toString();
+			/*
+			if(!knownKeys().contains(key)) {
+				qfWarning() << "Config key" << key << "is not known to the QuickEvent config system";
+			}
+			*/
+			QVariant val = q.value(1);
+			QString type = q.value(2).toString();
+			QVariant v = qf::core::Utils::retypeStringValue(val.toString(), type);
+			setValue(key, v);
 		}
-		*/
-		QVariant val = q.value(1);
-		QString type = q.value(2).toString();
-		QVariant v = qf::core::Utils::retypeStringValue(val.toString(), type);
-		setValue(key, v);
 	}
 	// checkApiKey();
 }

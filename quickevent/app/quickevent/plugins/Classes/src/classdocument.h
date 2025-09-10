@@ -1,15 +1,15 @@
 #ifndef CLASSES_CLASSDOCUMENT_H
 #define CLASSES_CLASSDOCUMENT_H
 
-#include <qf/core/model/sqldatadocument.h>
+#include <qf/qmlwidgets/model/sqldatadocument.h>
 
 namespace Classes {
 
-class ClassDocument : public qf::core::model::SqlDataDocument
+class ClassDocument : public qf::qmlwidgets::model::SqlDataDocument
 {
 	Q_OBJECT
 private:
-	typedef qf::core::model::SqlDataDocument Super;
+	typedef qf::qmlwidgets::model::SqlDataDocument Super;
 public:
 	ClassDocument(QObject *parent = nullptr);
 protected:

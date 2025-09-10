@@ -8,7 +8,7 @@
 #include <qf/core/exception.h>
 #include <qf/core/assert.h>
 #include <qf/core/sql/query.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <plugins/Event/src/eventplugin.h>
 // #include <plugins/Competitors/src/competitorsplugin.h>
 #include <plugins/Competitors/src/competitordocument.h>
@@ -31,7 +31,7 @@ AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 
 	m_defaultStatusText = ui->lblStatus->text();
 
-	auto *competitors_model = new qf::core::model::SqlTableModel(this);
+	auto *competitors_model = new qf::qmlwidgets::model::SqlTableModel(this);
 	//competitors_model->addColumn("relays.club", tr("Club"));
 	competitors_model->addColumn("relayName", tr("Name"));
 	competitors_model->addColumn("runs.leg", tr("Leg"));
@@ -60,7 +60,7 @@ AddLegDialogWidget::AddLegDialogWidget(QWidget *parent)
 	auto *reg_model = getPlugin<EventPlugin>()->registrationsModel();
 	ui->tblRegistrations->setTableModel(reg_model);
 	ui->tblRegistrations->setReadOnly(true);
-	connect(reg_model, &qf::core::model::SqlTableModel::reloaded, this, [this]() {
+	connect(reg_model, &qf::qmlwidgets::model::SqlTableModel::reloaded, this, [this]() {
 			ui->tblRegistrations->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
 		});
 
@@ -157,7 +157,7 @@ void AddLegDialogWidget::updateLegAddedStatus(const QString &msg)
 		m_updateStatusTimer = new QTimer(this);
 		m_updateStatusTimer->setSingleShot(true);
 		m_updateStatusTimer->setInterval(3000);
-		connect(m_updateStatusTimer, &QTimer::timeout, [this]() {
+		connect(m_updateStatusTimer, &QTimer::timeout, this, [this]() {
 			ui->lblStatus->setText(m_defaultStatusText);
 			ui->lblStatus->setStyleSheet(QString());
 		});

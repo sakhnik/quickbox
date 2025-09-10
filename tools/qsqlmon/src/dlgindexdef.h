@@ -32,8 +32,8 @@ class  DlgIndexDef : public QDialog
 	public:
 		QString createIndexCommand();
 	public slots:
-		void on_actionAddFieldToIndex_triggered();
-		void on_actionRemoveFieldFromIndex_triggered();
+		void onAddFieldToIndex_triggered();
+		void onRemoveFieldFromIndex_triggered();
 	public:
 		DlgIndexDef(QWidget * parent, const QString &table_name, const QString &index_name = QString());
 		virtual ~DlgIndexDef();

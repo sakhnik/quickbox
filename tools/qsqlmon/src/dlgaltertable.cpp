@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include "theapp.h"
 #include "dlgaltertable.h"
 #include "dlgcolumndef.h"
 #include "dlgindexdef.h"
@@ -20,6 +19,16 @@ DlgAlterTable::DlgAlterTable(QWidget * parent, const QString& db, const QString&
 	: QDialog(parent), m_tableName(table), m_schemaName(db)
 {
 	setupUi(this);
+
+	connect(Ui::DlgAlterTable::btFieldAppend, &QAbstractButton::clicked, this, &DlgAlterTable::onFieldAppend_clicked);
+	connect(Ui::DlgAlterTable::btFieldInsert, &QAbstractButton::clicked, this, &DlgAlterTable::onFieldInsert_clicked);
+	connect(Ui::DlgAlterTable::btFieldEdit, &QAbstractButton::clicked, this, &DlgAlterTable::onFieldEdit_clicked);
+	connect(Ui::DlgAlterTable::btFieldDelete, &QAbstractButton::clicked, this, &DlgAlterTable::onFieldDelete_clicked);
+
+	connect(Ui::DlgAlterTable::btIndexAdd, &QAbstractButton::clicked, this, &DlgAlterTable::onIndexAdd_clicked);
+	connect(Ui::DlgAlterTable::btIndexDelete, &QAbstractButton::clicked, this, &DlgAlterTable::onIndexDelete_clicked);
+	connect(Ui::DlgAlterTable::btIndexEdit, &QAbstractButton::clicked, this, &DlgAlterTable::onIndexEdit_clicked);
+
 	txtComment->setEnabled(false);
 	if(connection().driverName().endsWith("SQLITE")) {
 		btFieldInsert->setEnabled(false);
@@ -32,9 +41,7 @@ DlgAlterTable::DlgAlterTable(QWidget * parent, const QString& db, const QString&
 	refresh();
 }
 
-DlgAlterTable::~DlgAlterTable()
-{
-}
+DlgAlterTable::~DlgAlterTable() = default;
 
 void DlgAlterTable::refresh()
 {
@@ -58,7 +65,7 @@ void DlgAlterTable::refresh()
 	}
 }
 
-void DlgAlterTable::on_btFieldInsert_clicked(bool append)
+void DlgAlterTable::onFieldInsert_clicked(bool append)
 {
 	if(lstFields->currentRow() < 0) append = true;
 
@@ -71,7 +78,7 @@ void DlgAlterTable::on_btFieldInsert_clicked(bool append)
 					qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Not supported in SQLite version <= 3.2.2");
 				}
 				QString fld_name = dlg.edName->text();
-				QString s, qs = "ALTER TABLE %1 ADD COLUMN %2 ";
+				QString qs = "ALTER TABLE %1 ADD COLUMN %2 ";
 				qs = qs.arg(m_tableName).arg(fld_name);
 				qs += dlg.toString();
 				sql_commands << qs;
@@ -84,7 +91,7 @@ void DlgAlterTable::on_btFieldInsert_clicked(bool append)
 					qf::qmlwidgets::dialogs::MessageBox::showInfo(this, "Columns insertion is not supported in PSQL");
 				}
 				QString fld_name = dlg.edName->text();
-				QString s, qs = "ALTER TABLE %1.%2 ADD COLUMN %3 ";
+				QString qs = "ALTER TABLE %1.%2 ADD COLUMN %3 ";
 				qs = qs.arg(m_schemaName).arg(m_tableName).arg(fld_name);
 				qs += dlg.toString();
 				sql_commands << qs;
@@ -102,7 +109,7 @@ void DlgAlterTable::on_btFieldInsert_clicked(bool append)
 					}
 				}
 				QString fld_name = dlg.edName->text();
-				QString s, qs = "ALTER TABLE %1 ADD COLUMN %2 ";
+				QString qs = "ALTER TABLE %1 ADD COLUMN %2 ";
 				qs = qs.arg(m_tableName).arg(fld_name);
 				qs += dlg.toString();
 				qs += insert_where;
@@ -136,12 +143,12 @@ void DlgAlterTable::on_btFieldInsert_clicked(bool append)
 	}
 }
 
-void DlgAlterTable::on_btFieldAppend_clicked()
+void DlgAlterTable::onFieldAppend_clicked()
 {
-	on_btFieldInsert_clicked(true);
+	onFieldInsert_clicked(true);
 }
 
-void DlgAlterTable::on_btFieldEdit_clicked()
+void DlgAlterTable::onFieldEdit_clicked()
 {
 	qfLogFuncFrame();
 	if(lstFields->currentRow() < 0)
@@ -168,7 +175,7 @@ void DlgAlterTable::on_btFieldEdit_clicked()
 			}
 			else if(connection().driverName().endsWith("PSQL")) {
 				if(fi.shortName() != dlg.edName->text()) {
-					QString s = "ALTER TABLE %1 RENAME COLUMN \"%2\" TO \"%3\"";
+					QString s = R"(ALTER TABLE %1 RENAME COLUMN "%2" TO "%3")";
 					s = s.arg(m_tableName).arg(fi.shortName()).arg(dlg.edName->text());
 					sql_commands << s;
 				}
@@ -223,7 +230,7 @@ void DlgAlterTable::on_btFieldEdit_clicked()
 }
 
 
-void DlgAlterTable::on_btFieldDelete_clicked()
+void DlgAlterTable::onFieldDelete_clicked()
 {
 	if(lstFields->currentRow() < 0) return;
 
@@ -238,7 +245,7 @@ void DlgAlterTable::on_btFieldDelete_clicked()
 
 MainWindow* DlgAlterTable::mainWindow()
 {
-	MainWindow *w = qf::core::Utils::findParent<MainWindow*>(this);
+	auto *w = qf::core::Utils::findParent<MainWindow*>(this);
 	return w;
 }
 
@@ -262,7 +269,7 @@ QString DlgAlterTable::dropIndexCommand(const QString &index_name)
 	return ret;
 }
 
-void DlgAlterTable::on_btIndexAdd_clicked()
+void DlgAlterTable::onIndexAdd_clicked()
 {
 	DlgIndexDef dlg(this, m_schemaName + "." + m_tableName);
 	if(dlg.exec()) 	{
@@ -271,7 +278,7 @@ void DlgAlterTable::on_btIndexAdd_clicked()
 	}
 }
 
-void DlgAlterTable::on_btIndexEdit_clicked()
+void DlgAlterTable::onIndexEdit_clicked()
 {
 	if(lstIndexes->currentRow() < 0) return;
 	DlgIndexDef dlg(this, m_schemaName + "." + m_tableName, lstIndexes->currentItem()->text());
@@ -284,7 +291,7 @@ void DlgAlterTable::on_btIndexEdit_clicked()
 	//qf::qmlwidgets::dialogs::MessageBox::showInfo(this, tr("If you want to edit index, drop it and create again."));
 }
 
-void DlgAlterTable::on_btIndexDelete_clicked()
+void DlgAlterTable::onIndexDelete_clicked()
 {
 	if(lstIndexes->currentRow() < 0) return;
 	QString indexname = lstIndexes->currentItem()->text();

@@ -9,12 +9,6 @@
 
 namespace qf::core {
 
-const QString& Utils::nullValueString()
-{
-	static QString n = QStringLiteral("null");
-	return n;
-}
-
 void qf::core::Utils::parseFieldName(const QString &full_field_name, QString *pfield_name, QString *ptable_name, QString *pdb_name)
 {
 	QString s = full_field_name;
@@ -269,6 +263,9 @@ QStringList Utils::parseProgramAndArgumentsList(const QString &command_line)
 
 QVariant Utils::jsonToQVariant(const QString &json)
 {
+	if (json.isEmpty()) {
+		return {};
+	}
 	QJsonParseError error;
 	auto doc = QJsonDocument::fromJson(json.toUtf8(), &error);
 	if (error.error != QJsonParseError::NoError) {

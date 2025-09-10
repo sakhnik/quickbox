@@ -18,7 +18,7 @@
 #include <qf/core/assert.h>
 #include <qf/core/string.h>
 #include <qf/core/utils/fileutils.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/query.h>
 #include <qf/qmlwidgets/tableview.h>
 #include <qf/qmlwidgets/dialogs/messagebox.h>
@@ -125,16 +125,16 @@ void MainWindow::lazyInit()
 	serverDock->ui.treeServers->resizeColumnToContents(0);
 }
 
-qf::core::model::SqlTableModel* MainWindow::queryViewModel()
+qf::qmlwidgets::model::SqlTableModel* MainWindow::queryViewModel()
 {
 	auto *m1 = ui.queryView->tableView()->tableModel();
-	auto *m = qobject_cast<qf::core::model::SqlTableModel*>(m1);
+	auto *m = qobject_cast<qf::qmlwidgets::model::SqlTableModel*>(m1);
 	qfDebug() << "model:" << m1 << m;
-	//QF_CHECK(m!=nullptr, "Model is NULL or not a kind of qf::core::model::SqlTableModel.");
+	//QF_CHECK(m!=nullptr, "Model is NULL or not a kind of qf::qmlwidgets::model::SqlTableModel.");
 	return m;
 }
 
-void MainWindow::setQueryViewModel(qf::core::model::SqlTableModel *m)
+void MainWindow::setQueryViewModel(qf::qmlwidgets::model::SqlTableModel *m)
 {
 	qfDebug() << "set model:" << m;
 	ui.queryView->tableView()->setTableModel(m);
@@ -209,7 +209,7 @@ qf::core::sql::Connection MainWindow::setActiveConnection1(const qf::core::sql::
 	QObject *old_model = queryViewModel();
 	qfDebug() << "\t deletenig old model:" << old_model;
 	QF_SAFE_DELETE(old_model);
-	auto *m = new qf::core::model::SqlTableModel(this);
+	auto *m = new qf::qmlwidgets::model::SqlTableModel(this);
 	m->setConnectionName(c.connectionName());
 	qfDebug() << "\t new table model created:" << m;
 	setQueryViewModel(m);
@@ -564,7 +564,7 @@ bool MainWindow::execQuery(const QString& query_str)
 	bool is_select = qs.startsWith(QLatin1String("SELECT"), Qt::CaseInsensitive);
 	do {
 		if(is_select) {
-			qf::core::model::SqlTableModel *m = queryViewModel();
+			qf::qmlwidgets::model::SqlTableModel *m = queryViewModel();
 			m->clearColumns();
 			m->setQuery(qs);
 			ok = m->reload();
@@ -706,7 +706,6 @@ void MainWindow::executeSelectedLines()
 {
 	qfLogFuncFrame();
 	SqlTextEdit *ed = sqlDock->ui.txtSql;
-	QString s = ed->toPlainText();
 	QTextCursor c = ed->textCursor();
 	int sel_end = c.selectionEnd();
 	c.setPosition(c.selectionStart());
@@ -1335,7 +1334,7 @@ void MainWindow::checkDrivers()
 	QString msg;
 	QTextStream ts(&msg);
 	{
-		for(QString plugin_dir : QCoreApplication::libraryPaths()) {
+		for(const auto &plugin_dir : QCoreApplication::libraryPaths()) {
 			qfInfo() << "plugin dir:" << plugin_dir;
 			QString path = qf::core::utils::FileUtils::joinPath(plugin_dir, "sqldrivers");
 			ts << tr("Plugins found (looked in %1):").arg(QDir::toNativeSeparators(path)) << '\n';
@@ -1379,7 +1378,7 @@ void MainWindow::tearOffTable()
 		//ui.queryView->setContextMenuPolicy();
 		connect(ui.queryView, &TableViewWidget::statusBarAction, this, &MainWindow::onTableStatusBarAction);
 		ly->addWidget(ui.queryView);
-		auto *m = new qf::core::model::SqlTableModel(ui.queryView);
+		auto *m = new qf::qmlwidgets::model::SqlTableModel(ui.queryView);
 		m->setConnectionName(activeConnection().connectionName());
 		setQueryViewModel(m);
 	}

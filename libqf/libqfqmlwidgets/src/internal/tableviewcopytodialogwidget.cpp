@@ -3,9 +3,9 @@
 #include "../tableview.h"
 
 #include <qf/core/log.h>
-#include <qf/core/model/tablemodel.h>
+#include <qf/qmlwidgets/model/tablemodel.h>
 
-namespace qfm = qf::core::model;
+namespace qfm = qf::qmlwidgets::model;
 using namespace qf::qmlwidgets::internal;
 
 TableViewCopyToDialogWidget::TableViewCopyToDialogWidget(QWidget *parent)

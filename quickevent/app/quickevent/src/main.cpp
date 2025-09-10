@@ -11,7 +11,7 @@
 #include <qf/core/log.h>
 #include <qf/core/logentrymap.h>
 #include <qf/core/utils/settings.h>
-#include <qf/core/model/logtablemodel.h>
+#include <qf/qmlwidgets/model/logtablemodel.h>
 
 #include <QtQml>
 #include <QLocale>
@@ -49,8 +49,9 @@ int main(int argc, char *argv[])
 
 	std::vector<std::string> shv_args = NecroLog::setCLIOptions(argc, argv);
 	QStringList args;
-	for(const auto &s : shv_args)
+	for(const auto &s : shv_args) {
 		args << QString::fromStdString(s);
+	}
 
 	QSettings::setDefaultFormat(QSettings::IniFormat);
 
@@ -124,7 +125,7 @@ int main(int argc, char *argv[])
 				QStringLiteral("libsiut"),
 				QStringLiteral("quickevent"),
 		}) {
-			QTranslator *translator = new QTranslator(&app);
+			auto *translator = new QTranslator(&app);
 			bool ok = translator->load(QLocale(lc_name), file_name, QString("-"), lc_dir);
 			if (ok) {
 				ok = QCoreApplication::installTranslator(translator);
@@ -133,7 +134,7 @@ int main(int argc, char *argv[])
 		}
 
 		{
-			QTranslator *translator = new QTranslator(&app);
+			auto *translator = new QTranslator(&app);
 			const auto file_name = QStringLiteral("qt");
 			bool ok = translator->load(QLocale(lc_name), file_name, QString("_"), QString("translations"));
 			if (ok) {
@@ -149,7 +150,7 @@ int main(int argc, char *argv[])
 	main_window.show();
 	emit main_window.applicationLaunched();
 
-	int ret = app.exec();
+	int ret = Application::exec();
 
 	return ret;
 }

@@ -33,7 +33,7 @@
 #include <qf/core/utils/htmlutils.h>
 #include <qf/core/utils/table.h>
 #include <qf/core/utils/treetable.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 
 #include <QDesktopServices>
 #include <QFile>
@@ -80,7 +80,7 @@ const qf::core::utils::Table &RunsPlugin::runnersTable(int stage_id)
 				.join("competitors.classId", "classes.id")
 				.joinRestricted("competitors.id", "runs.competitorId", "runs.stageId=" QF_IARG(stage_id), "JOIN")
 				.orderBy("classes.name, lastName, firstName");
-		qf::core::model::SqlTableModel m;
+		qf::qmlwidgets::model::SqlTableModel m;
 		m.setQueryBuilder(qb, false);
 		m.reload();
 		m_runnersTableCache = m.table();
@@ -560,7 +560,7 @@ qf::core::utils::Table RunsPlugin::nstagesClassResultsTable(int stages_count, in
 	qb.select(QF_IARG(UNREAL_TIME_MSEC) " AS timeMs");
 	qb.select(QF_IARG(UNREAL_TIME_MSEC) " AS timeLossMs");
 	qb.select("'' AS pos");
-	qf::core::model::SqlTableModel mod;
+	qf::qmlwidgets::model::SqlTableModel mod;
 	mod.setQueryBuilder(qb, false);
 	mod.reload();
 	QMap<int, int> competitor_id_to_row;
@@ -649,7 +649,7 @@ qf::core::utils::TreeTable RunsPlugin::nstagesResultsTable(const QString &class_
 	qfLogFuncFrame();
 	//qf::core::utils::Table::FieldList cols;
 	//cols << qf::core::utils::Table::Field("")
-	qf::core::model::SqlTableModel mod;
+	qf::qmlwidgets::model::SqlTableModel mod;
 	{
 		qfs::QueryBuilder qb;
 		qb.select2("classes", "id, name")
@@ -695,7 +695,7 @@ qf::core::utils::TreeTable RunsPlugin::currentStageResultsTable(const QString &c
 qf::core::utils::TreeTable RunsPlugin::stageResultsTable(int stage_id, const QString &class_filter, int max_competitors_in_class, bool exclude_disq, bool add_laps)
 {
 	qfLogFuncFrame();
-	qf::core::model::SqlTableModel model;
+	qf::qmlwidgets::model::SqlTableModel model;
 	{
 		qf::core::sql::QueryBuilder qb;
 		qb.select2("classes", "id, name")
@@ -1394,7 +1394,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesTable(const QString &wher
 		qb.where(where_expr);
 	QVariantMap qpm;
 	qpm["stage_id"] = stage_id;
-	qf::core::model::SqlTableModel m;
+	qf::qmlwidgets::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.setQueryParameters(qpm);
 	m.reload();
@@ -1453,7 +1453,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesTable(const QString &wher
 		int class_id = tt_row.value(QStringLiteral("classes.id")).toInt();
 		//console.debug("class id:", class_id);
 		qpm["class_id"] = class_id;
-		qf::core::model::SqlTableModel m2;
+		qf::qmlwidgets::model::SqlTableModel m2;
 		m2.setQueryBuilder(qb2);
 		m2.setQueryParameters(qpm);
 		m2.reload();
@@ -1513,7 +1513,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsTable(const quickevent::gui
 	QString qs = "SELECT t2.clubAbbr, clubs.name FROM ( " + qs1 + " ) AS t2"
 			+ " LEFT JOIN clubs ON t2.clubAbbr=clubs.abbr"
 			+ " ORDER BY t2.clubAbbr";
-	qf::core::model::SqlTableModel m;
+	qf::qmlwidgets::model::SqlTableModel m;
 	m.setQuery(qs);
 	m.reload();
 	auto tt = m.toTreeTable();
@@ -1560,7 +1560,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsTable(const quickevent::gui
 		.orderBy(order_sql_part);
 	QVariantMap qpm;
 	qpm["stage_id"] = stage_id;
-	qf::core::model::SqlTableModel m2;
+	qf::qmlwidgets::model::SqlTableModel m2;
 	m2.setQueryBuilder(qb);
 	m2.setQueryParameters(qpm);
 	for(int i=0; i<tt.rowCount(); i++) {
@@ -1597,7 +1597,7 @@ qf::core::utils::TreeTable RunsPlugin::startListStartersTable(const QString &whe
 		qb.where(where_expr);
 	QVariantMap qpm;
 	qpm["stage_id"] = stage_id;
-	qf::core::model::SqlTableModel m;
+	qf::qmlwidgets::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.setQueryParameters(qpm);
 	m.reload();
@@ -1619,7 +1619,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesNStagesTable(const int st
 			.orderBy("classes.name");
 	if(!where_expr.isEmpty())
 		qb.where(where_expr);
-	qf::core::model::SqlTableModel m;
+	qf::qmlwidgets::model::SqlTableModel m;
 	m.setQueryBuilder(qb);
 	m.reload();
 	auto tt = m.toTreeTable();
@@ -1647,7 +1647,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClassesNStagesTable(const int st
 		}
 		QVariantMap qpm;
 		qpm["class_id"] = class_id;
-		qf::core::model::SqlTableModel m2;
+		qf::qmlwidgets::model::SqlTableModel m2;
 		m2.setQueryBuilder(qb2);
 		m2.setQueryParameters(qpm);
 		//qfInfo() << m2.effectiveQuery();
@@ -1667,7 +1667,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsNStagesTable(const int stag
 	QString qs = "SELECT t2.clubAbbr, clubs.name FROM ( " + qs1 + " ) AS t2"
 			+ " LEFT JOIN clubs ON t2.clubAbbr=clubs.abbr"
 			+ " ORDER BY t2.clubAbbr";
-	qf::core::model::SqlTableModel m;
+	qf::qmlwidgets::model::SqlTableModel m;
 	m.setQuery(qs);
 	m.reload();
 	auto tt = m.toTreeTable();
@@ -1707,7 +1707,7 @@ qf::core::utils::TreeTable RunsPlugin::startListClubsNStagesTable(const int stag
 		}
 		QVariantMap qpm;
 		qpm["club_abbr"] = club_abbr;
-		qf::core::model::SqlTableModel m2;
+		qf::qmlwidgets::model::SqlTableModel m2;
 		m2.setQueryBuilder(qb2);
 		m2.setQueryParameters(qpm);
 		//qfInfo() << m2.effectiveQuery();
@@ -2514,8 +2514,7 @@ void RunsPlugin::exportResultsHtmlStageWithLaps(const QString &laps_file_name, c
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "br"}}, tr("Time")},
 					QVariantList{"th", QVariantMap{{QStringLiteral("class"), "brb"}}, tr("Loss")},
 				};
-		int i = 1;
-		for(const auto &_ : course_codes) {
+		for(auto i = 0; i < course_codes.size(); ++i) {
 			append_list(trr, QVariantList{"th"
 										  , QVariantMap{{"class", "br"}, {"colspan", "2"}}
 										  , (i < course_codes.size())? QVariant(i++): tr("FIN")});

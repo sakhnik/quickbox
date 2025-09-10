@@ -9,7 +9,7 @@
 
 #include <quickevent/core/codedef.h>
 #include <quickevent/core/og/timems.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/si/punchrecord.h>
 #include <quickevent/core/si/readcard.h>
 #include <quickevent/core/si/checkedcard.h>
@@ -39,7 +39,7 @@
 #include <qf/core/sql/query.h>
 #include <qf/core/sql/dbenum.h>
 #include <qf/core/sql/transaction.h>
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/utils/settings.h>
 #include <qf/core/utils/csvreader.h>
 #include <qf/core/utils/htmlutils.h>
@@ -73,11 +73,11 @@ using Receipts::ReceiptsPlugin;
 using Runs::RunsPlugin;
 
 namespace {
-class Model : public quickevent::core::og::SqlTableModel
+class Model : public quickevent::gui::og::SqlTableModel
 {
 	Q_OBJECT
 private:
-	typedef quickevent::core::og::SqlTableModel Super;
+	typedef quickevent::gui::og::SqlTableModel Super;
 public:
 	enum Columns {
 		col_cards_id = 0,

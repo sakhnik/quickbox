@@ -19,10 +19,14 @@ namespace qfc = qf::core;
 QMap< QString, QMap<QString, QStringList> > DlgColumnDef::f_collationsCache;
 
 DlgColumnDef::DlgColumnDef(QWidget * parent, const QString& table)
-	:QDialog(parent)
+	: QDialog(parent)
 {
-	qfc::Utils::parseFieldName(table, &tableName, &dbName);
 	setupUi(this);
+
+	connect(Ui::DlgColumnDef::lstRefTable, &QComboBox::currentTextChanged, this, &DlgColumnDef::onRefTable_currentIndexChanged);
+	connect(Ui::DlgColumnDef::lstCharacterSet, &QComboBox::currentTextChanged, this, &DlgColumnDef::onCharacterSet_activated);
+
+	qfc::Utils::parseFieldName(table, &tableName, &dbName);
 	QStringList types;
 	if(connection().driverName().endsWith("SQLITE")) {
 		types << "INTEGER" << "REAL" << "TEXT" << "BLOB";
@@ -229,7 +233,7 @@ void DlgColumnDef::loadColumnDefinition(const qf::core::sql::FieldInfo &fi)
 	//edOk->setEnabled(false);
 }
 
-void DlgColumnDef::on_lstRefTable_currentIndexChanged(const QString & text)
+void DlgColumnDef::onRefTable_currentIndexChanged(const QString & text)
 {
 	lstRefColumn->clear();
 	if(!text.isEmpty()) {
@@ -340,7 +344,7 @@ void DlgColumnDef::loadCollationsForCurrentCharset()
 	}
 }
 
-void DlgColumnDef::on_lstCharacterSet_activated(const QString & text)
+void DlgColumnDef::onCharacterSet_activated(const QString & text)
 {
 	Q_UNUSED(text);
 	loadCollationsForCurrentCharset();

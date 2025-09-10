@@ -24,7 +24,11 @@ Application::Application(int &argc, char **argv, AppCliOptions *cli_opts)
 	}
 
 	auto *style = qf::qmlwidgets::Style::instance();
-	style->addIconSearchPath(":/qf/qmlwidgets/images/flat");
+	if (qf::qmlwidgets::isDarkTheme()) {
+		style->addIconSearchPath(":/qf/qmlwidgets/images/dark");
+	} else {
+		style->addIconSearchPath(":/qf/qmlwidgets/images/flat");
+	}
 	style->addIconSearchPath(":/qf/qmlwidgets/images");
 
 	loadStyleSheet();

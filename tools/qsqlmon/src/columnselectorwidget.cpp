@@ -18,14 +18,18 @@
 #include <qclipboard.h>
 
 //=================================================
-//             ColumnSelectorWidget
+// ColumnSelectorWidget
 //=================================================
 ColumnSelectorWidget::ColumnSelectorWidget(QString table_name, const QSqlDatabase &conn, QWidget *parent)
 	: Super(parent), m_tableName(table_name)
 {
 	ui = new Ui::ColumnSelectorWidget;
 	ui->setupUi(this);
-	//Qf::connectSlotsByName(centralWidget(), this);
+
+	connect(ui->btAll, &QAbstractButton::clicked, this, &ColumnSelectorWidget::onAll_clicked);
+	connect(ui->btInvert, &QAbstractButton::clicked, this, &ColumnSelectorWidget::onInvert_clicked);
+	connect(ui->btPasteSelectedColumns, &QAbstractButton::clicked, this, &ColumnSelectorWidget::onPasteSelectedColumns_clicked);
+
 	{
 		qf::core::sql::Connection dbi(conn);
 		QStringList fields = dbi.fields(m_tableName);
@@ -51,13 +55,13 @@ void ColumnSelectorWidget::lazyInit()
 	//QFXmlConfigPersistenter::loadPersistentDataRecursively(this);
 }
 
-void ColumnSelectorWidget::on_btAll_clicked()
+void ColumnSelectorWidget::onAll_clicked()
 {
 	QListWidget *w = ui->lstFields;
 	w->selectAll();
 }
 
-void ColumnSelectorWidget::on_btInvert_clicked()
+void ColumnSelectorWidget::onInvert_clicked()
 {
 	QListWidget *w = ui->lstFields;
 	QAbstractItemModel *m = w->model();
@@ -69,7 +73,7 @@ void ColumnSelectorWidget::on_btInvert_clicked()
 	}
 }
 
-void ColumnSelectorWidget::on_btPasteSelectedColumns_clicked()
+void ColumnSelectorWidget::onPasteSelectedColumns_clicked()
 {
 	QStringList col_names;
 	QListWidget *w = ui->lstFields;

@@ -13,10 +13,10 @@ public:
 public:
 	DlgEditConnection(QWidget *parent = nullptr);
 private slots:
-	void on_btOk_clicked();
-	void on_btCancel_clicked() {reject();}
-	void on_cbxDriver_currentIndexChanged(const QString &s);
-	void on_btFindDatabaseFile_clicked();
+	void onOkClicked();
+	void onCancelClicked() {reject();}
+	void onDriverCurrentIndexChanged(const QString &s);
+	void onFindDatabaseFileClicked();
 protected:
 	QStringList drivers;
 	QStringList codecs;

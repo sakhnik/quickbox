@@ -1367,10 +1367,10 @@ void EventPlugin::reloadRegistrationsModel()
 	m_registrationsTable = qf::core::utils::Table();
 }
 
-qf::core::model::SqlTableModel* EventPlugin::registrationsModel()
+qf::qmlwidgets::model::SqlTableModel* EventPlugin::registrationsModel()
 {
 	if(!m_registrationsModel) {
-		m_registrationsModel = new qf::core::model::SqlTableModel(this);
+		m_registrationsModel = new qf::qmlwidgets::model::SqlTableModel(this);
 		m_registrationsModel->addColumn("competitorName", tr("Name"));
 		m_registrationsModel->addColumn("registration", tr("Reg"));
 		m_registrationsModel->addColumn("licence", tr("Lic"));
@@ -1389,7 +1389,7 @@ qf::core::model::SqlTableModel* EventPlugin::registrationsModel()
 
 const qf::core::utils::Table &EventPlugin::registrationsTable()
 {
-	qf::core::model::SqlTableModel *m = registrationsModel();
+	qf::qmlwidgets::model::SqlTableModel *m = registrationsModel();
 	if(m_registrationsTable.isNull() && !m->table().isNull()) {
 		m_registrationsTable = m->table();
 		auto c_nsk = QStringLiteral("competitorNameAscii7");

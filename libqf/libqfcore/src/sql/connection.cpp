@@ -87,9 +87,11 @@ void Connection::close()
 Connection Connection::forName(const QString &connection_name)
 {
 	QString cn = connection_name;
-	if(cn.isEmpty())
+	if(cn.isEmpty()) {
 		cn = QSqlDatabase::defaultConnection;
-	Connection ret(QSqlDatabase::database(cn, false));
+	}
+	auto db = QSqlDatabase::database(cn, false);
+	Connection ret(db);
 	return ret;
 }
 

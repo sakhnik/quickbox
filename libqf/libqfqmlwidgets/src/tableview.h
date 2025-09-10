@@ -3,10 +3,10 @@
 
 #include "qmlwidgetsglobal.h"
 #include "framework/ipersistentsettings.h"
+#include "model/datadocument.h"
 
 #include <qf/core/utils.h>
 #include <qf/core/utils/table.h>
-#include <qf/core/model/datadocument.h>
 
 #include <QTableView>
 
@@ -25,7 +25,7 @@ class QFQMLWIDGETS_DECL_EXPORT TableView : public QTableView, public framework::
 	Q_OBJECT
 
 	Q_PROPERTY(QString persistentSettingsId READ persistentSettingsId WRITE setPersistentSettingsId)
-	Q_PROPERTY(qf::core::model::TableModel* model READ tableModel WRITE setTableModel)
+	Q_PROPERTY(qf::qmlwidgets::model::TableModel* model READ tableModel WRITE setTableModel)
 	Q_PROPERTY(RowEditorMode rowEditorMode READ rowEditorMode WRITE setRowEditorMode NOTIFY rowEditorModeChanged)
 	Q_PROPERTY(InlineEditSaveStrategy inlineEditSaveStrategy READ inlineEditSaveStrategy WRITE setInlineEditSaveStrategy NOTIFY inlineEditSaveStrategyChanged)
 	Q_PROPERTY(QString idColumnName READ idColumnName WRITE setIdColumnName)
@@ -52,11 +52,11 @@ public:
 		EditRowsMixed
 	};
 	enum RecordEditMode {
-		ModeView = qf::core::model::DataDocument::ModeView,
-		ModeEdit = qf::core::model::DataDocument::ModeEdit,
-		ModeInsert = qf::core::model::DataDocument::ModeInsert,
-		ModeCopy = qf::core::model::DataDocument::ModeCopy,
-		ModeDelete = qf::core::model::DataDocument::ModeDelete
+		ModeView = qf::qmlwidgets::model::DataDocument::ModeView,
+		ModeEdit = qf::qmlwidgets::model::DataDocument::ModeEdit,
+		ModeInsert = qf::qmlwidgets::model::DataDocument::ModeInsert,
+		ModeCopy = qf::qmlwidgets::model::DataDocument::ModeCopy,
+		ModeDelete = qf::qmlwidgets::model::DataDocument::ModeDelete
 	};
 
 	QF_PROPERTY_IMPL2(InlineEditSaveStrategy, i, I, nlineEditSaveStrategy, OnEditedValueCommit)
@@ -67,8 +67,8 @@ public:
 
 public:
 	QSortFilterProxyModel* sortFilterProxyModel() const;
-	qf::core::model::TableModel* tableModel() const;
-	void setTableModel(qf::core::model::TableModel* m);
+	qf::qmlwidgets::model::TableModel* tableModel() const;
+	void setTableModel(qf::qmlwidgets::model::TableModel* m);
 	//Q_SIGNAL void tableModelChanged();
 	Q_SIGNAL void currentRowChanged(int current_row);
 
@@ -169,7 +169,7 @@ private:
 	void seek(const QString &prefix_str);
 	void cancelSeek();
 
-	qf::core::utils::TreeTable toTreeTable(const QString& table_name = QString(), const QVariantList& exported_columns = QVariantList(), const qf::core::model::TableModel::TreeTableExportOptions &opts = qf::core::model::TableModel::TreeTableExportOptions()) const;
+	qf::core::utils::TreeTable toTreeTable(const QString& table_name = QString(), const QVariantList& exported_columns = QVariantList(), const qf::qmlwidgets::model::TableModel::TreeTableExportOptions &opts = qf::qmlwidgets::model::TableModel::TreeTableExportOptions()) const;
 	void exportReport_helper(const QVariant& _options);
 	void exportCSV_helper(const QVariant& export_options);
 protected:

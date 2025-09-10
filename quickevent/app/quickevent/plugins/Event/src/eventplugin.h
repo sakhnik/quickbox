@@ -15,7 +15,7 @@
 namespace qf::core::sql { class Query; class Connection; }
 namespace qf::qmlwidgets { class Action; }
 namespace qf::qmlwidgets::framework { class DockWidget; }
-namespace qf::core::model { class SqlTableModel; }
+namespace qf::qmlwidgets::model { class SqlTableModel; }
 
 class QComboBox;
 class DbSchema;
@@ -111,7 +111,7 @@ public:
 
 	Q_SLOT void onInstalled();
 
-	qf::core::model::SqlTableModel* registrationsModel();
+	qf::qmlwidgets::model::SqlTableModel* registrationsModel();
 	const qf::core::utils::Table& registrationsTable();
 
 public:
@@ -162,7 +162,7 @@ private:
 	qf::qmlwidgets::framework::DockWidget *m_servicesDockWidget = nullptr;
 	qf::qmlwidgets::framework::DockWidget *m_registrationsDockWidget = nullptr;
 
-	qf::core::model::SqlTableModel *m_registrationsModel = nullptr;
+	qf::qmlwidgets::model::SqlTableModel *m_registrationsModel = nullptr;
 	qf::core::utils::Table m_registrationsTable;
 };
 

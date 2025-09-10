@@ -10,7 +10,7 @@
 #include <plugins/Runs/src/runsplugin.h>
 
 #include <quickevent/gui/og/itemdelegate.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/siid.h>
 
@@ -40,11 +40,11 @@ using Event::EventPlugin;
 
 namespace {
 
-class CompetitorRunsModel : public quickevent::core::og::SqlTableModel
+class CompetitorRunsModel : public quickevent::gui::og::SqlTableModel
 {
 	Q_DECLARE_TR_FUNCTIONS(CompetitorRunsModel)
 private:
-	using Super = quickevent::core::og::SqlTableModel;
+	using Super = quickevent::gui::og::SqlTableModel;
 public:
 	CompetitorRunsModel(QObject *parent = nullptr);
 
@@ -256,7 +256,7 @@ CompetitorWidget::~CompetitorWidget()
 bool CompetitorWidget::loadRunsTable()
 {
 	//bool is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
-	qf::core::model::DataDocument *doc = dataController()->document();
+	qf::qmlwidgets::model::DataDocument *doc = dataController()->document();
 	qf::core::sql::QueryBuilder qb;
 	qb.select2("runs", "*")
 			.select2("classes", "name")
@@ -311,11 +311,11 @@ void CompetitorWidget::onRunsTableCustomContextMenuRequest(const QPoint &pos)
 */
 bool CompetitorWidget::load(const QVariant &id, int mode)
 {
-	ui->chkFind->setChecked(mode == qf::core::model::DataDocument::ModeInsert);
-	if(mode == qf::core::model::DataDocument::ModeInsert) {
+	ui->chkFind->setChecked(mode == qf::qmlwidgets::model::DataDocument::ModeInsert);
+	if(mode == qf::qmlwidgets::model::DataDocument::ModeInsert) {
 		ui->edFind->setFocus();
 	}
-	else if(mode == qf::core::model::DataDocument::ModeView || mode == qf::core::model::DataDocument::ModeDelete) {
+	else if(mode == qf::qmlwidgets::model::DataDocument::ModeView || mode == qf::qmlwidgets::model::DataDocument::ModeDelete) {
 		ui->frmFind->hide();
 	}
 	if(Super::load(id, mode))
@@ -469,7 +469,7 @@ QList<int> CompetitorWidget::possibleStartTimesMs(int run_id)
 // 	if(!saveData())
 // 		return;
 
-// 	qf::core::model::DataDocument*doc = dataController()->document();
+// 	qf::qmlwidgets::model::DataDocument*doc = dataController()->document();
 // 	int competitor_id = doc->value("competitors.id").toInt();
 // 	int class_id = ui->cbxClass->currentData().toInt();
 // 	QString sort_col = QStringLiteral("runs.startTimeMs");

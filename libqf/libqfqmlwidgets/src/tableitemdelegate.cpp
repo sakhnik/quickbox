@@ -1,5 +1,6 @@
 #include "tableitemdelegate.h"
 
+#include "style.h"
 #include "tableview.h"
 
 #include <qf/core/assert.h>
@@ -22,18 +23,6 @@ TableView * TableItemDelegate::view() const
 
 void TableItemDelegate::paintBackground(QPainter *painter, const QStyleOptionViewItem &option, const QModelIndex &index) const
 {
-	/**
-	Protoze z nepochopitelnyho duvodu neni funkce drawBackground() virtualni, musim patchovat QItemDelegate::drawBackground() v QT, kdyz chci podsvitit aktivni radek
-	qtitemdelegate.cpp:823
-
-	#if 1/// QF_PATCH patch pro podsviceni radku se selekci
-		QVariant value = index.data(Qt::BackgroundRole);
-		if(!value.isValid()) value = property("qfSelectedRowHighlightColor");
-	#else
-		QVariant value = index.data(Qt::BackgroundRole);
-	#endif
-
-	*/
 	TableView *v = view();
 	if(v) {
 		QModelIndex ix = v->currentIndex();
@@ -41,8 +30,8 @@ void TableItemDelegate::paintBackground(QPainter *painter, const QStyleOptionVie
 			/// fill current row background
 			/// da se to udelat i takhle bez patchovani QT
 			/// pozor, aby to fungovalo musi se jeste v TableView::currentChanged() volat updateRow() na radky u kterych se meni selekce
-			static const QColor sel_row_background1(245, 245, 184);
-			static const QColor sel_row_background2(210, 240, 184);
+			static const auto sel_row_background1 = isDarkTheme()? QColor(0x707010): QColor(245, 245, 184); // khaki
+			static const auto sel_row_background2 = isDarkTheme()? QColor(0x284125): QColor(245, 245, 184); // lime
 			painter->fillRect(option.rect, (v->inlineEditSaveStrategy() == TableView::OnEditedValueCommit)? sel_row_background2: sel_row_background1);
 		}
 		else {
@@ -50,7 +39,7 @@ void TableItemDelegate::paintBackground(QPainter *painter, const QStyleOptionVie
 			Qt::ItemFlags flags = index.flags();
 			//qfInfo() << "col:" << index.column() << "editable:" << f.contains(Qt::ItemIsEditable);
 			if(!(flags & Qt::ItemIsEditable)) {
-				static const QColor ro_cell_background(0xeeeeff);
+				static const auto ro_cell_background = isDarkTheme()? QColor(0x00264d):  QColor(0xeeeeff);
 				painter->fillRect(option.rect, ro_cell_background);
 			}
 		}

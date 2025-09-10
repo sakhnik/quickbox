@@ -2,11 +2,12 @@
 
 #include "datacontroller.h"
 
-#include <qf/core/model/datadocument.h>
+#include <qf/qmlwidgets/model/datadocument.h>
 #include <qf/core/assert.h>
 
-namespace qfm = qf::core::model;
-using namespace qf::qmlwidgets;
+namespace qfm = qf::qmlwidgets::model;
+
+namespace qf::qmlwidgets {
 
 IDataWidget::IDataWidget(QWidget *data_widget)
 	: m_dataWidget(data_widget)
@@ -69,3 +70,4 @@ bool IDataWidget::checkSetDataValueFirstTime()
 	return false;
 }
 
+}

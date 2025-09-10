@@ -6,7 +6,7 @@
 #include <qf/qmlwidgets/tableview.h>
 #include <qf/qmlwidgets/framework/mainwindow.h>
 
-#include <qf/core/model/sqltablemodel.h>
+#include <qf/qmlwidgets/model/sqltablemodel.h>
 #include <qf/core/sql/connection.h>
 #include <qf/core/sql/query.h>
 #include <qf/core/log.h>
@@ -15,7 +15,6 @@
 
 #include <QPainter>
 
-namespace qfs = qf::core::sql;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
@@ -57,7 +56,7 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 			// check that start time in classes is the same
 			if(index.column() == RunsTableModel::Columns::col_runs_startTimeMs) {
 				QVariant stime_v = m->data(index.sibling(index.row(), RunsTableModel::Columns::col_runs_startTimeMs), Qt::EditRole);
-				quickevent::core::og::TimeMs stime = stime_v.value<quickevent::core::og::TimeMs>();
+				auto stime = stime_v.value<quickevent::core::og::TimeMs>();
 				int start_ms = stime.msec();
 				if(!stime.isValid())
 					return;
@@ -73,7 +72,7 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 		else if(isStartTimeHighlightVisible() && m_classDef.classInterval > 0) {
 			//qfInfo() << "col:" << index.column() << m_highlightedClassId << "interval:" << m_classInterval << isStartTimeHighlightVisible();
 			QVariant stime_v = m->data(index.sibling(index.row(), RunsTableModel::Columns::col_runs_startTimeMs), Qt::EditRole);
-			quickevent::core::og::TimeMs stime = stime_v.value<quickevent::core::og::TimeMs>();
+			auto stime = stime_v.value<quickevent::core::og::TimeMs>();
 			int start_ms = stime.msec();
 			if(!stime.isValid())
 				return;
@@ -113,7 +112,7 @@ void RunsTableItemDelegate::paintBackground(QPainter *painter, const QStyleOptio
 				*/
 				else if(bad_club) {
 					//qfInfo() << (start_ms - prev_start_ms) << m_classInterval;
-					QColor c = QColor(Qt::magenta);
+					auto c = QColor(Qt::magenta);
 					painter->fillRect(option.rect, c);
 				}
 			}

@@ -16,7 +16,7 @@ namespace Ui {
 	class CardReaderWidget;
 }
 
-namespace quickevent::core::og { class SqlTableModel; }
+namespace quickevent::gui::og { class SqlTableModel; }
 
 namespace qf {
 namespace qmlwidgets {
@@ -109,7 +109,7 @@ private:
 private:
 	Ui::CardReaderWidget *ui;
 	qf::qmlwidgets::Action *m_actAssignCard = nullptr;
-	quickevent::core::og::SqlTableModel *m_cardsModel = nullptr;
+	quickevent::gui::og::SqlTableModel *m_cardsModel = nullptr;
 	quickevent::gui::audio::Player *m_audioPlayer = nullptr;
 	siut::DeviceDriver *f_siDriver = nullptr;
 	siut::CommPort *m_commPort = nullptr;

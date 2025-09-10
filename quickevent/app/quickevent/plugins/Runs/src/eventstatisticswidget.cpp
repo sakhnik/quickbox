@@ -8,7 +8,7 @@
 
 #include <quickevent/gui/reportoptionsdialog.h>
 
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 
 #include <qf/qmlwidgets/framework/mainwindow.h>
@@ -32,11 +32,11 @@ using Runs::RunsPlugin;
 //============================================================
 // EventStatisticsModel
 //============================================================
-class EventStatisticsModel : public quickevent::core::og::SqlTableModel
+class EventStatisticsModel : public quickevent::gui::og::SqlTableModel
 {
 	Q_DECLARE_TR_FUNCTIONS(EventStatisticsModel)
 private:
-	typedef quickevent::core::og::SqlTableModel Super;
+	typedef quickevent::gui::og::SqlTableModel Super;
 public:
 	enum Cols {
 		col_className,
@@ -207,7 +207,7 @@ QVariant EventStatisticsModel::data(const QModelIndex &index, int role) const
 }
 
 //============================================================
-//                FooterModel
+// FooterModel
 //============================================================
 class FooterModel : public QAbstractTableModel
 {
@@ -220,12 +220,12 @@ public:
 	QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 	QVariant headerData(int section, Qt::Orientation orientation, int role = Qt::DisplayRole) const Q_DECL_OVERRIDE;
 
-	qf::core::model::TableModel* masterModel() const;
-	void setMasterModel(qf::core::model::TableModel *masterModel);
+	qf::qmlwidgets::model::TableModel* masterModel() const;
+	void setMasterModel(qf::qmlwidgets::model::TableModel *masterModel);
 
 	void reload();
 private:
-	qf::core::model::TableModel *m_masterModel = nullptr;
+	qf::qmlwidgets::model::TableModel *m_masterModel = nullptr;
 	QVector<QVariant> m_columnSums;
 };
 
@@ -261,23 +261,20 @@ QVariant FooterModel::headerData(int section, Qt::Orientation orientation, int r
 		if(role == Qt::TextAlignmentRole) {
 			return Qt::AlignRight;
 		}
-		if(role == Qt::BackgroundRole) {
-			return QColor("khaki");
-		}
 	}
 	return Super::headerData(section, orientation, role);
 }
 
-qf::core::model::TableModel *FooterModel::masterModel() const
+qf::qmlwidgets::model::TableModel *FooterModel::masterModel() const
 {
 	QF_ASSERT_EX(m_masterModel != nullptr, "Master model is NULL");
 	return m_masterModel;
 }
 
-void FooterModel::setMasterModel(qf::core::model::TableModel *masterModel)
+void FooterModel::setMasterModel(qf::qmlwidgets::model::TableModel *masterModel)
 {
 	m_masterModel = masterModel;
-	connect(m_masterModel, &qf::core::model::SqlTableModel::reloaded, this, &FooterModel::reload);
+	connect(m_masterModel, &qf::qmlwidgets::model::SqlTableModel::reloaded, this, &FooterModel::reload);
 }
 
 void FooterModel::reload()
@@ -339,11 +336,11 @@ FooterView::FooterView(QTableView *table_view, QWidget *parent)
 	if(hh) {
 		//qfWarning() << "header view:" << hh->metaObject()->className();
 		//setMaximumHeight(hh->defaultSectionSize());
-		connect(hh, &QHeaderView::sectionResized, [this](int logical_index, int old_size, int new_size) {
+		connect(hh, &QHeaderView::sectionResized, this, [this](int logical_index, int old_size, int new_size) {
 			Q_UNUSED(old_size)
 			this->resizeSection(logical_index, new_size);
 		});
-		connect(hh, &QHeaderView::sectionMoved, [this](int logical_index, int old_visual_index, int new_visual_index) {
+		connect(hh, &QHeaderView::sectionMoved, this, [this](int logical_index, int old_visual_index, int new_visual_index) {
 			Q_UNUSED(logical_index)
 			this->moveSection(old_visual_index, new_visual_index);
 		});

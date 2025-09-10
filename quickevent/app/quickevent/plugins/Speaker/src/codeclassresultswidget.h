@@ -5,10 +5,8 @@
 
 class QJsonObject;
 
-namespace quickevent {  namespace core {
-namespace og { class SqlTableModel; }
-namespace si { class PunchRecord; }
-}}
+namespace quickevent::gui::og { class SqlTableModel; }
+namespace quickevent::core::si { class PunchRecord; }
 
 namespace Ui {
 class CodeClassResultsWidget;
@@ -37,7 +35,7 @@ protected:
 	//void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
 private:
 	Ui::CodeClassResultsWidget *ui;
-	quickevent::core::og::SqlTableModel *m_tableModel = nullptr;
+	quickevent::gui::og::SqlTableModel *m_tableModel = nullptr;
 	QTimer *m_reloadDeferredTimer = nullptr;
 	int m_pinnedToCode = ALL_CODES;
 };

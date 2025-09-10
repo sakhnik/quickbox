@@ -9,16 +9,10 @@
 
 class QAbstractButton;
 
-namespace qf {
-namespace core {
-class LogEntryMap;
-namespace model { class LogTableModel; }
-}
-}
+namespace qf::core { class LogEntryMap; }
+namespace qf::qmlwidgets::model { class LogTableModel; }
 
-namespace qf {
-namespace qmlwidgets {
-namespace framework {
+namespace qf::qmlwidgets::framework {
 
 class LogFilterProxyModel;
 
@@ -54,8 +48,8 @@ public:
 	Q_SLOT void checkScrollToLastEntry();
 
 	void clear();
-	virtual void setLogTableModel(qf::core::model::LogTableModel *m);
-	qf::core::model::LogTableModel* logTableModel();
+	virtual void setLogTableModel(qf::qmlwidgets::model::LogTableModel *m);
+	qf::qmlwidgets::model::LogTableModel* logTableModel();
 
 	Q_SIGNAL void severityTresholdChanged(NecroLog::Level lvl);
 	void setSeverityTreshold(NecroLog::Level lvl);
@@ -80,7 +74,7 @@ private:
 
 	bool isAutoScroll();
 protected:
-	qf::core::model::LogTableModel* m_logTableModel = nullptr;
+	qf::qmlwidgets::model::LogTableModel* m_logTableModel = nullptr;
 	LogFilterProxyModel* m_filterModel = nullptr;
 private:
 	Ui::LogWidget *ui;
@@ -91,8 +85,6 @@ private:
 	bool m_columnsResized = false;
 };
 
+}
 
-} // namespace framework
-} // namespace qmlwiggets
-} // namespace qf
 #endif // QF_QMLWIDGETS_FRAMEWORK_LOGWIDGET_H

@@ -9,12 +9,9 @@ namespace Ui {
 	class ReceiptsWidget;
 }
 
+namespace qf::qmlwidgets::model { class SqlTableModel; }
+
 namespace qf {
-namespace core {
-namespace model {
-class SqlTableModel;
-}
-}
 namespace qmlwidgets {
 class Action;
 namespace framework {
@@ -40,14 +37,14 @@ public:
 	explicit ReceiptsWidget(QWidget *parent = 0);
 	~ReceiptsWidget() Q_DECL_OVERRIDE;
 
-	void settleDownInPartWidget(::PartWidget *part_widget);
+	void settleDownInPartWidget(::PartWidget *part_widget) const;
 
 	Q_SLOT void reset();
 	Q_SLOT void reload();
 	bool isAutoPrintEnabled();
 
 private:
-	Q_SLOT void on_btPrintNew_clicked();
+	void onPrintNewClicked();
 	void onCustomContextMenuRequest(const QPoint &pos);
 	void printSelectedCards();
 
@@ -67,7 +64,7 @@ private:
 	bool thisReaderOnly();
 private:
 	Ui::ReceiptsWidget *ui;
-	qf::core::model::SqlTableModel *m_cardsModel = nullptr;
+	qf::qmlwidgets::model::SqlTableModel *m_cardsModel = nullptr;
 };
 
 #endif // RECEIPTSWIDGET_H

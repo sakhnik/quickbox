@@ -1,21 +1,23 @@
-#ifndef QF_CORE_MODEL_SQLTABLEMODEL_H
-#define QF_CORE_MODEL_SQLTABLEMODEL_H
+#pragma once
 
 #include "tablemodel.h"
-#include "../core/utils.h"
-#include "../sql/querybuilder.h"
+
+#include <qf/core/sql/connection.h>
+#include <qf/core/sql/querybuilder.h>
+#include <qf/core/utils/table.h>
+#include <qf/core/utils.h>
 
 #include <QMap>
 #include <QSqlError>
 
 namespace qf {
-namespace core {
+namespace qmlwidgets {
 namespace sql {
 class Connection;
 }
 namespace model {
 
-class QFCORE_DECL_EXPORT SqlTableModel : public TableModel
+class QFQMLWIDGETS_DECL_EXPORT SqlTableModel : public TableModel
 {
 	Q_OBJECT
 	Q_PROPERTY(QString query READ query WRITE setQuery NOTIFY queryChanged)
@@ -79,7 +81,7 @@ protected:
 	bool reloadQuery(const QString &query_str);
 
 	virtual bool reloadTable(const QString &query_str);
-	QStringList tableIds(const utils::Table::FieldList &table_fields);
+	QStringList tableIds(const qf::core::utils::Table::FieldList &table_fields);
 	void setSqlFlags(qf::core::utils::Table::FieldList &table_fields, const QString &query_str) const;
 
 	QSet<QString> referencedForeignTables();
@@ -99,4 +101,3 @@ protected:
 
 }}}
 
-#endif // QF_CORE_MODEL_SQLTABLEMODEL_H

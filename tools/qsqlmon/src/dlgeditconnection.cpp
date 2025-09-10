@@ -14,6 +14,12 @@ DlgEditConnection::DlgEditConnection(QWidget *parent) :
 {
 	qfLogFuncFrame();
 	setupUi(this);
+
+	connect(Ui_DlgEditConnection::btOk, &QAbstractButton::clicked, this, &DlgEditConnection::onOkClicked);
+	connect(Ui_DlgEditConnection::btCancel, &QAbstractButton::clicked, this, &DlgEditConnection::onCancelClicked);
+	connect(Ui_DlgEditConnection::cbxDriver, &QComboBox::currentTextChanged, this, &DlgEditConnection::onDriverCurrentIndexChanged);
+	connect(Ui_DlgEditConnection::btFindDatabaseFile, &QAbstractButton::clicked, this, &DlgEditConnection::onFindDatabaseFileClicked);
+
 	btFindDatabaseFile->setVisible(false);
 	drivers = QSqlDatabase::drivers();
 	//drivers << "QMYSQL" << "QFMYSQL" << "QPSQL" << "QFPSQL" << "QSQLITE" << "QFSQLITE" << "QIBASE" << "QFIBASE";
@@ -71,7 +77,7 @@ const Connection::Params &DlgEditConnection::params()
 	return m_connectionParams;
 }
 
-void DlgEditConnection::on_btOk_clicked()
+void DlgEditConnection::onOkClicked()
 {
 	/*
 	if(!currConnection) {
@@ -93,7 +99,7 @@ void DlgEditConnection::on_btOk_clicked()
 	accept();
 }
 
-void DlgEditConnection::on_cbxDriver_currentIndexChanged(const QString &s)
+void DlgEditConnection::onDriverCurrentIndexChanged(const QString &s)
 {
 	qfLogFuncFrame() << s << (s.endsWith("SQLITE") || s.endsWith("IBASE"));
 	//qfTrash() << QF_FUNC_NAME << s << QFSqlConnectionBase::defaultPort(s);
@@ -111,7 +117,7 @@ void DlgEditConnection::on_cbxDriver_currentIndexChanged(const QString &s)
 	}
 }
 
-void DlgEditConnection::on_btFindDatabaseFile_clicked()
+void DlgEditConnection::onFindDatabaseFileClicked()
 {
 	QString s = edDatabase->text();
 	s = qf::qmlwidgets::dialogs::FileDialog::getOpenFileName(this, tr("Open database file"), s);

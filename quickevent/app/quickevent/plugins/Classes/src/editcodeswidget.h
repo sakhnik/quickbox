@@ -7,9 +7,7 @@ namespace Ui {
 class EditCodesWidget;
 }
 
-namespace qf {
-namespace core { namespace model { class SqlTableModel; } }
-}
+namespace qf::qmlwidgets::model { class SqlTableModel; }
 
 class EditCodesWidget : public qf::qmlwidgets::framework::DialogWidget
 {
@@ -21,7 +19,7 @@ public:
 	~EditCodesWidget() Q_DECL_OVERRIDE;
 private:
 	Ui::EditCodesWidget *ui;
-	qf::core::model::SqlTableModel *m_tableModel;
+	qf::qmlwidgets::model::SqlTableModel *m_tableModel;
 };
 
 #endif // EDITCODESWIDGET_H

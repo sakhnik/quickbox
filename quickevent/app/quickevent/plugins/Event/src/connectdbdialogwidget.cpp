@@ -23,6 +23,7 @@ ConnectDbDialogWidget::ConnectDbDialogWidget(QWidget *parent) :
 		if(checked)
 			ui->dataStorageStackedWidget->setCurrentWidget(ui->pgSingleFile);
 	});
+	connect(ui->btSingleWorkingDirectory, &QAbstractButton::clicked, this, &ConnectDbDialogWidget::onSingleWorkingDirectoryClicked);
 }
 
 ConnectDbDialogWidget::~ConnectDbDialogWidget()
@@ -103,7 +104,7 @@ void ConnectDbDialogWidget::saveSettings()
 	settings.setSingleWorkingDir(ui->edSingleWorkingDir->text());
 }
 
-void ConnectDbDialogWidget::on_btSingleWorkingDirectory_clicked()
+void ConnectDbDialogWidget::onSingleWorkingDirectoryClicked()
 {
 	//qf::qmlwidgets::framework::MainWindow *fwk = qf::qmlwidgets::framework::MainWindow::frameWork();
 	QString wd = qf::qmlwidgets::dialogs::FileDialog::getExistingDirectory(this, tr("Event files directory"), ui->edSingleWorkingDir->text());

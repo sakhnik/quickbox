@@ -4,7 +4,7 @@
 #include <plugins/Event/src/eventplugin.h>
 
 #include <quickevent/core/codedef.h>
-#include <quickevent/core/og/sqltablemodel.h>
+#include <quickevent/gui/og/sqltablemodel.h>
 #include <quickevent/core/og/timems.h>
 #include <quickevent/core/si/punchrecord.h>
 
@@ -20,11 +20,6 @@
 #include <QJsonObject>
 #include <QTimer>
 
-namespace qfs = qf::core::sql;
-namespace qfw = qf::qmlwidgets;
-namespace qff = qf::qmlwidgets::framework;
-namespace qfd = qf::qmlwidgets::dialogs;
-namespace qfm = qf::core::model;
 using qf::qmlwidgets::framework::getPlugin;
 using Event::EventPlugin;
 
@@ -38,7 +33,7 @@ CodeClassResultsWidget::CodeClassResultsWidget(QWidget *parent)
 	//ui->tblView->setPersistentSettingsId("tblView");
 	//ui->tblPunches->setRowEditorMode(qfw::TableView::EditRowsMixed);
 	//ui->tblPunches->setInlineEditSaveStrategy(qfw::TableView::OnEditedValueCommit);
-	quickevent::core::og::SqlTableModel *m = new quickevent::core::og::SqlTableModel(this);
+	auto *m = new quickevent::gui::og::SqlTableModel(this);
 	m->addColumn("competitorName", tr("Competitor"));
 	m->addColumn("competitors.registration", tr("Reg"));//.setReadOnly(true);
 	m->addColumn("timeMs", tr("Time")).setCastType(qMetaTypeId<quickevent::core::og::TimeMs>());
@@ -132,10 +127,10 @@ void CodeClassResultsWidget::reset(int class_id, int code, int pin_to_code)
 	if(pin_to_code == ALL_CODES) {
 		ui->lblCode->show();
 		ui->lstCode->show();
-		connect(ui->lstClass, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), [this](int ) {
+		connect(ui->lstClass, static_cast<void (QComboBox::*)(int)>(&QComboBox::currentIndexChanged), this, [this](int ) {
 			int stage_id = getPlugin<EventPlugin>()->currentStageId();
 			int class_id = this->ui->lstClass->currentData().toInt();
-			ui->lstCode->blockSignals(true);
+			QSignalBlocker b1(ui->lstCode);
 			ui->lstCode->clear();
 			ui->lstCode->addItem(tr("Results"), RESULTS_PUNCH_CODE);
 			ui->lstCode->addItem(tr("Finish"), quickevent::core::CodeDef::FINISH_PUNCH_CODE);
@@ -156,11 +151,11 @@ void CodeClassResultsWidget::reset(int class_id, int code, int pin_to_code)
 				QVariant code = q.value(0);
 				bool radio =  q.value(1).toBool();
 				QString caption = code.toString();
-				if(radio)
+				if(radio) {
 					caption += " " + tr("R", "Radio station");
+				}
 				ui->lstCode->addItem(caption, code);
 			}
-			ui->lstCode->blockSignals(false);
 		});
 
 		ui->lstClass->setCurrentIndex(ui->lstClass->findData(class_id));

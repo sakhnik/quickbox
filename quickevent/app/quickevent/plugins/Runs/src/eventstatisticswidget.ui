@@ -32,10 +32,10 @@
    <item>
     <widget class="QFrame" name="frame">
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QHBoxLayout" name="horizontalLayout">
       <property name="spacing">
@@ -73,7 +73,7 @@
          <string>Print results in selected rows</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
+         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
           <normaloff>:/qf/qmlwidgets/images/flat/printer.svg</normaloff>:/qf/qmlwidgets/images/flat/printer.svg</iconset>
         </property>
         <property name="autoRaise">
@@ -87,7 +87,7 @@
          <string>Clear new results in selected rows</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
+         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
           <normaloff>:/qf/qmlwidgets/images/flat/delete.svg</normaloff>:/qf/qmlwidgets/images/flat/delete.svg</iconset>
         </property>
         <property name="autoRaise">
@@ -101,7 +101,7 @@
          <string>Reload table</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
+         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
           <normaloff>:/qf/qmlwidgets/images/flat/reload.svg</normaloff>:/qf/qmlwidgets/images/flat/reload.svg</iconset>
         </property>
         <property name="autoRaise">
@@ -115,7 +115,7 @@
          <string>Options</string>
         </property>
         <property name="icon">
-         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc">
+         <iconset resource="../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc">
           <normaloff>:/qf/qmlwidgets/images/flat/settings.svg</normaloff>:/qf/qmlwidgets/images/flat/settings.svg</iconset>
         </property>
         <property name="autoRaise">
@@ -126,7 +126,7 @@
       <item>
        <spacer name="horizontalSpacer_2">
         <property name="orientation">
-         <enum>Qt::Horizontal</enum>
+         <enum>Qt::Orientation::Horizontal</enum>
         </property>
         <property name="sizeHint" stdset="0">
          <size>
@@ -159,7 +159,7 @@
   </customwidget>
  </customwidgets>
  <resources>
-  <include location="../../../../../../libqf/libqfqmlwidgets/images/flat/flat.qrc"/>
+  <include location="../../../../../../libqf/libqfqmlwidgets/images/flat/qf_qmlwidgets_images_flat.qrc"/>
   <include location="../Runs.qrc"/>
  </resources>
  <connections/>

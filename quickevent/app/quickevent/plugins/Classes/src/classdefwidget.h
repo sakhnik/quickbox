@@ -16,7 +16,7 @@ public:
 	ClassDefWidget(QWidget *parent = nullptr);
 	~ClassDefWidget() Q_DECL_OVERRIDE;
 
-	bool load(const QVariant &id = QVariant(), int mode = qf::core::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
+	bool load(const QVariant &id = QVariant(), int mode = qf::qmlwidgets::model::DataDocument::ModeEdit) Q_DECL_OVERRIDE;
 private:
 	Ui::ClassDefWidget *ui;
 };
