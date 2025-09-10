@@ -22,27 +22,27 @@ QMenu::item, QMenuBar::item {
      background: darkgray;
  }
  
-qf--qmlwidgets--framework--PartSwitch {
+qf--gui--framework--PartSwitch {
 	background: #525252;
 /* 	background-color: #525252; */
 /* 	color: white; */
 /* 	border: 2px solid gray; */
 }
 
-qf--qmlwidgets--framework--PartSwitch::handle {
+qf--gui--framework--PartSwitch::handle {
 	/*
 	 *	background: #525252;
 	 *	 background: lightgray;
 	 */
 }
 
-qf--qmlwidgets--framework--PartSwitch QToolButton {
+qf--gui--framework--PartSwitch QToolButton {
 /* 	background-color: #525252; */
 	color: white;
 	padding: 2px;
 }
 
-qf--qmlwidgets--framework--PartSwitch QToolButton:hover {
+qf--gui--framework--PartSwitch QToolButton:hover {
 /* 	
  *	background: lightsteelblue;
  *	color: black;
@@ -53,7 +53,7 @@ qf--qmlwidgets--framework--PartSwitch QToolButton:hover {
 	border: 2px outset #525252;
 }
 
-qf--qmlwidgets--framework--PartSwitch QToolButton:checked {
+qf--gui--framework--PartSwitch QToolButton:checked {
 	/*background: green;
 	color: red;*/
 	background: #f0f0f0;
@@ -61,7 +61,7 @@ qf--qmlwidgets--framework--PartSwitch QToolButton:checked {
 	border: 1px solid #525252;
 }
 
-qf--qmlwidgets--dialogs--internal--CaptionFrame {
+qf--gui--dialogs--internal--CaptionFrame {
 	/*background: #FDE364; yellow */
 	/*background: #FFA842; orange */
 /* 	background: lightsteelblue; */
@@ -75,12 +75,12 @@ QWidget#CaptionFrame {
 	color:black;
 	font-weight: bold;
 }
-qf--qmlwidgets--dialogs--internal--CaptionFrame[alert="true"] {
+qf--gui--dialogs--internal--CaptionFrame[alert="true"] {
 	background: salmon;
 	/*background: #FFA842;*/
 }
 
-qf--qmlwidgets--dialogs--internal--CaptionFrame QLabel {
+qf--gui--dialogs--internal--CaptionFrame QLabel {
 	font: 14pt;
 /* 	color: white; */
 	color:black;
