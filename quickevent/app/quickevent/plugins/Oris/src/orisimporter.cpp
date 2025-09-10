@@ -683,7 +683,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 				QVariantList tr = QVariantList() << QStringLiteral("tr");
 				if(doc->mode() == Competitors::CompetitorDocument::ModeInsert) {
 					doc->setProperty(KEY_IS_DATA_DIRTY, true);
-					for(QString fldn : fields) {
+					for(const auto &fldn : fields) {
 						auto td = QVariantList() << QStringLiteral("td") << field_string(doc, fldn);
 						tr.insert(tr.length(), td);
 					}
@@ -691,7 +691,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 				}
 				else if(doc->mode() == Competitors::CompetitorDocument::ModeEdit) {
 					static QVariantMap green_attrs{{QStringLiteral("bgcolor"), QStringLiteral("khaki")}};
-					for(QString fldn : fields) {
+					for(const auto &fldn : fields) {
 						bool is_dirty = false;
 						if(fldn == QLatin1String(KEY_RUNS)) {
 							Runs runs(doc->property(KEY_RUNS));
@@ -744,14 +744,14 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 			qf::gui::dialogs::Dialog dlg(QDialogButtonBox::Save | QDialogButtonBox::Cancel, fwk);
 			qf::gui::DialogButtonBox *bbx = dlg.buttonBox();
 			auto *bt_no_drops = new QPushButton(tr("Save without drops"));
-			bool no_drops = false;
-			connect(bt_no_drops, &QPushButton::clicked, [&no_drops]() {
-				no_drops = true;
+			auto no_drops = std::make_shared<bool>(false);
+			connect(bt_no_drops, &QPushButton::clicked, [no_drops]() {
+				*no_drops = true;
 			});
 			bbx->addButton(bt_no_drops, QDialogButtonBox::AcceptRole);
 
 			auto *bt_export = new QPushButton(tr("Export"));
-			connect(bt_export, &QPushButton::clicked, [fwk, html]() {
+			connect(bt_export, &QPushButton::clicked, fwk, [fwk, html]() {
 				QString fn = qf::gui::dialogs::FileDialog::getSaveFileName(fwk, tr("Export as ..."), "changes.html", tr("HTML files *.html (*.html)"));
 				if(fn.isEmpty())
 					return;
@@ -772,7 +772,6 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 			if(dlg.exec()) {
 				qfLogScope("importEventEntries");
 				qf::core::sql::Transaction transaction;
-				//QMap<int, int> cid_sid_changes; // competitorId->siId
 				for(Competitors::CompetitorDocument *doc : doc_lst) {
 					doc->setEmitDbEventsOnSave(false);
 					if(doc->mode() == Competitors::CompetitorDocument::ModeInsert || doc->mode() == Competitors::CompetitorDocument::ModeEdit) {
@@ -795,7 +794,7 @@ void OrisImporter::syncEventEntries(int event_id, std::function<void ()> success
 						}
 					}
 					else if(doc->mode() == Competitors::CompetitorDocument::ModeDelete) {
-						if(!no_drops)
+						if(!*no_drops)
 							doc->drop();
 					}
 				}

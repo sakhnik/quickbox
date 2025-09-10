@@ -44,25 +44,10 @@ void OrisPlugin::onInstalled()
 		qfw::Action *a = act_import_oris->addActionInto("syncEntries", tr("&Sync current event entries"));
 		connect(a, &qfw::Action::triggered, m_orisImporter, [this]() { m_orisImporter->syncCurrentEventEntries(); });
 		a->setEnabled(false);
-		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, a, [a](bool is_event_open) {
 			a->setEnabled(is_event_open);
 		});
 	}
-	/*
-	//act_import_oris->addSeparatorInto();
-	{
-		qfw::Action *a = act_import_oris->addActionInto("syncRelaysEntries", tr("Sync &relays entries"));
-		connect(a, &qfw::Action::triggered, m_orisImporter, &OrisImporter::syncRelaysEntries);
-		a->setVisible(false);
-		connect(event_plugin, &Event::EventPlugin::eventOpenChanged, [a](bool is_db_open) {
-			bool is_relays = false;
-			if(is_db_open) {
-				is_relays = getPlugin<EventPlugin>()->eventConfig()->isRelays();
-			}
-			a->setVisible(is_relays);
-		});
-	}
-	*/
 	act_import_oris->addSeparatorInto();
 	{
 		auto a = act_import_oris->addActionInto("clubs", tr("&Clubs and registrations"));
@@ -72,23 +57,23 @@ void OrisPlugin::onInstalled()
 			});
 		});
 		a->setEnabled(false);
-		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, a, [a](bool is_event_open) {
 			a->setEnabled(is_event_open);
 		});
 	}
 	{
 		auto a = act_import_oris->addActionInto("onet-time-clubs", tr("&Update one-time clubs"));
-		connect(a, &qfw::Action::triggered, m_orisImporter, [this]() {
+		connect(a, &qfw::Action::triggered, this, [this]() {
 				m_orisImporter->importMissingOneTimeClubs();
 		});
 		a->setEnabled(false);
-		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [a](bool is_event_open) {
+		connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, a, [a](bool is_event_open) {
 			a->setEnabled(is_event_open);
 		});
 	}
 	qf::gui::Action *act_import_txt = act_import->addMenuInto("text", tr("&Text file"));
 	act_import_txt->setEnabled(false);
-	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, [act_import_txt](bool is_event_open) {
+	connect(getPlugin<EventPlugin>(), &Event::EventPlugin::eventOpenChanged, act_import_txt, [act_import_txt](bool is_event_open) {
 		act_import_txt->setEnabled(is_event_open);
 	});
 	{

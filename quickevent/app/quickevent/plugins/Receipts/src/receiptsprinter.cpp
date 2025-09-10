@@ -56,7 +56,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		QF_TIME_SCOPE("init graphics printer");
 		QPrinterInfo pi = QPrinterInfo::printerInfo(settings.graphicsPrinterName());
 		if(pi.isNull()) {
-			for(auto s : QPrinterInfo::availablePrinterNames()) {
+			for(const auto &s : QPrinterInfo::availablePrinterNames()) {
 				qfInfo() << "available printer:" << s;
 			}
 			pi = QPrinterInfo::defaultPrinter();
@@ -83,8 +83,8 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		auto *plugin = qf::gui::framework::getPlugin<Receipts::ReceiptsPlugin>();
 		if(!rp.setReport(plugin->findReportFile(report_file_name)))
 			return false;
-		for(auto key : report_data.keys()) {
-			rp.setTableData(key, report_data.value(key));
+		for(const auto &[key, val] : report_data.asKeyValueRange()) {
+			rp.setTableData(key, val);
 		}
 	}
 	if(settings.printerTypeEnum() == ReceiptsSettings::PrinterType::GraphicPrinter) {
@@ -107,7 +107,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 		QF_SAFE_DELETE(printer);
 		return true;
 	}
-	else if(settings.printerTypeEnum() == ReceiptsSettings::PrinterType::CharacterPrinter) {
+	if(settings.printerTypeEnum() == ReceiptsSettings::PrinterType::CharacterPrinter) {
 		QDomDocument doc;
 		doc.setContent(QLatin1String("<?xml version=\"1.0\"?><report><body/></report>"));
 		QDomElement el_body = doc.documentElement().firstChildElement("body");
@@ -120,16 +120,14 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 			QFile f(fn);
 			if(f.open(QFile::WriteOnly)) {
 				//qfInfo() << "writing receipt data to:" << fn;
-				for(QByteArray ba : data_lines) {
+				for(const auto &ba : data_lines) {
 					f.write(ba);
 					f.write("\n");
 				}
 				return true;
 			}
-			else {
-				qfError() << "Cannot open file" << f.fileName() << "for writing!";
-				return false;
-			}
+			qfError() << "Cannot open file" << f.fileName() << "for writing!";
+			return false;
 		};
 		switch(settings.characterPrinterTypeEnum()) {
 			case ReceiptsSettings::CharacterPrinteType::Directory: {
@@ -137,7 +135,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 					QString fn = settings.characterPrinterDirectory();
 					qf::core::utils::FileUtils::ensurePath(fn);
 					QCryptographicHash ch(QCryptographicHash::Sha1);
-					for(QByteArray ba : data_lines)
+					for(const auto &ba : data_lines)
 						ch.addData(ba);
 					fn += '/' + QString::number(card_id) + '-'
 							+ QString::fromLatin1(ch.result().toHex().mid(0, 8)) + ".txt";
@@ -169,7 +167,7 @@ bool ReceiptsPrinter::printReceipt(const QString &report_file_name, const QVaria
 						socket.writeDatagram(dgram, host_addr, port);
 						return true;
 					}
-					else {
+					{
 						QTcpSocket socket;
 						socket.connectToHost(host_addr, port, QIODevice::WriteOnly);
 						if (socket.waitForConnected(1000)) {
