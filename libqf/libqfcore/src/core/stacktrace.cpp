@@ -2,17 +2,15 @@
 
 #include <QStringList>
 
-#if defined Q_CC_GNU && !defined Q_CC_MINGW && !defined ANDROID
+namespace qf::core {
+
+#if defined Q_CC_GNU && !defined Q_CC_MINGW && !defined Q_OS_ANDROID && !defined Q_OS_WASM
+
 #include <cstdlib>
 #include <execinfo.h>
-#endif
 
-using namespace qf::core;
-
-
-QStringList StackTrace::stackTrace()
+QStringList stackTrace()
 {
-#if defined Q_CC_GNU && !defined Q_CC_MINGW
 	const int max_frames = 100;
 	void* addrlist[max_frames]; // NOLINT(modernize-avoid-c-arrays)
 
@@ -33,8 +31,15 @@ QStringList StackTrace::stackTrace()
 
 	free(symbollist); // NOLINT(bugprone-multi-level-implicit-pointer-conversion,cppcoreguidelines-no-malloc,hicpp-no-malloc)
 	return sl_ret;
-#else
-	return {};
-#endif
 }
 
+#else
+
+QStringList stackTrace()
+{
+	return {};
+}
+
+#endif
+
+}
