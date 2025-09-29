@@ -472,7 +472,7 @@ void ConfigCLIOptions::mergeConfig_helper(const QString &key_prefix, const QVari
 			}
 		}
 #if QT_VERSION_MAJOR >= 6
-		else if(v.typeId() == QMetaType::QVariant) {
+		else if(v.typeId() == QMetaType::QVariantMap) {
 #else
 		else if(v.type() == QVariant::Map) {
 #endif
