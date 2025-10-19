@@ -3,6 +3,7 @@
 #include <qf/core/log.h>
 #include <qf/core/collator.h>
 #include <qf/gui/model/tablemodel.h>
+#include <qf/gui/style.h>
 
 #include <QColor>
 #include <QDateTime>
@@ -74,14 +75,17 @@ void TableViewProxyModel::addSortColumn(int column)
 
 QVariant TableViewProxyModel::data(const QModelIndex &index, int role) const
 {
-	QVariant ret = Super::data(index, role);
 	if(!m_rowFilterString.isEmpty()) {
 		if(role == Qt::BackgroundRole) {
-			if(dataMatchFilter(data(index)))
-				ret = QColor(Qt::yellow);
+			if(dataMatchFilter(data(index))) {
+				static const auto bg = qf::gui::isDarkTheme()
+						? QColor("olive")
+						: QColor(Qt::yellow);
+				return bg;
+			}
 		}
 	}
-	return ret;
+	return Super::data(index, role);
 }
 
 QVariant TableViewProxyModel::headerData(int section, Qt::Orientation orientation, int role) const
