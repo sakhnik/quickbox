@@ -43,6 +43,9 @@ For now, most of the [documentation](https://github.com/Quick-Event/quickbox/wik
 * [Instalace tiskárny a nastavení tisku mezičasů](https://github.com/Quick-Event/quickbox/wiki/Instalace-tisk%C3%A1rny-a-nastaven%C3%AD-tisku-mezi%C4%8Das%C5%AF)
 * [Často kladené otázky, FAQ](https://github.com/Quick-Event/quickbox/wiki/%C4%8Casto-kladen%C3%A9-ot%C3%A1zky%2C-FAQ)
 
+### Links
+* [quickevent.cz](https://quickevent.cz)
+
 ---
 ## QuickEvent installation
 #### Windows
