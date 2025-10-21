@@ -11,127 +11,94 @@
 <context>
     <name>qf::core::model::LogTableModel</name>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="49"/>
         <source>Category</source>
-        <translation>Категорія</translation>
+        <translation type="vanished">Категорія</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="51"/>
         <source>File</source>
-        <translation>Файл</translation>
+        <translation type="vanished">Файл</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="53"/>
         <source>Line</source>
-        <translation>Рядок</translation>
+        <translation type="vanished">Рядок</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="55"/>
         <source>Severity</source>
-        <translation>Серйозність</translation>
+        <translation type="vanished">Серйозність</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="57"/>
         <source>Time stamp</source>
-        <translation>Час</translation>
+        <translation type="vanished">Час</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="59"/>
         <source>Message</source>
-        <translation>Повідомлення</translation>
+        <translation type="vanished">Повідомлення</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="61"/>
         <source>Function</source>
-        <translation>Функція</translation>
+        <translation type="vanished">Функція</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="63"/>
         <source>Data</source>
-        <translation>Дані</translation>
+        <translation type="vanished">Дані</translation>
     </message>
 </context>
 <context>
     <name>qf::core::model::SqlTableModel</name>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="230"/>
         <source>numRowsAffected() = %1, should be 1
 %2</source>
-        <translation>numRowsAffected() = %1, повинно бути 1
+        <translation type="vanished">numRowsAffected() = %1, повинно бути 1
 %2</translation>
     </message>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="256"/>
         <source>Error executing query: %1
  %2</source>
-        <translation>Помилка виконання запиту: %1
+        <translation type="vanished">Помилка виконання запиту: %1
  %2</translation>
     </message>
 </context>
 <context>
     <name>qf::core::model::TableModel</name>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="342"/>
-        <location filename="src/model/tablemodel.cpp" line="440"/>
-        <location filename="src/model/tablemodel.cpp" line="471"/>
-        <location filename="src/model/tablemodel.cpp" line="575"/>
         <source>Cannot find table field index for column index: %1</source>
-        <translation>Неможливо знайти індекс поля таблиці для індексу стовпця: %1</translation>
+        <translation type="vanished">Неможливо знайти індекс поля таблиці для індексу стовпця: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="436"/>
-        <location filename="src/model/tablemodel.cpp" line="467"/>
-        <location filename="src/model/tablemodel.cpp" line="571"/>
         <source>Invalid table row: %1</source>
-        <translation>Некоректний рядок таблиці: %1</translation>
+        <translation type="vanished">Некоректний рядок таблиці: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="443"/>
-        <location filename="src/model/tablemodel.cpp" line="474"/>
-        <location filename="src/model/tablemodel.cpp" line="578"/>
         <source>Invalid table field index: %1</source>
-        <translation>Некоректний індекс поля таблиці: %1</translation>
+        <translation type="vanished">Некоректний індекс поля таблиці: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="459"/>
-        <location filename="src/model/tablemodel.cpp" line="504"/>
-        <location filename="src/model/tablemodel.cpp" line="528"/>
-        <location filename="src/model/tablemodel.cpp" line="563"/>
-        <location filename="src/model/tablemodel.cpp" line="589"/>
         <source>Cannot find column index for name: &apos;%1&apos;</source>
-        <translation>Неможливо знайти індекс стовпця для назви: «%1»</translation>
+        <translation type="vanished">Неможливо знайти індекс стовпця для назви: «%1»</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="490"/>
         <source>%2 Cannot find table field for column index: %1 (row index: %3)</source>
-        <translation>%2 Не вдається знайти поле таблиці для індексу стовпця: %1 (індекс рядка: %3)</translation>
+        <translation type="vanished">%2 Не вдається знайти поле таблиці для індексу стовпця: %1 (індекс рядка: %3)</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="515"/>
-        <location filename="src/model/tablemodel.cpp" line="550"/>
         <source>Cannot find table field for column index: %1</source>
-        <translation>Не вдається знайти поле таблиці для індексу стовпця: %1</translation>
+        <translation type="vanished">Не вдається знайти поле таблиці для індексу стовпця: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="634"/>
-        <location filename="src/model/tablemodel.cpp" line="695"/>
         <source>Invalid column index: %1</source>
-        <translation>Недійсний індекс стовпця: %1</translation>
+        <translation type="vanished">Недійсний індекс стовпця: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="643"/>
         <source>Invalid field for column index: %1</source>
-        <translation>Недійсне поле для індексу стовпця: %1</translation>
+        <translation type="vanished">Недійсне поле для індексу стовпця: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="684"/>
         <source>Column named &apos;%1&apos; not found in column list. Existing columns: [%2]</source>
-        <translation>Стовпець з назвою «%1» не знайдено у списку стовпців. Наявні стовпці: [%2]</translation>
+        <translation type="vanished">Стовпець з назвою «%1» не знайдено у списку стовпців. Наявні стовпці: [%2]</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="714"/>
         <source>Cannot find table field for column index: %1, table index: %2</source>
-        <translation>Не вдається знайти поле таблиці для індексу стовпця: %1, індекс таблиці: %2</translation>
+        <translation type="vanished">Не вдається знайти поле таблиці для індексу стовпця: %1, індекс таблиці: %2</translation>
     </message>
 </context>
 <context>

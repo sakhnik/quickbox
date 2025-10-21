@@ -11,127 +11,94 @@
 <context>
     <name>qf::core::model::LogTableModel</name>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="49"/>
         <source>Category</source>
-        <translation>Kategorie</translation>
+        <translation type="vanished">Kategorie</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="51"/>
         <source>File</source>
-        <translation>Soubor</translation>
+        <translation type="vanished">Soubor</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="53"/>
         <source>Line</source>
-        <translation>Řádek</translation>
+        <translation type="vanished">Řádek</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="55"/>
         <source>Severity</source>
-        <translation>Závažnost</translation>
+        <translation type="vanished">Závažnost</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="57"/>
         <source>Time stamp</source>
-        <translation>Časová značka</translation>
+        <translation type="vanished">Časová značka</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="59"/>
         <source>Message</source>
-        <translation>Zpráva</translation>
+        <translation type="vanished">Zpráva</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="61"/>
         <source>Function</source>
-        <translation>Funkce</translation>
+        <translation type="vanished">Funkce</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="63"/>
         <source>Data</source>
-        <translation>Data</translation>
+        <translation type="vanished">Data</translation>
     </message>
 </context>
 <context>
     <name>qf::core::model::SqlTableModel</name>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="230"/>
         <source>numRowsAffected() = %1, should be 1
 %2</source>
-        <translation>numRowsAffected() = %1, mělo by být 1
+        <translation type="vanished">numRowsAffected() = %1, mělo by být 1
 %2</translation>
     </message>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="256"/>
         <source>Error executing query: %1
  %2</source>
-        <translation>Chyba při zpracování dotazu: %1
+        <translation type="vanished">Chyba při zpracování dotazu: %1
  %2</translation>
     </message>
 </context>
 <context>
     <name>qf::core::model::TableModel</name>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="342"/>
-        <location filename="src/model/tablemodel.cpp" line="440"/>
-        <location filename="src/model/tablemodel.cpp" line="471"/>
-        <location filename="src/model/tablemodel.cpp" line="575"/>
         <source>Cannot find table field index for column index: %1</source>
-        <translation>Nelze najít index políčka tabulky pro index sloupce: %1</translation>
+        <translation type="vanished">Nelze najít index políčka tabulky pro index sloupce: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="436"/>
-        <location filename="src/model/tablemodel.cpp" line="467"/>
-        <location filename="src/model/tablemodel.cpp" line="571"/>
         <source>Invalid table row: %1</source>
-        <translation>Neplatný řádek tabulky: %1</translation>
+        <translation type="vanished">Neplatný řádek tabulky: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="443"/>
-        <location filename="src/model/tablemodel.cpp" line="474"/>
-        <location filename="src/model/tablemodel.cpp" line="578"/>
         <source>Invalid table field index: %1</source>
-        <translation>Neplatný index políčka tabulky: %1</translation>
+        <translation type="vanished">Neplatný index políčka tabulky: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="459"/>
-        <location filename="src/model/tablemodel.cpp" line="504"/>
-        <location filename="src/model/tablemodel.cpp" line="528"/>
-        <location filename="src/model/tablemodel.cpp" line="563"/>
-        <location filename="src/model/tablemodel.cpp" line="589"/>
         <source>Cannot find column index for name: &apos;%1&apos;</source>
-        <translation>Nelze najít index sloupce pro jméno: &apos;%1&apos;</translation>
+        <translation type="vanished">Nelze najít index sloupce pro jméno: &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="490"/>
         <source>%2 Cannot find table field for column index: %1 (row index: %3)</source>
-        <translation>%2 Nelze najít políčko tabulky pro index sloupce: %1 (index řádku: %3)</translation>
+        <translation type="vanished">%2 Nelze najít políčko tabulky pro index sloupce: %1 (index řádku: %3)</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="515"/>
-        <location filename="src/model/tablemodel.cpp" line="550"/>
         <source>Cannot find table field for column index: %1</source>
-        <translation>Nelze najít políčko tabulky pro index sloupce: %1</translation>
+        <translation type="vanished">Nelze najít políčko tabulky pro index sloupce: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="634"/>
-        <location filename="src/model/tablemodel.cpp" line="695"/>
         <source>Invalid column index: %1</source>
-        <translation>Neplatný index sloupce: %1</translation>
+        <translation type="vanished">Neplatný index sloupce: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="643"/>
         <source>Invalid field for column index: %1</source>
-        <translation>Neplatné políčko pro index sloupce: %1</translation>
+        <translation type="vanished">Neplatné políčko pro index sloupce: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="684"/>
         <source>Column named &apos;%1&apos; not found in column list. Existing columns: [%2]</source>
-        <translation>Sloupec s názvem &apos;%1&apos; nebyl v seznamu sloupců nalezen. Existující sloupce: [%2]</translation>
+        <translation type="vanished">Sloupec s názvem &apos;%1&apos; nebyl v seznamu sloupců nalezen. Existující sloupce: [%2]</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="714"/>
         <source>Cannot find table field for column index: %1, table index: %2</source>
-        <translation>Nelze najít políčko tabulky pro index sloupce %1, index tabulky: %2</translation>
+        <translation type="vanished">Nelze najít políčko tabulky pro index sloupce %1, index tabulky: %2</translation>
     </message>
 </context>
 <context>

@@ -11,127 +11,94 @@
 <context>
     <name>qf::core::model::LogTableModel</name>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="49"/>
         <source>Category</source>
-        <translation>Kategori</translation>
+        <translation type="vanished">Kategori</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="51"/>
         <source>File</source>
-        <translation>Fil</translation>
+        <translation type="vanished">Fil</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="53"/>
         <source>Line</source>
-        <translation>Linje</translation>
+        <translation type="vanished">Linje</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="55"/>
         <source>Severity</source>
-        <translation>Alvorlighetsgrad</translation>
+        <translation type="vanished">Alvorlighetsgrad</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="57"/>
         <source>Time stamp</source>
-        <translation>Tidsstempel</translation>
+        <translation type="vanished">Tidsstempel</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="59"/>
         <source>Message</source>
-        <translation>Melding</translation>
+        <translation type="vanished">Melding</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="61"/>
         <source>Function</source>
-        <translation>Funksjon</translation>
+        <translation type="vanished">Funksjon</translation>
     </message>
     <message>
-        <location filename="src/model/logtablemodel.cpp" line="63"/>
         <source>Data</source>
-        <translation>Data</translation>
+        <translation type="vanished">Data</translation>
     </message>
 </context>
 <context>
     <name>qf::core::model::SqlTableModel</name>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="230"/>
         <source>numRowsAffected() = %1, should be 1
 %2</source>
-        <translation>numRowsAffected() = %1, skal være 1
+        <translation type="vanished">numRowsAffected() = %1, skal være 1
 %2</translation>
     </message>
     <message>
-        <location filename="src/model/sqltablemodel.cpp" line="256"/>
         <source>Error executing query: %1
  %2</source>
-        <translation>Klarte ikke å kjøre spørring: %1
+        <translation type="vanished">Klarte ikke å kjøre spørring: %1
  %2</translation>
     </message>
 </context>
 <context>
     <name>qf::core::model::TableModel</name>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="342"/>
-        <location filename="src/model/tablemodel.cpp" line="440"/>
-        <location filename="src/model/tablemodel.cpp" line="471"/>
-        <location filename="src/model/tablemodel.cpp" line="575"/>
         <source>Cannot find table field index for column index: %1</source>
-        <translation>Finner ikke tabellfelt-indeks for kolonne-indeks: %1</translation>
+        <translation type="vanished">Finner ikke tabellfelt-indeks for kolonne-indeks: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="436"/>
-        <location filename="src/model/tablemodel.cpp" line="467"/>
-        <location filename="src/model/tablemodel.cpp" line="571"/>
         <source>Invalid table row: %1</source>
-        <translation>Ugyldig tabellrad: %1</translation>
+        <translation type="vanished">Ugyldig tabellrad: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="443"/>
-        <location filename="src/model/tablemodel.cpp" line="474"/>
-        <location filename="src/model/tablemodel.cpp" line="578"/>
         <source>Invalid table field index: %1</source>
-        <translation>Ugyldig tabellfeltindeks: %1</translation>
+        <translation type="vanished">Ugyldig tabellfeltindeks: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="459"/>
-        <location filename="src/model/tablemodel.cpp" line="504"/>
-        <location filename="src/model/tablemodel.cpp" line="528"/>
-        <location filename="src/model/tablemodel.cpp" line="563"/>
-        <location filename="src/model/tablemodel.cpp" line="589"/>
         <source>Cannot find column index for name: &apos;%1&apos;</source>
-        <translation>Finner ikke kolonneindeks for navn: &quot;%1&quot;</translation>
+        <translation type="vanished">Finner ikke kolonneindeks for navn: &quot;%1&quot;</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="490"/>
         <source>%2 Cannot find table field for column index: %1 (row index: %3)</source>
-        <translation>%2 Finner ikke tabellfelt for kolonneindeks: %1 (radindeks: %3)</translation>
+        <translation type="vanished">%2 Finner ikke tabellfelt for kolonneindeks: %1 (radindeks: %3)</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="515"/>
-        <location filename="src/model/tablemodel.cpp" line="550"/>
         <source>Cannot find table field for column index: %1</source>
-        <translation>Finner ikke tabellfelt for kolonneindeks: %1</translation>
+        <translation type="vanished">Finner ikke tabellfelt for kolonneindeks: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="634"/>
-        <location filename="src/model/tablemodel.cpp" line="695"/>
         <source>Invalid column index: %1</source>
-        <translation>Ugyldig kolonneindeks: %1</translation>
+        <translation type="vanished">Ugyldig kolonneindeks: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="643"/>
         <source>Invalid field for column index: %1</source>
-        <translation>Ugyldig felt for kolonneindeks: %1</translation>
+        <translation type="vanished">Ugyldig felt for kolonneindeks: %1</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="684"/>
         <source>Column named &apos;%1&apos; not found in column list. Existing columns: [%2]</source>
-        <translation>Kolonnen ved navn «%1» ble ikke funnet i kolonnelisten. Kolonner som finnes: [%2]</translation>
+        <translation type="vanished">Kolonnen ved navn «%1» ble ikke funnet i kolonnelisten. Kolonner som finnes: [%2]</translation>
     </message>
     <message>
-        <location filename="src/model/tablemodel.cpp" line="714"/>
         <source>Cannot find table field for column index: %1, table index: %2</source>
-        <translation>Finner ikke tabellfelt for kolonneindeks: %1, tabellindeks: %2</translation>
+        <translation type="vanished">Finner ikke tabellfelt for kolonneindeks: %1, tabellindeks: %2</translation>
     </message>
 </context>
 <context>

@@ -63,7 +63,7 @@ SELECT ...</source>
 <context>
     <name>Database</name>
     <message>
-        <location filename="src/servertreeitem.cpp" line="428"/>
+        <location filename="src/servertreeitem.cpp" line="417"/>
         <source>Error opening database %1</source>
         <translation>Chyba při otvírání databáze %1</translation>
     </message>
@@ -118,12 +118,12 @@ SELECT ...</source>
         <translation>Poznámka</translation>
     </message>
     <message>
-        <location filename="src/dlgaltertable.cpp" line="231"/>
+        <location filename="src/dlgaltertable.cpp" line="238"/>
         <source>Realy drop column &apos;%1&apos;</source>
         <translation type="unfinished">Opravdu zahodit sloupec &apos;%1&apos;</translation>
     </message>
     <message>
-        <location filename="src/dlgaltertable.cpp" line="291"/>
+        <location filename="src/dlgaltertable.cpp" line="298"/>
         <source>Do you realy want to drop index %1?</source>
         <translation type="unfinished"></translation>
     </message>
@@ -192,8 +192,8 @@ SELECT ...</source>
     </message>
     <message>
         <location filename="src/dlgcolumndef.ui" line="183"/>
-        <location filename="src/dlgcolumndef.cpp" line="331"/>
-        <location filename="src/dlgcolumndef.cpp" line="338"/>
+        <location filename="src/dlgcolumndef.cpp" line="332"/>
+        <location filename="src/dlgcolumndef.cpp" line="339"/>
         <source>default</source>
         <translation>Základní</translation>
     </message>
@@ -354,7 +354,7 @@ p, li { white-space: pre-wrap; }
         <translation>&amp;Zrušit</translation>
     </message>
     <message>
-        <location filename="src/dlgeditconnection.cpp" line="117"/>
+        <location filename="src/dlgeditconnection.cpp" line="123"/>
         <source>Open database file</source>
         <translation>Otevřít databázový soubor</translation>
     </message>
@@ -611,226 +611,225 @@ p, li { white-space: pre-wrap; }
     </message>
     <message>
         <location filename="src/mainwindow.cpp" line="557"/>
-        <location filename="src/mainwindow.cpp" line="623"/>
+        <location filename="src/mainwindow.cpp" line="615"/>
         <source>No active connection !</source>
         <translation>Žádné aktivní připojení !</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="578"/>
-        <location filename="src/mainwindow.cpp" line="603"/>
-        <location filename="src/mainwindow.cpp" line="630"/>
+        <location filename="src/mainwindow.cpp" line="596"/>
+        <location filename="src/mainwindow.cpp" line="622"/>
         <source>affected rows: %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="928"/>
+        <location filename="src/mainwindow.cpp" line="918"/>
         <source>Server menu</source>
         <translation>Server menu</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="939"/>
+        <location filename="src/mainwindow.cpp" line="929"/>
         <source>Connection menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="941"/>
+        <location filename="src/mainwindow.cpp" line="931"/>
         <source>Edit connection</source>
         <translation>Upravit připojení</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="942"/>
+        <location filename="src/mainwindow.cpp" line="932"/>
         <source>Copy connection</source>
         <translation>Zkopírovat připojení</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="943"/>
+        <location filename="src/mainwindow.cpp" line="933"/>
         <source>Remove connection</source>
         <translation>Odebrat připojení</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="956"/>
+        <location filename="src/mainwindow.cpp" line="946"/>
         <source>Delete connection ?</source>
         <translation>Smazat připojení?</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="971"/>
+        <location filename="src/mainwindow.cpp" line="961"/>
         <source>Database menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="972"/>
+        <location filename="src/mainwindow.cpp" line="962"/>
         <source>Create schema</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="975"/>
-        <location filename="src/mainwindow.cpp" line="1006"/>
-        <location filename="src/mainwindow.cpp" line="1223"/>
+        <location filename="src/mainwindow.cpp" line="965"/>
+        <location filename="src/mainwindow.cpp" line="996"/>
+        <location filename="src/mainwindow.cpp" line="1213"/>
         <source>Query</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="975"/>
+        <location filename="src/mainwindow.cpp" line="965"/>
         <source>Enter schema name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="996"/>
+        <location filename="src/mainwindow.cpp" line="986"/>
         <source>Schema menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="997"/>
+        <location filename="src/mainwindow.cpp" line="987"/>
         <source>Create table</source>
         <translation>Vytvořit tabulku</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="999"/>
+        <location filename="src/mainwindow.cpp" line="989"/>
         <source>Create database script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1000"/>
+        <location filename="src/mainwindow.cpp" line="990"/>
         <source>Dump database script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1002"/>
+        <location filename="src/mainwindow.cpp" line="992"/>
         <source>Drop schema</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1003"/>
+        <location filename="src/mainwindow.cpp" line="993"/>
         <source>Check database</source>
         <translation type="unfinished">Zkontrolovat databázi</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1006"/>
+        <location filename="src/mainwindow.cpp" line="996"/>
         <source>Enter table name</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1050"/>
+        <location filename="src/mainwindow.cpp" line="1040"/>
         <source>Realy drop schema &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1101"/>
+        <location filename="src/mainwindow.cpp" line="1091"/>
         <source>Table menu</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1102"/>
+        <location filename="src/mainwindow.cpp" line="1092"/>
         <source>Show columns</source>
         <translation>Zobrazit sloupce</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1103"/>
+        <location filename="src/mainwindow.cpp" line="1093"/>
         <source>Show indexes</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1104"/>
+        <location filename="src/mainwindow.cpp" line="1094"/>
         <source>Show foreign keys</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1105"/>
+        <location filename="src/mainwindow.cpp" line="1095"/>
         <source>Create table script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1106"/>
+        <location filename="src/mainwindow.cpp" line="1096"/>
         <source>Dump table script</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1108"/>
+        <location filename="src/mainwindow.cpp" line="1098"/>
         <source>Column selector</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1110"/>
+        <location filename="src/mainwindow.cpp" line="1100"/>
         <source>Alter table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1111"/>
+        <location filename="src/mainwindow.cpp" line="1101"/>
         <source>Drop table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1112"/>
+        <location filename="src/mainwindow.cpp" line="1102"/>
         <source>Truncate table</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1113"/>
+        <location filename="src/mainwindow.cpp" line="1103"/>
         <source>Rename table</source>
         <translation>Přejmenovat tabulku</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1120"/>
+        <location filename="src/mainwindow.cpp" line="1110"/>
         <source>Check table</source>
         <translation>Zkontrolovat tabulku</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1121"/>
+        <location filename="src/mainwindow.cpp" line="1111"/>
         <source>Repair table</source>
         <translation>Opravit tabulku</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1122"/>
+        <location filename="src/mainwindow.cpp" line="1112"/>
         <source>Optimize table</source>
         <translation>Optimalizovat tabulku</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1191"/>
+        <location filename="src/mainwindow.cpp" line="1181"/>
         <source>Not implemented yet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1223"/>
+        <location filename="src/mainwindow.cpp" line="1213"/>
         <source>Enter new table name for table %1</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1237"/>
+        <location filename="src/mainwindow.cpp" line="1227"/>
         <source>Realy drop the table &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1249"/>
+        <location filename="src/mainwindow.cpp" line="1239"/>
         <source>Realy truncate the table &apos;%1&apos;</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1350"/>
+        <location filename="src/mainwindow.cpp" line="1340"/>
         <source>Plugins found (looked in %1):</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1356"/>
+        <location filename="src/mainwindow.cpp" line="1346"/>
         <source>checking: </source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1360"/>
+        <location filename="src/mainwindow.cpp" line="1350"/>
         <source>OK </source>
         <translation>OK</translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1363"/>
+        <location filename="src/mainwindow.cpp" line="1353"/>
         <source>ERROR </source>
         <translation>CHYBA </translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1456"/>
+        <location filename="src/mainwindow.cpp" line="1446"/>
         <source>Get delimiter</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/mainwindow.cpp" line="1456"/>
+        <location filename="src/mainwindow.cpp" line="1446"/>
         <source>SQL commands delimiter (one character):</source>
         <translation type="unfinished"></translation>
     </message>

@@ -15,41 +15,41 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::ExportTableViewWidget</name>
+    <name>qf::gui::ExportTableViewWidget</name>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="30"/>
         <source>CSV options</source>
-        <translation>CSV-valg</translation>
+        <translation type="unfinished">CSV-valg</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="42"/>
         <source>header</source>
-        <translation>hode</translation>
+        <translation type="unfinished">hode</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="60"/>
         <source>lines from</source>
-        <translation>linjer fra</translation>
+        <translation type="unfinished">linjer fra</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="89"/>
         <source>to</source>
-        <translation>til</translation>
+        <translation type="unfinished">til</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="102"/>
         <source>value -1 means all lines</source>
-        <translation>verdien -1 betyr alle linjer</translation>
+        <translation type="unfinished">verdien -1 betyr alle linjer</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="147"/>
         <source>codec</source>
-        <translation>kodek</translation>
+        <translation type="unfinished">kodek</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="178"/>
@@ -59,42 +59,42 @@
     <message>
         <location filename="src/exporttableviewwidget.ui" line="186"/>
         <source>other</source>
-        <translation>annet</translation>
+        <translation type="unfinished">annet</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="202"/>
         <source>,</source>
-        <translation>,</translation>
+        <translation type="unfinished">,</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="224"/>
         <source>Tab</source>
-        <translation>Fane</translation>
+        <translation type="unfinished">Fane</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="237"/>
         <source>quotes</source>
-        <translation>sitat</translation>
+        <translation type="unfinished">sitat</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="243"/>
         <source>alwa&amp;ys</source>
-        <translation>all&amp;tid</translation>
+        <translation type="unfinished">all&amp;tid</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="250"/>
         <source>when necessary</source>
-        <translation>når nødvendig</translation>
+        <translation type="unfinished">når nødvendig</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="260"/>
         <source>ne&amp;ver</source>
-        <translation>al&amp;dri</translation>
+        <translation type="unfinished">al&amp;dri</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="269"/>
         <source>quote char</source>
-        <translation>sitattegn</translation>
+        <translation type="unfinished">sitattegn</translation>
     </message>
     <message>
         <location filename="src/exporttableviewwidget.ui" line="282"/>
@@ -103,7 +103,7 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::HeaderView</name>
+    <name>qf::gui::HeaderView</name>
     <message>
         <location filename="src/headerview.cpp" line="65"/>
         <source>Resize section to contents</source>
@@ -131,53 +131,53 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::HtmlViewWidget</name>
+    <name>qf::gui::HtmlViewWidget</name>
     <message>
         <location filename="src/htmlviewwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::SaveOptionsWidget</name>
+    <name>qf::gui::SaveOptionsWidget</name>
     <message>
         <location filename="src/saveoptionswidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/saveoptionswidget.ui" line="78"/>
         <location filename="src/saveoptionswidget.ui" line="94"/>
         <source>...</source>
-        <translation>…</translation>
+        <translation type="unfinished">…</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::TableView</name>
+    <name>qf::gui::TableView</name>
     <message>
         <location filename="src/tableview.cpp" line="77"/>
         <source>Left click selects all, right click for menu.</source>
-        <translation>Venstreklikk velger alt, høyreklikk åpner menyen.</translation>
+        <translation type="unfinished">Venstreklikk velger alt, høyreklikk åpner menyen.</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="680"/>
         <source>Enter value</source>
-        <translation>Skriv inn verdi</translation>
+        <translation type="unfinished">Skriv inn verdi</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="680"/>
         <source>new value:</source>
-        <translation>ny verdi:</translation>
+        <translation type="unfinished">ny verdi:</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="787"/>
         <source>Save File</source>
-        <translation>Lagre fil</translation>
+        <translation type="unfinished">Lagre fil</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="799"/>
         <source>Open File</source>
-        <translation>Åpne fil</translation>
+        <translation type="unfinished">Åpne fil</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="956"/>
@@ -187,7 +187,7 @@
     <message>
         <location filename="src/tableview.cpp" line="962"/>
         <source>Cannot open file &apos;%1&apos; for writing.</source>
-        <translation>Kan ikke åpne filen «%1» for skriving.</translation>
+        <translation type="unfinished">Kan ikke åpne filen «%1» for skriving.</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1573"/>
@@ -218,7 +218,7 @@
     <message>
         <location filename="src/tableview.cpp" line="1603"/>
         <source>Copy</source>
-        <translation>Kopier</translation>
+        <translation type="unfinished">Kopier</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1606"/>
@@ -245,7 +245,7 @@
     <message>
         <location filename="src/tableview.cpp" line="1634"/>
         <source>Insert row</source>
-        <translation>Sett inn rad</translation>
+        <translation type="unfinished">Sett inn rad</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1635"/>
@@ -256,7 +256,7 @@
     <message>
         <location filename="src/tableview.cpp" line="1643"/>
         <source>Delete selected rows</source>
-        <translation>Slett valgte rader</translation>
+        <translation type="unfinished">Slett valgte rader</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1644"/>
@@ -295,7 +295,7 @@
         <location filename="src/tableview.cpp" line="1677"/>
         <source>Ctrl+D</source>
         <comment>insert row copy</comment>
-        <translation>Ctrl+D</translation>
+        <translation type="unfinished">Ctrl+D</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1691"/>
@@ -331,7 +331,7 @@
     <message>
         <location filename="src/tableview.cpp" line="1742"/>
         <source>Edit cell content</source>
-        <translation>Rediger celleinnhold</translation>
+        <translation type="unfinished">Rediger celleinnhold</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1744"/>
@@ -405,7 +405,7 @@
     <message>
         <location filename="src/tableview.cpp" line="1834"/>
         <source>Calculate</source>
-        <translation>Regn ut</translation>
+        <translation type="unfinished">Regn ut</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1841"/>
@@ -431,12 +431,12 @@
         <location filename="src/tableview.cpp" line="1868"/>
         <location filename="src/tableview.cpp" line="1906"/>
         <source>CSV</source>
-        <translation>CSV</translation>
+        <translation type="unfinished">CSV</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1875"/>
         <source>HTML</source>
-        <translation>HTML</translation>
+        <translation type="unfinished">HTML</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="1883"/>
@@ -451,17 +451,17 @@
     <message>
         <location filename="src/tableview.cpp" line="1899"/>
         <source>Import</source>
-        <translation>Importer</translation>
+        <translation type="unfinished">Importer</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="2032"/>
         <source>Enter start value</source>
-        <translation>Skriv inn startverdi</translation>
+        <translation type="unfinished">Skriv inn startverdi</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="2032"/>
         <source>start value:</source>
-        <translation>startverdi:</translation>
+        <translation type="unfinished">startverdi:</translation>
     </message>
     <message>
         <location filename="src/tableview.cpp" line="2171"/>
@@ -471,11 +471,11 @@
     <message>
         <location filename="src/tableview.cpp" line="2174"/>
         <source>Do you really want to remove all selected rows?</source>
-        <translation>Fjern alle valgte rader?</translation>
+        <translation type="unfinished">Fjern alle valgte rader?</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::TableViewToolBar</name>
+    <name>qf::gui::TableViewToolBar</name>
     <message>
         <location filename="src/tableviewtoolbar.cpp" line="67"/>
         <source>Filter</source>
@@ -483,11 +483,11 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::TextEditWidget</name>
+    <name>qf::gui::TextEditWidget</name>
     <message>
         <location filename="src/texteditwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="70"/>
@@ -513,32 +513,32 @@
     <message>
         <location filename="src/texteditwidget.cpp" line="128"/>
         <source>Print</source>
-        <translation>Skriv ut</translation>
+        <translation type="unfinished">Skriv ut</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="134"/>
         <source>Save</source>
-        <translation>Lagre</translation>
+        <translation type="unfinished">Lagre</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="140"/>
         <source>Save as</source>
-        <translation>Lagre som</translation>
+        <translation type="unfinished">Lagre som</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="146"/>
         <source>Wrap lines</source>
-        <translation>Linjebryting</translation>
+        <translation type="unfinished">Linjebryting</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="159"/>
         <source>&amp;File</source>
-        <translation>&amp;Fil</translation>
+        <translation type="unfinished">&amp;Fil</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="166"/>
         <source>&amp;View</source>
-        <translation>&amp;Vis</translation>
+        <translation type="unfinished">&amp;Vis</translation>
     </message>
     <message>
         <location filename="src/texteditwidget.cpp" line="215"/>
@@ -552,53 +552,53 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::dialogs::Dialog</name>
+    <name>qf::gui::dialogs::Dialog</name>
     <message>
         <location filename="src/dialogs/dialog.cpp" line="137"/>
         <source>Delete</source>
-        <translation>Slett</translation>
+        <translation type="unfinished">Slett</translation>
     </message>
     <message>
         <location filename="src/dialogs/dialog.cpp" line="140"/>
         <source>Save</source>
-        <translation>Lagre</translation>
+        <translation type="unfinished">Lagre</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::dialogs::MessageBox</name>
+    <name>qf::gui::dialogs::MessageBox</name>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="27"/>
         <source>Show this message again</source>
-        <translation>Vis denne meldingen igjen</translation>
+        <translation type="unfinished">Vis denne meldingen igjen</translation>
     </message>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="44"/>
         <source>Exception</source>
-        <translation>Unntak</translation>
+        <translation type="unfinished">Unntak</translation>
     </message>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="54"/>
         <source>Error</source>
-        <translation>Feil</translation>
+        <translation type="unfinished">Feil</translation>
     </message>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="59"/>
         <source>Warning</source>
-        <translation>Advarsel</translation>
+        <translation type="unfinished">Advarsel</translation>
     </message>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="64"/>
         <source>Information</source>
-        <translation>Info</translation>
+        <translation type="unfinished">Info</translation>
     </message>
     <message>
         <location filename="src/dialogs/messagebox.cpp" line="70"/>
         <source>Question</source>
-        <translation>Spørsmål</translation>
+        <translation type="unfinished">Spørsmål</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::dialogs::PreviewDialog</name>
+    <name>qf::gui::dialogs::PreviewDialog</name>
     <message>
         <location filename="src/dialogs/previewdialog.cpp" line="43"/>
         <location filename="src/dialogs/previewdialog.cpp" line="54"/>
@@ -612,20 +612,20 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::dialogs::internal::CaptionFrame</name>
+    <name>qf::gui::dialogs::internal::CaptionFrame</name>
     <message>
         <location filename="src/dialogs/internal/captionframe.cpp" line="110"/>
         <source>Delete </source>
-        <translation>Slett </translation>
+        <translation type="unfinished">Slett </translation>
     </message>
     <message>
         <location filename="src/dialogs/internal/captionframe.cpp" line="114"/>
         <source>Edit </source>
-        <translation>Rediger </translation>
+        <translation type="unfinished">Rediger </translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::framework::DialogWidget</name>
+    <name>qf::gui::framework::DialogWidget</name>
     <message>
         <location filename="src/framework/dialogwidget.cpp" line="50"/>
         <source>Cannot find action name &apos;%1&apos;</source>
@@ -633,16 +633,16 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::framework::LogWidget</name>
+    <name>qf::gui::framework::LogWidget</name>
     <message>
         <location filename="src/framework/logwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/framework/logwidget.ui" line="37"/>
         <source>Show:</source>
-        <translation>Vis:</translation>
+        <translation type="unfinished">Vis:</translation>
     </message>
     <message>
         <location filename="src/framework/logwidget.ui" line="47"/>
@@ -652,12 +652,12 @@
     <message>
         <location filename="src/framework/logwidget.ui" line="74"/>
         <source>Clear</source>
-        <translation>Tøm</translation>
+        <translation type="unfinished">Tøm</translation>
     </message>
     <message>
         <location filename="src/framework/logwidget.ui" line="88"/>
         <source>Copy to clipboard.</source>
-        <translation>Kopier til utklippstavle.</translation>
+        <translation type="unfinished">Kopier til utklippstavle.</translation>
     </message>
     <message>
         <location filename="src/framework/logwidget.ui" line="102"/>
@@ -675,37 +675,37 @@
         <translation type="unfinished">…</translation>
     </message>
     <message>
-        <location filename="src/framework/logwidget.cpp" line="101"/>
+        <location filename="src/framework/logwidget.cpp" line="113"/>
         <source>Maximal log length</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/framework/logwidget.cpp" line="106"/>
+        <location filename="src/framework/logwidget.cpp" line="118"/>
         <source>Get number</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="src/framework/logwidget.cpp" line="106"/>
+        <location filename="src/framework/logwidget.cpp" line="118"/>
         <source>Maximal log row count:</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::framework::LogWidgetTableView</name>
+    <name>qf::gui::framework::LogWidgetTableView</name>
     <message>
-        <location filename="src/framework/logwidget.cpp" line="32"/>
+        <location filename="src/framework/logwidget.cpp" line="30"/>
         <source>Copy</source>
         <translation type="unfinished">Kopier</translation>
     </message>
     <message>
-        <location filename="src/framework/logwidget.cpp" line="35"/>
+        <location filename="src/framework/logwidget.cpp" line="33"/>
         <source>Ctrl+C</source>
         <comment>Copy selection</comment>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::framework::MainWindow</name>
+    <name>qf::gui::framework::MainWindow</name>
     <message>
         <location filename="src/framework/mainwindow.cpp" line="301"/>
         <source>Plugin for feature id: &apos;%1&apos; is not installed!</source>
@@ -713,7 +713,7 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::framework::PartSwitch</name>
+    <name>qf::gui::framework::PartSwitch</name>
     <message>
         <location filename="src/framework/partswitch.cpp" line="33"/>
         <source>Part switch</source>
@@ -721,22 +721,7 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::internal::DlgTableViewCopySpecial</name>
-    <message>
-        <location filename="src/internal/dlgtableviewcopyspecial.cpp" line="12"/>
-        <source>Quote field if needed</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="src/internal/dlgtableviewcopyspecial.cpp" line="13"/>
-        <source>Never</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="src/internal/dlgtableviewcopyspecial.cpp" line="14"/>
-        <source>Always</source>
-        <translation type="unfinished"></translation>
-    </message>
+    <name>qf::gui::internal::DlgTableViewCopySpecial</name>
     <message>
         <location filename="src/internal/dlgtableviewcopyspecial.ui" line="14"/>
         <source>Dialog</source>
@@ -777,9 +762,24 @@
         <source>replace escapes</source>
         <translation type="unfinished"></translation>
     </message>
+    <message>
+        <location filename="src/internal/dlgtableviewcopyspecial.cpp" line="12"/>
+        <source>Quote field if needed</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/internal/dlgtableviewcopyspecial.cpp" line="13"/>
+        <source>Never</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/internal/dlgtableviewcopyspecial.cpp" line="14"/>
+        <source>Always</source>
+        <translation type="unfinished"></translation>
+    </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::internal::TableViewChooseColumnsWidget</name>
+    <name>qf::gui::internal::TableViewChooseColumnsWidget</name>
     <message>
         <location filename="src/internal/tableviewchoosecolumnswidget.ui" line="14"/>
         <source>Form</source>
@@ -840,43 +840,167 @@
     <message>
         <location filename="src/internal/tableviewchoosecolumnswidget.ui" line="182"/>
         <source>model</source>
-        <translation>modell</translation>
+        <translation type="unfinished">modell</translation>
     </message>
     <message>
         <location filename="src/internal/tableviewchoosecolumnswidget.ui" line="196"/>
         <source>table</source>
-        <translation>tabell</translation>
+        <translation type="unfinished">tabell</translation>
     </message>
     <message>
         <location filename="src/internal/tableviewchoosecolumnswidget.cpp" line="36"/>
         <source>name</source>
-        <translation>navn</translation>
+        <translation type="unfinished">navn</translation>
     </message>
     <message>
         <location filename="src/internal/tableviewchoosecolumnswidget.cpp" line="36"/>
         <source>width</source>
-        <translation>bredde</translation>
+        <translation type="unfinished">bredde</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::internal::TableViewCopyToDialogWidget</name>
+    <name>qf::gui::internal::TableViewCopyToDialogWidget</name>
     <message>
         <location filename="src/internal/tableviewcopytodialogwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/internal/tableviewcopytodialogwidget.ui" line="30"/>
         <source>Insert rows</source>
-        <translation>Sett inn rader</translation>
+        <translation type="unfinished">Sett inn rader</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::reports::ItemValueEditorWidget</name>
+    <name>qf::gui::model::LogTableModel</name>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="49"/>
+        <source>Category</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="51"/>
+        <source>File</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="53"/>
+        <source>Line</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="55"/>
+        <source>Severity</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="57"/>
+        <source>Time stamp</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="59"/>
+        <source>Message</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="61"/>
+        <source>Function</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/logtablemodel.cpp" line="63"/>
+        <source>Data</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>qf::gui::model::SqlTableModel</name>
+    <message>
+        <location filename="src/model/sqltablemodel.cpp" line="231"/>
+        <source>numRowsAffected() = %1, should be 1
+%2</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/sqltablemodel.cpp" line="257"/>
+        <source>Error executing query: %1
+ %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>qf::gui::model::TableModel</name>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="347"/>
+        <location filename="src/model/tablemodel.cpp" line="445"/>
+        <location filename="src/model/tablemodel.cpp" line="476"/>
+        <location filename="src/model/tablemodel.cpp" line="580"/>
+        <source>Cannot find table field index for column index: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="441"/>
+        <location filename="src/model/tablemodel.cpp" line="472"/>
+        <location filename="src/model/tablemodel.cpp" line="576"/>
+        <source>Invalid table row: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="448"/>
+        <location filename="src/model/tablemodel.cpp" line="479"/>
+        <location filename="src/model/tablemodel.cpp" line="583"/>
+        <source>Invalid table field index: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="464"/>
+        <location filename="src/model/tablemodel.cpp" line="509"/>
+        <location filename="src/model/tablemodel.cpp" line="533"/>
+        <location filename="src/model/tablemodel.cpp" line="568"/>
+        <location filename="src/model/tablemodel.cpp" line="594"/>
+        <source>Cannot find column index for name: &apos;%1&apos;</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="495"/>
+        <source>%2 Cannot find table field for column index: %1 (row index: %3)</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="520"/>
+        <location filename="src/model/tablemodel.cpp" line="555"/>
+        <source>Cannot find table field for column index: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="639"/>
+        <location filename="src/model/tablemodel.cpp" line="700"/>
+        <source>Invalid column index: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="648"/>
+        <source>Invalid field for column index: %1</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="689"/>
+        <source>Column named &apos;%1&apos; not found in column list. Existing columns: [%2]</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="src/model/tablemodel.cpp" line="719"/>
+        <source>Cannot find table field for column index: %1, table index: %2</source>
+        <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>qf::gui::reports::ItemValueEditorWidget</name>
     <message>
         <location filename="src/reports/widgets/itemvalueeditorwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/itemvalueeditorwidget.ui" line="20"/>
@@ -885,31 +1009,31 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::reports::PrintTableViewWidget</name>
+    <name>qf::gui::reports::PrintTableViewWidget</name>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="14"/>
         <source>Form</source>
-        <translation>Skjema</translation>
+        <translation type="unfinished">Skjema</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="23"/>
         <source>template</source>
-        <translation>mal</translation>
+        <translation type="unfinished">mal</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="32"/>
         <source>file</source>
-        <translation>fil</translation>
+        <translation type="unfinished">fil</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="56"/>
         <source>...</source>
-        <translation>…</translation>
+        <translation type="unfinished">…</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="65"/>
         <source>resources</source>
-        <translation>ressurser</translation>
+        <translation type="unfinished">ressurser</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="94"/>
@@ -929,83 +1053,83 @@
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="125"/>
         <source>data</source>
-        <translation>data</translation>
+        <translation type="unfinished">data</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.ui" line="131"/>
         <source>only selected rows</source>
-        <translation>kun valgte rader</translation>
+        <translation type="unfinished">kun valgte rader</translation>
+    </message>
+    <message>
+        <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="23"/>
+        <source>portrait</source>
+        <translation type="unfinished">stående sideretning</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="24"/>
-        <source>portrait</source>
-        <translation>stående sideretning</translation>
-    </message>
-    <message>
-        <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="25"/>
         <source>landscape</source>
-        <translation>liggende sideretning</translation>
+        <translation type="unfinished">liggende sideretning</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="59"/>
+        <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="58"/>
         <source>Open report file</source>
-        <translation>Åpne rapportfil</translation>
+        <translation type="unfinished">Åpne rapportfil</translation>
     </message>
     <message>
-        <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="59"/>
+        <location filename="src/reports/widgets/printtableviewwidget/printtableviewwidget.cpp" line="58"/>
         <source>QML reports (*.qml)</source>
-        <translation>QML-rapporter (*.qml)</translation>
+        <translation type="unfinished">QML-rapporter (*.qml)</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::reports::ReportProcessor</name>
+    <name>qf::gui::reports::ReportProcessor</name>
     <message>
         <location filename="src/reports/processor/reportprocessor.cpp" line="70"/>
         <source>QML component</source>
-        <translation>QML-komponent</translation>
+        <translation type="unfinished">QML-komponent</translation>
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::reports::ReportViewWidget</name>
+    <name>qf::gui::reports::ReportViewWidget</name>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="523"/>
         <source>&amp;File</source>
-        <translation>&amp;Fil</translation>
+        <translation type="unfinished">&amp;Fil</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="531"/>
         <source>&amp;View</source>
-        <translation>&amp;Vis</translation>
+        <translation type="unfinished">&amp;Vis</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="565"/>
         <source>First page</source>
-        <translation>Første side</translation>
+        <translation type="unfinished">Første side</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="572"/>
         <source>Prev page</source>
-        <translation>Forrige side</translation>
+        <translation type="unfinished">Forrige side</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="579"/>
         <source>Next page</source>
-        <translation>Neste side</translation>
+        <translation type="unfinished">Neste side</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="586"/>
         <source>Last page</source>
-        <translation>Siste side</translation>
+        <translation type="unfinished">Siste side</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="593"/>
         <source>Zoom in</source>
-        <translation>Forstørr</translation>
+        <translation type="unfinished">Forstørr</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="600"/>
         <source>Zoom out</source>
-        <translation>Forminsk</translation>
+        <translation type="unfinished">Forminsk</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="607"/>
@@ -1020,7 +1144,7 @@
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="621"/>
         <source>&amp;Print</source>
-        <translation>&amp;Skriv ut</translation>
+        <translation type="unfinished">&amp;Skriv ut</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="629"/>
@@ -1055,12 +1179,12 @@
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="1109"/>
         <source>Save as PDF</source>
-        <translation>Lagre som PDF</translation>
+        <translation type="unfinished">Lagre som PDF</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="1124"/>
         <source>Save as HTML</source>
-        <translation>Lagre som HTML</translation>
+        <translation type="unfinished">Lagre som HTML</translation>
     </message>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="1129"/>
@@ -1069,7 +1193,7 @@
     </message>
 </context>
 <context>
-    <name>qf::qmlwidgets::reports::ReportViewWidget::PainterWidget</name>
+    <name>qf::gui::reports::ReportViewWidget::PainterWidget</name>
     <message>
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="298"/>
         <source>Item menu</source>
@@ -1079,6 +1203,431 @@
         <location filename="src/reports/widgets/reportviewwidget.cpp" line="299"/>
         <source>Editovat text</source>
         <translation type="unfinished"></translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::ExportTableViewWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+    <message>
+        <source>CSV options</source>
+        <translation type="vanished">CSV-valg</translation>
+    </message>
+    <message>
+        <source>header</source>
+        <translation type="vanished">hode</translation>
+    </message>
+    <message>
+        <source>lines from</source>
+        <translation type="vanished">linjer fra</translation>
+    </message>
+    <message>
+        <source>to</source>
+        <translation type="vanished">til</translation>
+    </message>
+    <message>
+        <source>value -1 means all lines</source>
+        <translation type="vanished">verdien -1 betyr alle linjer</translation>
+    </message>
+    <message>
+        <source>codec</source>
+        <translation type="vanished">kodek</translation>
+    </message>
+    <message>
+        <source>separator</source>
+        <translation type="obsolete">deletegn</translation>
+    </message>
+    <message>
+        <source>other</source>
+        <translation type="vanished">annet</translation>
+    </message>
+    <message>
+        <source>,</source>
+        <translation type="vanished">,</translation>
+    </message>
+    <message>
+        <source>Tab</source>
+        <translation type="vanished">Fane</translation>
+    </message>
+    <message>
+        <source>quotes</source>
+        <translation type="vanished">sitat</translation>
+    </message>
+    <message>
+        <source>alwa&amp;ys</source>
+        <translation type="vanished">all&amp;tid</translation>
+    </message>
+    <message>
+        <source>when necessary</source>
+        <translation type="vanished">når nødvendig</translation>
+    </message>
+    <message>
+        <source>ne&amp;ver</source>
+        <translation type="vanished">al&amp;dri</translation>
+    </message>
+    <message>
+        <source>quote char</source>
+        <translation type="vanished">sitattegn</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::HtmlViewWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::SaveOptionsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="vanished">…</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::TableView</name>
+    <message>
+        <source>Left click selects all, right click for menu.</source>
+        <translation type="vanished">Venstreklikk velger alt, høyreklikk åpner menyen.</translation>
+    </message>
+    <message>
+        <source>Enter value</source>
+        <translation type="vanished">Skriv inn verdi</translation>
+    </message>
+    <message>
+        <source>new value:</source>
+        <translation type="vanished">ny verdi:</translation>
+    </message>
+    <message>
+        <source>Save File</source>
+        <translation type="vanished">Lagre fil</translation>
+    </message>
+    <message>
+        <source>Open File</source>
+        <translation type="vanished">Åpne fil</translation>
+    </message>
+    <message>
+        <source>Save as ...</source>
+        <translation type="obsolete">Lagre som…</translation>
+    </message>
+    <message>
+        <source>Cannot open file &apos;%1&apos; for writing.</source>
+        <translation type="vanished">Kan ikke åpne filen «%1» for skriving.</translation>
+    </message>
+    <message>
+        <source>Copy</source>
+        <translation type="vanished">Kopier</translation>
+    </message>
+    <message>
+        <source>Insert row</source>
+        <translation type="vanished">Sett inn rad</translation>
+    </message>
+    <message>
+        <source>Delete selected rows</source>
+        <translation type="vanished">Slett valgte rader</translation>
+    </message>
+    <message>
+        <source>Ctrl+D</source>
+        <comment>insert row copy</comment>
+        <translation type="vanished">Ctrl+D</translation>
+    </message>
+    <message>
+        <source>Edit cell content</source>
+        <translation type="vanished">Rediger celleinnhold</translation>
+    </message>
+    <message>
+        <source>Calculate</source>
+        <translation type="vanished">Regn ut</translation>
+    </message>
+    <message>
+        <source>CSV</source>
+        <translation type="vanished">CSV</translation>
+    </message>
+    <message>
+        <source>HTML</source>
+        <translation type="vanished">HTML</translation>
+    </message>
+    <message>
+        <source>Import</source>
+        <translation type="vanished">Importer</translation>
+    </message>
+    <message>
+        <source>Enter start value</source>
+        <translation type="vanished">Skriv inn startverdi</translation>
+    </message>
+    <message>
+        <source>start value:</source>
+        <translation type="vanished">startverdi:</translation>
+    </message>
+    <message>
+        <source>Do you really want to remove row?</source>
+        <translation type="obsolete">Fjern raden?</translation>
+    </message>
+    <message>
+        <source>Do you really want to remove all selected rows?</source>
+        <translation type="vanished">Fjern alle valgte rader?</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::TextEditWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+    <message>
+        <source>Print</source>
+        <translation type="vanished">Skriv ut</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="vanished">Lagre</translation>
+    </message>
+    <message>
+        <source>Save as</source>
+        <translation type="vanished">Lagre som</translation>
+    </message>
+    <message>
+        <source>Wrap lines</source>
+        <translation type="vanished">Linjebryting</translation>
+    </message>
+    <message>
+        <source>&amp;File</source>
+        <translation type="vanished">&amp;Fil</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation type="vanished">&amp;Vis</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::dialogs::Dialog</name>
+    <message>
+        <source>Delete</source>
+        <translation type="vanished">Slett</translation>
+    </message>
+    <message>
+        <source>Save</source>
+        <translation type="vanished">Lagre</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::dialogs::MessageBox</name>
+    <message>
+        <source>Show this message again</source>
+        <translation type="vanished">Vis denne meldingen igjen</translation>
+    </message>
+    <message>
+        <source>Exception</source>
+        <translation type="vanished">Unntak</translation>
+    </message>
+    <message>
+        <source>Error</source>
+        <translation type="vanished">Feil</translation>
+    </message>
+    <message>
+        <source>Warning</source>
+        <translation type="vanished">Advarsel</translation>
+    </message>
+    <message>
+        <source>Information</source>
+        <translation type="vanished">Info</translation>
+    </message>
+    <message>
+        <source>Question</source>
+        <translation type="vanished">Spørsmål</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::dialogs::internal::CaptionFrame</name>
+    <message>
+        <source>Delete </source>
+        <translation type="vanished">Slett </translation>
+    </message>
+    <message>
+        <source>Edit </source>
+        <translation type="vanished">Rediger </translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::framework::LogWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+    <message>
+        <source>Show:</source>
+        <translation type="vanished">Vis:</translation>
+    </message>
+    <message>
+        <source>Clear</source>
+        <translation type="vanished">Tøm</translation>
+    </message>
+    <message>
+        <source>Copy to clipboard.</source>
+        <translation type="vanished">Kopier til utklippstavle.</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="obsolete">…</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::framework::LogWidgetTableView</name>
+    <message>
+        <source>Copy</source>
+        <translation type="obsolete">Kopier</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::internal::TableViewChooseColumnsWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="obsolete">Skjema</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="obsolete">…</translation>
+    </message>
+    <message>
+        <source>model</source>
+        <translation type="vanished">modell</translation>
+    </message>
+    <message>
+        <source>table</source>
+        <translation type="vanished">tabell</translation>
+    </message>
+    <message>
+        <source>name</source>
+        <translation type="vanished">navn</translation>
+    </message>
+    <message>
+        <source>width</source>
+        <translation type="vanished">bredde</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::internal::TableViewCopyToDialogWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+    <message>
+        <source>Insert rows</source>
+        <translation type="vanished">Sett inn rader</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::reports::ItemValueEditorWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::reports::PrintTableViewWidget</name>
+    <message>
+        <source>Form</source>
+        <translation type="vanished">Skjema</translation>
+    </message>
+    <message>
+        <source>template</source>
+        <translation type="vanished">mal</translation>
+    </message>
+    <message>
+        <source>file</source>
+        <translation type="vanished">fil</translation>
+    </message>
+    <message>
+        <source>...</source>
+        <translation type="vanished">…</translation>
+    </message>
+    <message>
+        <source>resources</source>
+        <translation type="vanished">ressurser</translation>
+    </message>
+    <message>
+        <source>data</source>
+        <translation type="vanished">data</translation>
+    </message>
+    <message>
+        <source>only selected rows</source>
+        <translation type="vanished">kun valgte rader</translation>
+    </message>
+    <message>
+        <source>portrait</source>
+        <translation type="vanished">stående sideretning</translation>
+    </message>
+    <message>
+        <source>landscape</source>
+        <translation type="vanished">liggende sideretning</translation>
+    </message>
+    <message>
+        <source>Open report file</source>
+        <translation type="vanished">Åpne rapportfil</translation>
+    </message>
+    <message>
+        <source>QML reports (*.qml)</source>
+        <translation type="vanished">QML-rapporter (*.qml)</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::reports::ReportProcessor</name>
+    <message>
+        <source>QML component</source>
+        <translation type="vanished">QML-komponent</translation>
+    </message>
+</context>
+<context>
+    <name>qf::qmlwidgets::reports::ReportViewWidget</name>
+    <message>
+        <source>&amp;File</source>
+        <translation type="vanished">&amp;Fil</translation>
+    </message>
+    <message>
+        <source>&amp;View</source>
+        <translation type="vanished">&amp;Vis</translation>
+    </message>
+    <message>
+        <source>First page</source>
+        <translation type="vanished">Første side</translation>
+    </message>
+    <message>
+        <source>Prev page</source>
+        <translation type="vanished">Forrige side</translation>
+    </message>
+    <message>
+        <source>Next page</source>
+        <translation type="vanished">Neste side</translation>
+    </message>
+    <message>
+        <source>Last page</source>
+        <translation type="vanished">Siste side</translation>
+    </message>
+    <message>
+        <source>Zoom in</source>
+        <translation type="vanished">Forstørr</translation>
+    </message>
+    <message>
+        <source>Zoom out</source>
+        <translation type="vanished">Forminsk</translation>
+    </message>
+    <message>
+        <source>&amp;Print</source>
+        <translation type="vanished">&amp;Skriv ut</translation>
+    </message>
+    <message>
+        <source>Save as PDF</source>
+        <translation type="vanished">Lagre som PDF</translation>
+    </message>
+    <message>
+        <source>Save as HTML</source>
+        <translation type="vanished">Lagre som HTML</translation>
     </message>
 </context>
 </TS>
