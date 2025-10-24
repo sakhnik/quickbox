@@ -91,6 +91,7 @@ public:
 		col_runs_finishTimeMs,
 		col_runFlags,
 		col_runs_cardLent,
+		col_runs_cardLentTable,
 		col_runs_cardReturned,
 		col_cards_checkTime,
 		col_cards_startTime,
@@ -122,8 +123,9 @@ Model::Model(QObject *parent)
 	setColumn(col_runs_timeMs, ColumnDefinition("runs.timeMs", tr("Time")).setCastType(qMetaTypeId<quickevent::core::og::TimeMs>()).setReadOnly(true));
 	setColumn(col_runs_finishTimeMs, ColumnDefinition("runs.finishTimeMs", tr("Finish")).setCastType(qMetaTypeId<quickevent::core::og::TimeMs>()).setReadOnly(true));
 	setColumn(col_runFlags, ColumnDefinition("runFlags", tr("Run flags")).setReadOnly(true));
-	setColumn(col_runs_cardLent, ColumnDefinition("cardLent", tr("RT")).setToolTip(tr("Card in rent table")).setReadOnly(true).setCastType(qMetaTypeId<bool>()));
-	setColumn(col_runs_cardReturned, ColumnDefinition("runs.cardReturned", tr("R")).setToolTip(tr("Card returned")));
+	setColumn(col_runs_cardLent, ColumnDefinition("cardLent", tr("CR")).setToolTip(tr("Card rent")).setReadOnly(true).setCastType(qMetaTypeId<bool>()));
+	setColumn(col_runs_cardLentTable, ColumnDefinition("cardLentTable", tr("CRT")).setToolTip(tr("Card in rent table")).setReadOnly(true).setCastType(qMetaTypeId<bool>()));
+	setColumn(col_runs_cardReturned, ColumnDefinition("runs.cardReturned", tr("CRET")).setToolTip(tr("Card returned")));
 	setColumn(col_cards_checkTime, ColumnDefinition("cards.checkTime", tr("CTIME")).setToolTip(tr("Card check time")).setReadOnly(true));
 	setColumn(col_cards_startTime, ColumnDefinition("cards.startTime", tr("STIME")).setToolTip(tr("Card start time")).setReadOnly(true));
 	setColumn(col_cards_finishTime, ColumnDefinition("cards.finishTime", tr("FTIME")).setToolTip(tr("Card finish time")).setReadOnly(true));
@@ -461,11 +463,11 @@ void CardReaderWidget::reload()
 	int current_stage = getPlugin<CardReaderPlugin>()->currentStageId();
 	qfs::QueryBuilder qb;
 	qb.select2("cards", "id, siId, runId, checkTime, startTime, finishTime, runIdAssignError")
-			.select2("runs", "id, startTimeMs, timeMs, finishTimeMs, misPunch, disqualified, badCheck, notStart, notFinish, disqualifiedByOrganizer, overTime, notCompeting, cardReturned")
+			.select2("runs", "id, startTimeMs, timeMs, finishTimeMs, misPunch, disqualified, badCheck, notStart, notFinish, disqualifiedByOrganizer, overTime, notCompeting, cardLent, cardReturned")
 			.select2("competitors", "registration, startNumber")
 			.select2("classes", "name")
 			.select("COALESCE(lastName, '') || ' ' || COALESCE(firstName, '') AS competitorName")
-			.select("lentcards.siid IS NOT NULL OR runs.cardLent AS cardLent")
+			.select("lentcards.siid IS NOT NULL AS cardLentTable")
 			.select("'' AS runFlags")
 			.from("cards")
 			.joinRestricted("cards.siId", "lentcards.siid", "NOT lentcards.ignored")
