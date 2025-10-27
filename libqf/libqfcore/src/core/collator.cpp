@@ -74,17 +74,21 @@ int Collator::sortIndex(QChar c) const
 
 QByteArray Collator::toAscii7(QLocale::Language lang, const QString &s, bool to_lower)
 {
-	QByteArray ret;
-	ret.reserve(s.length());
-	for(int i=0; i < s.length(); i++) {
-		QChar c = s[i];
-		bool is_upper = c.isUpper();
-		c = removePunctuation(lang, c.toLower());
-		if(is_upper && !to_lower)
-			c = c.toUpper();
-		ret.append(c.toLatin1());
-	}
-	return ret;
+    // This function is used to hard code use of Latin1, which isn't suitable
+    // for non latin-based languages.
+    return to_lower ? s.toLower().toUtf8() : s.toUtf8();
+
+    QByteArray ret;
+    ret.reserve(s.length());
+    for(int i=0; i < s.length(); i++) {
+        QChar c = s[i];
+        bool is_upper = c.isUpper();
+        c = removePunctuation(lang, c.toLower());
+        if(is_upper && !to_lower)
+            c = c.toUpper();
+        ret.append(c.toLatin1());
+    }
+    return ret;
 }
 
 static const char all_chars_cs[] = "aáäbcčdďeéěëfghiíïjklĺľmnňoóöpqrřsštťuůúüvwxyýzž";
