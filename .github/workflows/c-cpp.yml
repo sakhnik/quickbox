@@ -11,14 +11,14 @@ env:
 
 jobs:
   build_linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         cache: 'true'
         version: ${{ env.QT_VERSION }}
@@ -33,7 +33,7 @@ jobs:
   
     - name: Get AppImageTool
       run: |
-        curl --silent "https://api.github.com/repos/AppImage/AppImageKit/releases/latest" | jq -r '.assets[] | select(.name == "appimagetool-x86_64.AppImage").browser_download_url' | sudo xargs curl -L -o /opt/appimagetool-x86_64.AppImage --create-dirs --url
+        curl --silent "https://api.github.com/repos/AppImage/AppImageKit/releases/latest" | jq -r '.assets[] | select(.name == "obsolete-appimagetool-x86_64.AppImage").browser_download_url' | sudo xargs curl -L -o /opt/appimagetool-x86_64.AppImage --create-dirs --url
         sudo chmod +x /opt/appimagetool-x86_64.AppImage
 
     - name: Build AppImage
@@ -42,41 +42,41 @@ jobs:
         ./quickevent/make-dist.sh --src-dir . --qt-dir ${Qt5_DIR} --work-dir ./build --appimage-tool /opt/appimagetool-x86_64.AppImage 
 
     - name: Save AppImage
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: quickevent-${{ env.VERSION }}-linux64.Appimage
         path: build/artifacts/quickevent-*-linux64.AppImage
 
     - name: Save gzip
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: quickevent-${{ env.VERSION }}-linux64.tgz
         path: build/artifacts/quickevent-*-linux64.tgz
 
 
   build_windows:
-    runs-on: windows-2019
+    runs-on: windows-2022
     defaults:
       run:
         shell: bash
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'recursive'
 
     - name: Cache Libs
       id: cache-libs
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: |
           C:/openssl/bin/libssl-1_1-x64.dll
           C:/openssl/bin/libcrypto-1_1-x64.dll
-          C:/Program Files/PostgreSQL/14/bin/libiconv-2.dll
-          C:/Program Files/PostgreSQL/14/bin/libintl-9.dll
-          C:/Program Files/PostgreSQL/14/bin/liblz4.dll
-          C:/Program Files/PostgreSQL/14/bin/zlib1.dll
-          C:/Program Files/PostgreSQL/14/bin/libpq.dll
+          %PGBIN%/libiconv-2.dll
+          %PGBIN%/libintl-9.dll
+          %PGBIN%/liblz4.dll
+          %PGBIN%/zlib1.dll
+          %PGBIN%/libpq.dll
         key: ${{ runner.os }}-Libraries
 
     - name: Get OpenSSL and PostgreSQL libraries
@@ -87,12 +87,18 @@ jobs:
       shell: cmd
 
     - name: Install Qt
-      uses: jurplel/install-qt-action@v3
+      uses: jurplel/install-qt-action@v4
       with:
         cache: 'true'
         version: ${{ env.QT_VERSION }}
         host: 'windows'
         arch: 'win64_mingw81'
+
+    - name: Set up MinGW
+      uses: egor-tensin/setup-mingw@v2
+      with:
+        platform: x64
+        version: 8.1
 
     - name: Build
       run: |
@@ -107,11 +113,11 @@ jobs:
     - name: Create installer
       run: |
         choco install innosetup --no-progress
-        "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "/DVERSION=%VERSION%" "/DQT_DIR=%Qt5_Dir%" "/DPSQL_DIR=C:/Program Files/PostgreSQL/14" "/DSSL_DIR=C:\openssl\bin" quickevent/quickevent.iss
+        "C:\Program Files (x86)\Inno Setup 6\iscc.exe" "/DVERSION=%VERSION%" "/DQT_DIR=%QT_ROOT_DIR%" "/DPSQL_DIR=C:/Program Files/PostgreSQL/14" "/DSSL_DIR=C:\openssl\bin" quickevent/quickevent.iss
       shell: cmd
 
     - name: Save setup
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: quickevent-${{ env.VERSION }}-win64-setup.exe
         path: _inno\quickevent\quickevent-${{ env.VERSION }}-win64-setup.exe
